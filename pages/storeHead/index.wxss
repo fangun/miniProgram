@@ -1,6 +1,7 @@
 /* pages/storeHead/index.wxss */
 .container{padding: 0;width: 100%;display: flex;flex-direction: column;background: #F0F0F0;justify-content: flex-start;align-items: center}
 .container>view{margin-bottom: 10rpx;background: white;width: 100%;min-height: 80rpx;}
+.container>view:first-child{margin-bottom: 0}
 .info{width: 100%;}
 #infoBlock{margin: 30rpx;padding-top: 26rpx;padding-bottom: 29rpx;border-radius: 5rpx;box-shadow: 0 0 6rpx 6rpx #eee}
 .intro{margin: 0 26rpx 0 26rpx;display: flex}
@@ -22,6 +23,10 @@
 .outBtn image{width: 32rpx;height: 32rpx;background-position:center;background-size:100%;margin-right: 16rpx;}
 .outBtn image:last-child{margin-right: 24rpx}
 
+#selectService{display: flex;flex-direction: column;align-items: center}
+#projects{display: flex;margin-left: 46rpx;flex-wrap: wrap;justify-content: space-between;margin-bottom: 40rpx}
+.project{width: 176rpx;height:60rpx;margin-top: 24rpx;border-radius: 60rpx;margin-right: 18rpx;border: 1rpx solid rgb(201, 201, 201);font-size: 26rpx;color:rgb(51,51,51);text-align: center;line-height: 60rpx}
+/* #selectService>text{display: block} */
 
 
 

@@ -32,7 +32,27 @@
       </view>
     </view>
   </view>
-  <view id='selectService'></view>
+  <view id='selectService'>
+    <text class='block_title'>{{blockArray[0]}}</text>
+    <view id="projects">
+      <view wx:for="{{seviceProjects}}" class='project'>{{item}}</view>
+    </view>
+    <view class='selectInfo'>
+      <view>
+        <text>你选择了：</text>
+        <text></text>
+      </view>
+      <view>
+        <text>服务共用时：</text>
+        <text></text>
+        <text>小时</text>
+        <text>共需订金：</text>
+        <text></text>
+        <text>元</text>
+        <image></image>
+      </view>
+    </view>
+  </view>
   <view id='selectPeople'></view>
   <view id='selectTime'></view>
   <view id='selectOther'></view>
