@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class='ent' bindtap="customEntrance">用户入口</view>
+  <view class='ent' bindtap="storeEntrance">店家入口</view>
+
+</view>

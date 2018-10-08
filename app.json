@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/entrancePage/index",
     "pages/storeHead/index",
     "pages/customEntrance/index"
     

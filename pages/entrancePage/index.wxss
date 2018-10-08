@@ -1,0 +1,7 @@
+.ent {
+    margin:40pt;
+    border:4px solid yellow;
+    padding:20pt;
+    background:blue;
+    color:#fff;
+}

@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    title: '用户入口',
+    pageTitle: '预约吧',
 
   },
  
