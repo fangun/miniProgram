@@ -1,0 +1,16 @@
+<!--pages/entry/entry.wxml-->
+
+
+<view class='page' >
+  
+  
+  <view class='saosao' src='{{sao}}' bindtap='saosao'> </view>
+       
+     <view class='btn2' bindtap='shop' > </view> 
+     <view class='btn1'  bindtap='self'> </view>
+     
+  <image class='foot' src='{{item}}'   bindtap='openShop'></image>
+   
+  
+   
+</view>

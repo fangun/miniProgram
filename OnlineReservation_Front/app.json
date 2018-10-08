@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/entry/entry",
+    "pages/openShop/openShop",
+    "pages/show/show",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/self/self",
+    "pages/shop/shop",
+    "pages/saosao/saosao",
+    "pages/other/other"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "预约吧前台",
+    "navigationBarTextStyle": "white"
+  }
+}

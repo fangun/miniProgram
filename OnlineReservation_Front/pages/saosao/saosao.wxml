@@ -1,0 +1,4 @@
+<!--pages/saosao/saosao.wxml-->
+
+ <web-view src="{{url}}"></web-view>
+
