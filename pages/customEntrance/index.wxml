@@ -1,4 +1,71 @@
 <!--index.wxml-->
 <view class="container">
-  {{pageTitle}}
+  
+  <!-- 页面标题 -->
+  <view class="pageTitle">{{pageTitle}}</view>
+    
+  <!-- 我的预约热榜 -->
+  <view class="appointmentHotlist">
+
+    <view class="contentTitle">
+        {{hotlistTitle}}
+    </view>
+    
+    <view class="box" bindtap="customEntrance">
+
+        <block wx:if="{{hostListData.length < 4}}">
+            <view wx:for="{{hostListData}}" wx:key='*this' class="row">
+              <view class='item'>
+                 <image src="{{item.src}}"></image>
+                 <view>{{item.text}}</view>     
+              </view>
+            </view>
+        </block>
+
+        <block wx:else>
+            <view class="row">
+                <block wx:for="{{hostListData}}" wx:key='*this'>
+
+                    <block wx:if="{{index < 4}}">
+                        <view class='item'>
+                            <image src="{{item.src}}"></image>
+                            <view>{{item.text}}</view>     
+                        </view>
+                    </block>
+                </block>
+            </view>
+
+            <view class="row">
+                <block wx:for="{{hostListData}}" wx:key='*this'>
+                    <block wx:if="{{index > 3 && index < 7}}">
+                        <view class='item'>
+                            <image src="{{item.src}}"></image>
+                            <view>{{index}}</view>     
+                        </view>
+                    </block>
+                    
+                    <block wx:if="{{index == 7}}">
+                        <view class='item'>
+                            <image src="../../resource/images/customEntrance/moreList3.png"></image>
+                             <view>查看更多</view> 
+                        </view>
+                    </block>
+                </block>
+            </view>
+
+        </block>
+
+    </view>
+
+  </view>
+
+  <!-- 我的预约日记 -->
+  <view class="appointmentDiary">
+
+    <view class="contentTitle">
+        {{diaryTitle}}
+    </view>
+
+  </view>
+
 </view>

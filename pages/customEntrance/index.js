@@ -4,8 +4,19 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle: '预约吧',
 
+    pageTitle: '预约吧',
+    hotlistTitle:'我的预约热榜',
+    diaryTitle:'我的预约日记',
+
+    hostListData:[{'src':'../../resource/images/customEntrance/test.png','text':'11'}, 
+    {'src':'../../resource/images/customEntrance/test.png','text':'22'}, 
+    {'src':'../../resource/images/customEntrance/test.png','text':'33'},
+    {'src':'../../resource/images/customEntrance/test.png','text':'44'}, 
+    {'src':'../../resource/images/customEntrance/test.png','text':'55'}, 
+    {'src':'../../resource/images/customEntrance/test.png','text':'66'},
+    {'src':'../../resource/images/customEntrance/test.png','text':'77'},
+    {'src':'../../resource/images/customEntrance/test.png','text':'88'}]
   },
  
   onLoad: function () {

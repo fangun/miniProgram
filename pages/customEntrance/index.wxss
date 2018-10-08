@@ -1,0 +1,44 @@
+.container {
+    padding: 0;
+}
+
+.pageTitle {
+    width: 100%;
+    height: 176rpx;
+    line-height: 176rpx;
+    background-color: rgba(243,67,67,1);
+    
+    font-family: PingFangSC-Medium;
+    font-size: 36rpx;
+    text-align: center;
+    color: #fff;
+}
+
+.appointmentHotlist {
+    width:100%;
+}
+
+.appointmentHotlist .box {
+    padding-left:30rpx;
+    padding-right:30rpx;
+}
+
+.appointmentHotlist .box .row {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content:space-between
+}
+
+.appointmentHotlist .box .row .item {
+    width: 124rpx;
+    height: 214rpx;
+}
+
+.item image {
+    width: 124rpx;
+    height: 124rpx;
+}
+
+.contentTitle {
+
+}
