@@ -1,1 +1,28 @@
 /* pages/storeHead/index.wxss */
+.container{padding: 0;width: 100%;display: flex;flex-direction: column;background: #F0F0F0;justify-content: flex-start;align-items: center}
+.container>view{margin-bottom: 10rpx;background: white;width: 100%;min-height: 80rpx;}
+.info{width: 100%;}
+#infoBlock{margin: 30rpx;padding-top: 26rpx;padding-bottom: 29rpx;border-radius: 5rpx;box-shadow: 0 0 6rpx 6rpx #eee}
+.intro{margin: 0 26rpx 0 26rpx;display: flex}
+#headImage{width: 138rpx;height: 138rpx;flex-shrink: 0;background-position:center;background-size:100%;border-radius: 10rpx}
+#nameintro{margin-left: 48rpx;flex-direction: column;}
+.storeTitle{margin-left: 8rpx;font-size: 30rpx;color: rgb(51, 51, 51);display: flex;align-items: center}
+.image_ding{width:29rpx;height: 23rpx;margin-left: 8rpx;}
+#nameintro>text{display: block;width: 360rpx;font-size: 24rpx;color: rgb(102, 102, 102);margin-top: 14rpx}
+#infoBlock>text{display: block;margin-left: 623rpx;font-size: 24rpx;color: rgb(102, 102, 102)}
+#contact{margin:68rpx 0 0 26rpx;}
+#contact>view{display: flex;align-items: center;justify-content: flex-start}
+#contact>view:nth-child(1){margin-bottom: 18rpx;}
+.image_location{width:20rpx;height: 27rpx; margin-right: 15rpx;}
+.image_tel{width:27rpx;height:27rpx;margin-right: 8rpx;}
+#contact text{font-size: 24rpx;color: rgb(102, 102, 102)}
+.tel_right{display: flex;flex-grow: 1;align-items: center}
+.tel_right text{display: block;flex-grow: 1}
+.outBtn{display: flex}
+.outBtn image{width: 32rpx;height: 32rpx;background-position:center;background-size:100%;margin-right: 16rpx;}
+.outBtn image:last-child{margin-right: 24rpx}
+
+
+
+
+

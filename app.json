@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/entrancePage/index",
     "pages/storeHead/index",
+    "pages/entrancePage/index",
+    
     "pages/customEntrance/index"
     
   ],
