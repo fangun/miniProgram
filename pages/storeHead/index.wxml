@@ -1,2 +1,40 @@
 <!--pages/storeHead/index.wxml-->
-<text>pages/storeHead/index.wxml</text>
+<view class='container'>
+  <view class='info'>
+    <view id='infoBlock'>
+      <view class='intro'>
+        <view wx:if="{{storeImage==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></view>
+        <view wx:if="{{storeImage!=''}}" id='headImage' style='background-image:url({{storeImage}});'></view>
+        <view id="nameintro">
+          <view class='storeTitle'>
+            <text>{{storeName}}</text>
+            <image class='image_ding' src='../../resource/images/storeHead/ding.png'></image>
+          </view>
+          <text>{{storeIntro}}</text>
+        </view>
+      </view>
+      <text>收起</text>
+      <view id='contact'>
+        <view class='location'>
+          <image class='image_location' src='../../resource/images/storeHead/location.png'></image>
+          <text>{{storeLocation}}</text>
+        </view>
+        <view class='tel'>
+          <image class='image_tel' src='../../resource/images/storeHead/phone.png'></image>
+          <view class='tel_right'>
+            <text>{{storeTel}}</text>
+            <view class='outBtn'>
+              <image id='koubei' style='background-image:url(../../resource/images/storeHead/koubei.png)'></image>
+              <image id='meituan' style='background-image:url(../../resource/images/storeHead/meituan.png)'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id='selectService'></view>
+  <view id='selectPeople'></view>
+  <view id='selectTime'></view>
+  <view id='selectOther'></view>
+  <view id='tip'></view>
+</view>
