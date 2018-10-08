@@ -1,11 +1,13 @@
 {
   "pages":[
+    "pages/storeHead/index",
     "pages/customEntrance/index"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#F34343",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle":"white"
   }
 }

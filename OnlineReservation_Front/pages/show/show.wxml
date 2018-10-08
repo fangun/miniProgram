@@ -1,4 +1,0 @@
-<!--pages/show/show.wxml-->
-<text>预约吧前台</text>
-
- <web-view src="https://www.yuyue58.cn"></web-view>
