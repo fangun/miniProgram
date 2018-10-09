@@ -1,9 +1,8 @@
 {
   "pages":[
-    "pages/storeHead/index",
+    "pages/customEntrance/index",
     "pages/entrancePage/index",
-    
-    "pages/customEntrance/index"
+    "pages/storeHead/index"
     
   ],
   "window":{
