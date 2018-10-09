@@ -1,40 +1,110 @@
 <!--pages/storeHead/index.wxml-->
 <view class='container'>
+  <view class='topTip'>
+    <image src="../../resource/images/storeHead/topTipMark.png"></image>
+    <text>{{topTip}}</text>
+  </view>
   <view class='info'>
     <view id='infoBlock'>
       <view class='intro'>
-        <view wx:if="{{storeImage==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></view>
-        <view wx:if="{{storeImage!=''}}" id='headImage' style='background-image:url({{storeImage}});'></view>
+        <view wx:if="{{storeData.logo==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></view>
+        <view wx:if="{{storeImage!=''}}" id='headImage' style='background-image:url({{"https://www.yuyue58.cn/fileImage/"+storeData.logo}});'></view>
         <view id="nameintro">
           <view class='storeTitle'>
-            <text>{{storeName}}</text>
+            <text>{{storeData.name}}</text>
             <image class='image_ding' src='../../resource/images/storeHead/ding.png'></image>
           </view>
-          <text>{{storeIntro}}</text>
+          <text>{{storeData.profile}}</text>
         </view>
       </view>
       <text>收起</text>
       <view id='contact'>
         <view class='location'>
           <image class='image_location' src='../../resource/images/storeHead/location.png'></image>
-          <text>{{storeLocation}}</text>
+          <text>{{storeData.pca}}{{storeData.address}}</text>
         </view>
         <view class='tel'>
           <image class='image_tel' src='../../resource/images/storeHead/phone.png'></image>
           <view class='tel_right'>
-            <text>{{storeTel}}</text>
-            <view class='outBtn'>
+            <text>{{storeData.phone?storeData.phone:"暂无"}}</text>
+            <view wx:if="{{vip==1}}" class='outBtn'>
               <image id='koubei' style='background-image:url(../../resource/images/storeHead/koubei.png)'></image>
               <image id='meituan' style='background-image:url(../../resource/images/storeHead/meituan.png)'></image>
+            </view>
+            <view  wx:if="{{vip==0}}">
+              <view>更多介绍</view>
             </view>
           </view>
         </view>
       </view>
     </view>
   </view>
-  <view id='selectService'></view>
-  <view id='selectPeople'></view>
-  <view id='selectTime'></view>
-  <view id='selectOther'></view>
+  <view id='selectService'>
+    <view class='block_title'>
+      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
+      <text class='titleText'>{{storeData.description1==null?"选择服务项目":storeData.description1}}</text>
+    </view>
+    <view id="projects">
+      <view wx:for="{{storeData.serviceItems}}" data-id='{{item.id}}'
+      class='{{item.isSelected?"projectSelected":""}} project'
+       bindtap='selectProject'>{{item.name}}</view>
+    </view>
+    <view class='selectInfo' wx:if="{{selectedServices.length!=0}}">
+    <!-- <view class='selectInfo'> -->
+      <view>
+        <text style='flex-shrink:0'>你选择了：</text>
+        <view class='projectlist'>
+          <block wx:for="{{selectedServices}}" wx:for-index = "i">
+            <!-- <text >{{item.name}}</text> -->
+            <view class="textRed">{{item.name}}</view>
+            <text wx:if="{{i!=selectedServices.length-1}}">，</text>
+          </block>
+        </view>
+      </view>
+      <view>
+        <text>服务共用时：</text>
+        <text class='textRed'>{{serviceTime}}</text>
+        <text class='textBlack' style='margin-right:38rpx'>小时</text>
+        <text>共需订金：</text>
+        <text class='textRed'>{{dingjin}}</text>
+        <text class='textBlack'>元</text>
+        <image src='../../resource/images/storeHead/wenhao.png'></image>
+      </view>
+    </view>
+  </view>
+  <view id='selectPeople'>
+    <view class='block_title'>
+      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
+      <text class='titleText'>{{storeData.description2==null?"选择服务人员":storeData.description2}}</text>
+    </view>
+    <view class='peopleList'>
+      <view wx:for="{{storeData.serviceEmployee}}" class='people'>
+        <image wx:if="{{item.isAbled}}" src="../../resource/images/storeHead/pAble.png"></image>
+        <image wx:if="{{!item.isAbled}}" src="../../resource/images/storeHead/pDisable.png" bindtap='showTopTip'></image>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+  <view id='selectTime'>
+    <view class='block_title'>
+      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
+      <text class='titleText'>选择服务时间</text>
+    </view>
+    <view class='slideDate'>
+      <!-- <view wx:for="{{}}"></view> -->
+      <view class='date'>
+        <text>周四</text>
+        <text>09-17</text>
+      </view>
+      <view class='date dateSelected'>
+        <text>周四</text>
+        <text>09-17</text>
+      </view>
+    </view>
+    <view class='slideHour'></view>
+  </view>
+  <view id='selectOther'>
+    <view class='form'></view>
+  </view>
   <view id='tip'></view>
 </view>
