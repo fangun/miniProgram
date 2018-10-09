@@ -1,7 +1,7 @@
 /* pages/storeHead/index.wxss */
 .container{padding: 0;width: 100%;display: flex;flex-direction: column;background: #F0F0F0;justify-content: flex-start;align-items: center}
 .container>view{margin-bottom: 10rpx;background: white;width: 100%;}
-.container>.topTip{height: 100rpx;background: rgb(251,112,112);position: fixed;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;margin-top: -100rpx;}
+.container>.topTip{height: 100rpx;background: rgb(251,112,112);position: fixed;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;}
 .topTip image{width: 28rpx;height: 28rpx;margin-right: 15rpx}
 .container>view:nth-child(2),.container>view:nth-child(1){margin-bottom: 0}/*商家信息*/
 .info{width: 100%;}
@@ -24,20 +24,33 @@
 .outBtn{display: flex}
 .outBtn image{width: 32rpx;height: 32rpx;background-position:center;background-size:100%;margin-right: 16rpx;}
 .outBtn image:last-child{margin-right: 24rpx}
-
+/*选择服务*/
 #selectService{display: flex;flex-direction: column;align-items: center}
-.block_title{width: 100%;display: flex;flex-direction: column;align-items: center;justify-content: center;font-size: 34rpx;color: rgb(51, 51, 51) }
+.block_title{width: 100%;display: flex;flex-direction: column;align-items: center;justify-content: center;font-size: 34rpx;color: rgb(51, 51, 51);margin:24rpx 0}
 .block_title image{height:65rpx;width: 241rpx}
 .block_title text{margin-top: -65rpx;height: 65rpx;line-height: 65rpx;}
-#projects{display: flex;margin-left: 46rpx;flex-wrap: wrap;justify-content: space-between;margin-bottom: 40rpx}
-.project{width: 176rpx;height:60rpx;margin-top: 24rpx;border-radius: 60rpx;margin-right: 18rpx;border: 1rpx solid rgb(201, 201, 201);font-size: 26rpx;color:rgb(51,51,51);text-align: center;line-height: 60rpx}
+#projects{display: flex;margin:0 46rpx 40rpx 46rpx ;flex-wrap: wrap;justify-content: space-between;}
+.project{flex: 1;min-width: 180rpx;height:60rpx;margin-top: 24rpx;margin-right: 18rpx;border-radius: 60rpx;border: 1rpx solid rgb(201, 201, 201);font-size: 26rpx;color:rgb(51,51,51);text-align: center;line-height: 60rpx}
+.projectSelected{background: rgb(243, 67, 67);color:white;border: 1rpx solid rgb(243, 67, 67)}
 /* #selectService>text{display: block} */
 .selectInfo{display: flex;flex-direction: column;width: 100%;font-size: 26rpx;color: rgb(153, 153, 153)}
-.selectInfo view{margin-left: 25rpx}
-.selectInfo view:nth-child(2){margin-top: 17rpx;margin-bottom: 40rpx;display: flex;align-items: center}
+.selectInfo>view{margin-left: 25rpx;margin-right: 25rpx;display: flex;align-items: center}
+.selectInfo>view:nth-child(1){align-items: flex-start}
+.projectlist{display: flex;flex-wrap: wrap}
+.selectInfo>view:nth-child(2){margin-top: 17rpx;margin-bottom: 40rpx}
 .textRed{color: rgb(243, 67, 67)}
 .textBlack{color: black}
 .selectInfo image{width: 29rpx;height: 29rpx;margin-left: 16rpx;}
+/*选择服务人员*/
+.peopleList{display: flex;flex-wrap: wrap;margin:0 46rpx;}
+.peopleList image{height: 88rpx;width: 88rpx;margin-bottom:6rpx}
+.peopleList text{margin-bottom: 39rpx;}
+.people{margin-right: 54rpx;font-size: 24rpx;display: flex;flex-direction: column;align-items: center}
 
+.slideDate{border-top: 4rpx solid;border-bottom: 4rpx solid;border-color:rgb(255, 170, 170);height: 80rpx;display: flex;align-items: center}
+.date{display: flex;flex-direction: column;align-items: center;justify-content: center;height: 96rpx;width: 101rpx;color: rgb(111, 111, 111);border-radius: 10rpx;font-size:26rpx;margin-left: 50rpx}
+.date:nth-child(1){margin-left: 20rpx}
+.dateSelected{background: rgb(243, 67, 67);color: white}
 
-
+.selectOther{width:100%;padding:0 30rpx}
+.form{width:100%;min-height: 200rpx;}
