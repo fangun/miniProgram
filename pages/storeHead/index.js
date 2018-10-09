@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    topTip:"我是顶部弹出的消息",
+    vip:1,
     storeName:"新加坡文艺刺青",
     storeIntro:"介绍介绍介绍介绍介绍介绍介绍介绍介绍介介绍介绍介绍介绍介绍介绍介绍介绍介绍介",
     storeLocation:"上海市xx区xx路224",

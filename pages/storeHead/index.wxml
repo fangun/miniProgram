@@ -1,5 +1,9 @@
 <!--pages/storeHead/index.wxml-->
 <view class='container'>
+  <view class='topTip'>
+    <image src="../../resource/images/storeHead/topTipMark.png"></image>
+    <text>{{topTip}}</text>
+  </view>
   <view class='info'>
     <view id='infoBlock'>
       <view class='intro'>
@@ -23,9 +27,12 @@
           <image class='image_tel' src='../../resource/images/storeHead/phone.png'></image>
           <view class='tel_right'>
             <text>{{storeTel}}</text>
-            <view class='outBtn'>
+            <view wx:if="{{vip==1}}" class='outBtn'>
               <image id='koubei' style='background-image:url(../../resource/images/storeHead/koubei.png)'></image>
               <image id='meituan' style='background-image:url(../../resource/images/storeHead/meituan.png)'></image>
+            </view>
+            <view  wx:if="{{vip==0}}">
+              <view>更多介绍</view>
             </view>
           </view>
         </view>
@@ -33,23 +40,26 @@
     </view>
   </view>
   <view id='selectService'>
-    <text class='block_title'>{{blockArray[0]}}</text>
+    <view class='block_title'>
+      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
+      <text class='titleText'>{{blockArray[0]}}</text>
+    </view>
     <view id="projects">
       <view wx:for="{{seviceProjects}}" class='project'>{{item}}</view>
     </view>
     <view class='selectInfo'>
       <view>
         <text>你选择了：</text>
-        <text></text>
+        <text class='textRed'>ciqing</text>
       </view>
       <view>
         <text>服务共用时：</text>
-        <text></text>
-        <text>小时</text>
+        <text class='textRed'>1</text>
+        <text class='textBlack' style='margin-right:38rpx'>小时</text>
         <text>共需订金：</text>
-        <text></text>
-        <text>元</text>
-        <image></image>
+        <text class='textRed'>1</text>
+        <text class='textBlack'>元</text>
+        <image src='../../resource/images/storeHead/wenhao.png'></image>
       </view>
     </view>
   </view>
