@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="container">
+
+    <view class="item">
+      <view>姓名：</view>
+      <view>梁红兵</view>
+      <view>折叠</view>
+    </view>
+
+</view>

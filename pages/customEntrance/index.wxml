@@ -1,285 +1,223 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
-  
-  <!-- 页面标题 -->
-  <view class="pageTitle">{{pageTitle}}</view>
-    
-  <!-- 我的预约热榜 -->
-  <view class="appointmentHotlist">
-
-    <view class="contentTitle">
-        <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
-
-        <view class="titleBox">
-            <view class="cTitle">
-                {{hotlistTitle.c}}
+    <!-- 页面标题 -->
+    <view class="pageTitle">{{pageTitle}}</view>
+    <!-- 我的预约热榜 -->
+    <view class="appointmentHotlist">
+        <view class="contentTitle">
+            <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
+            <view class="titleBox">
+                <view class="cTitle">{{hotlistTitle.c}}</view>
+                <view class="eTitle">{{hotlistTitle.e}}</view>
             </view>
-            <view class="eTitle">
-                {{hotlistTitle.e}}
-            </view>
+        </view>
+        <view class="box" bindtap="customEntrance">
+            <block wx:if="{{hostListData.length < 4}}">
+                <view class="row">
+                    <block wx:for="{{[0,1,2,3]}}" wx:key='*this'>
+                        <view class='item'>
+                            <image src='{{hostListData[item].logo == "" ? "":apiPrefix}}{{hostListData[item].logo == "" ? "../../resource/images/common/logo.png" :  hostListData[item].logo }}'></image>
+                            <view>{{hostListData[item].name}}</view>
+                            <block wx:if="{{item == 0}}">
+                                <image class="gold icon" src="../../resource/images/customEntrance/gold3.png"></image>
+                            </block>
+                            <block wx:elif="{{item == 1}}">
+                                <image class="richScan icon" src="../../resource/images/customEntrance/silver3.png"></image>
+                            </block>
+                            <block wx:elif="{{item == 2}}">
+                                <image class="copper icon" src="../../resource/images/customEntrance/copper3.png"></image>
+                            </block>
+                        </view>
+                    </block>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="row">
+                    <block wx:for="{{[0,1,2,3]}}" wx:key='*this'>
+                        <view class='item'>
+                            <image src='{{hostListData[item].logo == "" ? "":apiPrefix}}{{hostListData[item].logo == "" ? "../../resource/images/common/logo.png" :  hostListData[item].logo }}'></image>
+                            <view>{{hostListData[item].name}}</view>
+                            <block wx:if="{{item == 0}}">
+                                <image class="gold icon" src="../../resource/images/customEntrance/gold3.png"></image>
+                            </block>
+                            <block wx:elif="{{item == 1}}">
+                                <image class="richScan icon" src="../../resource/images/customEntrance/silver3.png"></image>
+                            </block>
+                            <block wx:elif="{{item == 2}}">
+                                <image class="copper icon" src="../../resource/images/customEntrance/copper3.png"></image>
+                            </block>
+                        </view>
+                    </block>
+                </view>
+                <view class="row">
+                    <block wx:for="{{[4,5,6,7]}}" wx:key='*this'>
+                        <block wx:if="{{item < 7}}">
+                            <view class='item'>
+                                <image src='{{hostListData[item].logo == "" ? "":apiPrefix}}{{hostListData[item].logo == "" ? "../../resource/images/common/logo.png" :  hostListData[item].logo }}'></image>
+                                <view>{{hostListData[item].name}}</view>
+                            </view>
+                        </block>
+                        <block wx:if="{{item == 7 && hostListData.length > 7}}">
+                            <view class='item'>
+                                <image src="../../resource/images/customEntrance/moreList3.png"></image>
+                                <view>查看更多</view>
+                            </view>
+                        </block>
+                    </block>
+                </view>
+            </block>
         </view>
     </view>
     
-    <view class="box" bindtap="customEntrance">
-
-        <block wx:if="{{hostListData.length < 4}}">
-            <view class="row">
-
-                <block wx:for="{{[0,1,2,3]}}" wx:key='*this'>
-                  <view class='item'>
-
-                        <image src="{{hostListData[item].src}}"></image>
-                        <view>{{hostListData[item].text}}</view>
-
-                        <block wx:if="{{item == 0}}">
-                            <image class="gold icon" src="../../resource/images/customEntrance/gold3.png"></image>
-                        </block>
-
-                        <block wx:elif="{{item == 1}}">
-                            <image class="richScan icon" src="../../resource/images/customEntrance/silver3.png"></image>
-                        </block>
-
-                        <block wx:elif="{{item == 2}}">
-                            <image class="copper icon" src="../../resource/images/customEntrance/copper3.png"></image>
-                        </block>
-
-                  </view>
-                </block>
-            </view>
-        </block>
-
-        <block wx:else>
-
-            <view class="row">
-                <block wx:for="{{[0,1,2,3]}}" wx:key='*this'>
-                    <view class='item'>
-                        <image src="{{hostListData[item].src}}"></image>
-                        <view>{{hostListData[item].text}}</view>
-
-                        <block wx:if="{{item == 0}}">
-                            <image class="gold icon" src="../../resource/images/customEntrance/gold3.png"></image>
-                        </block>
-
-                        <block wx:elif="{{item == 1}}">
-                            <image class="richScan icon" src="../../resource/images/customEntrance/silver3.png"></image>
-                        </block>
-
-                        <block wx:elif="{{item == 2}}">
-                            <image class="copper icon" src="../../resource/images/customEntrance/copper3.png"></image>
-                        </block>
-
-                    </view>
-                </block>
-            </view>
-            
-            <view class="row">
-                <block wx:for="{{[4,5,6,7]}}" wx:key='*this'>
-                    <block wx:if="{{item < 7}}">
-                        <view class='item'>
-                            <image src="{{hostListData[item].src}}"></image>
-                            <view>{{hostListData[item].text}}</view>     
-                        </view>
-                    </block>
-
-                    <block wx:if="{{item == 7 && hostListData.length > 7}}">
-                        <view class='item'>
-                            <image src="../../resource/images/customEntrance/moreList3.png"></image>
-                            <view>查看更多</view>     
-                        </view>
-                    </block>
-                </block>
-            </view>
-
-        </block>
-    </view>
-  </view>
-
-  <!-- 我的预约日记 -->
-  <view class="appointmentDiary">
-
-    <view class="contentTitle">
-        <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
-
-        <view class="titleBox">
-            <view class="cTitle">
-                {{diaryTitle.c}}
-            </view>
-            <view class="eTitle">
-                {{diaryTitle.e}}
+    <!-- 我的预约日记 -->
+    <view class="appointmentDiary">
+        <view class="contentTitle">
+            <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
+            <view class="titleBox">
+                <view class="cTitle">{{diaryTitle.c}}</view>
+                <view class="eTitle">{{diaryTitle.e}}</view>
             </view>
         </view>
-    </view>
-
-    <!-- tab -->
-    <view class="tabList">
-        <view class="tab {{tabState == 'doing' ? 'active' : ''}}" bindtap="selectDoing" data-id="doing">进行中</view>
-        <view class="tab {{tabState == 'done' ? 'active' : ''}}" bindtap="selectDone" data-id="done">已完成</view>  
-    </view>
-    
-    <view class="tabBox">
-        <view class="tabContentList" style="left:{{tabContentShow}}">
-            <view class="tabContent">
-
-                <view class="card">
-                    <view class="title">
-                        8月4日(今天)
-                    </view>
-
-                    <view class="item">
-                        <view class="header">
-                            <view class="tag">预约</view>
-                            <view class="project">新大地美发</view>
-                            <view class="time">
-                                <!-- <image src=""></image> -->
-                                10:00 - 11:00
-                            </view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务项目：</view>
-                            <view class="definite">美发</view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务人员：</view>
-                            <view class="definite">Andy</view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">商家电话：</view>
-                            <view class="definite">13524976389</view>
-                        </view>
-
-                        <view class="footer">
-                            <view class="cancel">取消</view>
-                            <view class="share">分享</view>     
-                        </view>
-                    </view>
-
-                    <view class="item">
-                        <view class="header">
-                            <view class="tag">被约</view>
-                            <view class="project">极限瑜伽</view>
-                            <view class="time">
-                                <!-- <image src=""></image> -->
-                                10:00 - 11:00
-                            </view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">客户姓名：</view>
-                            <view class="definite">美啊啊啊发</view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">客户电话：</view>
-                            <view class="definite">13524976389</view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务项目：</view>
-                            <view class="definite">基础课A</view>
-                        </view>
-
-                        <view class="footer">
-                            <view class="cancel">取消</view>
-                            <view class="share">分享</view>     
-                        </view>
-                    </view>
-
-                    <view class="item">
-                        <view class="header">
-                            <view class="tag">私人</view>
-                            <view class="project">新大地美发</view>
-                            <view class="time">
-                                <!-- <image src=""></image> -->
-                                10:00 - 11:00
-                            </view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务项目：</view>
-                            <view class="definite">美发</view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务人员：</view>
-                            <view class="definite">Andy</view>
-                        </view>
-
-                        <view class="footer">
-                            <view class="cancel">取消</view>
-                            <view class="share">分享</view>     
-                        </view>
-                    </view>
-                </view>
-
-
-                <view class="card">
-                    <view class="title">
-                        8月10日(今天)
-                    </view>
-
-                    <view class="item">
-                        <view class="header">
-                            <view class="tag">私人</view>
-                            <view class="project">新大地美发</view>
-                            <view class="time">
-                                <!-- <image src=""></image> -->
-                                10:00 - 11:00
-                            </view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务项目：</view>
-                            <view class="definite">美发</view>
-                        </view>
-
-                        <view class="clause">
-                            <view class="name">服务人员：</view>
-                            <view class="definite">Andy</view>
-                        </view>
-
-                        <view class="footer">
-                            <view class="cancel">取消</view>
-                            <view class="share">分享</view>     
-                        </view>
-                    </view>
-                </view>
-
+        <!-- tab -->
+        <view class="tabList">
+            <view class="tab {{tabState == 'doing' ? 'active' : ''}}" bindtap="selectDoing" data-id="doing">
+                进行中
             </view>
-
-            <view class="tabContent">
-
-                <view class="fold">
-                    <view class="header">
-                        <view class="time">2018-09</view>
-                        <view class="trigger">折叠</view>
-                    </view>
-                    
-                    <view class="box">
+            <view class="tab {{tabState == 'done' ? 'active' : ''}}" bindtap="selectDone" data-id="done">
+                已完成
+            </view>
+        </view>
+        <view class="tabBox">
+            <view class="tabContentList" style="left:{{tabContentShow}}">
+                <view class="tabContent">
+                    <view class="card">
+                        <view class="title">8月4日(今天)</view>
                         <view class="item">
-                            <view class="logo">
-                                <image src="../../resource/images/customEntrance/01.png"></image>
+                            <view class="header">
+                                <view class="tag">预约</view>
+                                <view class="project">新大地美发</view>
+                                <view class="time">
+                                    <!-- <image src=""></image> -->
+                                    10:00 - 11:00
+                                </view>
                             </view>
-                            <view class="details">
-                                <view class="">翻滚法医</view>
-                                <view class="">服务项目：美发</view>
+                            <view class="clause">
+                                <view class="name">服务项目：</view>
+                                <view class="definite">美发</view>
                             </view>
-                            <view class="time">
-                                <view class="">10:00-11:00</view>
-                                <view class="">08-30</view>
+                            <view class="clause">
+                                <view class="name">服务人员：</view>
+                                <view class="definite">Andy</view>
                             </view>
-                            <view class="state">
-                                已付款
+                            <view class="clause">
+                                <view class="name">商家电话：</view>
+                                <view class="definite">13524976389</view>
+                            </view>
+                            <view class="footer">
+                                <view class="cancel">取消</view>
+                                <view class="share">分享</view>
+                            </view>
+                        </view>
+                        <view class="item">
+                            <view class="header">
+                                <view class="tag">被约</view>
+                                <view class="project">极限瑜伽</view>
+                                <view class="time">
+                                    <!-- <image src=""></image> -->
+                                    10:00 - 11:00
+                                </view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">客户姓名：</view>
+                                <view class="definite">美啊啊啊发</view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">客户电话：</view>
+                                <view class="definite">13524976389</view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">服务项目：</view>
+                                <view class="definite">基础课A</view>
+                            </view>
+                            <view class="footer">
+                                <view class="cancel">取消</view>
+                                <view class="share">分享</view>
+                            </view>
+                        </view>
+                        <view class="item">
+                            <view class="header">
+                                <view class="tag">私人</view>
+                                <view class="project">新大地美发</view>
+                                <view class="time">
+                                    <!-- <image src=""></image> -->
+                                    10:00 - 11:00
+                                </view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">服务项目：</view>
+                                <view class="definite">美发</view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">服务人员：</view>
+                                <view class="definite">Andy</view>
+                            </view>
+                            <view class="footer">
+                                <view class="cancel">取消</view>
+                                <view class="share">分享</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="card">
+                        <view class="title">8月10日(今天)</view>
+                        <view class="item">
+                            <view class="header">
+                                <view class="tag">私人</view>
+                                <view class="project">新大地美发</view>
+                                <view class="time">
+                                    <!-- <image src=""></image> -->
+                                    10:00 - 11:00
+                                </view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">服务项目：</view>
+                                <view class="definite">美发</view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">服务人员：</view>
+                                <view class="definite">Andy</view>
+                            </view>
+                            <view class="footer">
+                                <view class="cancel">取消</view>
+                                <view class="share">分享</view>
                             </view>
                         </view>
                     </view>
                 </view>
-
+                <view class="tabContent">
+                    <view class="fold">
+                        <view class="header">
+                            <view class="time">2018-09</view>
+                            <view class="trigger">折叠</view>
+                        </view>
+                        <view class="box">
+                            <view class="item">
+                                <view class="logo">
+                                    <image src="../../resource/images/customEntrance/01.png"></image>
+                                </view>
+                                <view class="details">
+                                    <view class="">翻滚法医</view>
+                                    <view class="">服务项目：美发</view>
+                                </view>
+                                <view class="time">
+                                    <view class="">10:00-11:00</view>
+                                    <view class="">08-30</view>
+                                </view>
+                                <view class="state">已付款</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
             </view>
         </view>
     </view>
-
-  </view>
 </view>

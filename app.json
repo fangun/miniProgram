@@ -2,13 +2,45 @@
   "pages":[
     "pages/customEntrance/index",
     "pages/entrancePage/index",
-    "pages/storeHead/index"
+    "pages/storeHead/index",
+    "pages/addAppointment/index",
+    "pages/personalDetails/index"
     
   ],
+
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#F34343",
     "navigationBarTitleText": "",
     "navigationBarTextStyle":"white"
+  },
+
+  "tabBar": {
+    "color": "rgb(197,197,197)",
+    "selectedColor": "rgb(243,67,67)",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/customEntrance/index",
+        "iconPath": "resource/images/common/appoint3.png",
+        "selectedIconPath": "resource/images/common/appoint3a.png",
+        "text": "预约"
+      },
+      {
+        "pagePath": "pages/addAppointment/index",
+        "iconPath": "resource/images/common/add3.png",
+        "selectedIconPath": "resource/images/common/add3.png",
+        "text": "添加"
+      },
+      {
+        "pagePath": "pages/personalDetails/index",
+        "iconPath": "resource/images/common/mine3.png",
+        "selectedIconPath": "resource/images/common/mine3a.png",
+        "text": "我的"
+      }
+    ]
   }
+
+
 }

@@ -88,6 +88,7 @@
     display: block;
     width: 124rpx;
     height: 124rpx;
+    border-radius: 20rpx;
 }
 
 .box .row:nth-child(2) .item:nth-child(4){
@@ -97,7 +98,8 @@
 
 .box .row:nth-child(2) .item:nth-child(4) image{
     width: 112rpx;
-    height: 120rpx; 
+    height: 120rpx;
+    border-radius: 0rpx;
 }
 
 .box .row .item .icon {
