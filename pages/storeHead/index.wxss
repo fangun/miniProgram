@@ -47,10 +47,21 @@
 .peopleList text{margin-bottom: 39rpx;}
 .people{margin-right: 54rpx;font-size: 24rpx;display: flex;flex-direction: column;align-items: center}
 
-.slideDate{border-top: 4rpx solid;border-bottom: 4rpx solid;border-color:rgb(255, 170, 170);height: 80rpx;display: flex;align-items: center}
-.date{display: flex;flex-direction: column;align-items: center;justify-content: center;height: 96rpx;width: 101rpx;color: rgb(111, 111, 111);border-radius: 10rpx;font-size:26rpx;margin-left: 50rpx}
-.date:nth-child(1){margin-left: 20rpx}
+.slideDate{height: 80rpx;border-top: 4rpx solid;border-bottom: 4rpx solid;border-color:rgb(255, 170, 170);display: flex;align-items: center}
+.slideDate scroll-view{width:100vw;height: 96rpx;white-space: nowrap;}
+.date{width: 101rpx;height:96rpx;display: inline-flex;flex-direction: column;align-items: center;justify-content: center;color: rgb(111, 111, 111);border-radius: 10rpx;font-size:26rpx;margin-left: 50rpx}
+.date:nth-child(1){margin-left: 20rpx;}
 .dateSelected{background: rgb(243, 67, 67);color: white}
 
 .selectOther{width:100%;padding:0 30rpx}
 .form{width:100%;min-height: 200rpx;}
+
+
+
+.box-item{
+  width: 101rpx;
+    height:100%;
+    border:2rpx solid green;
+    box-sizing: border-box;
+    display: inline-block
+}

@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    topTip:"",
     vip:1,
     storeData:{
       "loginname": "13916494256",
@@ -15,6 +16,9 @@ Page({
       "logo": "20180504105256.jpg",      //地址    null或“”     todo
       "description1":null,
       "description2":"选择服务技师",
+      "bookingMonth":3,     //服务时间，向后共计3个月
+      "bookingday":23,
+      "frontdesk":1,        //选择项目 1可多选 0单选
       "serviceItems": [				//服务项目
         {
           "id": "4e5d6c6c4ed24b2b82ed896368e41d28",
@@ -113,7 +117,7 @@ Page({
           "name": "张翔",
           "gender": 0,     //性别
           "sort": 0,
-          "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6, eedc49feca8c42119b9e8a08eb5bbe69, 5a38562cdf3e44b7930e2af8c695eab1, a9d97a98bcd845959dc9f33e1872f917, 926cc99416f444cda2fc54cf2dbea1f0, 12dc576e0a674987b3363f96a0e56be6, 8ccf2fa6ec2144888588aa02a99f491b",
+          "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6, eedc49feca8c42119b9e8a08eb5bbe69, 5a38562cdf3e44b7930e2af8c695eab1, a9d97a98bcd845959dc9f33e1872f917, 926cc99416f444cda2fc54cf2dbea1f0, 12dc576e0a674987b3363f96a0e56be6",
             "holiday": "0,3,4,5",
           "specialdate": null,
           "isAbled" : true
@@ -166,7 +170,7 @@ Page({
           "good": "5a38562cdf3e44b7930e2af8c695eab1,12dc576e0a674987b3363f96a0e56be6,ad19c8ae71e7438094c086a1b2f2bd21,8ccf2fa6ec2144888588aa02a99f491b",
           "holiday": "",
           "specialdate": null,
-          "isAbled": false
+          "isAbled": true
         },
         {
           "id": "7baf4b092aa149bcb9533c4e99d83bb9",
@@ -180,11 +184,15 @@ Page({
         }
       ]
     },
-    selectedServices: [],
+    selectedServices: [], 
     serviceTime:0,
     dingjin:0,
-    peopleList:[]
-  
+    peopleList:[], //能选的技师 列表
+    dayLong:34, //这个店只用34天
+    serviceEmployee:[],
+    activityDay:[],//可选择的day和星期 
+    selectPeople:"",//已选的技师
+    selectDay:"" //已选的day
   },
   /**
    * 生命周期函数--监听页面加载
@@ -197,6 +205,10 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    //
+    this.setData({
+      serviceEmployee:this.data.storeData.serviceEmployee
+    })
     //默认选择第一个 项目
     let id = this.data.storeData.serviceItems[0].id;
     let name = this.data.storeData.serviceItems[0].name;
@@ -208,8 +220,48 @@ Page({
       serviceTime: this.data.storeData.serviceItems[0].hour,
       dingjin: this.data.storeData.serviceItems[0].deposit,
     })
-    //第一个项目默认的人
+
+    //第一个项目默认的人 根据默认的第一个项目，筛人
     this.checkPeopleList()
+    //生成服务时间 当前日期+服务天数
+    let activityDay = [];
+    let weeks = ["周日", "周一","周二", "周三", "周四", "周五", "周六"];
+    for (let i = 0; i < this.data.storeData.bookingday;i++){
+      let now = new Date();
+      now.setDate(now.getDate() + i);
+      let day = now.getDate();
+
+      //首天显示“今天”
+      let week = ""; "周几"
+      if(i!=0){
+        week = weeks[now.getDay()];
+      } else if (i == 0){
+        week = "今天"
+      }
+      //console.log(week)
+      //月-日
+      let month = now.getMonth();
+      if(month<9){
+        month = "0" + (month+1)
+      }else(
+        month++
+      )
+
+      //console.log(month+"-"+day)
+      activityDay.push({
+        "year":now.getFullYear(),
+        "date":month + "-" + day,
+        "week":week,
+        "id": now.getFullYear() + "-" + month + "-" + day
+      })
+      // console.log(activityDay)
+      this.setData({
+        activityDay: activityDay
+      })
+      //默认选择“今天”
+
+    }
+    
   },
 
   /**
@@ -286,16 +338,76 @@ Page({
       serviceTime: serviceTime,
       dingjin: dingjin
     })
-    console.log(this.data.selectedServices)
+    //console.log(this.data.selectedServices)
+    for(let i=0;i<this.data.storeData.serviceEmployee.length;i++){
+      let parm = "storeData.serviceEmployee[" + i + "].isAbled";
+      this.setData({
+        [parm]:true
+      })
+    }
+    
+    this.setData({
+      serviceEmployee: this.data.storeData.serviceEmployee
+      
+    })
+    this.checkPeopleList()
   },
 
-
+  //选择 项目 后，人员的变化
   checkPeopleList:function(){
     //循环选中的项目列表   循环人列表，循环人的项目，无匹配，则为false  有该项目的人列表，比较下一个项目
-    let people = this.data.peopleList;
-    let selectedServices = this.data.selectedServices;
-    for(let i=0;i<selectedServices.length;i++){
-      
+    let peopleAll = this.data.serviceEmployee;
+    //console.log(peopleAll);
+    let projectSelect = this.data.selectedServices;
+    if(projectSelect.length==0){  //一个项目都没选
+      for (let i = 0; i < this.data.storeData.serviceEmployee.length;i++){
+        let parm = "storeData.serviceEmployee["+i+"].isAbled";
+        this.setData({
+          [parm]:false
+        })
+      }
+    }else{
+      for (let i = 0; i < projectSelect.length; i++) {
+        let id = projectSelect[i].id;//选中的id
+        // console.log(id);
+        for (let j = 0; j < peopleAll.length; j++) {   //总人表
+          let flag = peopleAll[j].good.indexOf(id);
+          if (flag == -1) {
+            peopleAll.splice(j, 1)    //peopleAll 删掉一项，下个循环的j还是这个j
+            let parm = "storeData.serviceEmployee[" + i + "].isAbled";
+            this.setData({
+              [parm]: false
+            })
+            j = j - 1;
+          }
+        }
+      }
     }
+    
+    console.log(peopleAll)
+  },
+
+  //点击 不可选 的 人员
+  selectDisablePeople:function(){
+    if (this.data.selectedServices.length==0){
+      let unselect = (this.data.storeData.description1 == null ? "服务项目" : this.data.storeData.description1)
+      this.setData({
+        topTip: "请先选择" + unselect
+      })
+    }else{
+      this.setData({
+        topTip:"该人员未开通此服务"
+      })
+    }
+  },
+  //点击可选的人
+  selectPeople:function(e){
+    let peopleId = e.currentTarget.dataset.id;
+    console.log(peopleId)
+  },
+
+  //点击横滚条的day
+  selectDay:function(){
+
   }
 })
