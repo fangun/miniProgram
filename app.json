@@ -2,10 +2,10 @@
   "pages":[
     "pages/storeHead/index",
     "pages/customEntrance/index",
+    "pages/personalDetails/index",
     "pages/entrancePage/index",
-    
     "pages/addAppointment/index",
-    "pages/personalDetails/index"
+    "pages/modifyName/index"
     
   ],
 

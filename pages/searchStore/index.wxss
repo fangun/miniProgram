@@ -1,0 +1,86 @@
+.container {
+    padding: 0;
+}
+
+.searchColumn {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 30rpx 30rpx 28rpx 30rpx;
+}
+
+.searchColumn .searchInput {
+    flex:auto;
+    display: flex;
+
+    border-radius: 20rpx;
+    background-color:rgb(247, 247,247);
+}
+
+.searchColumn .searchInput image {
+    display:block;
+    width:38rpx;
+    height:38rpx;
+    padding: 20rpx 20rpx 20rpx 30rpx;
+}
+
+.searchColumn .searchInput input {
+    width:75%;
+    padding:12rpx;
+}
+
+.searchColumn .search {
+    color:rgb(247,63,63);
+    font-size:38rpx;
+    margin-left:23rpx;
+}
+
+.box {
+    box-sizing:border-box;
+    padding:0 30rpx 16rpx 30rpx;
+    width:100%; 
+}
+
+.itemHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+.itemHead .des {
+    flex:1;
+    font-family:PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgb(153,153,153);
+    flex:1;
+    line-height:40rpx;
+}
+
+.itemHead .delete image {
+    flex:1;
+
+    display: block;
+    width:34rpx;
+    height:40rpx;
+}
+
+/*  */
+.itemList {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:-20rpx;
+    margin-right:-20rpx;
+    
+}
+
+.itemList .item {
+    padding: 14rpx 20rpx;
+    font-family:PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgb(153,153,153);
+
+    border-radius: 20rpx;
+    background-color:rgb(247, 247,247);
+
+    margin:20rpx;
+}

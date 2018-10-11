@@ -1,10 +1,70 @@
 <!--index.wxml-->
 <view class="container">
 
+  <view class="box">
     <view class="item">
-      <view>姓名：</view>
-      <view>梁红兵</view>
-      <view>折叠</view>
+      <view>
+        <text decode ="{{true}}" space="{{true}}">头&emsp;&emsp;像：</text>
+      </view>
+      <view><image class="buddha" src="../../resource/images/personalDetails/012.png"/></view>
+      <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
+
+    <view class="item">
+      <view>
+        <text decode ="{{true}}" space="{{true}}">姓&emsp;&emsp;名：</text>
+      </view>
+      <view>梁红兵</view>
+      <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+    </view>
+
+    <view class="item">
+      <view>
+        <text decode ="{{true}}" space="{{true}}">性&emsp;&emsp;别：</text>
+      </view>
+      <view class="sex">
+        <view>男</view>
+        <image src="../../resource/images/common/boy3.png"/>
+      </view>
+      <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+    </view>
+
+    <view class="item lastChild">
+      <view>
+        <text decode ="{{true}}" space="{{true}}">电&emsp;&emsp;话：</text>
+      </view>
+      <view>13524976389</view>
+      <view></view>
+    </view>
+  </view>
+
+  <view class="box">
+    <view class="item">
+      <view>
+        <text>消费记录</text>
+      </view>
+      <view></view>
+      <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+    </view>
+
+    <view class="item">
+      <view>
+        <text>修改密码</text>
+      </view>
+      <view></view>
+      <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+    </view>
+
+    <view class="item">
+      <view>
+        <text>意见反馈</text>
+      </view>
+      <view></view>
+      <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+    </view>
+  </view>
+
+  <view class="exit">退出登录</view>
+
 
 </view>

@@ -1,7 +1,80 @@
-.item {
-    display: flex;
+.container {
+    padding: 0 0 0 0;
 }
 
-.item > view {
+.box {
+    width: 100%;
+    padding-left: 60rpx;
+    border-bottom: 30rpx solid #eee;
+}
+
+.item {
+    display: flex;
+    width: 100%;
+    height: 100rpx;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.item > view:first-child {
+    flex: 2;
+}
+
+.item > view:nth-child(2) {
+    flex: 3;
+}
+
+.item > view:nth-child(3) {
+    flex: 1;
+
+    justify-content:flex-end;
+    display:flex;
+    padding-right:60rpx;
+}
+
+.item > view:first-child > text {
+    font-family:PingFangSC-Regular;
+    font-size:36rpx;
+    color:rgb(102,102,102);
+}
+
+
+.buddha{
+    display: block;
+    width: 80rpx;
+    height: 80rpx;
+}
+
+.foldIcon {
+    display: block;
+    width: 18rpx;
+    height: 36rpx; 
+}
+
+.sex {
+    display: flex;
+}
+.sex > view {
+    font-size:36rpx;
+    margin-right: 25rpx;
+}
+
+.sex > image{
+    display:block;
+    width:38rpx;
+    height:38rpx;
+    padding-top:6rpx;
+    padding-bottom:6rpx;
     
+}
+
+.lastChild {
+    border:none;
+}
+
+.exit {
+    font-family:PingFangSC-Regular;
+    font-size:36rpx;
+    color:rgb(102,102,102);
+    padding-top: 49rpx;
 }

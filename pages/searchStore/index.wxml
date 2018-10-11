@@ -1,0 +1,46 @@
+<!--index.wxml-->
+<view class="container">
+
+    <!-- 搜索栏目 -->
+    <view class="searchColumn">
+        <view class="searchInput">
+            <image src="../../resource/images/customEntrance/search3.png"></image>
+            <input placeholder="" />
+        </view>
+        <view class="search">
+            搜索
+        </view>
+    </view>
+
+    <!-- 搜索历史 -->
+    <view class="box">
+        <view class="itemHead">
+          <view class="des">搜索历史</view>
+          <view class="delete">
+            <image src="../../resource/images/searchStore/delete3.png" />
+          </view>
+        </view>
+        <view class="itemList">
+          <view class="item">翻滚网络专区</view>
+          <view class="item">翻滚美发</view>
+          <view class="item">翻滚艺术</view>
+          <view class="item">翻滚人潮</view>
+          <view class="item">翻滚社区</view>
+        </view>
+    </view>
+
+    <!-- 推荐搜索 -->
+    <view class="box">
+        <view class="itemHead">
+          <view class="des">推荐搜索</view>
+        </view>
+        <view class="itemList">
+          <view class="item">翻滚网络专区</view>
+          <view class="item">翻滚美发</view>
+          <view class="item">翻滚艺术</view>
+          <view class="item">翻滚人潮</view>
+          <view class="item">翻滚社区</view>
+        </view>
+    </view>
+
+</view>
