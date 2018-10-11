@@ -5,15 +5,96 @@
 /* 页面标题 */
 .pageTitle {
     width: 100%;
-    height: 176rpx;
-    line-height: 176rpx;
     background-color: rgba(243,67,67,1);
     
     font-family: PingFangSC-Medium;
     font-size: 36rpx;
     text-align: center;
     color: #fff;
+
+    padding-top: 27rpx;
+    padding-bottom: 27rpx;
 }
+
+/* 搜索 */
+.searchColumn {
+    display: flex;
+    width: 100%;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    background-color: rgba(243,67,67,1);
+
+    box-sizing: border-box;
+    padding-bottom: 28rpx;
+}
+
+.searchColumn .richScan{
+    width: 84rpx; 
+}
+
+.searchColumn .store {
+    display: flex;
+    width:68rpx;
+    flex-direction:column;
+    align-items:flex-end;
+}
+
+.searchColumn .richScan  view,
+.searchColumn .store view {
+    font-family: PingFangSC-Regular;
+    font-size: 18rpx;
+    letter-spacing: 2rpx;
+    color: #fff;
+}
+
+.searchColumn .richScan image,
+.searchColumn .store image {
+    display: block;
+    color: #fff;
+    margin-bottom: 7rpx;
+}
+
+.searchColumn .richScan image {
+    width: 34rpx;
+    height: 34rpx;
+    margin-left: 10rpx;
+}
+
+.searchColumn .store image {
+    width: 40rpx;
+    height: 34rpx;
+
+    right:0;
+}
+
+
+.searchColumn .search {
+    flex: auto;
+    background-color: #fff;
+    border-radius: 30rpx;
+
+    display: flex;
+    height: 65rpx;
+    align-items: center;
+}
+
+.searchColumn .search image {
+    display: block;
+    width: 30rpx;
+    height: 30rpx;
+    padding-left: 30rpx;
+    padding-right: 20rpx;
+}
+
+
+.searchColumn .search input {
+    font-family: PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(153,153,153);
+    height:100%;
+    width:90%;
+}
+
 
 /* 热榜 */
 .contentTitle {

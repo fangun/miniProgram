@@ -2,8 +2,30 @@
 <view class="container">
     <!-- 页面标题 -->
     <view class="pageTitle">{{pageTitle}}</view>
+
+    <!-- 搜索栏目 -->
+    <view class="searchColumn">
+
+        <view class="richScan">
+            <image src="../../resource/images/customEntrance/richScan3.png"></image>
+            <view>扫一扫</view>
+        </view>
+
+        <view class="search">
+            <image src="../../resource/images/customEntrance/search3.png"></image>
+            <input placeholder="搜索" />
+        </view>
+
+        <view class="store">
+            <image src="../../resource/images/customEntrance/store3.png"></image>
+            <view>店家</view>
+        </view>
+
+    </view>
+
     <!-- 我的预约热榜 -->
     <view class="appointmentHotlist">
+    
         <view class="contentTitle">
             <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
             <view class="titleBox">
@@ -11,6 +33,7 @@
                 <view class="eTitle">{{hotlistTitle.e}}</view>
             </view>
         </view>
+
         <view class="box" bindtap="customEntrance">
             <block wx:if="{{hostListData.length < 4}}">
                 <view class="row">

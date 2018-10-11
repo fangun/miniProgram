@@ -151,17 +151,17 @@ Page({
   onLoad: function () {
     var that = this;
 
-    wx.request({
-      url: 'https://api.yuyue58.cn/api/hot',
-      method:"POST",
-      data: {
-        ID: 'dabc5bf90a9145fbb06467e648286b5f'
-      },
-      header: { "content-type": "application/x-www-form-urlencoded" },
-      success(res) {
-        console.log(res.data)
-      }
-    });
+    // wx.request({
+    //   url: 'https://api.yuyue58.cn/api/hot',
+    //   method:"POST",
+    //   data: {
+    //     ID: 'dabc5bf90a9145fbb06467e648286b5f'
+    //   },
+    //   header: { "content-type": "application/x-www-form-urlencoded" },
+    //   success(res) {
+    //     console.log(res.data)
+    //   }
+    // });
 
     // if (app.globalData.userInfo) {
     //   this.setData({

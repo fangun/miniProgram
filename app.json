@@ -1,10 +1,14 @@
 {
   "pages":[
+    "pages/personalDetails/index",
+    "pages/searchStore/index",
     "pages/customEntrance/index",
+
     "pages/entrancePage/index",
     "pages/storeHead/index",
+    
     "pages/addAppointment/index",
-    "pages/personalDetails/index"
+    "pages/modifyName/index"
     
   ],
 
