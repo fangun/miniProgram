@@ -1,14 +1,27 @@
 /* pages/storeHead/index.wxss */
-.modal{width: 100%;height: 100%;background: rgba(0, 0, 0, 0.7);position: fixed;z-index: 199;display: flex;flex-direction: column;align-items: center;justify-content: space-between}
+.modal,.container .modal{width: 100%;height: 100%;background: rgba(0, 0, 0, 0.7);position: fixed;z-index: 199;display: flex;flex-direction: column;align-items: center;justify-content: space-between}
 .modal image{width: 630rpx;height: 915rpx;margin-top:56rpx}
 .modal view{height: 88rpx;line-height: 88rpx;width: 100%;background: rgb(243, 67, 67);color: white;font-size: 28rpx;text-align: center;}
-
 .container{padding: 0;width: 100%;display: flex;flex-direction: column;background: #F0F0F0;justify-content: flex-start;align-items: center}
 .container>view{margin-bottom: 10rpx;background: white;width: 100%;}
-.container>.topTip{height: 100rpx;background: rgb(251,112,112);position: fixed;z-index: 99;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;}
+.container .topTitle{width: 100%;height: 88rpx;font-size: 26rpx;color:white;background: rgb(243, 67, 67);display: flex;justify-content: space-between;align-items: center;position: fixed;top: 0;z-index: 120;}
+.topTitle .btn{width: 37rpx;height:37rpx;}
+.topTitle .btn:nth-child(1){margin-left:30rpx }
+.topTitle .btn:nth-child(3){margin-right:30rpx }
+.container .topTip{height: 100rpx;background: rgb(251,112,112);position: fixed;z-index: 99;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;margin-top: -20rpx}
 .topTip image{width: 28rpx;height: 28rpx;margin-right: 15rpx}
-.container>view:nth-child(2),.container>view:nth-child(1){margin-bottom: 0}/*商家信息*/
-.info{width: 100%;}
+.show{top: 0rpx;margin-top: 80rpx;animation: show 2s;animation-timing-function:ease;}
+@keyframes show{
+from {margin-top:-12rpx;}
+to {margin-top:80rpx;}
+}
+.hide{margin-top: -12rpx;animation: hide 2s;animation-timing-function:ease;}
+@keyframes hide{
+from {margin-top: 80rpx;}
+to {margin-top: -12rpx;}
+}
+.container>view:nth-child(2),.container>view:nth-child(3){margin-bottom: 0}/*商家信息*/
+.info{width: 100%;margin-top: 80rpx}
 #infoBlock{margin: 30rpx;padding-top: 26rpx;padding-bottom: 29rpx;border-radius: 5rpx;box-shadow: 0 0 6rpx 6rpx #eee}
 .intro{margin: 0 26rpx 0 26rpx;display: flex}
 #headImage{width: 138rpx;height: 138rpx;flex-shrink: 0;background-position:center;background-size:100%;border-radius: 10rpx}
@@ -73,3 +86,5 @@
 #tip .form{padding-left: 25rpx;padding-top: 22rpx}
 .btn_submit{width: 690rpx;height: 80rpx;line-height: 80rpx;font-size: 28rpx;color: white;background: rgb(243, 67,67 );margin-top: 24rpx;text-align: center;border-radius: 16rpx;}
 
+/*modal .rightCalendar*/
+.container .modal_calendar{position: fixed;bottom: 0;height: 724rpx;width: 100%;background: gray;margin:0;}

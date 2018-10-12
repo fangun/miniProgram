@@ -11,6 +11,7 @@ Page({
     tryNow_time:7, //立即体验 有效期 天
     topTip:"",
     vip:1,
+    hoursAee:[],
     storeData:{
       "loginname": "13916494256",
       "name": "预约吧Family",
@@ -18,12 +19,15 @@ Page({
       "pca": "上海市-东方明珠",     //上下接起来
       "address": "",
       "phone": "",
-      "logo": "20180504105256.jpg",      //地址    null或“”     todo
+      "logo": "20180504105256.jpg",      //地址    null或“”     todo "20180504105256.jpg"
       "description1":null,
       "description2":"选择服务技师",
       "bookingMonth":3,     //服务时间，向后共计3个月
       "bookingday":23,
       "frontdesk":1,        //选择项目 1可多选 0单选
+      "timeSwitch":0,
+      "timeSetting":0,
+      "serviceTime":"06:30|07:00|07:30|08:00|08:30|09:00|09:30|10:00|10:30|11:00|11:30|12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:00|17:00|17:00|17:30|18:00|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00",
       "serviceItems": [				//服务项目
         {
           "id": "4e5d6c6c4ed24b2b82ed896368e41d28",
@@ -123,8 +127,19 @@ Page({
           "gender": 0,     //性别 //男
           "sort": 0,
           "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6, eedc49feca8c42119b9e8a08eb5bbe69, 5a38562cdf3e44b7930e2af8c695eab1, a9d97a98bcd845959dc9f33e1872f917, 926cc99416f444cda2fc54cf2dbea1f0, 12dc576e0a674987b3363f96a0e56be6",
-            "holiday": "0,3,4,5",
-          "specialdate": null,
+            "holiday": "0,3,4,5", //0为周一
+          "specialdate": [
+            "2018-10-13T00:00:00",
+            "2018-10-14T00:00:00",
+            "2018-10-15T00:00:00",
+            "2018-10-15T00:00:00",
+            "2018-10-18T00:00:00",
+            "2018-10-19T00:00:00",
+            "2018-10-20T00:00:00",
+            "2018-10-22T00:00:00",
+            "2018-10-25T00:00:00",
+            "2018-10-28T00:00:00"
+          ],
           "isAbled" : true
         },
         {
@@ -133,8 +148,14 @@ Page({
           "gender": 0,
           "sort": 1,
           "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6,eedc49feca8c42119b9e8a08eb5bbe69,5a38562cdf3e44b7930e2af8c695eab1,a9d97a98bcd845959dc9f33e1872f917,926cc99416f444cda2fc54cf2dbea1f0,12dc576e0a674987b3363f96a0e56be6,8ccf2fa6ec2144888588aa02a99f491b",
-          "holiday": "5,6",    //休息的星期
-          "specialdate": null,
+          "holiday": "4,5",    //休息的星期
+          "specialdate": [
+            "2018-10-15T00:00:00",
+            "2018-10-19T00:00:00",
+            "2018-10-20T00:00:00",
+            "2018-10-22T00:00:00",
+            "2018-10-25T00:00:00"
+          ],
           "isAbled": true
         },
         {
@@ -144,7 +165,18 @@ Page({
           "sort": 2,
           "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6,eedc49feca8c42119b9e8a08eb5bbe69,8ccf2fa6ec2144888588aa02a99f491b",
           "holiday": "6",
-          "specialdate": null,
+          "specialdate": [
+            "2018-10-13T00:00:00",
+            "2018-10-14T00:00:00",
+            "2018-10-15T00:00:00",
+            "2018-10-15T00:00:00",
+            "2018-10-18T00:00:00",
+            "2018-10-19T00:00:00",
+            "2018-10-20T00:00:00",
+            "2018-10-22T00:00:00",
+            "2018-10-25T00:00:00",
+            "2018-10-28T00:00:00"
+          ],
           "isAbled": true
         },
         {
@@ -153,7 +185,7 @@ Page({
           "gender": 0,
           "sort": 3,
           "good": "5a38562cdf3e44b7930e2af8c695eab1,a9d97a98bcd845959dc9f33e1872f917,926cc99416f444cda2fc54cf2dbea1f0,12dc576e0a674987b3363f96a0e56be6,8ccf2fa6ec2144888588aa02a99f491b",
-          "holiday": "0,1,2,3,4,5,6",
+          "holiday": "0,1,2,3,4,5",
           "specialdate": null,
           "isAbled": true
         },
@@ -183,7 +215,7 @@ Page({
           "gender": 1,
           "sort": 6,
           "good": "8f00c806cf194ecf931296393f43678e,8ccf2fa6ec2144888588aa02a99f491b",
-          "holiday": "",
+          "holiday": "2",
           "specialdate": null,
           "isAbled": true
         }
@@ -192,10 +224,11 @@ Page({
     selectedServices: [], 
     serviceTime:0,
     dingjin:0,
-    peopleList:[], //能选的技师 列表
+    //peopleList:[], //能选的技师 列表
     dayLong:34, //这个店只用34天
     serviceEmployee:[],
     activityDay:[],//可选择的day和星期 
+    peopleActivityDay:[], //该人 的可选day
     selectPeople:"",//已选的技师
     selectDay:"", //已选的day
     selectOther:[
@@ -214,6 +247,10 @@ Page({
       key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
     });
 
+    wx.setNavigationBarTitle({
+      title: '上预约吧'
+    })
+
   },
 
   /**
@@ -223,8 +260,8 @@ Page({
     //立即体验
     this.checkTryNow();
 
-    let data = { "id": this.data.id }
-    console.log(data)
+    // let data = { "id": this.data.id }
+    // console.log(data)
     // wx.request({
     //   url: 'https://api.yuyue58.cn/api/selecShop',
     //   method: "POST",
@@ -258,20 +295,23 @@ Page({
     this.checkPeopleList()
     //生成服务时间 当前日期+服务天数
     let activityDay = [];
-    let weeks = ["周日", "周一","周二", "周三", "周四", "周五", "周六"];
+    let weeks = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
     for (let i = 0; i < this.data.storeData.bookingday;i++){
       let now = new Date();
       now.setDate(now.getDate() + i);
       let day = now.getDate();
 
-      //首天显示“今天”
-      let week = ""; "周几"
-      if(i!=0){
-        week = weeks[now.getDay()];
-      } else if (i == 0){
+      let weekIndex = now.getDay(); //1周一 2周二  0周日    //但后台0为周一
+      //console.log(day+":"+weekIndex)
+      let Index=weekIndex-1;
+      if(Index==-1){
+        Index=6
+      }
+      let week = weeks[Index];
+      if(i==0){
         week = "今天"
       }
-      //console.log(week)
+
       //月-日
       let month = now.getMonth();
       if(month<9){
@@ -279,21 +319,21 @@ Page({
       }else(
         month++
       )
-
       activityDay.push({
         "year":now.getFullYear(),
         "date":month + "-" + day,
         "week":week,
+        "weekIndex":Index,
         "id": now.getFullYear() + "-" + month + "-" + day
       })
-      // console.log(activityDay)
       this.setData({
-        activityDay: activityDay
+        activityDay: activityDay,
+        peopleActivityDay:activityDay
       })
-      //console.log(this.data.activityDay)
       
       
     }
+    console.log(activityDay)
 
     //默认 选择 第一天
     let selectDay = activityDay[0].id;
@@ -302,7 +342,16 @@ Page({
     })
     console.log(this.data.selectDay)
     
+
+    //生成默认的 小时段  店家数据
+    let hours = this.data.storeData.serviceTime;
+    let hoursArr = hours.split("|");
+    this.setData({
+      hoursArr:hoursArr
+    })
   },
+
+    
 
   /**
    * 生命周期函数--监听页面显示
@@ -353,16 +402,16 @@ Page({
     let now =  Date.parse(new Date());
 
     // let plusTime = this.data.tryNow_time*24*60*60*1000;
-    let plusTime = 0.5*60*1000;     //有效期 1分钟
+    let plusTime =5*60*1000;     //有效期 5分钟
     let newLastTime = now + plusTime;
-    console.log("now:"+now)
-    console.log("newLastTime"+newLastTime)
+    //console.log("now:"+now)
+    //console.log("newLastTime"+newLastTime)
     wx.getStorage({
       key: 'sjrk',  //商家入口 立即体验 7天有效  //试用半分钟
       success: function (res) {
         let lastTime = "";//上次登陆的时间戳
         lastTime = res.data;
-        console.log("lastTime"+lastTime)
+        //console.log("lastTime"+lastTime)
         if (lastTime + plusTime<now){   //now 超出了 上次登录+有效期
           that.setData({
             Modal_tryNow: true
@@ -413,13 +462,25 @@ Page({
         });
       }
     });
-    // console.log(latitude+"."+longitude)
-    // wx.openLocation({
-    //   latitude,
-    //   longitude,
-    //   scale: 28
-    // })
   },
+  
+  topPerson:function(){
+    console.log('back')
+  },
+
+  //顶部条伸出
+  toptip: function () {
+    let that = this;
+    this.setData({
+      show: 1
+    })
+    setTimeout(function () {
+      that.setData({
+        show: 2
+      })
+    }, 2000)
+  },
+
 
   //点击 单个项目
   selectProject: function (e) {
@@ -499,7 +560,7 @@ Page({
       }
     }
     
-    console.log(peopleAll)
+    //sconsole.log(peopleAll)
   },
 
   //点击 不可选 的 人员
@@ -509,16 +570,57 @@ Page({
       this.setData({
         topTip: "请先选择" + unselect
       })
+      
     }else{
       this.setData({
         topTip:"该人员未开通此服务"
       })
     }
+    this.toptip();
   },
   //点击可选的人
   selectPeople:function(e){
     let peopleId = e.currentTarget.dataset.id;
-    console.log(peopleId)
+    console.log(peopleId);
+    //删除 横滚条中 休假的 周几
+    //删店家的休息holiday 和 个人的休息 specialdate
+    let holiday=""; //0 周一    "0,1,2"  //此店的休假
+    let spDates =[];                     //此人的休假
+    for (let i = 0; i < this.data.storeData.serviceEmployee.length;i++){
+      if (peopleId == this.data.storeData.serviceEmployee[i].id){
+        holiday = this.data.storeData.serviceEmployee[i].holiday;
+        if (this.data.storeData.serviceEmployee[i].specialdate != null){
+          spDates = this.data.storeData.serviceEmployee[i].specialdate.splice(0)
+          //目前spDates[i]的格式 "2018-10-12T00:00:00" 以后会去掉T，会去掉00：00：00 下面方法可能不用变
+        }
+      }
+    }
+   
+    let peopleActivityDay = this.data.activityDay.slice(0); //深拷贝
+    console.log(peopleActivityDay);
+    for (let i = 0; i < peopleActivityDay.length;i++){
+       //1.删店
+      let weekIndex = peopleActivityDay[i].weekIndex
+      let id = peopleActivityDay[i].id;
+
+      if(holiday.indexOf(weekIndex)!=-1){
+        peopleActivityDay.splice(i,1);
+        i--;
+      }else{
+        //2.删人
+        for(let j=0;j<spDates.length;j++){
+          //console.log(id+"-"+spDates[j])
+          if(spDates[j].indexOf(id)!=-1){
+            peopleActivityDay.splice(i, 1);
+            i--;
+          }
+        }
+      }
+    }    
+    console.log(peopleActivityDay);
+    this.setData({
+      peopleActivityDay: peopleActivityDay
+    })
   },
 
   //点击横滚条的day
@@ -533,4 +635,5 @@ Page({
   rightCalendar:function(){
 
   }
+  
 })
