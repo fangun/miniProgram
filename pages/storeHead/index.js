@@ -1,17 +1,22 @@
 // pages/storeHead/index.js
+var QQMapWX = require('../../resource/SDK/qqmap-wx-jssdk.js');
+var qqmapsdk;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    id:"d03c4a737be3462ba6218a6b494dafb7",
+    Modal_tryNow:false, //立即体验 显示 
+    tryNow_time:7, //立即体验 有效期 天
     topTip:"",
     vip:1,
     storeData:{
       "loginname": "13916494256",
       "name": "预约吧Family",
       "profile": "介绍介绍介绍介绍介绍介绍介绍介绍介绍介介绍介绍介绍介绍介绍介绍介绍介绍介绍介",      //简介
-      "pca": "上海市-上海市-黄浦区",     //上下接起来
-      "address": "上海市黄浦区蒙自路",
+      "pca": "上海市-东方明珠",     //上下接起来
+      "address": "",
       "phone": "",
       "logo": "20180504105256.jpg",      //地址    null或“”     todo
       "description1":null,
@@ -115,7 +120,7 @@ Page({
         {
           "id": "8b2d3e2d384449fe85896ef19fa1db74",
           "name": "张翔",
-          "gender": 0,     //性别
+          "gender": 0,     //性别 //男
           "sort": 0,
           "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6, eedc49feca8c42119b9e8a08eb5bbe69, 5a38562cdf3e44b7930e2af8c695eab1, a9d97a98bcd845959dc9f33e1872f917, 926cc99416f444cda2fc54cf2dbea1f0, 12dc576e0a674987b3363f96a0e56be6",
             "holiday": "0,3,4,5",
@@ -134,8 +139,8 @@ Page({
         },
         {
           "id": "bede5122d41e4bfc92120c5d47474797",
-          "name": "VIP快速解决通道",
-          "gender": 0,    //男
+          "name": "VIP",
+          "gender": 0,    
           "sort": 2,
           "good": "4e5d6c6c4ed24b2b82ed896368e41d28,e7661f018521457ba605f93c1d96e6f6,eedc49feca8c42119b9e8a08eb5bbe69,8ccf2fa6ec2144888588aa02a99f491b",
           "holiday": "6",
@@ -192,19 +197,47 @@ Page({
     serviceEmployee:[],
     activityDay:[],//可选择的day和星期 
     selectPeople:"",//已选的技师
-    selectDay:"" //已选的day
+    selectDay:"", //已选的day
+    selectOther:[
+      {}
+    ]
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    //实例化 腾讯的sdk  //https://lbs.qq.com/qqmap_wx_jssdk/method-geocoder.html
+    //todo：换公司的企业账号，解除限制
+    //日调用量：1万次 / Key
+    //并发数：5次 / key / 秒 。
+    qqmapsdk = new QQMapWX({
+      key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
+    });
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    //立即体验
+    this.checkTryNow();
+
+    let data = { "id": this.data.id }
+    console.log(data)
+    // wx.request({
+    //   url: 'https://api.yuyue58.cn/api/selecShop',
+    //   method: "POST",
+    //   data: data,
+    //   header: {
+    //     'content-type': 'multipart/form-data'
+    //   },
+    //   success(res) {
+    //     console.log(res.data)
+    //   }
+    // })
+
+
     //
     this.setData({
       serviceEmployee:this.data.storeData.serviceEmployee
@@ -247,7 +280,6 @@ Page({
         month++
       )
 
-      //console.log(month+"-"+day)
       activityDay.push({
         "year":now.getFullYear(),
         "date":month + "-" + day,
@@ -258,9 +290,17 @@ Page({
       this.setData({
         activityDay: activityDay
       })
-      //默认选择“今天”
-
+      //console.log(this.data.activityDay)
+      
+      
     }
+
+    //默认 选择 第一天
+    let selectDay = activityDay[0].id;
+    this.setData({
+      selectDay:selectDay
+    })
+    console.log(this.data.selectDay)
     
   },
 
@@ -304,6 +344,81 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //立即体验 蒙版 是否显示
+  //7天     测试1分钟
+  checkTryNow:function(){
+    let that = this;
+    let now =  Date.parse(new Date());
+
+    // let plusTime = this.data.tryNow_time*24*60*60*1000;
+    let plusTime = 0.5*60*1000;     //有效期 1分钟
+    let newLastTime = now + plusTime;
+    console.log("now:"+now)
+    console.log("newLastTime"+newLastTime)
+    wx.getStorage({
+      key: 'sjrk',  //商家入口 立即体验 7天有效  //试用半分钟
+      success: function (res) {
+        let lastTime = "";//上次登陆的时间戳
+        lastTime = res.data;
+        console.log("lastTime"+lastTime)
+        if (lastTime + plusTime<now){   //now 超出了 上次登录+有效期
+          that.setData({
+            Modal_tryNow: true
+          })
+        }
+      },
+      fail: function (res) {
+        that.setData({
+          Modal_tryNow: true
+        })
+        
+      },
+      complete:function(res){
+        wx.setStorage({
+          key: 'sjrk',
+          data: newLastTime
+        })
+      }
+    })
+  },
+
+  btn_tryNow:function(){
+    this.setData({
+      Modal_tryNow:false
+    })
+  },
+
+  openMap:function(e){
+    let location = e.currentTarget.dataset.location;
+    let address = {};  //坐标对象 lat经度 lng维度
+    qqmapsdk.search({
+      keyword: location,
+      success: function (res) {
+        address = res.data[0].location;
+        let latitude = address.lat;
+        let longitude = address.lng;
+        console.log(latitude)
+        console.log(longitude)        
+        wx.openLocation({
+          latitude: Number(latitude),
+          longitude: Number(longitude),
+          scale: 28
+        })
+      },
+      fail: function (res) {
+        this.setData({
+          topTip:"暂时无法找到该位置"
+        });
+      }
+    });
+    // console.log(latitude+"."+longitude)
+    // wx.openLocation({
+    //   latitude,
+    //   longitude,
+    //   scale: 28
+    // })
   },
 
   //点击 单个项目
@@ -407,7 +522,15 @@ Page({
   },
 
   //点击横滚条的day
-  selectDay:function(){
+  selectDay:function(e){
+    let selectTimeId = e.currentTarget.dataset.timeid;
+    this.setData({
+      selectDay: selectTimeId
+    })
+  },
+
+  //横滚条右侧的 日历 产开弹窗
+  rightCalendar:function(){
 
   }
 })

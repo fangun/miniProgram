@@ -1,7 +1,11 @@
 /* pages/storeHead/index.wxss */
+.modal{width: 100%;height: 100%;background: rgba(0, 0, 0, 0.7);position: fixed;z-index: 199;display: flex;flex-direction: column;align-items: center;justify-content: space-between}
+.modal image{width: 630rpx;height: 915rpx;margin-top:56rpx}
+.modal view{height: 88rpx;line-height: 88rpx;width: 100%;background: rgb(243, 67, 67);color: white;font-size: 28rpx;text-align: center;}
+
 .container{padding: 0;width: 100%;display: flex;flex-direction: column;background: #F0F0F0;justify-content: flex-start;align-items: center}
 .container>view{margin-bottom: 10rpx;background: white;width: 100%;}
-.container>.topTip{height: 100rpx;background: rgb(251,112,112);position: fixed;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;}
+.container>.topTip{height: 100rpx;background: rgb(251,112,112);position: fixed;z-index: 99;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;}
 .topTip image{width: 28rpx;height: 28rpx;margin-right: 15rpx}
 .container>view:nth-child(2),.container>view:nth-child(1){margin-bottom: 0}/*商家信息*/
 .info{width: 100%;}
@@ -42,26 +46,30 @@
 .textBlack{color: black}
 .selectInfo image{width: 29rpx;height: 29rpx;margin-left: 16rpx;}
 /*选择服务人员*/
-.peopleList{display: flex;flex-wrap: wrap;margin:0 46rpx;}
-.peopleList image{height: 88rpx;width: 88rpx;margin-bottom:6rpx}
+.peopleList{display: flex;flex-wrap: wrap;margin-left: 45rpx}
+.peopleList image{height: 88rpx;width: 88rpx;margin-bottom:26rpx}
 .peopleList text{margin-bottom: 39rpx;}
-.people{margin-right: 54rpx;font-size: 24rpx;display: flex;flex-direction: column;align-items: center}
+.people{font-size: 24rpx;display: flex;flex-direction: column;align-items: center;margin-right: 55rpx}
 
-.slideDate{height: 80rpx;border-top: 4rpx solid;border-bottom: 4rpx solid;border-color:rgb(255, 170, 170);display: flex;align-items: center}
-.slideDate scroll-view{width:100vw;height: 96rpx;white-space: nowrap;}
+#selectTime{display: flex;width: 100%;flex-direction: column;align-items: center}
+.slideDate{height: 80rpx;width: 100%;border-top: 4rpx solid;border-bottom: 4rpx solid;border-color:rgb(255, 170, 170);display: flex;align-items: center;justify-content:space-between;}
+.slideDate scroll-view{width:86vw;height: 96rpx;white-space: nowrap;}
 .date{width: 101rpx;height:96rpx;display: inline-flex;flex-direction: column;align-items: center;justify-content: center;color: rgb(111, 111, 111);border-radius: 10rpx;font-size:26rpx;margin-left: 50rpx}
 .date:nth-child(1){margin-left: 20rpx;}
 .dateSelected{background: rgb(243, 67, 67);color: white}
+.rightCalendar{width: 42rpx;height: 44rpx;margin-right: 33rpx;background-size: 100%;}
 
-.selectOther{width:100%;padding:0 30rpx}
-.form{width:100%;min-height: 200rpx;}
+.selectHour{display: flex;flex-wrap: wrap;text-align: center;width: 650rpx;justify-content: space-between;margin-top: 34rpx}
+.time{width: 140rpx;height:56rpx;line-height: 56rpx;border-radius: 8rpx;font-size: 26rpx;margin-bottom: 14rpx;border: 2rpx solid rgb(201, 201, 201);color: rgb(51, 51, 51)}
+.time:nth-child(5n),.time:nth-child(1){margin-left: 0}
+.timeUnable{background: rgb(239, 239, 239);border-color: rgb(239, 239, 239);color: rgb(153, 153, 153)}
+.timeSelect{background: rgb(243, 67, 67);border-color:rgb(243, 67, 67) ;color: white}
 
+#selectOther,#tip{width:100%;display: flex;flex-direction: column;align-items: center;padding-top: 38rpx;padding-bottom: 38rpx;}
+.form{width: 690rpx;height: 452rpx;border: 2rpx solid rgb(201, 201, 201);border-radius: 8rpx;display: flex;flex-direction: column;}
+.form>view{height: 90rpx;border-bottom: 2rpx solid rgb(201, 201, 201);margin-left: 63rpx;margin-right: 63rpx;display: flex;justify-content: space-between;align-items: center;font-size: 26rpx;color: rgb(51, 51, 51)}
+.form>view:last-child{border: 0;}
+.textareaPlaceholder{size: 26rpx}
+#tip .form{padding-left: 25rpx;padding-top: 22rpx}
+.btn_submit{width: 690rpx;height: 80rpx;line-height: 80rpx;font-size: 28rpx;color: white;background: rgb(243, 67,67 );margin-top: 24rpx;text-align: center;border-radius: 16rpx;}
 
-
-.box-item{
-  width: 101rpx;
-    height:100%;
-    border:2rpx solid green;
-    box-sizing: border-box;
-    display: inline-block
-}

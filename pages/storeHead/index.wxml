@@ -1,4 +1,8 @@
 <!--pages/storeHead/index.wxml-->
+<view class='modal' wx:if="{{Modal_tryNow}}">
+  <image src='../../resource/images/storeHead/tryNow.png'></image>
+  <view bindtap='btn_tryNow'>立即预约</view>
+</view>
 <view class='container'>
   <view class='topTip'>
     <image src="../../resource/images/storeHead/topTipMark.png"></image>
@@ -19,7 +23,7 @@
       </view>
       <text>收起</text>
       <view id='contact'>
-        <view class='location'>
+        <view class='location' bindtap='openMap' data-location='{{storeData.pca}}{{storeData.address}}'>
           <image class='image_location' src='../../resource/images/storeHead/location.png'></image>
           <text>{{storeData.pca}}{{storeData.address}}</text>
         </view>
@@ -77,8 +81,14 @@
     </view>
     <view class='peopleList'>
       <view wx:for="{{storeData.serviceEmployee}}" wx:key="key" class='people' >
-        <image wx:if="{{item.isAbled}}" src="../../resource/images/storeHead/pAble.png" data-id = "{{item.id}}" bindtap="selectPeople"></image>
-        <image wx:if="{{!item.isAbled}}" src="../../resource/images/storeHead/pDisable.png" bindtap='selectDisablePeople'></image>
+        <block wx:if="{{item.isAbled}}">
+          <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" bindtap="selectPeople"></image>
+          <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" bindtap="selectPeople"></image>
+        </block>
+        <block wx:if="{{!item.isAbled}}">
+          <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
+          <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
+        </block>
         <text>{{item.name}}</text>
       </view>
     </view>
@@ -89,26 +99,61 @@
       <text class='titleText'>选择服务时间</text>
     </view>
     <view class='slideDate'>
-      <!-- <view wx:for="{{}}"></view> -->
-      <!-- <view class='date'>
-        <text>周四</text>
-        <text>09-17</text>
-      </view>
-      <view class='date dateSelected'>
-        <text>周四</text>
-        <text>09-17</text>
-      </view> -->
       <scroll-view scroll-x="true" >
-        <view wx:for="{{activityDay}}" wx:key="key" class='date' bindtap='selectDay'>
+        <view wx:for="{{activityDay}}" wx:key="key" class='date {{item.id==selectDay?"dateSelected":""}}' data-timeid = "{{item.id}}" bindtap='selectDay'>
           <text>{{item.week}}</text>
           <text>{{item.date}}</text>
         </view>
       </scroll-view>
+      <view class='rightCalendar' style='background-image:url(../../resource/images/storeHead/calendar.png)' bindtap='rightCalendar'></view>
     </view>
-    <view class='slideHour'></view>
+    <view class='selectHour'>
+      <view class="time timeUnable">09：00</view>
+      <view class="time timeSelect" >09：00</view>
+      <view class="time timeSelect">09：00</view>
+      <view class="time">09：00</view>
+      <view class="time">09：00</view>
+      <view class="time">09：00</view>
+      <view class="time">09：00</view>
+    </view> 
   </view>
   <view id='selectOther'>
-    <view class='form'></view>
+    <view class='form'>
+      <view>
+        <text>首次到店</text>
+        <view class="checkbox"></view>
+      </view>
+      <view>
+        <text>帮别人预定</text>
+        <view>
+          <text></text>
+          <view class="checkbox"></view>
+        </view>
+      </view>
+      <view>
+        <text>出生日期</text>
+        <view>
+          <text></text>
+          <view class="checkbox"></view>
+        </view>
+      </view>
+      <view>
+        <text>姓名</text>
+        <view>张三</view>
+      </view>
+      <view>
+        <text>座机</text>
+        <view>010-12345678</view>
+      </view>
+    </view>
   </view>
-  <view id='tip'></view>
+  <view id='tip'>
+    <view class='block_title'>
+        <image src='../../resource/images/storeHead/titleTriangle.png'></image>
+        <text class='titleText'>备注信息</text>
+      </view>
+    <textarea class='form' placeholder='请填写备注' placeholder-class='textareaPlaceholder'>
+    </textarea>
+    <view bindtap='submit' class='btn_submit'>提交预约</view>
+  </view>
 </view>
