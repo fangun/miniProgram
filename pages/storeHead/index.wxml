@@ -4,15 +4,21 @@
   <view bindtap='btn_tryNow'>立即预约</view>
 </view>
 <view class='container'>
-  <view class='topTip'>
+  <view class='topTitle'>
+    <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
+    <view>店家首页</view>
+    <view class='btn'></view>
+  </view>
+  <view class='topTip {{show == 1?"show":(show == 2?"hide":"")}}'>
     <image src="../../resource/images/storeHead/topTipMark.png"></image>
     <text>{{topTip}}</text>
   </view>
   <view class='info'>
     <view id='infoBlock'>
       <view class='intro'>
-        <view wx:if="{{storeData.logo==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></view>
-        <view wx:if="{{storeImage!=''}}" id='headImage' style='background-image:url({{"https://www.yuyue58.cn/fileImage/"+storeData.logo}});'></view>
+        <!-- <image wx:if="{{storeData.logo==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></image> -->
+        <image wx:if="{{storeData.logo==''}}" id='headImage' src="../../resource/images/storeHead/noLogo.png"></image>
+        <image wx:if="{{storeData.logo!=''}}" id='headImage' style='background-image:url({{"https://www.yuyue58.cn/fileImage/"+storeData.logo}});'></image>
         <view id="nameintro">
           <view class='storeTitle'>
             <text>{{storeData.name}}</text>
@@ -32,8 +38,8 @@
           <view class='tel_right'>
             <text>{{storeData.phone?storeData.phone:"暂无"}}</text>
             <view wx:if="{{vip==1}}" class='outBtn'>
-              <image id='koubei' style='background-image:url(../../resource/images/storeHead/koubei.png)'></image>
-              <image id='meituan' style='background-image:url(../../resource/images/storeHead/meituan.png)'></image>
+              <image id='koubei' src="../../resource/images/storeHead/koubei.png"></image>
+              <image id='meituan' src="../../resource/images/storeHead/meituan.png"></image>
             </view>
             <view  wx:if="{{vip==0}}">
               <view>更多介绍</view>
@@ -100,12 +106,12 @@
     </view>
     <view class='slideDate'>
       <scroll-view scroll-x="true" >
-        <view wx:for="{{activityDay}}" wx:key="key" class='date {{item.id==selectDay?"dateSelected":""}}' data-timeid = "{{item.id}}" bindtap='selectDay'>
+        <view wx:for="{{peopleActivityDay}}" wx:key="key" wx:for-index="index" class='date {{item.id==selectDay?"dateSelected":""}}' data-timeid = "{{item.id}}" bindtap='selectDay'>
           <text>{{item.week}}</text>
           <text>{{item.date}}</text>
         </view>
       </scroll-view>
-      <view class='rightCalendar' style='background-image:url(../../resource/images/storeHead/calendar.png)' bindtap='rightCalendar'></view>
+      <image class='rightCalendar' src="../../resource/images/storeHead/calendar.png" bindtap='rightCalendar'></image>
     </view>
     <view class='selectHour'>
       <view class="time timeUnable">09：00</view>
@@ -156,4 +162,13 @@
     </textarea>
     <view bindtap='submit' class='btn_submit'>提交预约</view>
   </view>
+  <!-- <view class='modal'>
+    <view class='modal_calendar'></view>
+  </view> -->
+  <calendar 
+	currentYear='2018'
+	currentMonth="8"
+	bindsendObj='getCalendarData'
+	
+></calendar>
 </view>
