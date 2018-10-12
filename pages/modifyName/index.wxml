@@ -1,4 +1,8 @@
 <!--index.wxml-->
 <view class="container">
+    <view class="pageTitle">{{pageTitle}}</view>
     <view class="des">2-24个字符，一个月只能申请修改一次</view>
+    <input class="name">李冲</input>
+
+    <view class="modifyName" bindtap="modifyName">确认</view>
 </view>

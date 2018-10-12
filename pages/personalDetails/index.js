@@ -4,6 +4,14 @@ const app = getApp()
 
 Page({
   data: {
+
+  },
+  avatarPage:function(){
+    wx.navigateTo({url: '../chooseAvatar/index'});
+  },
+
+  namePage: function () {
+    wx.navigateTo({url: '../modifyName/index'});
   },
 
   onLoad: function () {

@@ -1,7 +1,236 @@
-.ent {
-    margin:40pt;
-    border:4px solid yellow;
-    padding:20pt;
-    background:blue;
+page {
+    background-color: #eee;
+}
+
+.container {
+    display: block;
+    padding: 0;
+}
+
+.pageTitle {
+    width:100%;
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
     color:#fff;
+    line-height: 88rpx;
+}
+
+.header {
+    padding: 50rpx;
+    text-align: center;
+
+    font-family: PingFangSC-Regular;
+    font-size: 28rpx;
+    color: rgb(86, 86 , 86);
+}
+
+.card {
+    box-sizing:border-box;
+    height:160rpx;
+    margin:0 30rpx 30rpx 30rpx;
+    padding:0 60rpx;
+    
+    background-color:#fff;
+    font-family:PingFangSC-Regular;
+    font-size:34rpx;
+    color:rgb(86, 86 , 86);
+    border-radius:10rpx;
+    text-align:center;
+    line-height:1.5;
+    display:flex;
+    align-items:center;
+
+    box-shadow:2px 2px 2px rgba(0,0,0,.2)
+}
+
+.mdi {
+    padding: 20rpx;
+    text-align: center;
+
+    font-family: PingFangSC-Regular;
+    font-size: 24rpx;
+    color: rgb(86, 86 , 86);
+}
+
+.voiceInput{
+    position: absolute;
+
+    bottom: 124rpx;
+    left: 0;
+    right: 0;
+
+    margin:auto;
+
+    width: 125rpx;
+    height: 125rpx;
+    border-radius: 50%;
+    box-shadow:1px 1px 1px 0px rgba(0,0,0,.4);
+}
+
+.voiceInput image {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 手动输入 */
+.programInput {
+    /* box-sizing: border-box; */
+    /* width: 100%;
+    padding: 22rpx 30rpx; */
+    width: calc(100% - 60rpx);
+    padding: 22rpx 30rpx;
+    background-color: #fff;
+
+    font-family: PingFangSC-Regular;
+    font-size: 28rpx;
+    color: rgb(125, 125 , 125);
+
+    border:1px solid rgb(246, 246, 246);
+}
+
+
+.box {
+    box-sizing:border-box;
+    padding:0 30rpx 0 30rpx;
+    width:100%;
+
+    background-color: #fff;
+}
+
+.itemHead {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20rpx;
+    padding-bottom: 10rpx;
+}
+
+.itemHead .des {
+    flex:1;
+    font-family:PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgb(153,153,153);
+    flex:1;
+    line-height:40rpx;
+}
+
+.itemHead .delete image {
+    flex:1;
+
+    display: block;
+    width:34rpx;
+    height:40rpx;
+}
+
+/*  */
+.itemList {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:-20rpx;
+    margin-right:-20rpx;
+    
+}
+
+.itemList .item {
+    padding: 14rpx 20rpx;
+    font-family:PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgb(153,153,153);
+
+    border-radius: 20rpx;
+    background-color:rgb(247, 247,247);
+
+    margin:10rpx 20rpx 20rpx 20rpx;
+}
+
+.bbox {
+    width: 100%;
+    background-color: #fff;
+    margin-top: 30rpx;
+}
+
+.bbox .bitem {
+    display: flex;
+    width: 100%;
+    height: 80rpx;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    padding-left:30rpx;
+}
+
+.bbox .bitem:last-child {
+    border-bottom: none;
+}
+
+.bitem > view:first-child {
+    flex: 4;
+}
+
+.bitem > view:nth-child(2) {
+    flex: 7;
+
+    font-family:PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(120,120,120);
+    text-align:right;
+}
+
+.bitem > view:nth-child(3) {                                                                        
+    flex: 1;
+
+    justify-content:flex-end;
+    display:flex;
+    padding-right:60rpx;
+}
+
+.bitem > view:first-child > text {
+    font-family:PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(51,51,51);
+}
+
+.xt > view:first-child {
+    flex:6;
+}
+
+.xt > view:nth-child(2),
+.xt > view:nth-child(3) {
+    flex:1;
+}
+
+.foldIcon {
+    display: block;
+    width:12rpx;
+    height:30rpx;
+}
+
+.bitem > view:first-child > .grayStyle {
+    font-family:PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(153,153,153);
+}
+
+.moreInfoTag {
+    font-family:PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(153,153,153);
+    line-height: 80rpx;
+    background-color: #fff;
+    text-align: center;
+
+    margin-bottom: 100rpx;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+}
+
+.moreInfoTag image {
+    display: block;
+    width:26rpx;
+    height: 20rpx;
+    margin-left: 14rpx;
 }

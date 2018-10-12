@@ -1,7 +1,50 @@
+page {
+    background-color: #eee;
+}
+
+.container {
+    display: block;
+    padding: 0;
+}
+
+.pageTitle {
+    width:100%;
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+}
+
 .des {
     font-family:PingFangSC-Regular;
     font-size:24rpx;
     color:rgb(102,102,102);
 
-    padding: 
+    padding: 30rpx;
+}
+
+.name {
+    box-sizing: border-box;
+    padding: 30rpx;
+    background-color: #fff;
+    height: 100rpx;
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    color: #000;
+}
+
+.modifyName {
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+
+    border-radius: 10rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top:455rpx;
 }

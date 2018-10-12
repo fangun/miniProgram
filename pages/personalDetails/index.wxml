@@ -2,7 +2,7 @@
 <view class="container">
 
   <view class="box">
-    <view class="item">
+    <view class="item" bindtap="avatarPage">
       <view>
         <text decode ="{{true}}" space="{{true}}">头&emsp;&emsp;像：</text>
       </view>
@@ -10,7 +10,7 @@
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
-    <view class="item">
+    <view class="item" bindtap="namePage">
       <view>
         <text decode ="{{true}}" space="{{true}}">姓&emsp;&emsp;名：</text>
       </view>

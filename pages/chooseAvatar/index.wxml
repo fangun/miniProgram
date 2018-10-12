@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="pageTitle">{{pageTitle}}</view>
+
+
+  <view class="card" bindtap="chooseAvatar">
+    <block wx:for="{{avatarList}}" wx:key='*this'>
+      <view class="item">
+        <image src="{{item.src}}" />
+      </view>
+    </block>
+  </view>
+
+  <view class="test">
+
+  </view>
+
+</view>

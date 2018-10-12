@@ -1,22 +1,23 @@
 {
   "pages":[
     "pages/personalDetails/index",
+    "pages/modifyName/index",
+    "pages/chooseAvatar/index",
+
+    "pages/addAppointment/index",
+    
     "pages/searchStore/index",
     "pages/customEntrance/index",
-
     "pages/entrancePage/index",
-    "pages/storeHead/index",
-    
-    "pages/addAppointment/index",
-    "pages/modifyName/index"
+    "pages/storeHead/index"
     
   ],
 
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#F34343",
-    "navigationBarTitleText": "",
-    "navigationBarTextStyle":"white"
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "上预约吧",
+    "navigationBarTextStyle":"#fff"
   },
 
   "tabBar": {

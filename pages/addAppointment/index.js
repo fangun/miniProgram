@@ -4,20 +4,8 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle: '预约吧',
-
-  },
-
-  customEntrance: function() {
-    wx.navigateTo({
-      url: `../customEntrance/index`
-    })
-  },
-  
-  storeEntrance: function() {
-    wx.navigateTo({
-      url: `../storeHead/index`
-    })
+    pageTitle:'添加预约',
+    voiceShow: false
   },
 
   onLoad: function () {
