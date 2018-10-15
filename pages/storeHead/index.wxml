@@ -156,7 +156,7 @@
   <view id='tip'>
     <view class='block_title'>
         <image src='../../resource/images/storeHead/titleTriangle.png'></image>
-        <text class='titleText'>备注信息</text>
+        <text class='titleText'bindsendObj='getCalendarData'>备注信息</text>
       </view>
     <textarea class='form' placeholder='请填写备注' placeholder-class='textareaPlaceholder'>
     </textarea>
@@ -165,10 +165,11 @@
   <!-- <view class='modal'>
     <view class='modal_calendar'></view>
   </view> -->
-  <calendar 
+  <calendar id="calendar"
 	currentYear='2018'
-	currentMonth="8"
+	currentMonth="10"
 	bindsendObj='getCalendarData'
-	
+	disabledDay = "{{disabledDay}}"
+  selectDay = "{{selectDay}}"
 ></calendar>
 </view>

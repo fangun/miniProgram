@@ -1,14 +1,16 @@
 .calendar{
 	width: 100%;
   min-height:500rpx;
+  background: white
 }
 .calendar .tit{
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-size: 36rpx;
-	color: #2A2A2A;
+	color: white;
 	padding: 40rpx 0;
+  background: rgb(243, 67, 67)
 }
 .calendar .tit .current{
 	margin: 0 40rpx;
@@ -17,19 +19,52 @@
 	display: flex;
 	flex-wrap: wrap;
 	box-sizing: border-box;
-	padding-left: 25rpx;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+	justify-content: space-around
 }
 .calendar .content view{
-	width: 100rpx;
-	height: 80rpx;
-	line-height: 80rpx;
+	width: 94rpx;
+	height: 84rpx;
+	line-height: 84rpx;
 	text-align: center;
 	flex-shrink: 0;
-	font-size: 34rpx;
+	font-size: 27rpx;
 	color: #2A2A2A;
 	/* background: rgb(224, 199, 199); */
 	margin: 14rpx 0;
 }
+
+.calendar .content .able,.calendar .content .disabled{
+	/* color: white; */
+  border: 2rpx solid rgb(228, 228, 228);
+  box-sizing:border-box;
+  border-radius: 6rpx
+}
+.calendar .content .able{
+  color: black
+}
+.calendar .content .disabled{
+  background: rgb(228, 228, 228);
+  color: rgb(153, 153, 153)
+}
 .calendar .content .gray{
-	color: #999;
+	color: rgb(201, 199, 199)
+}
+.calendar .content .selectDay{
+  background: rgb(243, 67, 67);color:white;
+}
+
+
+.underline:after{
+  content: "";
+  display: block;
+  background: rgb(153, 153, 153);
+  width:28rpx;
+  height:2rpx;
+  margin: 0 auto;
+  margin-top: -20rpx
+}
+.selectDay:after{
+  background: white
 }

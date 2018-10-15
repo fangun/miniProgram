@@ -15,6 +15,7 @@ Page({
     storeData:{
       "loginname": "13916494256",
       "name": "预约吧Family",
+      "serviceplace": 4, //每小时 最大 服务人数
       "profile": "介绍介绍介绍介绍介绍介绍介绍介绍介绍介介绍介绍介绍介绍介绍介绍介绍介绍介绍介",      //简介
       "pca": "上海市-东方明珠",     //上下接起来
       "address": "",
@@ -229,6 +230,7 @@ Page({
     serviceEmployee:[],
     activityDay:[],//可选择的day和星期 
     peopleActivityDay:[], //该人 的可选day
+    disabledDay:[],  //删掉的date    在日历里显示灰色背景 不可选
     selectPeople:"",//已选的技师
     selectDay:"", //已选的day
     selectOther:[
@@ -597,29 +599,34 @@ Page({
     }
    
     let peopleActivityDay = this.data.activityDay.slice(0); //深拷贝
+    let deleteDates = [];
     console.log(peopleActivityDay);
-    for (let i = 0; i < peopleActivityDay.length;i++){
+    for (let k = 0; k < peopleActivityDay.length;k++){
        //1.删店
-      let weekIndex = peopleActivityDay[i].weekIndex
-      let id = peopleActivityDay[i].id;
-
+       //console.log(k);
+      let weekIndex = peopleActivityDay[k].weekIndex
+      let id = peopleActivityDay[k].id;
       if(holiday.indexOf(weekIndex)!=-1){
-        peopleActivityDay.splice(i,1);
-        i--;
+        let deleteItem = peopleActivityDay.splice(k,1);
+        deleteDates.push(deleteItem[0]);
+        //k--;
       }else{
         //2.删人
         for(let j=0;j<spDates.length;j++){
           //console.log(id+"-"+spDates[j])
           if(spDates[j].indexOf(id)!=-1){
-            peopleActivityDay.splice(i, 1);
-            i--;
+            let deleteItem = peopleActivityDay.splice(k, 1);
+            deleteDates.push(deleteItem[0]);
+            //k--;
           }
         }
       }
     }    
     console.log(peopleActivityDay);
+    console.log(deleteDates)
     this.setData({
-      peopleActivityDay: peopleActivityDay
+      peopleActivityDay: peopleActivityDay,
+      disabledDay:deleteDates
     })
   },
 
@@ -629,11 +636,19 @@ Page({
     this.setData({
       selectDay: selectTimeId
     })
+    console.log(selectTimeId)
   },
 
   //横滚条右侧的 日历 产开弹窗
   rightCalendar:function(){
+    console.log("showCalendar");
+    this.singList = this.selectComponent("#calendar");
+    this.singList.getData();
+    
+  },
 
+  getCalendarData:function(e) { // 监听日历数据
+    console.log(e.detail)
   }
   
 })

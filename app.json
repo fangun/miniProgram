@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/storeHead/index",
     "pages/personalDetails/index",
     
     "pages/modifyName/index",
@@ -11,8 +12,8 @@
     "pages/addAppointment/index",
     "pages/searchStore/index",
     "pages/customEntrance/index",
-    "pages/entrancePage/index",
-    "pages/storeHead/index"
+    "pages/entrancePage/index"
+    
 
   ],
 

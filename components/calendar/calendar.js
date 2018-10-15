@@ -11,7 +11,26 @@ Component({
 		currentMonth: { // // 当前显示的月
 			type: Number,
 			value: new Date().getMonth() + 1
-		}
+		},
+    disabledDay:{
+      type:Array,
+      value: [{ year: 2018, date: "10-19", week: "周五", weekIndex: 4, id: "2018-10-19" }],
+      observer: function (newVal, oldVal, changedPath) {
+        // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
+        // 通常 newVal 就是新设置的数据， oldVal 是旧数据
+        console.log("disabledDay改变")
+        this.getAllArr()
+      }
+    },
+    selectDay:{
+      type:String,
+      value:"",
+      observer: function (newVal, oldVal, changedPath) {
+        this.setData({
+          selectDay:newVal
+        })
+      }
+    }
 	},
 
     /**
@@ -21,9 +40,15 @@ Component({
 		currentMonthDateLen: 0, // 当月天数
 		preMonthDateLen: 0, // 当月中，上月多余天数
 		allArr:[], // 当月所有数据
+    //test:"test2"
+    disabledDay:[],
+    today:"",
+    selectDay:""
 	},
 	ready(){
-		this.getAllArr()
+		this.getAllArr();
+
+    
 	},
 
     /**
@@ -71,18 +96,35 @@ Component({
 		// 获取当月数据，返回数组
 		getCurrentArr(){ 
 			let currentMonthDateLen = this.getDateLen(this.data.currentYear, this.data.currentMonth) // 获取当月天数
-			let currentMonthDateArr = [] // 定义空数组
-			if (currentMonthDateLen > 0) {
+			let currentMonthDateArr = []; // 定义空数组
+      let disabledDay = this.data.disabledDay
+      if (currentMonthDateLen > 0) {
 				for (let i = 1; i <= currentMonthDateLen; i++) {
+          let dayId =  this.data.currentYear + "-" + this.data.currentMonth + "-" + i;
+          let flag = false;   //是否在 不可选 的列表中  //默认不在      1.true删
+          for (let j = 0; j < disabledDay.length;j++){
+            if (disabledDay[j].id==dayId){
+              flag=true
+            }
+            //console.log(disabledDay[j])
+          }
+          //if(.indexOf(dayId))
 					currentMonthDateArr.push({
 						month: 'current', // 只是为了增加标识，区分上下月
-						date: i
+						date: i,
+            dayId:dayId,
+            disabled:flag
 					})
 				}
 			}
+
+      let today = this.data.currentYear + "-" + this.data.currentMonth + "-" + new Date().getDate();
 			this.setData({
-				currentMonthDateLen
+				currentMonthDateLen,
+        today
 			})
+      
+
 			return currentMonthDateArr
 		},
 		// 获取当月中，上月多余数据，返回数组
@@ -94,7 +136,7 @@ Component({
 				let date = this.getDateLen(year, month) // 获取上月天数
 				for (let i = 0; i < preMonthDateLen; i++) {
 					preMonthDateArr.unshift({ // 尾部追加
-                        month: 'pre', // 只是为了增加标识，区分当、下月
+            month: 'pre', // 只是为了增加标识，区分当、下月
 						date: date
 					})
 					date--
@@ -128,6 +170,7 @@ Component({
 			this.setData({
 				allArr
 			})
+      
 			let sendObj = {
 				currentYear: this.data.currentYear,
 				currentMonth: this.data.currentMonth,
@@ -153,6 +196,26 @@ Component({
 				currentMonth: month
 			})
 			this.getAllArr()
-		}
+		},
+
+    //点击某天
+    selectDate(e){
+      console.log(e)
+    },
+
+    // //获取 不可选的 列表
+    // getDisabledDay(){
+    //   console.log("getData");
+    //   // console.log(this.data.disabledDay);
+    //   // let disabledDayString = "";
+    //   // for(let i=0;i<this.data.disabledDay.length;i++){
+    //   //   disabledDayString = disabledDayString + this.data.disabledDay[i].id+";";
+    //   //   //console.log(this.data.disabledDay[i].id)
+    //   // }
+    //   // console.log("不可选天string")
+    //   // console.log(disabledDayString);
+      
+    // }
+
 	}
 })
