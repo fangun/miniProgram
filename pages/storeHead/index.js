@@ -24,7 +24,7 @@ Page({
       "description1":null,
       "description2":"选择服务技师",
       "bookingMonth":3,     //服务时间，向后共计3个月
-      "bookingday":23,
+      "bookingDay":23,      //以后只有bookingday，取消bookingMonth
       "frontdesk":1,        //选择项目 1可多选 0单选
       "timeSwitch":0,
       "timeSetting":0,
@@ -298,7 +298,7 @@ Page({
     //生成服务时间 当前日期+服务天数
     let activityDay = [];
     let weeks = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
-    for (let i = 0; i < this.data.storeData.bookingday;i++){
+    for (let i = 0; i < this.data.storeData.bookingDay;i++){
       let now = new Date();
       now.setDate(now.getDate() + i);
       let day = now.getDate();
@@ -642,13 +642,19 @@ Page({
   //横滚条右侧的 日历 产开弹窗
   rightCalendar:function(){
     console.log("showCalendar");
-    this.singList = this.selectComponent("#calendar");
-    this.singList.getData();
+    // this.singList = this.selectComponent("#calendar");
+    // this.singList.getData();
     
   },
 
   getCalendarData:function(e) { // 监听日历数据
     console.log(e.detail)
+  },
+
+  onMyEvent: function (e) {
+    this.setData({
+      selectDay: e.detail.selectDay
+    })
   }
   
 })

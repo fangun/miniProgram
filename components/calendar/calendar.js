@@ -42,8 +42,9 @@ Component({
 		allArr:[], // 当月所有数据
     //test:"test2"
     disabledDay:[],
-    today:"",
-    selectDay:""
+    today:"",  //xxxx-xx-xx
+    selectDay:"",
+    todayDay:'' //今天几号
 	},
 	ready(){
 		this.getAllArr();
@@ -113,7 +114,7 @@ Component({
 						month: 'current', // 只是为了增加标识，区分上下月
 						date: i,
             dayId:dayId,
-            disabled:flag
+            disabled:flag,
 					})
 				}
 			}
@@ -200,21 +201,16 @@ Component({
 
     //点击某天
     selectDate(e){
-      console.log(e)
+      console.log(e);
+      
+      let select = e.currentTarget.dataset;
+      let day = select.year + "-" + select.month + "-" +select.date;
+      this.triggerEvent('myevent', { selectDay: day });
     },
 
-    // //获取 不可选的 列表
-    // getDisabledDay(){
-    //   console.log("getData");
-    //   // console.log(this.data.disabledDay);
-    //   // let disabledDayString = "";
-    //   // for(let i=0;i<this.data.disabledDay.length;i++){
-    //   //   disabledDayString = disabledDayString + this.data.disabledDay[i].id+";";
-    //   //   //console.log(this.data.disabledDay[i].id)
-    //   // }
-    //   // console.log("不可选天string")
-    //   // console.log(disabledDayString);
+    // change: function () {
       
+    //   this.triggerEvent('myevent', { selectDay: "2018-10-16" });
     // }
 
 	}
