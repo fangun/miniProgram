@@ -1,0 +1,47 @@
+.container {
+    display: block;
+    padding: 0;
+}
+
+.pageTitle {
+    width:100%;
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+}
+
+.box {
+    border-top: 30rpx solid #eee;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+
+    height: 100rpx;
+
+    font-family:PingFangSC-Regular;
+    font-size: 32rpx;
+    color: rgb(102, 102, 102);
+
+    border-bottom: 1px solid #eee;
+}
+
+.modifyPassword {
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+
+    border-radius: 10rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top:306rpx;
+}

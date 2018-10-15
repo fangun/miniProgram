@@ -1,11 +1,14 @@
 {
   "pages":[
     "pages/personalDetails/index",
-    "pages/modifyName/index",
-    "pages/chooseAvatar/index",
-
-    "pages/addAppointment/index",
     
+    "pages/modifyName/index",
+    "pages/modifyPassword/index",
+    "pages/feedback/index",
+    "pages/expenseCalendar/index",
+
+    "pages/chooseAvatar/index",
+    "pages/addAppointment/index",
     "pages/searchStore/index",
     "pages/customEntrance/index",
     "pages/entrancePage/index",
@@ -16,7 +19,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
-    "navigationBarTitleText": "上预约吧",
+  "navigationBarTitleText": "上预约吧~预定一切生活服务~",
     "navigationBarTextStyle":"#fff"
   },
 

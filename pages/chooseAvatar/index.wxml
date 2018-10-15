@@ -3,17 +3,13 @@
 
   <view class="pageTitle">{{pageTitle}}</view>
 
-
   <view class="card" bindtap="chooseAvatar">
     <block wx:for="{{avatarList}}" wx:key='*this'>
       <view class="item">
-        <image src="{{item.src}}" />
+        <image class="{{item.active ? 'active' : ''}}" data-id="{{index}}" src="{{item.src}}" />
       </view>
     </block>
   </view>
 
-  <view class="test">
-
-  </view>
-
+  <view class="modifyAvatar" bindtap="modifyAvatar">确认</view>
 </view>
