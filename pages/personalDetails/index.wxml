@@ -1,6 +1,8 @@
 <!--index.wxml-->
 <view class="container">
 
+  <view class="pageTitle">{{pageTitle}}</view>
+  
   <view class="box">
     <view class="item" bindtap="avatarPage">
       <view>
@@ -38,7 +40,7 @@
     </view>
   </view>
 
-  <view class="box">
+  <view class="box" bindtap="expenseCalendarPage">
     <view class="item">
       <view>
         <text>消费记录</text>
@@ -47,7 +49,7 @@
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
-    <view class="item">
+    <view class="item" bindtap="passwordPage">
       <view>
         <text>修改密码</text>
       </view>
@@ -55,7 +57,7 @@
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
-    <view class="item">
+    <view class="item" bindtap="feedback">
       <view>
         <text>意见反馈</text>
       </view>

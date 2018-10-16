@@ -2,6 +2,18 @@
     padding: 0 0 0 0;
 }
 
+.pageTitle {
+    width:100%;
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+    height:88rpx;
+
+}
+
 .box {
     width: 100%;
     padding-left: 60rpx;

@@ -51,6 +51,20 @@ page {
     border-radius: 50%;
 }
 
-.test {
-    height: 500px;
+.card > view .active {
+    border:2px solid red;
+}
+
+.modifyAvatar {
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+
+    border-radius: 10rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    margin-top:109rpx;
 }
