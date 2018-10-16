@@ -43,25 +43,36 @@
 	margin: 4rpx 0;
 }
 
+.calendar .content .able{
+  color: black;
+  border:2rpx solid rgb(228, 228, 228);
+}
+
+/*上月，下月*/
+.calendar .content .gray{
+	color: rgb(231, 231, 231) ;
+  border: none
+}
+
+.calendar .content .ago{
+  color:rgb(201, 199, 199);
+  border:none
+}
+
 .calendar .content .able,.calendar .content .disabled{
-	/* color: white; */
-  border: 2rpx solid rgb(228, 228, 228);
   box-sizing:border-box;
   border-radius: 6rpx
 }
-.calendar .content .able{
-  color: black
-}
+
 .calendar .content .disabled{
-  background: rgb(228, 228, 228);
+  background: rgb(239, 239, 239);
+  border:2rpx solid rgb(239, 239, 239);
   color: rgb(153, 153, 153)
 }
-.calendar .content .gray{
-	color: rgb(201, 199, 199);
-  border: none
-}
+
 .calendar .content .selectDay{
-  background: rgb(243, 67, 67);color:white;
+  background: rgb(243, 67, 67);
+  color:white;
 }
 
 

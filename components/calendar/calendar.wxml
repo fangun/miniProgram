@@ -17,10 +17,6 @@
 		<view>四</view>
 		<view>五</view>
 		<view>六</view>
-		<view 
-			wx:for="{{allArr}}" 
-			wx:key="{{index}}"
-			class="{{item.disabled?'disabled':'able'}} {{item.month == 'current' ? '' : 'gray'}} {{today==item.dayId?'underline':''}} {{todayDay<item.date?'gray':''}} {{selectDay==item.dayId?'selectDay':''}}"
-      data-year='{{currentYear}}' data-month='{{currentMonth}}' data-date = '{{item.date}}' bindtap='{{item.month == "current"&&item.disabled==false?"selectDate":""}}' >{{item.date}}</view>
+		<view 	wx:for="{{allArr}}" 	wx:key="{{index}}"	class="able {{item.month == 'current' ? '' : 'gray'}} {{item.disabled?'disabled':''}}  {{(item.date>0&&item.date<todayDay)?'ago':''}} {{item.date==todayDay?'underline':''}} {{selectDay==item.dayId?'selectDay':''}}"  data-year='{{currentYear}}' data-month='{{currentMonth}}' data-date = '{{item.date}}' bindtap='{{item.month == "current"&&item.disabled==false&&item.date>=todayDay?"selectDate":""}}' >{{item.date}}</view>
 	</view>
 </view>

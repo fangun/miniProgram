@@ -6,11 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    orderList:[],
     id:"d03c4a737be3462ba6218a6b494dafb7",
     Modal_tryNow:false, //立即体验 显示 
     tryNow_time:7, //立即体验 有效期 天
     topTip:"",
-    vip:1,
+    vip:-1,
     hoursAee:[],
     storeData:{
       "loginname": "13916494256",
@@ -26,9 +27,25 @@ Page({
       "bookingMonth":3,     //服务时间，向后共计3个月
       "bookingDay":23,      //以后只有bookingday，取消bookingMonth
       "frontdesk":1,        //选择项目 1可多选 0单选
-      "timeSwitch":0,
-      "timeSetting":0,
-      "serviceTime":"06:30|07:00|07:30|08:00|08:30|09:00|09:30|10:00|10:30|11:00|11:30|12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:00|17:00|17:00|17:30|18:00|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00",
+      "timeSwitch":1,
+      "timeSetting":0,    //0:30    1:60   分钟
+      "serviceTime": "12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:00|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "serviceHour": 12,
+      "Mon": "12:30|13:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:00|18:30|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "Tues": "12:00|13:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|19:00|19:30|20:00|20:30|21:00|22:00|22:30|23:00|23:30",
+      "Wed": "12:30|13:00|14:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:00|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "Thur": "13:00|13:30|14:00|15:30|16:00|16:30|17:00|17:30|18:00|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "Fri": "13:30|14:00|14:30|15:00|15:30|16:00|17:00|17:30|18:00|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "Sat": "12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:30|19:00|19:30|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "Sun": "12:00|12:30|13:00|13:30|14:00|14:30|15:00|15:30|16:00|16:30|17:00|17:30|18:00|18:30|19:00|20:00|20:30|21:00|21:30|22:00|22:30|23:00|23:30",
+      "MonHour": 23,
+      "TuesHour": 5.5,
+      "WedHour": 10.5,
+      "ThurHour": null,
+      "FriHour": null,
+      "SatHour": null,
+      "SunHour": null,
+      "dailySelect": 1,
       "serviceItems": [				//服务项目
         {
           "id": "4e5d6c6c4ed24b2b82ed896368e41d28",
@@ -241,6 +258,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+
     //实例化 腾讯的sdk  //https://lbs.qq.com/qqmap_wx_jssdk/method-geocoder.html
     //todo：换公司的企业账号，解除限制
     //日调用量：1万次 / Key
@@ -252,6 +271,14 @@ Page({
     wx.setNavigationBarTitle({
       title: '上预约吧'
     })
+
+    let that = this;
+    setTimeout(function () {
+      that.setData({
+        vip: 1
+      })
+    }, 1000) 
+    
 
   },
 
@@ -276,8 +303,6 @@ Page({
     //   }
     // })
 
-
-    //
     this.setData({
       serviceEmployee:this.data.storeData.serviceEmployee
     })
@@ -343,14 +368,484 @@ Page({
       selectDay:selectDay
     })
     console.log(this.data.selectDay)
-    
 
-    //生成默认的 小时段  店家数据
-    let hours = this.data.storeData.serviceTime;
-    let hoursArr = hours.split("|");
+    //获取已预约的小时 人数
+    let orderList = [
+      {
+        "date": "2018-07-18",
+        "time": "12:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-18",
+        "time": "13:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-19",
+        "time": "15:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-19",
+        "time": "15:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-19",
+        "time": "16:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-19",
+        "time": "16:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-25",
+        "time": "06:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-25",
+        "time": "07:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-25",
+        "time": "08:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-27",
+        "time": "14:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-27",
+        "time": "15:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-27",
+        "time": "16:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "02:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "03:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "03:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "04:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "08:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "09:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "09:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-30",
+        "time": "10:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "13:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "13:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "14:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "14:30",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "15:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "16:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "17:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "18:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "19:00",
+        "num": 1
+      },
+      {
+        "date": "2018-07-31",
+        "time": "20:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-06",
+        "time": "10:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-07",
+        "time": "10:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-09",
+        "time": "09:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-09",
+        "time": "09:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "08:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "08:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "09:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "09:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "10:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "10:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "11:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-10",
+        "time": "11:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-13",
+        "time": "08:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-13",
+        "time": "08:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-15",
+        "time": "08:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "08:30",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "09:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "09:30",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "10:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "10:30",
+        "num": 3
+      },
+      {
+        "date": "2018-08-15",
+        "time": "11:00",
+        "num": 3
+      },
+      {
+        "date": "2018-08-15",
+        "time": "11:30",
+        "num": 3
+      },
+      {
+        "date": "2018-08-15",
+        "time": "12:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "12:30",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "13:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "13:30",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "14:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "14:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-15",
+        "time": "15:00",
+        "num": 2
+      },
+      {
+        "date": "2018-08-15",
+        "time": "15:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-31",
+        "time": "10:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-31",
+        "time": "11:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-31",
+        "time": "12:30",
+        "num": 1
+      },
+      {
+        "date": "2018-08-31",
+        "time": "13:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-31",
+        "time": "15:00",
+        "num": 1
+      },
+      {
+        "date": "2018-08-31",
+        "time": "15:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-03",
+        "time": "14:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-03",
+        "time": "14:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "10:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "10:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "11:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "11:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "12:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "12:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "17:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-04",
+        "time": "17:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-25",
+        "time": "11:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-25",
+        "time": "11:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-26",
+        "time": "15:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-26",
+        "time": "15:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-27",
+        "time": "08:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-27",
+        "time": "09:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-27",
+        "time": "10:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-27",
+        "time": "11:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-27",
+        "time": "13:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-27",
+        "time": "13:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-28",
+        "time": "07:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-28",
+        "time": "07:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-28",
+        "time": "19:00",
+        "num": 1
+      },
+      {
+        "date": "2018-09-28",
+        "time": "19:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-30",
+        "time": "08:30",
+        "num": 1
+      },
+      {
+        "date": "2018-09-30",
+        "time": "09:00",
+        "num": 1
+      },
+      {
+        "date": "2018-10-16",
+        "time": "17:00",
+        "num": 4
+      }
+    ]
     this.setData({
-      hoursArr:hoursArr
+      orderList: orderList
     })
+
+    //生成 小时段  店家数据
+    this.makeHours()
+
+    
+    
   },
 
     
@@ -637,6 +1132,7 @@ Page({
       selectDay: selectTimeId
     })
     console.log(selectTimeId)
+    this.makeHours()
   },
 
   //横滚条右侧的 日历 产开弹窗
@@ -655,6 +1151,135 @@ Page({
     this.setData({
       selectDay: e.detail.selectDay
     })
+    this.makeHours()
+  },
+  //根据选择的day selelctDay 生成hours
+  makeHours:function(){
+    //显示hour  删去空的
+    console.log("selecthours");
+    let selectDay = this.data.selectDay;
+    let hoursString = [];
+    if (this.data.timeSwitch == 0) {  //店铺默认hour
+      console.log("hour默认")
+      let hours = this.data.storeData.serviceTime;
+      hoursString = hours.split("|");
+    } else {  //具体某天hour 按周
+      
+      let weekIndex = new Date(Date.parse(selectDay)).getDay();
+      let weeks = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+      let weekKey = weeks[weekIndex];
+      let hours = this.data.storeData[weekKey];
+      hoursString = hours.split("|");
+      //console.log(hoursString)
+    };
+    console.log(hoursString)
+    //1.已满人的hour，2.超过今天已故时间
+    let hoursArr=[];
+    
+    let orderList = this.data.orderList.slice(0);
+    //console.log(orderList)
+    for(let i = 0;i<hoursString.length;i++){
+      let flag = 1;
+      let timeStr = selectDay + " " + hoursString[i] + ":00";
+      let stamp0 = new Date(Date.parse(timeStr)).toString();
+      //console.log(stamp0)
+
+
+      //1.跟orderLIst比
+      for (let j = 0; j < orderList.length;j++){
+        let stampOrderStr = orderList[j].date +" "+ orderList[j].time + ":00";
+        let stampOrder = new Date(Date.parse(stampOrderStr)).toString();
+        if (stamp0 == stampOrder && orderList[j].num == this.data.storeData.serviceplace){     //有这天，且人数满了
+          flag = 0
+        }
+        
+      }
+      //todo:2。跟今天的此刻比
+
+      hoursArr.push({
+        time: hoursString[i],
+        useless:flag,
+        selected:0  
+      })
+    }
+    console.log(hoursArr);
+    this.setData({
+      hoursArr:hoursArr
+    })
+  },
+
+  //点击hour，检查是否连贯可用
+  selectHour:function(e){
+    let startHour = e.currentTarget.dataset.hour;
+    let startHourIndex = e.currentTarget.dataset.index;
+    let startHourNumber = parseInt(startHour.split(":")[0]) + parseInt(startHour.split(":")[1])/60;
+    console.log(startHourNumber)  //14.5
+    
+    //时间间隔 30分钟 一格
+    let hoursPast = 30;  //默认
+    let timeSetting = this.data.timeSetting;
+    switch (timeSetting) {
+      case 0:
+        hoursPast = 30;
+        break;
+      case 2:
+        hoursPast = 60;
+        break;
+    }
+    let past = hoursPast / 60; //时间间隔 转为小数     0.5 半小时
+    let serviceTime = this.data.serviceTime; //所选服务总时长
+    let number = serviceTime/past;    //应当 占 几格
+    let flag = 1; //可选
+    
+    //1.最后一格是否匹配
+    let tableEnd = this.data.hoursArr[startHourIndex + number -1]; //时间表上，向后x格的时间
+    let realEndNumber = startHourNumber + serviceTime -past;
+    
+    let realEnd = ""
+    //可能整数 可能小数
+    if (String(realEndNumber).indexOf(".")==-1){  //整数
+      realEnd = realEndNumber + ":00";
+    }else{  //小数
+      let realEndNumberArr = String(realEndNumber).split(".");
+      realEnd = realEndNumberArr[0] + ":" + realEndNumberArr[1]*6;
+    }
+    if(tableEnd.time!=realEnd){
+      flag=0
+    }
+    
+    //2.中间每项是否有useless灰色 
+    if(flag==1){
+      for (let i = 0; i < number; i++) {
+        //useless 0:不可用
+        //console.log("i:" + i)
+        if (this.data.hoursArr[startHourIndex + i].useless == 0) {
+          flag = 0;
+        }
+      }
+    }
+
+    //显示选中样式
+    if (flag == 1) {
+      let hoursArr = this.data.hoursArr.slice(0);
+      console.log("xuanzhongyuangshi");
+      console.log(hoursArr)
+      console.log(startHourIndex)
+      console.log(number)
+      for (let i = 0; i < hoursArr.length;i++){
+        if (i >= startHourIndex && i <(number + startHourIndex)){
+          hoursArr[i].selected=1;
+        }else{
+          hoursArr[i].selected = 0;
+        }
+      }
+      
+      this.setData({
+        hoursArr: hoursArr
+      })
+    }
+
+    console.log(flag) //1能约
   }
+
   
 })

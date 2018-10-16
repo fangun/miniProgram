@@ -106,7 +106,7 @@
     </view>
     <view class='slideDate'>
       <scroll-view scroll-x="true" >
-        <view wx:for="{{peopleActivityDay}}" wx:key="key" wx:for-index="index" class='date {{item.id==selectDay?"dateSelected":""}}' data-timeid = "{{item.id}}" bindtap='selectDay'>
+        <view wx:for="{{peopleActivityDay}}" wx:key="key" class='date {{item.id==selectDay?"dateSelected":""}}' data-timeid = "{{item.id}}" bindtap='selectDay'>
           <text>{{item.week}}</text>
           <text>{{item.date}}</text>
         </view>
@@ -114,13 +114,7 @@
       <image class='rightCalendar' src="../../resource/images/storeHead/calendar.png" bindtap='rightCalendar'></image>
     </view>
     <view class='selectHour'>
-      <view class="time timeUnable">09：00</view>
-      <view class="time timeSelect" >09：00</view>
-      <view class="time timeSelect">09：00</view>
-      <view class="time">09：00</view>
-      <view class="time">09：00</view>
-      <view class="time">09：00</view>
-      <view class="time">09：00</view>
+      <view wx:for="{{hoursArr}}" wx:key="key" class='time {{item.useless==0?"timeUnable":""}} {{item.selected==1?"timeSelect":""}}' data-hour="{{item.time}}" data-index="{{index}}" data-useless="{{item.useless}}" data-selected="{{item.selected}}" bindtap='{{item.useless==0?"":"selectHour"}}'>{{item.time}}</view>
     </view> 
   </view>
   <view id='selectOther'>
