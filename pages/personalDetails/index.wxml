@@ -4,6 +4,7 @@
   <view class="pageTitle">{{pageTitle}}</view>
   
   <view class="box">
+    <!-- 头像 -->
     <view class="item" bindtap="avatarPage">
       <view>
         <text decode ="{{true}}" space="{{true}}">头&emsp;&emsp;像：</text>
@@ -12,36 +13,46 @@
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
+    <!-- 姓名 -->
     <view class="item" bindtap="namePage">
       <view>
         <text decode ="{{true}}" space="{{true}}">姓&emsp;&emsp;名：</text>
       </view>
-      <view>梁红兵</view>
+      <view>{{personalData.name}}</view>
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
+    <!-- 性别 -->
     <view class="item">
       <view>
         <text decode ="{{true}}" space="{{true}}">性&emsp;&emsp;别：</text>
       </view>
       <view class="sex">
-        <view>男</view>
-        <image src="../../resource/images/common/boy3.png"/>
+        <block wx:if="{{personalData.gender == 0}}">
+          <view>男</view>
+          <image src="../../resource/images/common/boy3.png"/>
+        </block>
+        <block wx:else>
+          <view>女</view>
+          <image src="../../resource/images/common/girl3.png"/>
+        </block>
       </view>
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
+    <!-- 电话 -->
     <view class="item lastChild">
       <view>
         <text decode ="{{true}}" space="{{true}}">电&emsp;&emsp;话：</text>
       </view>
-      <view>13524976389</view>
+      <view>{{personalData.mobile}}</view>
       <view></view>
     </view>
   </view>
 
-  <view class="box" bindtap="expenseCalendarPage">
-    <view class="item">
+  <!-- 消费记录 -->
+  <view class="box">
+    <view class="item" bindtap="expenseCalendarPage">
       <view>
         <text>消费记录</text>
       </view>
@@ -49,6 +60,7 @@
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
+    <!-- 修改密码 -->
     <view class="item" bindtap="passwordPage">
       <view>
         <text>修改密码</text>
@@ -57,6 +69,7 @@
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
+    <!-- 意见反馈 -->
     <view class="item" bindtap="feedback">
       <view>
         <text>意见反馈</text>

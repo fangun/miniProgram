@@ -131,7 +131,9 @@ Page({
     ],
 
     tabState: 'doing',
-    tabContentShow: 0
+    tabContentShow: 0,
+    appointmentState: 0,
+    st:false
   },
 
   selectDoing: function (e) {
@@ -146,6 +148,38 @@ Page({
       tabState: e.currentTarget.dataset.id,
       tabContentShow: '-100%'
     })
+  },
+
+  searchPage: function (e) {
+    wx.navigateTo({ url: '../searchStore/index' });
+  },
+
+  storePage: function (e) {
+    wx.navigateTo({ url: '../storeHead/index' });
+  },
+
+  foldSwitch: function (e) {
+    console.log('ok');
+    var that = this.data.st;
+
+    that = that ? false : true;
+
+    this.setData({
+      st: that
+    })
+
+  },
+
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '预约吧',
+      path: 'pages/customEntrance/index',
+      imageUrl:'../../resource/images/common/logo.png'
+    }
   },
 
   onLoad: function () {

@@ -11,12 +11,12 @@
             <view>扫一扫</view>
         </view>
 
-        <view class="search">
+        <view class="search" bindtap="searchPage">
             <image src="../../resource/images/customEntrance/search3.png"></image>
             <input placeholder="搜索" />
         </view>
 
-        <view class="store">
+        <view class="store" bindtap="storePage">
             <image src="../../resource/images/customEntrance/store3.png"></image>
             <view>店家</view>
         </view>
@@ -94,6 +94,7 @@
     
     <!-- 我的预约日记 -->
     <view class="appointmentDiary">
+
         <view class="contentTitle">
             <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
             <view class="titleBox">
@@ -101,6 +102,7 @@
                 <view class="eTitle">{{diaryTitle.e}}</view>
             </view>
         </view>
+
         <!-- tab -->
         <view class="tabList">
             <view class="tab {{tabState == 'doing' ? 'active' : ''}}" bindtap="selectDoing" data-id="doing">
@@ -110,6 +112,7 @@
                 已完成
             </view>
         </view>
+
         <view class="tabBox">
             <view class="tabContentList" style="left:{{tabContentShow}}">
                 <view class="tabContent">
@@ -117,10 +120,13 @@
                         <view class="title">8月4日(今天)</view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag">预约</view>
+                                <view class="tag" style="background-color: rgb(243,67,67);">预约</view>
                                 <view class="project">新大地美发</view>
+                                <view class="clash">
+                                    <image src="../../resource/images/customEntrance/clash3.png" />
+                                </view>
                                 <view class="time">
-                                    <!-- <image src=""></image> -->
+                                    <image src="../../resource/images/customEntrance/dollar3.png"></image>
                                     10:00 - 11:00
                                 </view>
                             </view>
@@ -143,7 +149,7 @@
                         </view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag">被约</view>
+                                <view class="tag" style="background-color: rgb(253,172,110);">被约</view>
                                 <view class="project">极限瑜伽</view>
                                 <view class="time">
                                     <!-- <image src=""></image> -->
@@ -169,7 +175,7 @@
                         </view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag">私人</view>
+                                <view class="tag" style="background-color: rgb(148,181,254);">私人</view>
                                 <view class="project">新大地美发</view>
                                 <view class="time">
                                     <!-- <image src=""></image> -->
@@ -183,6 +189,10 @@
                             <view class="clause">
                                 <view class="name">服务人员：</view>
                                 <view class="definite">Andy</view>
+                            </view>
+                            <view class="clause">
+                                <view class="name">备注：</view>
+                                <textarea class="definite">我是备注啊，哈哈哈啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</textarea>
                             </view>
                             <view class="footer">
                                 <view class="cancel">取消</view>
@@ -194,7 +204,7 @@
                         <view class="title">8月10日(今天)</view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag">私人</view>
+                                <view class="tag" style="background-color: rgb(148,181,254);">私人</view>
                                 <view class="project">新大地美发</view>
                                 <view class="time">
                                     <!-- <image src=""></image> -->
@@ -211,18 +221,25 @@
                             </view>
                             <view class="footer">
                                 <view class="cancel">取消</view>
-                                <view class="share">分享</view>
+
+                                <button class="share" open-type='share'>分享</button>
                             </view>
                         </view>
                     </view>
                 </view>
+
                 <view class="tabContent">
+
                     <view class="fold">
+
                         <view class="header">
                             <view class="time">2018-09</view>
-                            <view class="trigger">折叠</view>
+                            <view class="trigger" bindtap="foldSwitch">
+                                <image src="../../resource/images/common/icon-t3.png" />
+                            </view>
                         </view>
-                        <view class="box">
+
+                        <view class="box" style="height:{{st ? 0 : 'auto'}}">
                             <view class="item">
                                 <view class="logo">
                                     <image src="../../resource/images/customEntrance/01.png"></image>
@@ -235,12 +252,33 @@
                                     <view class="">10:00-11:00</view>
                                     <view class="">08-30</view>
                                 </view>
-                                <view class="state">已付款</view>
+                                <view class="state"></view>
                             </view>
+
+                            <view class="item">
+                                <view class="logo">
+                                    <image src="../../resource/images/customEntrance/01.png"></image>
+                                </view>
+                                <view class="details">
+                                    <view class="">翻滚法医</view>
+                                    <view class="">服务项目：美发</view>
+                                </view>
+                                <view class="time">
+                                    <view class="">10:00-11:00</view>
+                                    <view class="">08-30</view>
+                                </view>
+                                <view class="state"></view>
+                            </view>
+
                         </view>
                     </view>
+
+
                 </view>
+
+
             </view>
         </view>
+
     </view>
 </view>

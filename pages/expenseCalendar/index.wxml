@@ -31,7 +31,7 @@
         
     </view>
 
-    <view class="weui-cells__title">日期选择器</view>
+    <!-- <view class="weui-cells__title">日期选择器</view>
     <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
@@ -43,11 +43,12 @@
         </picker>
         </view>
     </view>
-    </view>
+
+    </view> -->
 
 
     
-      <view class="weui-cells__title">时间选择器</view>
+      <!-- <view class="weui-cells__title">时间选择器</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -59,5 +60,5 @@
             </picker>
           </view>
         </view>
-      </view>
+      </view> -->
 </view>

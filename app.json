@@ -1,7 +1,9 @@
 {
   "pages":[
-    "pages/storeHead/index",
+    "pages/customEntrance/index",
     "pages/personalDetails/index",
+    
+    "pages/storeHead/index",
     
     "pages/modifyName/index",
     "pages/modifyPassword/index",
@@ -9,24 +11,23 @@
     "pages/expenseCalendar/index",
 
     "pages/chooseAvatar/index",
-    "pages/addAppointment/index",
+    "pages/addAppointmentVoice/index",
+    "pages/addAppointmentHand/index",
     "pages/searchStore/index",
-    "pages/customEntrance/index",
     "pages/entrancePage/index"
     
-
   ],
 
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
-  "navigationBarTitleText": "上预约吧~预定一切生活服务~",
+    "navigationBarTitleText": "上预约吧~预定一切生活服务~",
     "navigationBarTextStyle":"#fff"
   },
 
   "tabBar": {
     "color": "rgb(197,197,197)",
-    "selectedColor": "rgb(243,67,67)",
+    "selectedColor": "red",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
@@ -37,7 +38,7 @@
         "text": "预约"
       },
       {
-        "pagePath": "pages/addAppointment/index",
+        "pagePath": "pages/addAppointmentVoice/index",
         "iconPath": "resource/images/common/add3.png",
         "selectedIconPath": "resource/images/common/add3.png",
         "text": "添加"

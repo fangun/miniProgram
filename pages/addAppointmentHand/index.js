@@ -4,8 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle:'添加预约',
-    voiceShow: false
+    pageTitle:'添加预约'
   },
 
   onLoad: function () {

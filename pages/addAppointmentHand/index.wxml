@@ -1,21 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class="pageTitle">{{pageTitle}}</view>
-  <block wx:if="{{voiceShow}}">
-      <view class="header">试试下面这样说</view>
 
-      <view class="card">我要在本周六下午两点半到四点半和小张去篮球场打球</view>
-
-      <view class="card">我在明天下午五点到六点半去接小孩</view>
-
-      <view class="mdi">点击手动输入</view>
-
-      <view class="voiceInput">
-        <image src="../../resource/images/common/voice3.png" />
-      </view>
-  </block>
-
-  <block wx:else>
     <textarea class="programInput" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;"></textarea>
 
     <!-- 快捷标签 -->
@@ -79,9 +65,5 @@
       收起更多
       <image src="../../resource/images/common/icon-t3.png"></image>
     </view>
-
-  </block>
-
-
 
 </view>
