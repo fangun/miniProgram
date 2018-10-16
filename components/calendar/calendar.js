@@ -120,9 +120,11 @@ Component({
 			}
 
       let today = this.data.currentYear + "-" + this.data.currentMonth + "-" + new Date().getDate();
+      let todayDay = new Date().getDate();
 			this.setData({
 				currentMonthDateLen,
-        today
+        today,
+        todayDay
 			})
       
 
