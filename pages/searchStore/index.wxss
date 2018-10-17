@@ -1,3 +1,13 @@
+button::after{
+    border:none;
+}
+
+input{
+    outline:none;
+    border:none;
+    list-style: none;
+}
+
 .container {
     padding: 0;
     display: block;
@@ -15,17 +25,22 @@
 }
 
 .searchColumn {
+    position: relative;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     width: 100%;
-    padding: 30rpx 30rpx 0 30rpx;
+    padding: 30rpx 30rpx 22rpx 30rpx;
+
+    justify-content: space-between;
+
+    
 }
 
 .searchColumn .searchInput {
-    flex:auto;
-    display: flex;
+    width:600rpx;
 
+    display: flex;
     border-radius: 28rpx;
     height: 60rpx;
     background-color:rgb(247, 247,247);
@@ -46,9 +61,20 @@
 }
 
 .searchColumn .search {
+
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:30rpx;
+    margin:auto;
     color:rgb(247,63,63);
     font-size:30rpx;
     margin-left:23rpx;
+    background-color:#fff;
+    margin:0;
+    padding:30rpx 0 22rpx 0;
+    line-height:56rpx;
+    
 }
 
 .box {

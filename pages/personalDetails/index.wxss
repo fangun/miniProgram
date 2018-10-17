@@ -60,7 +60,7 @@
 .foldIcon {
     display: block;
     width: 18rpx;
-    height: 36rpx; 
+    height: 32rpx; 
 }
 
 .sex {

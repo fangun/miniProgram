@@ -38,9 +38,9 @@
       </view>
     </view>
 
-    <view class="moreInfo">
+    <view class="moreInfo" style="height:{{remarkState ? 'auto' : 0}}">
         <!-- 选填 -->
-        <view class="bbox xt">
+        <view class="bbox">
           <view class="bitem xt">
             <view>
               <input class="grayStyle" type="text" placeholder="参与人员  (选填)"> </input>
@@ -54,16 +54,28 @@
               <input class="grayStyle" type="text" placeholder="添加地址  (选填)"></input>
             </view>
             <view></view>
-            <view><image class="foldIcon" src="../../resource/images/common/location3.png"/></view>
+            <view><image class="foldIcon location" src="../../resource/images/common/location3a.png"/></view>
           </view>
         </view>
 
         <textarea class="programInput" placeholder="添加备注" auto-height style="min-height: 140rpx;margin-top:30rpx;"></textarea>
     </view>
 
-    <view class="moreInfoTag">
-      收起更多
-      <image src="../../resource/images/common/icon-t3.png"></image>
+    <view class="moreInfoTag" bindtap="remarkSwitch">
+      <block wx:if="{{remarkState}}">
+        收起更多
+        <image src="../../resource/images/common/icon-t3.png"></image>
+      </block>
+      <block wx:else>
+        展开更多
+        <image src="../../resource/images/common/icon-b3.png"></image>
+      </block>
+
     </view>
 
+    <view class="vocieInput">
+      <image src="../../resource/images/common/voice3.png" />
+    </view>
+
+    <view class="addSure">确定添加</view>
 </view>

@@ -9,7 +9,7 @@
       <view>
         <text decode ="{{true}}" space="{{true}}">头&emsp;&emsp;像：</text>
       </view>
-      <view><image class="buddha" src="../../resource/images/personalDetails/012.png"/></view>
+      <view><image class="buddha" src="{{personalData.headPhoto}}"/></view>
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 

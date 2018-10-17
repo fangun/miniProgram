@@ -1,23 +1,23 @@
 <!--index.wxml-->
-<view class="container">
+<form class="container" bindsubmit="modifyPassword">
     <view class="pageTitle">{{pageTitle}}</view>
 
     <view class="box">
         <view class="item">
             <view>原密码：</view>
-            <input type="password"></input>
+            <input type="password" name="oPassword"></input>
         </view>
 
         <view class="item">
             <view>新密码：</view>
-            <input type="password"></input>
+            <input type="password" name="nPassword"></input>
         </view>
 
         <view class="item">
             <view>确认密码：</view>
-            <input type="password"></input>
+            <input type="password" name="sPassword"></input>
         </view>
     </view>
 
-    <view class="modifyPassword" bindtap="modifyPassword">确认</view>
-</view>
+    <button class="modifyPassword" form-type='submit'>确认</button>
+</form>

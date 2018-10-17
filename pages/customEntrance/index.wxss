@@ -1,3 +1,5 @@
+@import "../../resource/css/font.wxss";
+
 .container {
     padding: 0;
 }
@@ -39,9 +41,9 @@
     align-items:flex-end;
 }
 
-.searchColumn .richScan  view,
-.searchColumn .store view {
-    font-family: PingFangSC-Regular;
+.searchColumn .richScan > view,
+.searchColumn .store > view {
+    font-family: 'SourceHanSansCN-Heavy';
     font-size: 18rpx;
     letter-spacing: 2rpx;
     color: #fff;
@@ -147,7 +149,7 @@
 .appointmentHotlist .box .row {
     display: flex;
     flex-wrap:wrap;
-    justify-content:space-between
+    justify-content:space-between;
 }
 
 .appointmentHotlist .box .row .item {
@@ -157,14 +159,14 @@
     height: 244rpx;
 }
 
-.box .row .item view {
-    font-family:PingFangSC-Regular;
+.box .row .item > view {
+    font-family:'SourceHanSansCN-Heavy';
     color:rgb(51,51,51);
     font-size:28rpx;
     text-align:center;
     margin-top:20rpx;
-    margin-left:-5rpx;
-    margin-right:-5rpx;    
+    margin-left:-8rpx;
+    margin-right:-8rpx;     
 }
 
 .box .row .item image {
@@ -203,7 +205,7 @@
 /* tab */
 .tabList {
     display: flex;
-    border:2px solid rgb(288,28,28);
+    border:2px solid rgba(243,67,67,1);
     border-radius: 20rpx;
     height: 68rpx;
 
@@ -233,7 +235,7 @@
 }
 
 .tabList .tab.active {
-    background-color: red;
+    background-color: rgba(243,67,67,1);
     color: rgb(255,255,255);
 }
 
@@ -273,7 +275,7 @@
 }
 
 .card .title {
-    background-color: rgb(288,28,28);
+    background-color: rgba(243,67,67,1);
     color:#fff;
     font-family: PingFangSC-Regular;
     font-size: 28rpx;
@@ -282,7 +284,7 @@
     padding-top: 15rpx;
     padding-bottom: 15rpx;
 
-    border:1px solid rgb(288,28,28);
+    border:1px solid rgba(243,67,67,1);
     margin-top:-4rpx;
     margin-left:-4rpx;
     margin-right: -4rpx;
@@ -305,7 +307,7 @@
 
 .card .item .header {
     display: flex;
-    line-height: 40rpx;
+    line-height:30rpx;
     align-items:center;
 }
 
@@ -322,20 +324,22 @@
 }
 
 .card .item .header .tag {
-    padding: 0 20rpx;
+    padding:0 10rpx;
     color:#fff;
-    font-family: PingFangSC-Regular;
-    font-size: 20rpx;
-    border-radius: 6rpx;
-    text-align: center;
- 
+    font-family:PingFangSC-Regular;
+    font-size:20rpx;
+    border-radius:6rpx;
+    text-align:center;
+    font-weight:bold;
 }
 
 .card .item .header .project {
-    padding: 0 20rpx;
+    padding: 0 12rpx;
     color:rgb(51,51,51);
     font-family: PingFangSC-Regular;
     font-size: 28rpx;
+
+    font-weight: bold;
 }
 
 .card .item .header .clash > image {
@@ -359,9 +363,13 @@
 }
 
 .card .item .clause .name {
+    font-family: PingFangSC-Regular;
     min-width: 90rpx;
 }
 
+.card .item .clause  .definite {
+    font-family: PingFangSC-Regular;
+}
 .card .item .clause textarea {
     width:280rpx;
     height:auto;    
@@ -393,7 +401,7 @@
 }
 
 .card .item .footer .share {
-    background-color: rgb(223,44,44);
+    background-color: rgba(243,67,67,1);
     color: #fff;
 }
 
@@ -507,4 +515,84 @@
     font-size: 27rpx;
     color: rgb(243,67,67);
     text-align: center; 
+}
+
+
+/* 弹出层 */
+.mask{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    z-index: 9000;
+    opacity: 0.7;
+}
+ 
+.modalDlg{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff;
+    border-radius:36rpx;
+    margin:70rpx 30rpx auto 30rpx;
+    z-index:9999;
+    height:860rpx;
+    
+}
+
+.modalDlg .fold {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.modalDlg .fold .box {
+    height: 720rpx;
+    overflow-y: scroll;
+}
+
+button::after{
+    border:none;
+}
+
+.modalDlg .cancel {
+    width: 260rpx;
+    height: 60rpx;
+    border:1px solid rgb(243, 67, 67);
+
+    border-radius: 6rpx;
+
+    background-color: #fff;
+    line-height: 60rpx;
+
+    font-size: 28rpx;
+    color: rgb(243, 67, 67);
+    text-align: center;
+    margin-top:40rpx;
+
+}
+
+.modalDlg .box > .title {
+    font-family: PingFangSC-Regular;
+    font-size: 32rpx;
+    color: rgb(51, 51, 51);
+
+    padding: 35rpx 0 20rpx 27rpx;
+    border-bottom: 1px solid #eee;
+}
+
+.modalDlg .box .state > image {
+    width:28rpx;
+    height:28rpx;    
+}
+
+.modalDlg .box .item > .details {
+    flex: 4 !important;
+}
+
+.modalDlg .box .item > .time {
+    flex: 01 !important;
 }

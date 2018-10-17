@@ -2,22 +2,24 @@
 <view class="container">
     <view class="pageTitle">{{pageTitle}}</view>
     <!-- 搜索栏目 -->
-    <view class="searchColumn">
+    <form class="searchColumn"  bindsubmit="searchStore">
         <view class="searchInput">
             <image src="../../resource/images/customEntrance/search3.png"></image>
-            <input placeholder="" />
+            <input placeholder="" auto-focus name='inputName' />
         </view>
-        <view class="search">搜索</view>
-    </view>
+        <button class="search" form-type='submit'>搜索</button>
+    </form>
     
     <block wx:if="{{showList}}">
-        <!-- 搜索列表 -->
-        <block wx:for="{{storeList}}" wx:key="*this">
-            <view class="storeInfo">
-                <view class="name">{{item.Name}}</view>
-                <view class="address">{{item.PCA}}{{item.Address}}</view>
-            </view>
-        </block>
+        <view class="storeListBox">
+            <!-- 搜索列表 -->
+            <block wx:for="{{storeList}}" wx:key="*this">
+                <view bindtap="storeHeadPage" class="storeInfo" id="{{item.id}}">
+                    <view class="name">{{item.name}}</view>
+                    <view class="address">{{item.pca}}{{item.address}}</view>
+                </view>
+            </block>
+        </view>
     </block>
 
     <block wx:else>

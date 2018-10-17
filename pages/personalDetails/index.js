@@ -5,20 +5,8 @@ const app = getApp()
 Page({
   data: {
     pageTitle: '个人中心',
-    personalData: {
-      "ID": "a4b618628dfc466b81f02e8dd5f1dede",
-      "Loginname": "17152146806",
-      "name": "李冲",
-      "gender": 1,
-      "mobile": "17152146806",
-      "openid": "oEfd2waZ69WWbjJ-8tYJqoKyos6U",
-      "headPhoto": null,
-      "job": null,
-      "birthday": null,
-      "seatMachine": null
-    }
+    personalData: null,
   },
-
   avatarPage: function () {
     wx.navigateTo({ url: '../chooseAvatar/index' });
   },
@@ -37,6 +25,26 @@ Page({
 
   expenseCalendarPage: function () {
     wx.navigateTo({ url: '../expenseCalendar/index' });
+  },
+
+  onShow: function() {
+    var that = this;
+
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/memberMessage',
+      method:"POST",
+      data: {
+        id: 'a4b618628dfc466b81f02e8dd5f1dede'
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      success(res) {
+        console.log(res.data);
+
+        that.setData({
+          personalData: res.data[0]
+        });
+      }
+    });
   },
 
   onLoad: function () {

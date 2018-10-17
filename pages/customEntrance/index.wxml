@@ -2,30 +2,23 @@
 <view class="container">
     <!-- 页面标题 -->
     <view class="pageTitle">{{pageTitle}}</view>
-
     <!-- 搜索栏目 -->
     <view class="searchColumn">
-
-        <view class="richScan">
+        <view class="richScan" bindtap="richScan">
             <image src="../../resource/images/customEntrance/richScan3.png"></image>
             <view>扫一扫</view>
         </view>
-
         <view class="search" bindtap="searchPage">
             <image src="../../resource/images/customEntrance/search3.png"></image>
             <input placeholder="搜索" />
         </view>
-
         <view class="store" bindtap="storePage">
             <image src="../../resource/images/customEntrance/store3.png"></image>
             <view>店家</view>
         </view>
-
     </view>
-
     <!-- 我的预约热榜 -->
     <view class="appointmentHotlist">
-    
         <view class="contentTitle">
             <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
             <view class="titleBox">
@@ -33,7 +26,6 @@
                 <view class="eTitle">{{hotlistTitle.e}}</view>
             </view>
         </view>
-
         <view class="box" bindtap="customEntrance">
             <block wx:if="{{hostListData.length < 4}}">
                 <view class="row">
@@ -91,10 +83,8 @@
             </block>
         </view>
     </view>
-    
     <!-- 我的预约日记 -->
     <view class="appointmentDiary">
-
         <view class="contentTitle">
             <image src="../../resource/images/customEntrance/titleBackground3.png"></image>
             <view class="titleBox">
@@ -102,7 +92,6 @@
                 <view class="eTitle">{{diaryTitle.e}}</view>
             </view>
         </view>
-
         <!-- tab -->
         <view class="tabList">
             <view class="tab {{tabState == 'doing' ? 'active' : ''}}" bindtap="selectDoing" data-id="doing">
@@ -112,7 +101,6 @@
                 已完成
             </view>
         </view>
-
         <view class="tabBox">
             <view class="tabContentList" style="left:{{tabContentShow}}">
                 <view class="tabContent">
@@ -120,7 +108,9 @@
                         <view class="title">8月4日(今天)</view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag" style="background-color: rgb(243,67,67);">预约</view>
+                                <view class="tag" style="background-color: rgb(243,67,67);">
+                                    预约
+                                </view>
                                 <view class="project">新大地美发</view>
                                 <view class="clash">
                                     <image src="../../resource/images/customEntrance/clash3.png" />
@@ -149,7 +139,9 @@
                         </view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag" style="background-color: rgb(253,172,110);">被约</view>
+                                <view class="tag" style="background-color: rgb(253,172,110);">
+                                    被约
+                                </view>
                                 <view class="project">极限瑜伽</view>
                                 <view class="time">
                                     <!-- <image src=""></image> -->
@@ -175,7 +167,9 @@
                         </view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag" style="background-color: rgb(148,181,254);">私人</view>
+                                <view class="tag" style="background-color: rgb(148,181,254);">
+                                    私人
+                                </view>
                                 <view class="project">新大地美发</view>
                                 <view class="time">
                                     <!-- <image src=""></image> -->
@@ -183,11 +177,11 @@
                                 </view>
                             </view>
                             <view class="clause">
-                                <view class="name">服务项目：</view>
+                                <view class="name">人员：</view>
                                 <view class="definite">美发</view>
                             </view>
                             <view class="clause">
-                                <view class="name">服务人员：</view>
+                                <view class="name">地址：</view>
                                 <view class="definite">Andy</view>
                             </view>
                             <view class="clause">
@@ -204,7 +198,9 @@
                         <view class="title">8月10日(今天)</view>
                         <view class="item">
                             <view class="header">
-                                <view class="tag" style="background-color: rgb(148,181,254);">私人</view>
+                                <view class="tag" style="background-color: rgb(148,181,254);">
+                                    私人
+                                </view>
                                 <view class="project">新大地美发</view>
                                 <view class="time">
                                     <!-- <image src=""></image> -->
@@ -221,24 +217,19 @@
                             </view>
                             <view class="footer">
                                 <view class="cancel">取消</view>
-
                                 <button class="share" open-type='share'>分享</button>
                             </view>
                         </view>
                     </view>
                 </view>
-
                 <view class="tabContent">
-
                     <view class="fold">
-
                         <view class="header">
                             <view class="time">2018-09</view>
                             <view class="trigger" bindtap="foldSwitch">
                                 <image src="../../resource/images/common/icon-t3.png" />
                             </view>
                         </view>
-
                         <view class="box" style="height:{{st ? 0 : 'auto'}}">
                             <view class="item">
                                 <view class="logo">
@@ -254,7 +245,6 @@
                                 </view>
                                 <view class="state"></view>
                             </view>
-
                             <view class="item">
                                 <view class="logo">
                                     <image src="../../resource/images/customEntrance/01.png"></image>
@@ -269,16 +259,44 @@
                                 </view>
                                 <view class="state"></view>
                             </view>
-
                         </view>
                     </view>
-
-
                 </view>
-
+            </view>
+        </view>
+    </view>
+    <!-- 弹出层 -->
+    <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modalDlg" wx:if="{{showModal}}">
+        <view class="fold">
+            <view class="box">
+                <view class="title">
+                    您经常访问的店家：
+                </view>
+                
+                <block wx:for="{{hostListData}}" wx:key='*this'>
+                    <block wx:if="{{index > 6}}">
+                        <view class="item">
+                            <view class="logo">
+                                <image src='{{hostListData[index].logo == "" ? "":apiPrefix}}{{hostListData[index].logo == "" ? "../../resource/images/common/logo.png" :  hostListData[index].logo }}'></image>
+                            </view>
+                            <view class="details">
+                                <view>{{item.name}}</view>
+                                <view>{{item.pca}}{{item.address}}</view>
+                            </view>
+                            <view class="time">
+                                <view></view>
+                                <view></view>
+                            </view>
+                            <view class="state">
+                                <image src="../../resource/images/common/delete3.png" />
+                            </view>
+                        </view>
+                    </block>
+                </block>
 
             </view>
         </view>
-
+        <button class="cancel" bindtap="go">关闭</button>
     </view>
 </view>
