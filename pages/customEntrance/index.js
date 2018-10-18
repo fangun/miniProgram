@@ -1,5 +1,7 @@
 //index.js
 //获取应用实例
+var complete = require('../../utils/complete.js');
+
 const app = getApp()
 
 Page({
@@ -16,25 +18,66 @@ Page({
     },
 
     hostListData: null,
+    completedData: true,
+
+    completingData: false,
+    completingSeqData: false,
+    completingTitleData: false,
+    completingTime: false,
 
     tabState: 'doing',
-    tabContentShow: 0,
+    tabContentShow: true,
     appointmentState: 0,
     st: false,
-    showModal: true
+    showModal: false,
+    tabbarActive: true,
+
+    compeletingModal: false,
+    compeletedModal: false,
+
+
+  },
+
+  // 再次预约
+  appointmentAgain: function (e) {
+
+  },
+
+  compeletedModalClose: function () {
+    this.setData({
+      compeletedModal: false
+    })
+  },
+
+  compeletedModalShow: function (e) {
+    this.setData({
+      compeletedModal: true
+    })
+  },
+
+  compeletingModalShow: function (e) {
+    this.setData({
+      compeletingMoal: true
+    })
+  },
+
+  compeletingModalClose: function (e) {
+    this.setData({
+      compeletingMoal: false
+    })
   },
 
   selectDoing: function (e) {
     this.setData({
       tabState: e.currentTarget.dataset.id,
-      tabContentShow: 0
+      tabContentShow: true
     })
   },
 
   selectDone: function (e) {
     this.setData({
       tabState: e.currentTarget.dataset.id,
-      tabContentShow: '-100%'
+      tabContentShow: false
     })
   },
 
@@ -46,12 +89,18 @@ Page({
     wx.navigateTo({ url: '../storeHead/index' });
   },
 
+  appointmentVoice: function (e) {
+    wx.redirectTo({ url: '../addAppointmentVoice/index' });
+  },
+
+  minePage: function (e) {
+    wx.redirectTo({ url: '../personalDetails/index' });
+  },
+
   foldSwitch: function (e) {
     console.log('ok');
     var that = this.data.st;
-
     that = that ? false : true;
-
     this.setData({
       st: that
     })
@@ -59,8 +108,6 @@ Page({
   },
   // 扫一扫
   richScan: function () {
-    var that = this;
-    var show;
     wx.scanCode({
       success: (res) => {
         wx.showToast({
@@ -81,6 +128,16 @@ Page({
     })
   },
 
+  // 跳转常去店铺
+  frequentedStore: function (e) {
+    console.log(e);
+    if (e.currentTarget.dataset.id) {
+      app.globalData.storeID = e.currentTarget.dataset.id;
+    }
+    wx.navigateTo({ url: '../storeHead/index' });
+  },
+
+  // 分享
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
@@ -93,41 +150,58 @@ Page({
     }
   },
 
-  submit: function () {
+  showModalFn: function () {
     this.setData({
       showModal: true
     })
   },
 
-  preventTouchMove: function () {
-
-  },
-
-  go: function () {
+  modalClose: function () {
     this.setData({
       showModal: false
     })
   },
 
   onLoad: function () {
-    // wx.hideTabBar()
-  
     var that = this;
-
     wx.request({
       url: 'https://api.yuyue58.cn/api/hot',
       method: "POST",
       data: {
-        ID: 'dabc5bf90a9145fbb06467e648286b5f'
+        ID: 'ac88d10cecaa44e6b45495fe3139b1a9'
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
-        console.log(res.data)
-
         that.setData({
           hostListData: res.data
         })
       }
+    });
+
+    // 进行中的数据列表
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/InCompleteOrderList',
+      method: "POST",
+      data: {
+        ID: 'a4b618628dfc466b81f02e8dd5f1dede'
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+
+      success(res) {
+        console.log(res.data);
+        // console.log(res.data[0].time);
+        // console.log(util.formatDate(new Date()));
+
+        var cData = complete.completing(res.data);
+
+        that.setData({
+          completingData: res.data,
+          completingSeqData: cData.itemArray,
+          completingTitleData: cData.titleB,
+          completingTime: cData.timeArray
+        })
+      }
+
     });
 
     // if (app.globalData.userInfo) {
@@ -156,7 +230,5 @@ Page({
     //     }
     //   })
     // }
-
   }
-
-})
+});

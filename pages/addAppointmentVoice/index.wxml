@@ -14,4 +14,21 @@
       <image src="../../resource/images/common/voice3.png" />
     </view>
 
+
+  <!-- 底部导航栏 -->
+  <view class="tabtar-box">
+      <view class="tabtar-item" bindtap="customPage">
+          <image src="../../resource/images/common/appoint3.png" />
+          <view>预约</view>
+      </view>
+      <view class="tabtar-item active" bindtap="appointmentVoice">
+          <image src="../../resource/images/common/add3.png" />
+          <view>添加</view>
+      </view>
+      <view class="tabtar-item" bindtap="minePage">
+          <image src="../../resource/images/common/mine3.png" />
+          <view>我的</view>
+      </view>
+  </view>
+
 </view>

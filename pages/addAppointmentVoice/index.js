@@ -11,6 +11,14 @@ Page({
     wx.navigateTo({ url: '../addAppointmentHand/index' });
   },
 
+  customPage:function(){
+    wx.redirectTo({ url: '../customEntrance/index' });
+  },
+
+  minePage:function(){
+    wx.redirectTo({ url: '../personalDetails/index' });
+  },
+
   onLoad: function () {
 
   }

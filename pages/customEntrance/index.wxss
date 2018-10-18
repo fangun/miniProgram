@@ -1,4 +1,4 @@
-@import "../../resource/css/font.wxss";
+@import "../../resource/css/common.wxss";
 
 .container {
     padding: 0;
@@ -240,29 +240,29 @@
 }
 
 .tabBox {
-    background-color: rgb(248,248,248);
-    box-sizing: border-box;
+    background-color:rgb(248,248,248);
     margin-top:40rpx;
-
-    position: relative;
+    position:relative;
+    margin-bottom: 150rpx;
 }
 
 .tabBox .tabContentList {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 10;
-
-    width: 200%;
-    display: flex;
-
-    transition:left .5s ease .2s;
+    position: relative;
 }
 
 .tabBox .tabContentList .tabContent {
     flex: 1;
     padding-left: 30rpx;
     padding-right: 30rpx;
+    background-color: #fff;
+}
+
+.tabBox .tabContentList .tabContent > image {
+    display:block;
+    width:401rpx;
+    height:309rpx;
+    margin-left:125rpx;
+    margin-top:58rpx;
 }
 
 .card {
@@ -381,6 +381,8 @@
     bottom: 28rpx;
 
     display: flex;
+
+    z-index: 1000;
 }
 
 .card .item .footer view,
@@ -425,7 +427,7 @@
 }
 
 .fold .header .trigger image {
-    width: 40rpx;
+    width: 32rpx;
     height: 18rpx;
 }
 
@@ -595,4 +597,120 @@ button::after{
 
 .modalDlg .box .item > .time {
     flex: 01 !important;
+}
+
+/* 正在进行弹出层 */
+.compeletingModal,
+.compeletedModal {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff;
+    border-radius:36rpx;
+    margin:70rpx 30rpx auto 30rpx;
+    z-index:9999;
+    height:920rpx;
+}
+
+.compeletingModal .title {
+    font-family: PingFangSC-Regular;
+    font-size: 38rpx;
+    color: rgb(51, 51, 51);
+
+    padding: 35rpx 0 20rpx 27rpx;
+    border-bottom: 1px solid #eee;
+
+    text-align: center;
+}
+
+.compeletingModal .logo {
+    position: relative;
+    padding: 30rpx 0 50rpx 0;
+}
+
+.compeletingModal .logo > image {
+    display:block;
+    width:160rpx;
+    height:160rpx;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 20rpx;
+}
+
+.compeletingModal .logo > view {
+    text-align: center;
+
+    font-family: PingFangSC-Regular;
+    font-size: 32rpx;
+    color: #000;
+}
+
+.compeletingModal .logo > view.state {
+    position:absolute;
+    top:30rpx;
+    right: 30rpx;
+
+    color: rgb(243, 67, 67);
+    font-size: 24rpx;
+    text-align: center;
+}
+
+.compeletingModal .item {
+    font-family: PingFangSC-Regular;
+    font-size: 32rpx;
+
+    padding-left: 90rpx;
+    display: flex;
+    margin-bottom: 20rpx;
+}
+
+.compeletingModal .item > view:first-child {
+    color:rgb(153,153,153);
+}
+
+.compeletingModal .item > view:nth-child(2) {
+    color: rgb(51, 51, 51);
+}
+
+.compeletingModal .item > view.detailTime {
+    display: flex;
+}
+
+.compeletingModal .item > view.detailTime > view:nth-child(2) {
+   color: rgb(243, 67, 67);
+   margin-left: 30rpx;
+}
+
+.compeletingModal .item  view.payed {
+    color: rgb(243, 67, 67);
+}
+
+.compeletingModal .eventBox {
+    display: flex;
+    justify-content: space-around;
+}
+
+.compeletingModal .eventBox > view {
+    width: 260rpx;
+    height: 60rpx;
+    border-radius: 10rpx;
+    border:1px solid rgb(243, 67, 67);
+    font-family: PingFangSC-Regular;
+    font-size: 32rpx;
+    text-align: center;
+    line-height: 60rpx;
+
+    margin-top: 20rpx;
+}
+
+.compeletingModal .eventBox .cancel {
+    background-color: #fff;
+    color: rgb(243, 67, 67);
+}
+
+.compeletingModal .eventBox .close {
+    color: #fff;
+    background-color:rgb(243, 67, 67);
 }

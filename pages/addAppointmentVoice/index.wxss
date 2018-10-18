@@ -1,3 +1,4 @@
+@import "../../resource/css/common.wxss";
 page {
     background-color: #eee;
 }

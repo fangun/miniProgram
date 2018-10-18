@@ -6,7 +6,9 @@ Page({
   data: {
     pageTitle: '个人中心',
     personalData: null,
+    tabbarActive:true
   },
+  
   avatarPage: function () {
     wx.navigateTo({ url: '../chooseAvatar/index' });
   },
@@ -27,6 +29,14 @@ Page({
     wx.navigateTo({ url: '../expenseCalendar/index' });
   },
 
+  customPage:function(){
+    wx.redirectTo({ url: '../customEntrance/index' });
+  },
+
+  appointmentVoice:function(e){
+    wx.redirectTo({ url: '../addAppointmentVoice/index' });
+  },
+  
   onShow: function() {
     var that = this;
 
@@ -34,9 +44,10 @@ Page({
       url: 'https://api.yuyue58.cn/api/memberMessage',
       method:"POST",
       data: {
-        id: 'a4b618628dfc466b81f02e8dd5f1dede'
+        id: 'ac88d10cecaa44e6b45495fe3139b1a9'
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
+
       success(res) {
         console.log(res.data);
 

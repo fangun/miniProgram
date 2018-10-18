@@ -23,33 +23,6 @@
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "上预约吧~预定一切生活服务~",
     "navigationBarTextStyle":"#fff"
-  },
-
-  "tabBar": {
-    "color": "#c5c5c5",
-    "selectedColor": "rgba(243,67,67,1)",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/customEntrance/index",
-        "iconPath": "resource/images/common/appoint3.png",
-        "selectedIconPath": "resource/images/common/appoint3a.png",
-        "text": "预约"
-      },
-      {
-        "pagePath": "pages/addAppointmentVoice/index",
-        "iconPath": "resource/images/common/add3.png",
-        "selectedIconPath": "resource/images/common/add3.png",
-        "text": "添加"
-      },
-      {
-        "pagePath": "pages/personalDetails/index",
-        "iconPath": "resource/images/common/mine3.png",
-        "selectedIconPath": "resource/images/common/mine3a.png",
-        "text": "我的"
-      }
-    ]
   }
 
 
