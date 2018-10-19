@@ -15,7 +15,7 @@ const completing = data => {
   data.forEach(function (x, y, z) {
 
     var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
-    var t2 = x.time1.slice(x.time.indexOf(" ") + 1).split(":");
+    var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
 
     timeArray.push(t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1]);
 
@@ -36,9 +36,10 @@ const completing = data => {
       tag = x;
 
       a.push(y);
-      if (tagArray.length - 1 == y) {
-        itemArray.push(a);
-      }
+    }
+
+    if (tagArray.length - 1 == y) {
+      itemArray.push(a);
     }
   });
 

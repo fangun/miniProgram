@@ -4,6 +4,19 @@
     padding: 0;
 }
 
+/* 获取手机号码 授权 */
+.cell {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    z-index: 9999;
+
+    opacity: 0;
+    border:none;
+}
 /* 页面标题 */
 .pageTitle {
     width: 100%;
@@ -141,21 +154,17 @@
     width:100%;
 }
 
-.appointmentHotlist .box {
-    padding-left:30rpx;
-    padding-right:30rpx;
-}
+
 
 .appointmentHotlist .box .row {
     display: flex;
-    flex-wrap:wrap;
-    justify-content:space-between;
+    justify-content:flex-start;
 }
 
 .appointmentHotlist .box .row .item {
     position: relative;
     box-sizing: border-box;
-    width: 128rpx;
+    width: 25%;
     height: 244rpx;
 }
 
@@ -165,8 +174,9 @@
     font-size:28rpx;
     text-align:center;
     margin-top:20rpx;
-    margin-left:-8rpx;
-    margin-right:-8rpx;     
+    padding-left:10rpx;
+    padding-right:10rpx;
+    
 }
 
 .box .row .item image {
@@ -174,6 +184,7 @@
     width: 128rpx;
     height: 128rpx;
     border-radius: 20rpx;
+    margin: auto;
 }
 
 .box .row:nth-child(2) .item:nth-child(4){
@@ -188,13 +199,13 @@
 }
 
 .box .row .item .icon {
-    position: absolute;
-
-    width: 48rpx;
-    height: 57rpx;
-    top: -24rpx;
-    right: -28.5rpx;
-    z-index: 3;
+    position:absolute;
+    width:36rpx;
+    height:44rpx;
+    top:-24rpx;
+    right:12rpx;
+    z-index:3;
+    
 }
 
 /* 预约日记 */
@@ -360,6 +371,7 @@
     font-size: 28rpx;
     font-family: PingFangSC-Regular;
     margin-top: 21rpx;
+    line-height: 1;
 }
 
 .card .item .clause .name {
@@ -462,7 +474,7 @@
 }
 
 .fold .box .item > view:nth-child(4){
-    flex:1;
+    flex:0;
 }
 
 .fold .box .item .logo image {
@@ -542,7 +554,7 @@
     border-radius:36rpx;
     margin:70rpx 30rpx auto 30rpx;
     z-index:9999;
-    height:860rpx;
+    height:960rpx;
     
 }
 
@@ -577,7 +589,7 @@ button::after{
 
 }
 
-.modalDlg .box > .title {
+.modalDlg .fold > .title {
     font-family: PingFangSC-Regular;
     font-size: 32rpx;
     color: rgb(51, 51, 51);
@@ -596,12 +608,13 @@ button::after{
 }
 
 .modalDlg .box .item > .time {
-    flex: 01 !important;
+    flex: 1 !important;
 }
 
 /* 正在进行弹出层 */
 .compeletingModal,
-.compeletedModal {
+.compeletedModal,
+.chooseModal {
     position:fixed;
     top:0;
     left:0;
@@ -711,6 +724,46 @@ button::after{
 }
 
 .compeletingModal .eventBox .close {
+    color: #fff;
+    background-color:rgb(243, 67, 67);
+}
+
+/* 选择性弹出层 */
+.chooseModal {
+    width:648rpx;
+    height: 260rpx;
+    margin: auto;
+}
+
+.chooseModal .text {
+    font-family: PingFangSC-Regular;
+    font-size: 28rpx;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    line-height: 159rpx;
+}
+.chooseModal .eventBox {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chooseModal .eventBox > view {
+    width: 260rpx;
+    height: 60rpx;
+    border-radius: 10rpx;
+    border:1px solid rgb(243, 67, 67);
+    font-family: PingFangSC-Regular;
+    font-size: 26rpx;
+    text-align: center;
+    line-height: 60rpx;
+}
+
+.chooseModal .eventBox .cancel {
+    background-color: #fff;
+    color: rgb(243, 67, 67);
+}
+
+.chooseModal .eventBox .close {
     color: #fff;
     background-color:rgb(243, 67, 67);
 }

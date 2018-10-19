@@ -18,7 +18,7 @@ Page({
     },
 
     hostListData: null,
-    completedData: true,
+    completedData: null,
 
     completingData: false,
     completingSeqData: false,
@@ -34,8 +34,22 @@ Page({
 
     compeletingModal: false,
     compeletedModal: false,
+    chooseModal: false,
 
+    orderId: null,
+    compeletingModalData: null,
+    compeletedModalData:null,
 
+    cellState:true
+  },
+
+  getPhoneNumber(e) {
+    this.setData({
+      cellState: false
+    });
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
   },
 
   // 再次预约
@@ -50,20 +64,30 @@ Page({
   },
 
   compeletedModalShow: function (e) {
+    console.log(e);
+    var compeletedModalData = e.currentTarget.dataset.item;
+
     this.setData({
-      compeletedModal: true
+      compeletedModal: true,
+      compeletedModalData:compeletedModalData
     })
   },
 
   compeletingModalShow: function (e) {
+    var orderId = e.currentTarget.dataset.id;
+    var compeletingModalData = e.currentTarget.dataset.item;
+
+    console.log(compeletingModalData);
     this.setData({
-      compeletingMoal: true
+      compeletingModal: true,
+      orderId: orderId,
+      compeletingModalData: compeletingModalData
     })
   },
 
   compeletingModalClose: function (e) {
     this.setData({
-      compeletingMoal: false
+      compeletingModal: false
     })
   },
 
@@ -78,7 +102,50 @@ Page({
     this.setData({
       tabState: e.currentTarget.dataset.id,
       tabContentShow: false
-    })
+    });
+
+    this.getCompletedData();
+  },
+
+  // 完成的订单
+  getCompletedData: function (e) {
+    var that = this;
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/completeOrder',
+      method: "POST",
+      data: {
+        ID: 'a4b618628dfc466b81f02e8dd5f1dede'
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      success(res) {
+        res.data.sd.reverse();
+
+        console.log(res.data);
+
+        res.data.hc.forEach(function(x,y,z){
+
+
+            var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
+            var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
+
+            var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
+            
+            var t3 = x.time.slice(0, x.time.indexOf(" ")).split("-");
+            var rq = t3[1] + '-' + t3[2];
+
+            console.log(t1);
+            console.log(t2);
+            x.time = time;
+            x.time1 = rq;
+        });
+
+        that.setData({
+          completedData: res.data
+        });
+
+        console.log(that.data.completedData);
+      }
+    });
   },
 
   searchPage: function (e) {
@@ -98,13 +165,11 @@ Page({
   },
 
   foldSwitch: function (e) {
-    console.log('ok');
     var that = this.data.st;
     that = that ? false : true;
     this.setData({
       st: that
     })
-
   },
   // 扫一扫
   richScan: function () {
@@ -128,9 +193,84 @@ Page({
     })
   },
 
+
+  // 禁止冒泡
+  forbidBubbling: function () {
+    console.log('禁止button冒泡');
+  },
+
+  // 显示提示弹出层
+  showChooseModal: function (e) {
+    console.log('showChooseModal');
+
+    var orderId = e.currentTarget.dataset.id;
+    this.setData({
+      chooseModal: true,
+      orderId: orderId
+    })
+
+    console.log(orderId);
+  },
+
+  chooseModalClose: function () {
+    console.log('chooseModalClose');
+    this.setData({
+      chooseModal: false
+    })
+  },
+
+  cancelOrderModal: function (e) {
+
+    var that = this;
+    var orderId = this.data.orderId;
+    if (orderId) {
+      wx.request({
+        url: 'https://api.yuyue58.cn/api/DelBooking',
+        method: "POST",
+        data: {
+          id: orderId
+        },
+        header: { "content-type": "application/x-www-form-urlencoded" },
+        success(res) {
+          that.setData({
+            compeletingModal: false
+          });
+          that.getCompletingData();
+        }
+      });
+    }
+
+  },
+  // 取消订单(进行中的)
+  cancelOrder: function (e) {
+    console.log(this.data.orderId);
+    var that = this;
+    var orderId = this.data.orderId;
+
+    if (orderId) {
+      wx.request({
+        url: 'https://api.yuyue58.cn/api/DelBooking',
+        method: "POST",
+        data: {
+          id: orderId
+        },
+        header: { "content-type": "application/x-www-form-urlencoded" },
+        success(res) {
+          console.log(res);
+
+          that.setData({
+            chooseModal: false
+          });
+          that.getCompletingData();
+        }
+      });
+    }
+
+  },
+
   // 跳转常去店铺
   frequentedStore: function (e) {
-    console.log(e);
+
     if (e.currentTarget.dataset.id) {
       app.globalData.storeID = e.currentTarget.dataset.id;
     }
@@ -144,7 +284,7 @@ Page({
       console.log(res.target)
     }
     return {
-      title: '预约吧',
+      title: res.target.dataset.id,
       path: 'pages/customEntrance/index',
       imageUrl: '../../resource/images/common/logo.png'
     }
@@ -162,13 +302,14 @@ Page({
     })
   },
 
-  onLoad: function () {
+  // 获取热榜数据
+  getHotData: function () {
     var that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/hot',
       method: "POST",
       data: {
-        ID: 'ac88d10cecaa44e6b45495fe3139b1a9'
+        ID: 'a4b618628dfc466b81f02e8dd5f1dede'
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
@@ -177,8 +318,10 @@ Page({
         })
       }
     });
-
-    // 进行中的数据列表
+  },
+  // 获取进行中的数据列表
+  getCompletingData: function () {
+    var that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/InCompleteOrderList',
       method: "POST",
@@ -186,14 +329,8 @@ Page({
         ID: 'a4b618628dfc466b81f02e8dd5f1dede'
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
-
       success(res) {
-        console.log(res.data);
-        // console.log(res.data[0].time);
-        // console.log(util.formatDate(new Date()));
-
         var cData = complete.completing(res.data);
-
         that.setData({
           completingData: res.data,
           completingSeqData: cData.itemArray,
@@ -201,8 +338,35 @@ Page({
           completingTime: cData.timeArray
         })
       }
-
     });
+  },
+
+  // 删去经常访问的店家
+  cancleFamiliarShop: function (e) {
+    var mid = e.currentTarget.dataset.mid;
+    var sid = e.currentTarget.dataset.sid;
+
+    var that = this;
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/DelBookingShop',
+      method: "POST",
+      data: {
+        mid: mid,
+        sid: sid
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      success(res) {
+        console.log(res);
+
+        that.getHotData();
+      }
+    });
+
+  },
+
+  onLoad: function () {
+    this.getHotData();
+    this.getCompletingData();
 
     // if (app.globalData.userInfo) {
     //   this.setData({
