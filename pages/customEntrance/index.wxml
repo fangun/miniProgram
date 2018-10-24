@@ -1,8 +1,10 @@
 <!-- index.wxml -->
-<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="cell" style="display:{{cellState ? block : none}}"> </button>
+<!-- 授权触发 -->
+<view class="authorize" catchtap="authorize" style="display:{{authorizeState ? 'none' : 'block'}}"></view>
+
 <view class="container">
     <!-- 页面标题 -->
-    <view class="pageTitle">{{pageTitle}}</view>
+    <view class="pageTitle">{{pageTitle}}</view> 
     <!-- 搜索栏目 -->
     <view class="searchColumn">
         <view class="richScan" bindtap="richScan">
@@ -11,9 +13,9 @@
         </view>
         <view class="search" bindtap="searchPage">
             <image src="../../resource/images/customEntrance/search3.png"></image>
-            <input placeholder="搜索更多商家，免二维码，在线预约" />
+            <input disabled placeholder="搜索更多商家，免二维码，在线预约" />
         </view>
-        <view class="store" bindtap="storePage">
+        <view class="store" bindtap="storeBackEnd">
             <image src="../../resource/images/customEntrance/store3.png"></image>
             <view>店家</view>
         </view>
@@ -66,20 +68,40 @@
                     </block>
                 </view>
                 <view class="row">
-                    <block wx:for="{{[4,5,6,7]}}" wx:key='*this'>
-                        <block wx:if="{{item < 7 && item < hostListData.length}}">
-                            <view class='item' data-id="{{hostListData[item].sid}}" bindtap="frequentedStore">
-                                <image src='{{hostListData[item].logo == "" || hostListData[item].logo == null ? "":apiPrefix}}{{hostListData[item].logo == "" || hostListData[item].logo == null ? "../../resource/images/common/logo.png" :  hostListData[item].logo }}'></image>
-                                <view>{{hostListData[item].name}}</view>
-                            </view>
-                        </block>
-                        <block wx:if="{{item == 7 && hostListData.length > 6}}">
-                            <view class='item' bindtap="showModalFn">
-                                <image src="../../resource/images/customEntrance/moreList3.png"></image>
-                                <view>查看更多</view>
-                            </view>
+                    <block wx:if="{{!hostListData}}">
+                        <block wx:for="{{[4,5,6,7]}}" wx:key='*this'>
+                            <block wx:if="{{item < 7}}">
+                                <view class='item' data-id="{{hostListData[item].sid}}" bindtap="frequentedStore">
+                                    <image src='{{hostListData[item].logo == "" || hostListData[item].logo == null ? "":apiPrefix}}{{hostListData[item].logo == "" || hostListData[item].logo == null ? "../../resource/images/common/logo.png" :  hostListData[item].logo }}'></image>
+                                    <view>{{hostListData[item].name}}</view>
+                                </view>
+                            </block>
+                            <block wx:if="{{item == 7}}">
+                                <view class='item' bindtap="showModalFn">
+                                    <image src="../../resource/images/customEntrance/moreList3.png"></image>
+                                    <view>查看更多</view>
+                                </view>
+                            </block>
+                        </block>                   
+                    </block>
+                    <block wx:else>
+                        <block wx:for="{{[4,5,6,7]}}" wx:key='*this'>
+                            <block wx:if="{{item < 7 && hostListData[item]}}">
+                                <view class='item' data-id="{{hostListData[item].sid}}" bindtap="frequentedStore">
+                                    <image src='{{hostListData[item].logo == "" || hostListData[item].logo == null ? "":apiPrefix}}{{hostListData[item].logo == "" || hostListData[item].logo == null ? "../../resource/images/common/logo.png" :  hostListData[item].logo }}'></image>
+                                    <view>{{hostListData[item].name}}</view>
+                                </view>
+                            </block>
+                            <block wx:if="{{item == 7 && hostListData.length > 6}}">
+                                <view class='item' bindtap="showModalFn">
+                                    <image src="../../resource/images/customEntrance/moreList3.png"></image>
+                                    <view>查看更多</view>
+                                </view>
+                            </block>
                         </block>
                     </block>
+
+
                 </view>
             </block>
         </view>
@@ -131,13 +153,10 @@
                                                     </view>
                                                 </block>
                                                 <view class="project">
-                                                    {{completingData[item].serviceitem}}
+                                                    {{completingData[item].sName}}
                                                 </view>
-                                                <!-- <view class="clash">
-                                                <image src="../../resource/images/customEntrance/clash3.png" />
-                                            </view> -->
                                                 <view class="time">
-                                                    <block wx:if="{{completingData[item].type == 0}}">
+                                                    <block wx:if="{{completingData[item].type == 0 && completingData[item].deposit}}">
                                                         <image src="../../resource/images/customEntrance/dollar3.png"></image>
                                                     </block>
                                                     {{completingTime[item]}}
@@ -156,7 +175,7 @@
                                                         {{completingData[item].empolyee}}
                                                     </view>
                                                 </view>
-                                                <view class="clause">
+                                                <view class="clause" catchtap="makingCalls" data-tel="{{completingData[item].sLoginname}}">
                                                     <view class="name">商家电话：</view>
                                                     <view class="definite">
                                                         {{completingData[item].sLoginname}}
@@ -170,7 +189,7 @@
                                                         {{completingData[item].mname}}
                                                     </view>
                                                 </view>
-                                                <view class="clause">
+                                                <view class="clause" catchtap="makingCalls" data-tel="{{completingData[item].mLoginname}}">
                                                     <view class="name">客户电话：</view>
                                                     <view class="definite">
                                                         {{completingData[item].mLoginname}}
@@ -199,26 +218,30 @@
                         <block wx:else>
                             <image src="../../resource/images/customEntrance/completing3.png" />
                         </block>
+
                     </view>
                 </block>
                 <block wx:else>
                     <view class="tabContent">
                         <!-- 已完成的预约 -->
                         <block wx:if="{{completedData}}">
+
                             <block wx:for="{{completedData.sd}}" wx:key='*this'>
                                 <view class="fold">
-                                    <view class="header">
+
+                                    <view class="header" bindtap="foldSwitch" data-show="{{item.show}}" data-seq="{{index}}">
                                         <view class="time">{{item.year}}-{{item.month}}</view>
-                                        <view class="trigger" bindtap="foldSwitch">
-                                            <image src="{{st ? '../../resource/images/common/icon-t3.png' : '../../resource/images/common/icon-b3.png'}}" />
+                                        <view class="trigger">
+                                            <image src="{{item.show ? '../../resource/images/common/icon-t3.png' : '../../resource/images/common/icon-b3.png'}}" />
                                         </view>
                                     </view>
+
                                     <block wx:if="{{index == 0}}">
-                                        <view class="box" style="height:{{st ? 0 : 'auto'}}">
+                                        <view class="box" style="height:{{item.show ? 'auto' : 0}}">
                                             <block wx:for="{{completedData.hc}}" wx:key='*this'>
                                                 <view class="item" bindtap="compeletedModalShow" data-item="{{completedData.hc[index]}}">
                                                     <view class="logo">
-                                                        <image src="../../resource/images/customEntrance/01.png"></image>
+                                                        <image src="{{item.logo ? 'https://www.yuyue58.cn/fileImage/' + item.logo : '../../resource/images/common/logo2.png'}}"></image>
                                                     </view>
                                                     <view class="details">
                                                         <view class="">{{item.sName}}</view>
@@ -235,8 +258,10 @@
                                             </block>
                                         </view>
                                     </block>
+
                                 </view>
                             </block>
+
                         </block>
                         <block wx:else>
                             <image src="../../resource/images/customEntrance/completed3.png" />
@@ -246,6 +271,7 @@
             </view>
         </view>
     </view>
+
     <!-- 底部导航栏 -->
     <view class="tabtar-box">
         <view class="tabtar-item {{tabbarActive ? 'active' : ''}}">
@@ -261,6 +287,7 @@
             <view>我的</view>
         </view>
     </view>
+
     <!-- 弹出层 -->
     <block wx:if="{{showModal}}">
         <view class="mask" catchtouchmove="preventTouchMove"></view>
@@ -281,7 +308,7 @@
                                 <view></view>
                                 <view></view>
                             </view>
-                            <view class="state" catchtap="cancleFamiliarShop" data-mid="{{'a4b618628dfc466b81f02e8dd5f1dede'}}" data-sid="{{hostListData[index].sid}}">
+                            <view class="state" catchtap="hotDeleteChooseModal" data-sid="{{hostListData[index].sid}}">
                                 <image src="../../resource/images/common/delete3.png" />
                             </view>
                         </view>
@@ -291,42 +318,65 @@
             <button class="cancel" bindtap="modalClose">关闭</button>
         </view>
     </block>
+
     <!-- 正在进行弹出层 -->
     <block wx:if="{{compeletingModal}}">
         <view class="mask" catchtouchmove="preventTouchMove"></view>
         <view class="compeletingModal">
             <view class="title">预约详情</view>
-            <view class="logo">
-                <image src="../../resource/images/customEntrance/01.png" />
-                <view>{{compeletingModalData.sName}}</view>
-                <view class="state">进行中</view>
-            </view>
-            <view class="item">
-                <view class="">服务项目：</view>
-                <view class="">{{compeletingModalData.serviceitem}}</view>
-            </view>
-            <view class="item">
-                <view class="">服务人员：</view>
-                <view class="">{{compeletingModalData.empolyee}}</view>
-            </view>
-            <view class="item">
-                <view class="">商家地址：</view>
-                <view class="">{{compeletingModalData.saddress}}</view>
-            </view>
-            <view class="item">
-                <view class="">服务时间：</view>
-                <view class="detailTime">
-                    <view class="">{{compeletingModalData.time}}</view>
-                    <!-- <view class="">{{compeletingModalData.time1}}</view> -->
+            <view class="content">
+                <view class="logo">
+                    <image src="{{compeletingModalData.logo ? 'https://www.yuyue58.cn/fileImage/' + compeletingModalData.logo : '../../resource/images/common/logo2.png'}}" />
+                    <view>{{compeletingModalData.sName}}</view>
+                    <view class="state">进行中</view>
                 </view>
-            </view>
-            <view class="item">
-                <view class="">商家电话：</view>
-                <view class="">{{compeletingModalData.sLoginname}}</view>
-            </view>
-            <view class="item">
-                <view class="">已付定金：</view>
-                <view class="payed">{{compeletingModalData.deposit}}</view>
+
+                <view class="item" catchtap="makingCalls" data-tel="{{compeletingModalData.sLoginname}}">
+                    <view class="">商家电话：</view>
+                    <view class="">{{compeletingModalData.sLoginname}}</view>
+                </view>
+                <view class="item" catchtap="getMapAddress" data-location="{{compeletingModalData.saddress}}">
+                    <view class="">商家地址：</view>
+                    <view class="">{{compeletingModalData.saddress}}</view>
+                </view>
+                <view class="item">
+                    <view class="">服务项目：</view>
+                    <view class="">{{compeletingModalData.serviceitem}}</view>
+                </view>
+
+                <block wx:if="{{compeletingModalData.deposit}}">
+                    <view class="item">
+                        <view>已付定金：</view>
+                        <view class="payed">{{compeletingModalData.deposit}}</view>
+                    </view>
+                </block>
+                
+                <view class="item">
+                    <view class="">服务人员：</view>
+                    <view class="">{{compeletingModalData.empolyee}}</view>
+                </view>
+                <view class="item">
+                    <view class="">服务时间：</view>
+                    <view class="detailTime">
+                        <view class="">{{compeletingModalData.time}}</view>
+                        <!-- <view class="">{{compeletingModalData.time1}}</view> -->
+                    </view>
+                </view>
+
+                <block wx:if="{{compeletingModalData.isFirst == 1}}">
+                    <view class="item">
+                        <view>新旧客户：</view>
+                        <view>新客户</view>
+                    </view>
+                </block>
+                
+                <block wx:if="{{compeletingModalData.remarks !== '' && compeletingModalData.remarks}}">
+                    <view class="item">
+                        <view>备    注：</view>
+                        <view>{{compeletingModalData.remarks}}</view>
+                    </view>
+                </block>
+            
             </view>
             <view class="eventBox">
                 <view class="cancel" bindtap="cancelOrderModal">取消预约</view>
@@ -334,13 +384,14 @@
             </view>
         </view>
     </block>
+
     <!-- 已完成弹出层 -->
     <block wx:if="{{compeletedModal}}">
         <view class="mask" catchtouchmove="preventTouchMove"></view>
         <view class="compeletingModal">
             <view class="title">已完成详情</view>
             <view class="logo">
-                <image src="../../resource/images/customEntrance/01.png" />
+                <image src="{{compeletedModalData.logo ? 'https://www.yuyue58.cn/fileImage/' + compeletedModalData.logo : '../../resource/images/common/logo2.png'}}" />
                 <view>{{compeletedModalData.sName}}</view>
             </view>
             <view class="item">
@@ -351,11 +402,11 @@
                 <view>服务人员：</view>
                 <view>{{compeletedModalData.empolyee}}</view>
             </view>
-            <view class="item">
+            <view class="item" catchtap="makingCalls" data-tel="{{compeletedModalData.sLoginname}}">
                 <view>商家电话：</view>
                 <view>{{compeletedModalData.sLoginname}}</view>
             </view>
-            <view class="item">
+            <view class="item" catchtap="getMapAddress" data-location="{{compeletedModalData.saddress}}">
                 <view>商家地址：</view>
                 <view>{{compeletedModalData.saddress}}</view>
             </view>
@@ -372,15 +423,29 @@
             </view>
         </view>
     </block>
+
     <!-- 已完成弹出层 -->
     <block wx:if="{{chooseModal}}">
         <view class="mask" catchtouchmove="preventTouchMove"></view>
         <view class="chooseModal">
-            <view class="text">确定取消预约</view>
+            <view class="text">取消预约</view>
             <view class="eventBox">
                 <view class="cancel" bindtap="cancelOrder">取消预约</view>
                 <view class="close" bindtap="chooseModalClose">我在想想</view>
             </view>
         </view>
     </block>
+
+    <!-- 热榜 删去 弹出层 -->
+    <block wx:if="{{hotDeleteModal}}">
+        <view class="mask z_index" catchtouchmove="preventTouchMove"></view>
+        <view class="chooseModal z_indexBig">
+            <view class="text">确定移除</view>
+            <view class="eventBox">
+                <view class="cancel" bindtap="cancleFamiliarShop">确认删去</view>
+                <view class="close" bindtap="hotDeleteChooseModalClose">我再想想</view>
+            </view>
+        </view>
+    </block>
+
 </view>

@@ -4,6 +4,16 @@
     padding: 0;
 }
 
+.authorize {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    opacity: 0;
+}
+
 /* 获取手机号码 授权 */
 .cell {
     position: fixed;
@@ -19,6 +29,7 @@
 }
 /* 页面标题 */
 .pageTitle {
+    box-sizing: border-box;
     width: 100%;
     background-color: rgba(243,67,67,1);
     border: 1px solid rgba(243,67,67,1);
@@ -263,9 +274,8 @@
 
 .tabBox .tabContentList .tabContent {
     flex: 1;
-    padding-left: 30rpx;
-    padding-right: 30rpx;
     background-color: #fff;
+    box-sizing: border-box;
 }
 
 .tabBox .tabContentList .tabContent > image {
@@ -281,6 +291,9 @@
     border-radius: 20rpx;
     border:2px solid #fff;
     margin-bottom: 30rpx;
+
+    margin-left: 30rpx;
+    margin-right: 30rpx;
 
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
@@ -342,6 +355,7 @@
     border-radius:6rpx;
     text-align:center;
     font-weight:bold;
+    line-height: 1.6;
 }
 
 .card .item .header .project {
@@ -407,6 +421,8 @@
     width: 100rpx; 
     border-radius: 6rpx;
     margin-left: 14rpx;
+
+    padding: 0;
 }
 
 .card .item .footer .cancel {
@@ -420,10 +436,10 @@
 }
 
 /* 折叠 */
-.fold {
+/* .fold {
     margin-left: -30rpx;
     margin-right: -30rpx;
-}
+} */
 
 .fold .header {
     display: flex;
@@ -481,6 +497,7 @@
     display: block;
     width: 100rpx;
     height: 100rpx;
+    border-radius: 12rpx;
 }
 
 .fold .box .item > .details {
@@ -493,12 +510,12 @@
 
 .fold .box .item .details > view:first-child{
     font-family: PingFangSC-Medium;
-    font-size: 30rpx;
+    font-size: 28rpx;
 }
 
 .fold .box .item .details > view:nth-child(2){
     font-family: PingFangSC-Regular;
-    font-size: 27rpx;
+    font-size: 26rpx;
 }
 
 .fold .box .item .time {
@@ -528,9 +545,25 @@
     font-family: PingFangSC-Regular;
     font-size: 27rpx;
     color: rgb(243,67,67);
-    text-align: center; 
+    text-align: center;
+
 }
 
+.modalDlg .fold .box .item > .state {
+    padding: 30rpx 0 30rpx 30rpx;
+}
+
+.modalDlg .fold .box .item .details > view:nth-child(1){
+    color: rgb(51,51, 51);
+}
+
+.modalDlg .fold .box .item .details > view:nth-child(2){
+    color: rgb(103, 103, 103);
+}
+
+.modalDlg .fold .box .item > .details {
+    justify-content: space-around;
+}
 
 /* 弹出层 */
 .mask{
@@ -551,9 +584,9 @@
     right:0;
     bottom:0;
     background-color:#fff;
-    border-radius:36rpx;
+    border-radius:14rpx;
     margin:70rpx 30rpx auto 30rpx;
-    z-index:9999;
+    z-index:9001;
     height:960rpx;
     
 }
@@ -600,7 +633,7 @@ button::after{
 
 .modalDlg .box .state > image {
     width:28rpx;
-    height:28rpx;    
+    height:28rpx;
 }
 
 .modalDlg .box .item > .details {
@@ -608,7 +641,7 @@ button::after{
 }
 
 .modalDlg .box .item > .time {
-    flex: 1 !important;
+    flex: 0 !important;
 }
 
 /* 正在进行弹出层 */
@@ -621,43 +654,51 @@ button::after{
     right:0;
     bottom:0;
     background-color:#fff;
-    border-radius:36rpx;
+    border-radius:14rpx;
     margin:70rpx 30rpx auto 30rpx;
-    z-index:9999;
-    height:920rpx;
+    z-index:9200;
+    height:800rpx;
+}
+
+.compeletingModal .content {
+    box-sizing: border-box;
+    overflow: scroll;
+    height:550rpx;
 }
 
 .compeletingModal .title {
-    font-family: PingFangSC-Regular;
-    font-size: 38rpx;
+    font-family: PingFangSC-Medium;
+    font-size: 36rpx;
     color: rgb(51, 51, 51);
 
     padding: 35rpx 0 20rpx 27rpx;
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #eee;
 
     text-align: center;
 }
 
 .compeletingModal .logo {
     position: relative;
-    padding: 30rpx 0 50rpx 0;
+    padding: 22rpx 0 50rpx 0;
 }
 
 .compeletingModal .logo > image {
     display:block;
-    width:160rpx;
-    height:160rpx;
+    width:140rpx;
+    height:140rpx;
     margin-left:auto;
     margin-right:auto;
-    margin-bottom: 20rpx;
+    margin-bottom: 16rpx;
+
+    border-radius: 14rpx;
 }
 
 .compeletingModal .logo > view {
     text-align: center;
 
-    font-family: PingFangSC-Regular;
-    font-size: 32rpx;
-    color: #000;
+    font-family: PingFangSC-Light;
+    font-size: 28rpx;
+    color: rgba(51, 51, 51, 1);
 }
 
 .compeletingModal .logo > view.state {
@@ -665,26 +706,34 @@ button::after{
     top:30rpx;
     right: 30rpx;
 
-    color: rgb(243, 67, 67);
-    font-size: 24rpx;
+    color:rgba(243,67,67,1);
+    font-family: PingFangSC-Light;
+    font-size: 23rpx;
     text-align: center;
 }
 
 .compeletingModal .item {
     font-family: PingFangSC-Regular;
-    font-size: 32rpx;
-
-    padding-left: 90rpx;
-    display: flex;
+    font-size: 28rpx;
+    padding-left: 56rpx;
     margin-bottom: 20rpx;
+}
+
+.compeletingModal .item:after{
+    content: '';
+    display: block;
+    clear: both;
 }
 
 .compeletingModal .item > view:first-child {
     color:rgb(153,153,153);
+    float: left;
 }
 
 .compeletingModal .item > view:nth-child(2) {
     color: rgb(51, 51, 51);
+    width:450rpx;
+    float: left;
 }
 
 .compeletingModal .item > view.detailTime {
@@ -692,17 +741,18 @@ button::after{
 }
 
 .compeletingModal .item > view.detailTime > view:nth-child(2) {
-   color: rgb(243, 67, 67);
+   color: rgba(243,67,67,1);
    margin-left: 30rpx;
 }
 
 .compeletingModal .item  view.payed {
-    color: rgb(243, 67, 67);
+    color: rgba(243,67,67,1);
 }
 
 .compeletingModal .eventBox {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 40rpx 56rpx;
 }
 
 .compeletingModal .eventBox > view {
@@ -714,8 +764,6 @@ button::after{
     font-size: 32rpx;
     text-align: center;
     line-height: 60rpx;
-
-    margin-top: 20rpx;
 }
 
 .compeletingModal .eventBox .cancel {
@@ -750,7 +798,7 @@ button::after{
 .chooseModal .eventBox > view {
     width: 260rpx;
     height: 60rpx;
-    border-radius: 10rpx;
+    border-radius: 14rpx;
     border:1px solid rgb(243, 67, 67);
     font-family: PingFangSC-Regular;
     font-size: 26rpx;
@@ -766,4 +814,13 @@ button::after{
 .chooseModal .eventBox .close {
     color: #fff;
     background-color:rgb(243, 67, 67);
+}
+
+/* 层级 */
+.z_index {
+    z-index: 9100;
+}
+
+.z_indexBig {
+    z-index: 9101;
 }

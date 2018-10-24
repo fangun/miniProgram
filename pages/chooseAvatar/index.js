@@ -6,15 +6,22 @@ Page({
 
   data: {
     pageTitle: '选择头像',
-    avatarList: [
-      { 'src': '../../resource/images/personalDetails/013.png', 'active': false },
-      { 'src': '../../resource/images/personalDetails/023.png', 'active': false },
-      { 'src': '../../resource/images/personalDetails/033.png', 'active': false },
-      { 'src': '../../resource/images/personalDetails/043.png', 'active': false },
-      { 'src': '../../resource/images/personalDetails/053.png', 'active': false }
+    avatarList:null,
+    avatarList_b: [
+      { 'src': '../../resource/images/personalDetails/013.png', 'key': 'cboyhead1.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/023.png', 'key': 'cboyhead3.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/033.png', 'key': 'cboyhead2.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/043.png', 'key': 'cboyhead4.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/053.png', 'key': 'cboyhead5.png', 'active': false }
+    ],
+    avatarList_g: [
+      { 'src': '../../resource/images/personalDetails/113.png', 'key': 'chead1.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/123.png', 'key': 'chead2.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/133.png', 'key': 'chead3.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/143.png', 'key': 'chead4.png', 'active': false },
+      { 'src': '../../resource/images/personalDetails/153.png', 'key': 'chead5.png', 'active': false }
     ],
     avtarSeq: null
-
   },
 
   modifyAvatar: function () {
@@ -37,12 +44,10 @@ Page({
     });
   },
 
-  modifyAvatar:function(e){
+  modifyAvatar: function (e) {
     var that = this;
     var seq = e.currentTarget.dataset.id;
-    
-    console.log(seq);
-    console.log(that.data.avatarList[seq].src);
+
     if (seq == null) {
       wx.showModal({
         content: '请选择头像',
@@ -54,24 +59,38 @@ Page({
         url: 'https://api.yuyue58.cn/api/editMemberMessage',
         method: "POST",
         data: {
-          id: 'a4b618628dfc466b81f02e8dd5f1dede',
-          HeadPhoto: that.data.avatarList[seq].src
+          id: app.globalData.coreInfo.mid,
+          HeadPhoto: that.data.avatarList[seq].key
         },
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
-          console.log(res);
-
           wx.showToast({
-            title: '修改成功'
+            title: '修改成功',
+            success: function () {
+              setTimeout(function () {
+                // 返回上一页
+                var pageInn = getCurrentPages();
+                wx.navigateBack({
+                  delta: pageInn.length - 1
+                })
+              }, 1600);
+            }
           });
         }
       });
     }
-
   },
 
   onLoad: function () {
-
+    var value;
+    if(app.globalData.sex == 0){
+      value = this.data.avatarList_b;
+    } else {
+      value = this.data.avatarList_g;
+    }
+    this.setData({
+      avatarList: value
+    });
   }
 
 })

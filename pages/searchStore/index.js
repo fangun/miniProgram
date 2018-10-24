@@ -39,6 +39,7 @@ Page({
         },
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
+          console.log(res.data)
           if (res.data) {
             that.setData({
               showList: true,

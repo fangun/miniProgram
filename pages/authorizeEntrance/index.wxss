@@ -1,0 +1,42 @@
+.container {
+    padding: 0;
+}
+
+.logo {
+    display: block;
+    width:410rpx;
+    height:330rpx;
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 114rpx;
+    margin-bottom: 95rpx;
+}
+
+.wxLogin {
+    width:calc(100% - 60rpx);
+    height: 80rpx;
+    line-height: 80rpx;
+
+    text-align: center;
+
+    font-family: PingFangSC-Regular;
+    font-size:30rpx;
+    color:rgba(255,255,255,0.93);
+    background-color: rgb(26, 172, 25);
+
+    border-radius: 8rpx;
+
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    margin-bottom: 34rpx;
+}
+
+.telLogin {
+    font-family: PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgba(55,177,255,0.93);
+
+    text-align: center;
+}

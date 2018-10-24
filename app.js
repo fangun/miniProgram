@@ -1,13 +1,43 @@
 //app.js
 App({
   onLaunch: function () {
+    var that = this;
+
+    // // 缓存登录信息
+    wx.getStorage({
+      key: 'fangun-coreInfo',
+      success: function (res) {
+        console.log('coreInfo');
+        that.globalData.coreInfo = res.data;
+        that.globalData.loginCache = true;
+        console.log(res.data);
+        console.log(that.globalData.loginCache);
+      },
+      fail: function (res) {
+        console.log('没缓存');
+      }
+    });
+
+    // try {
+    //   var value = wx.getStorageSync('coreInfo');
+    //   console.log('getStorageSync');
+    //   console.log(value);
+    //   console.log(typeof value);
+    //   if (value) {
+    //     that.globalData.coreInfo = res.data;
+    //     that.globalData.loginCache = true;
+    //   }
+    // } catch (e) {
+    //   console.log('没缓存');
+    // }
+
 
     // 登录
     wx.login({
       success: res => {
-        console.log('登录');
-        console.log(res);
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+
+        that.globalData.code = res.code;
       }
     })
 
@@ -33,8 +63,10 @@ App({
     })
   },
 
-
   globalData: {
-    storeID: null
+    loginCache: false,
+    code: null,
+    coreInfo: null,
+    sex: null
   }
 })

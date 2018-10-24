@@ -1,7 +1,9 @@
 //index.js
 //获取应用实例
 var complete = require('../../utils/complete.js');
-
+var QQMapWX = require('../../resource/SDK/qqmap-wx-jssdk.js');
+var qqmapsdk;
+var API = require('../../utils/api.js');
 const app = getApp()
 
 Page({
@@ -28,7 +30,6 @@ Page({
     tabState: 'doing',
     tabContentShow: true,
     appointmentState: 0,
-    st: false,
     showModal: false,
     tabbarActive: true,
 
@@ -38,18 +39,64 @@ Page({
 
     orderId: null,
     compeletingModalData: null,
-    compeletedModalData:null,
+    compeletedModalData: null,
 
-    cellState:true
+    hotDeleteModal: false,
+
+    hotDeletePar: {
+      mid: null,
+      sid: null
+    },
+    authorizeState:false
   },
 
-  getPhoneNumber(e) {
-    this.setData({
-      cellState: false
+  // 删去经常访问的店家
+  cancleFamiliarShop: function (e) {
+    var that = this;
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/DelBookingShop',
+      method: "POST",
+      data: {
+        mid: that.data.hotDeletePar.mid,
+        sid: that.data.hotDeletePar.sid
+      },
+
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      success(res) {
+        wx.showToast({
+          title: '删除成功'
+        });
+
+        that.setData({
+          hotDeleteModal: false,
+        });
+
+        that.getHotData();
+      }
     });
-    console.log(e.detail.errMsg)
-    console.log(e.detail.iv)
-    console.log(e.detail.encryptedData)
+  },
+
+  // 热榜 删去 提示
+  hotDeleteChooseModal: function (e) {
+    var sid = e.currentTarget.dataset.sid;
+    this.setData({
+      hotDeleteModal: true,
+      hotDeletePar: {
+        mid: app.globalData.coreInfo.mid,
+        sid: sid
+      }
+    });
+  },
+
+  hotDeleteChooseModalClose: function (e) {
+    this.setData({
+      hotDeleteModal: false
+    })
+  },
+
+  initPageData: function (e) {
+    this.getHotData();
+    this.getCompletingData();
   },
 
   // 再次预约
@@ -64,20 +111,17 @@ Page({
   },
 
   compeletedModalShow: function (e) {
-    console.log(e);
     var compeletedModalData = e.currentTarget.dataset.item;
 
     this.setData({
       compeletedModal: true,
-      compeletedModalData:compeletedModalData
+      compeletedModalData: compeletedModalData
     })
   },
 
   compeletingModalShow: function (e) {
     var orderId = e.currentTarget.dataset.id;
     var compeletingModalData = e.currentTarget.dataset.item;
-
-    console.log(compeletingModalData);
     this.setData({
       compeletingModal: true,
       orderId: orderId,
@@ -114,46 +158,65 @@ Page({
       url: 'https://api.yuyue58.cn/api/completeOrder',
       method: "POST",
       data: {
-        ID: 'a4b618628dfc466b81f02e8dd5f1dede'
+        ID: app.globalData.coreInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
         res.data.sd.reverse();
 
-        console.log(res.data);
+        res.data.sd.forEach(function (x, y, z) {
+          x.show = y == 0 ? true : false;
+        });
 
-        res.data.hc.forEach(function(x,y,z){
+        res.data.hc.forEach(function (x, y, z) {
+          var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
+          var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
+          var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
+          var t3 = x.time.slice(0, x.time.indexOf(" ")).split("-");
+          var rq = t3[1] + '-' + t3[2];
 
-
-            var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
-            var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
-
-            var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
-            
-            var t3 = x.time.slice(0, x.time.indexOf(" ")).split("-");
-            var rq = t3[1] + '-' + t3[2];
-
-            console.log(t1);
-            console.log(t2);
-            x.time = time;
-            x.time1 = rq;
+          x.time = time;
+          x.time1 = rq;
         });
 
         that.setData({
           completedData: res.data
         });
-
-        console.log(that.data.completedData);
       }
     });
+  },
+
+  foldSwitch: function (e) {
+    console.log(e);
+    console.log(this);
+    var seq = e.currentTarget.dataset.seq;
+
+    // this.data.completedData.
+    // this.setData({
+    //   st: that
+    // })
   },
 
   searchPage: function (e) {
     wx.navigateTo({ url: '../searchStore/index' });
   },
 
-  storePage: function (e) {
-    wx.navigateTo({ url: '../storeHead/index' });
+  storeBackEnd: function (e) {
+    wx.navigateTo({
+      url: '../storeBackEnd/index',
+      success: function () {},
+      fail: function () {},
+      complete: function () {}
+    })
+
+  },
+
+  // 跳转常去店铺
+  frequentedStore: function (e) {
+    console.log(e);
+    if (e.currentTarget.dataset.id) {
+      API.miniProgramGoto(e.currentTarget.dataset.id, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
+    }
   },
 
   appointmentVoice: function (e) {
@@ -164,36 +227,23 @@ Page({
     wx.redirectTo({ url: '../personalDetails/index' });
   },
 
-  foldSwitch: function (e) {
-    var that = this.data.st;
-    that = that ? false : true;
-    this.setData({
-      st: that
-    })
-  },
   // 扫一扫
   richScan: function () {
     wx.scanCode({
       success: (res) => {
-        wx.showToast({
-          title: '成功',
-          icon: 'success',
-          duration: 2000
-        })
+        console.log('结果');
+        console.log(res.result);
+        var seq = res.result.lastIndexOf('%3d');
+        console.log(seq);
+        var sid = res.result.slice(seq + 3);
+        console.log(sid);
+        API.miniProgramGoto(sid,app.globalData.coreInfo.mid,app.globalData.coreInfo.mobile);
       },
-      fail: (res) => {
-        wx.showToast({
-          title: '失败',
-          icon: 'fail',
-          duration: 2000
-        })
-      },
+      fail: (res) => {},
       complete: (res) => {
       }
     })
   },
-
-
   // 禁止冒泡
   forbidBubbling: function () {
     console.log('禁止button冒泡');
@@ -201,26 +251,20 @@ Page({
 
   // 显示提示弹出层
   showChooseModal: function (e) {
-    console.log('showChooseModal');
-
     var orderId = e.currentTarget.dataset.id;
     this.setData({
       chooseModal: true,
       orderId: orderId
     })
-
-    console.log(orderId);
   },
 
   chooseModalClose: function () {
-    console.log('chooseModalClose');
     this.setData({
       chooseModal: false
     })
   },
 
   cancelOrderModal: function (e) {
-
     var that = this;
     var orderId = this.data.orderId;
     if (orderId) {
@@ -232,18 +276,25 @@ Page({
         },
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
+
+          wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 2000
+          });
+
           that.setData({
             compeletingModal: false
           });
+
           that.getCompletingData();
         }
       });
     }
-
   },
+
   // 取消订单(进行中的)
   cancelOrder: function (e) {
-    console.log(this.data.orderId);
     var that = this;
     var orderId = this.data.orderId;
 
@@ -256,7 +307,11 @@ Page({
         },
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
-          console.log(res);
+          wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 2000
+          });
 
           that.setData({
             chooseModal: false
@@ -265,16 +320,6 @@ Page({
         }
       });
     }
-
-  },
-
-  // 跳转常去店铺
-  frequentedStore: function (e) {
-
-    if (e.currentTarget.dataset.id) {
-      app.globalData.storeID = e.currentTarget.dataset.id;
-    }
-    wx.navigateTo({ url: '../storeHead/index' });
   },
 
   // 分享
@@ -309,10 +354,12 @@ Page({
       url: 'https://api.yuyue58.cn/api/hot',
       method: "POST",
       data: {
-        ID: 'a4b618628dfc466b81f02e8dd5f1dede'
+        ID: app.globalData.coreInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
+        console.log('获取热榜数据');
+        console.log(res.data);
         that.setData({
           hostListData: res.data
         })
@@ -326,48 +373,100 @@ Page({
       url: 'https://api.yuyue58.cn/api/InCompleteOrderList',
       method: "POST",
       data: {
-        ID: 'a4b618628dfc466b81f02e8dd5f1dede'
+        ID: app.globalData.coreInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
         var cData = complete.completing(res.data);
+
         that.setData({
           completingData: res.data,
           completingSeqData: cData.itemArray,
           completingTitleData: cData.titleB,
           completingTime: cData.timeArray
         })
-      }
-    });
-  },
-
-  // 删去经常访问的店家
-  cancleFamiliarShop: function (e) {
-    var mid = e.currentTarget.dataset.mid;
-    var sid = e.currentTarget.dataset.sid;
-
-    var that = this;
-    wx.request({
-      url: 'https://api.yuyue58.cn/api/DelBookingShop',
-      method: "POST",
-      data: {
-        mid: mid,
-        sid: sid
       },
-      header: { "content-type": "application/x-www-form-urlencoded" },
-      success(res) {
-        console.log(res);
-
-        that.getHotData();
+      fail(e){
+        console.log('获取进行中数据失败');
       }
     });
-
   },
 
-  onLoad: function () {
-    this.getHotData();
-    this.getCompletingData();
+  // 调用地图
+  getMapAddress: function (e) {
+    var that = this;
+    var location = e.currentTarget.dataset.location;
+    var address = {}; //坐标对象 lat经度 lng维度
 
+    // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
+    wx.getSetting({
+      success(res) {
+        var statu = res.authSetting;
+        if (!statu['scope.userLocation']) {
+
+          wx.openSetting({
+            success(res) {
+              that.getMap(location, address);
+            }
+          })
+        } else {
+          that.getMap(location, address);
+        }
+      }
+    })
+  },
+
+  getMap: function (location, address) {
+    qqmapsdk.geocoder({
+      address: location,
+      success: function (res) {
+        address = res.result.location;
+        var latitude = address.lat;
+        var longitude = address.lng;
+        wx.openLocation({
+          latitude: Number(latitude),
+          longitude: Number(longitude),
+          scale: 28
+        })
+      },
+      fail: function (e) {
+        wx.showToast({
+          title: '暂时无法找到该位置',
+          icon: 'fail',
+          duration: 2000
+        });
+      },
+      complete: function (e) {
+      }
+    });
+  },
+  // 拨打电话
+  makingCalls: function (e) {
+    var phoneNumber = e.currentTarget.dataset.tel;
+    wx.makePhoneCall({
+      phoneNumber: phoneNumber
+    })
+  },
+  authorize:function(e){
+    console.log('authorize');
+    wx.redirectTo({ url: '../authorizeEntrance/index' });
+  },
+  onLoad: function (options) {
+    console.log(app.globalData.loginCache);
+    
+    if(!app.globalData.loginCache){
+      // wx.redirectTo({ url: '../authorizeEntrance/index' });
+    } else {
+      this.setData({
+        authorizeState: true
+      })
+      console.log(options);
+      qqmapsdk = new QQMapWX({
+        key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
+      });
+      this.initPageData();
+    }
+    
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,

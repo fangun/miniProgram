@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/customEntrance/index",
+    "pages/authorizeEntrance/index",
+    
     "pages/personalDetails/index",
     
     "pages/storeHead/index",
@@ -14,7 +16,8 @@
     "pages/addAppointmentVoice/index",
     "pages/addAppointmentHand/index",
     "pages/searchStore/index",
-    "pages/entrancePage/index"
+    "pages/entrancePage/index",
+    "pages/storeBackEnd/index"
     
   ],
 

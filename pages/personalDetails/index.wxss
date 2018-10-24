@@ -5,21 +5,22 @@
 }
 
 .pageTitle {
+    box-sizing: border-box;
     width:100%;
     background-color:rgba(243,67,67,1);
     font-family:PingFangSC-Medium;
-    font-size:36rpx;
+    font-size:32rpx;
     text-align:center;
     color:#fff;
     line-height: 88rpx;
     height:88rpx;
-
 }
 
 .box {
     width: 100%;
-    padding-left: 60rpx;
+    padding-left: 30rpx;
     border-bottom: 30rpx solid #eee;
+    box-sizing: border-box;
 }
 
 .item {
@@ -36,6 +37,7 @@
 
 .item > view:nth-child(2) {
     flex: 3;
+    font-size: 32rpx;
 }
 
 .item > view:nth-child(3) {
@@ -43,12 +45,12 @@
 
     justify-content:flex-end;
     display:flex;
-    padding-right:60rpx;
+    padding-right:30rpx;
 }
 
 .item > view:first-child > text {
     font-family:PingFangSC-Regular;
-    font-size:36rpx;
+    font-size: 32rpx;
     color:rgb(102,102,102);
 }
 
@@ -69,7 +71,6 @@
     display: flex;
 }
 .sex > view {
-    font-size:36rpx;
     margin-right: 25rpx;
 }
 
@@ -88,7 +89,68 @@
 
 .exit {
     font-family:PingFangSC-Regular;
-    font-size:36rpx;
+    font-size:34rpx;
     color:rgb(102,102,102);
     padding-top: 49rpx;
+}
+
+/* 弹出层 */
+.mask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    background: #000;
+    z-index: 9000;
+    opacity: 0.7;
+}
+
+.chooseModal {
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff;
+    z-index:9200;
+    height:430rpx;
+
+    display: relative;
+}
+
+.chooseModal > .chooseSex {
+    float: left;
+    width:50%;
+    padding-bottom: 52rpx;
+    padding-top: 64rpx;
+    text-align: center;
+}
+
+.chooseModal > .chooseSex > view {
+    font-family:PingFangSC-Regular;
+    font-size:29rpx;
+    color:rgb(51,51,51);
+}
+
+.chooseModal > .chooseSex > image {
+    display: block;
+    width:120rpx;
+    height:120rpx;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30rpx;
+}
+
+.cancel {
+    background-color:rgba(243,67,67,1);
+    font-family:PingFangSC-Medium;
+    font-size:36rpx;
+    text-align:center;
+    color:#fff;
+    line-height: 88rpx;
+
+    border-radius: 8rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
 }

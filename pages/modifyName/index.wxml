@@ -2,7 +2,7 @@
 <form class="container"  bindsubmit="modifyName">
     <view class="pageTitle">{{pageTitle}}</view>
     <view class="des">2-24个字符，一个月只能申请修改一次</view>
-    <input class="name" name='name'>李冲</input>
+    <input class="name" name='name'></input>
 
     <button class="modifyName" form-type='submit'>确认</button>
 </form>

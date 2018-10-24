@@ -12,19 +12,26 @@
     
     <block wx:if="{{showList}}">
         <view class="storeListBox">
-            <!-- 搜索列表 -->
-            <block wx:for="{{storeList}}" wx:key="*this">
-                <view bindtap="storeHeadPage" class="storeInfo" id="{{item.id}}">
-                    <view class="name">{{item.name}}</view>
-                    <view class="address">{{item.pca}}{{item.address}}</view>
-                </view>
+            <block wx:if="{{storeList.length > 0}}">
+                <!-- 搜索列表 -->
+                <block wx:for="{{storeList}}" wx:key="*this">
+                    <view bindtap="storeHeadPage" class="storeInfo" id="{{item.id}}">
+                        <view class="name">{{item.name}}</view>
+                        <view class="address">{{item.pca}}{{item.address}}</view>
+                    </view>
+                </block>
+            </block>
+            <block wx:else>
+                <image class="empty" src="../../resource/images/searchStore/empty3.png" />
+                <view class="emptyText">没有搜索结果</view>
+                <view class="emptyTip">换个关键字试试</view>
             </block>
         </view>
     </block>
 
     <block wx:else>
         <!-- 搜索历史 -->
-        <view class="box">
+        <!-- <view class="box">
             <view class="itemHead">
                 <view class="des">搜索历史</view>
                 <view class="delete">
@@ -38,9 +45,9 @@
                 <view class="item">翻滚人潮</view>
                 <view class="item">翻滚社区</view>
             </view>
-        </view>
+        </view> -->
         <!-- 推荐搜索 -->
-        <view class="box">
+        <!-- <view class="box">
             <view class="itemHead">
                 <view class="des">推荐搜索</view>
             </view>
@@ -51,6 +58,6 @@
                 <view class="item">翻滚人潮</view>
                 <view class="item">翻滚社区</view>
             </view>
-        </view>
+        </view> -->
     </block>
 </view>

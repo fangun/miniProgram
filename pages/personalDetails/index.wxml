@@ -9,7 +9,7 @@
       <view>
         <text decode ="{{true}}" space="{{true}}">头&emsp;&emsp;像：</text>
       </view>
-      <view><image class="buddha" src="{{personalData.headPhoto}}"/></view>
+      <view><image class="buddha" src="https://www.yuyue58.cn/images2/{{personalData.headPhoto}}"/></view>
       <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
     </view>
 
@@ -23,7 +23,7 @@
     </view>
 
     <!-- 性别 -->
-    <view class="item">
+    <view class="item" bindtap="gbModalSwitch">
       <view>
         <text decode ="{{true}}" space="{{true}}">性&emsp;&emsp;别：</text>
       </view>
@@ -41,7 +41,7 @@
     </view>
 
     <!-- 电话 -->
-    <view class="item lastChild">
+    <view class="item lastChild" bindtap="makingCalls" data-tel="{{personalData.mobile}}">
       <view>
         <text decode ="{{true}}" space="{{true}}">电&emsp;&emsp;话：</text>
       </view>
@@ -97,5 +97,24 @@
           <view>我的</view>
       </view>
   </view>
+
+  <!-- 男女弹出层 -->
+  <block wx:if="{{gbModal}}">
+      <view class="mask" catchtouchmove="preventTouchMove"></view>
+      <view class="chooseModal">
+          <view class="chooseSex" bindtap="chosseAvatar" data-gender="0">
+            <image src="../../resource/images/common/boy3.png" />
+            <view>男</view>
+          </view>
+
+          <view class="chooseSex" bindtap="chosseAvatar" data-gender="1">
+            <image src="../../resource/images/common/girl3.png" />
+            <view>女</view>
+          </view>
+          <view style="clear:both;"></view>
+
+          <view class="cancel" bindtap="gbModalSwitch">取消</view>
+      </view>
+  </block>
 
 </view>

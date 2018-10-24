@@ -32,6 +32,17 @@
     border-bottom: 1px solid #eee;
 }
 
+.box .item > view {
+    flex: 140rpx;
+}
+
+.box .item:nth-child(3) > view {
+    flex: 160rpx;
+}
+
+.item input {
+    flex: auto;
+}
 .modifyPassword {
     background-color:rgba(243,67,67,1);
     font-family:PingFangSC-Medium;

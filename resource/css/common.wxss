@@ -26,7 +26,7 @@
 .tabtar-box .tabtar-item > view {
     font-size: 20rpx;
     text-align: center;
-    color:#555;
+    color:#c5c5c5;
 }
 
 .tabtar-box .tabtar-item.active > view {

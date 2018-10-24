@@ -9,7 +9,7 @@ Page({
 
   modifyName: function (e) {
     var inputName = e.detail.value.name;
- 
+
     if (inputName == '') {
       wx.showModal({
         content: '请输入姓名',
@@ -23,16 +23,29 @@ Page({
         method: "POST",
 
         data: {
-          id: 'a4b618628dfc466b81f02e8dd5f1dede',
+          id: app.globalData.coreInfo.mid,
           Name: inputName
         },
 
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
-          console.log(res);
-
           wx.showToast({
-            title: '修改成功'
+            title: '修改成功',
+            success: function () {
+              setTimeout(function () {
+                // 返回上一页
+                var pageInn = getCurrentPages();
+                wx.navigateBack({
+                  delta: pageInn.length - 1
+                })
+              }, 1600);
+            }
+          });
+
+        },
+        fail() {
+          wx.showToast({
+            title: '修改失败'
           });
         }
       });
@@ -42,8 +55,6 @@ Page({
 
   },
 
-  onLoad: function () {
-
-  }
+  onLoad: function () { }
 
 })

@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container">
+    <image class="logo" src="../../resource/images/authorizeEntrance/logo3.png" />
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="wxLogin">微信用户一键登录</button>
+    <!-- <view class="telLogin">手机号码登录/注册</view> -->
+</view>
