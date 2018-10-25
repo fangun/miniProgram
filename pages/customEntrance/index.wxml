@@ -1,7 +1,13 @@
 <!-- index.wxml -->
-<!-- 授权触发 -->
-<view class="authorize" catchtap="authorize" style="display:{{authorizeState ? 'none' : 'block'}}"></view>
+<block wx:if="{{!loginState}}">
+    <view class="container authorize">
+        <image class="logo" src="../../resource/images/authorizeEntrance/logo3.png" />
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="wxLogin">微信用户一键登录</button>
+        <view class="telLogin" bindtap="accountLogin">手机号码登录/注册</view>
+    </view>
+</block>
 
+<block wx:else>
 <view class="container">
     <!-- 页面标题 -->
     <view class="pageTitle">{{pageTitle}}</view> 
@@ -325,7 +331,7 @@
         <view class="compeletingModal">
             <view class="title">预约详情</view>
             <view class="content">
-                <view class="logo">
+                <view class="logo" data-id="{{compeletingModalData.sid}}" bindtap="frequentedStore">
                     <image src="{{compeletingModalData.logo ? 'https://www.yuyue58.cn/fileImage/' + compeletingModalData.logo : '../../resource/images/common/logo2.png'}}" />
                     <view>{{compeletingModalData.sName}}</view>
                     <view class="state">进行中</view>
@@ -390,7 +396,7 @@
         <view class="mask" catchtouchmove="preventTouchMove"></view>
         <view class="compeletingModal">
             <view class="title">已完成详情</view>
-            <view class="logo">
+            <view class="logo" data-id="{{compeletedModalData.sid}}" bindtap="frequentedStore">
                 <image src="{{compeletedModalData.logo ? 'https://www.yuyue58.cn/fileImage/' + compeletedModalData.logo : '../../resource/images/common/logo2.png'}}" />
                 <view>{{compeletedModalData.sName}}</view>
             </view>
@@ -419,7 +425,7 @@
             </view>
             <view class="eventBox">
                 <view class="cancel" bindtap="compeletedModalClose">关闭</view>
-                <view class="close" bindtap="appointmentAgain">再次预约</view>
+                <view class="close" data-id="{{compeletedModalData.sid}}" bindtap="frequentedStore">再次预约</view>
             </view>
         </view>
     </block>
@@ -428,7 +434,7 @@
     <block wx:if="{{chooseModal}}">
         <view class="mask" catchtouchmove="preventTouchMove"></view>
         <view class="chooseModal">
-            <view class="text">取消预约</view>
+            <view class="text">取消预约?</view>
             <view class="eventBox">
                 <view class="cancel" bindtap="cancelOrder">取消预约</view>
                 <view class="close" bindtap="chooseModalClose">我在想想</view>
@@ -440,7 +446,7 @@
     <block wx:if="{{hotDeleteModal}}">
         <view class="mask z_index" catchtouchmove="preventTouchMove"></view>
         <view class="chooseModal z_indexBig">
-            <view class="text">确定移除</view>
+            <view class="text">确定移除?</view>
             <view class="eventBox">
                 <view class="cancel" bindtap="cancleFamiliarShop">确认删去</view>
                 <view class="close" bindtap="hotDeleteChooseModalClose">我再想想</view>
@@ -449,3 +455,5 @@
     </block>
 
 </view>
+
+</block>

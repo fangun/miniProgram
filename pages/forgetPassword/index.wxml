@@ -1,0 +1,61 @@
+<!--index.wxml-->
+<view class="container">
+    <image class="logo" src="../../resource/images/authorizeEntrance/logo3.png" />
+
+    <form class="loginForm" bindsubmit="passwordFormSubmit">
+
+        <view class="item">
+             <view class="icon">
+                 <image src="../../resource/images/accountLogin/tel3.png" />
+             </view>
+              <view class="inputText">
+                  <input type="number" name="tel" bindinput='searchInput' placeholder="请输入手机号码" />
+              </view>
+              <view></view>
+        </view>
+
+        <view class="item">
+            <view class="icon">
+                <image src="../../resource/images/accountLogin/password3.png" />
+            </view>
+            <view class="inputText">
+                <input type="{{switchShow1 ? 'password' : 'text'}}" name="password" placeholder="请输入密码" />
+            </view>
+            <view class="other" bindtap="switchShow1">
+                <image src="{{switchShow1 ? '../../resource/images/accountLogin/hide3.png' : '../../resource/images/accountLogin/show3.png' }}"/>
+            </view>
+        </view>
+        
+        <view class="item">
+            <view class="icon">
+                <image src="../../resource/images/accountLogin/password3.png" />
+            </view>
+            <view class="inputText">
+                <input type="{{switchShow2 ? 'password' : 'text'}}" name="passwordCopy" placeholder="请输入密码" />
+            </view>
+            <view class="other" bindtap="switchShow2">
+                <image src="{{switchShow2 ? '../../resource/images/accountLogin/hide3.png' : '../../resource/images/accountLogin/show3.png' }}"/>
+            </view>
+        </view>
+
+        <view class="item">
+            <view class="icon">
+                <image src="../../resource/images/accountLogin/code3.png" />
+            </view>
+            <view class="inputText">
+                <input type="number" name="verCode" placeholder="短信验证码" />
+            </view>
+            <button class="other vercode {{verCode ? 'disable-button' : ''}}" bindtap="getVerCode">
+                {{verCode ? '重新获取' : '获取验证码'}}
+            </button>
+        </view>
+
+        <view class="fnlist">
+            <view class="reqister"></view>
+            <view class="forgetPassword" bindtap="accountLogin">已有账号,去登陆</view>
+        </view>
+
+        <button class="register" formType="submit">注册</button>
+
+    </form>
+</view>

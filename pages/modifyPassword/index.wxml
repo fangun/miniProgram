@@ -3,11 +3,12 @@
     <view class="pageTitle">{{pageTitle}}</view>
 
     <view class="box">
-        <view class="item">
-            <view>原密码：</view>
-            <input type="password" name="oPassword"></input>
-        </view>
-
+        <block wx:if="{{havePassword}}">
+            <view class="item">
+                <view>原密码：</view>
+                <input type="password" name="oPassword"></input>
+            </view>
+        </block>
         <view class="item">
             <view>新密码：</view>
             <input type="password" name="nPassword"></input>

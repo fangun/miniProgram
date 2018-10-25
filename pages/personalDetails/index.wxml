@@ -79,7 +79,7 @@
     </view>
   </view>
 
-  <view class="exit">退出登录</view>
+  <view class="exit" bindtap="exitLogin">退出登录</view>
 
 
   <!-- 底部导航栏 -->

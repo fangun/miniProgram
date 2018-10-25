@@ -1,0 +1,179 @@
+.container {
+    padding: 0;
+}
+
+.logo {
+    display: block;
+    width:410rpx;
+    height:330rpx;
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 114rpx;
+    margin-bottom: 95rpx;
+}
+
+.loginForm {
+    width: calc(100% - 200rpx);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginForm .item {
+    border-bottom:2px solid rgb(242, 242, 242);
+
+    display: flex;
+
+    height: 71rpx;
+    box-sizing: border-box;
+    padding-bottom: 25rpx;
+    margin-bottom: 25rpx;
+}
+
+.loginForm .item > view { 
+    height: 46rpx;
+}
+
+.loginForm .item > view:nth-child(1) {
+    width: 60rpx;
+}
+
+.loginForm .item > view:nth-child(2) {
+    flex: auto;
+}
+
+.loginForm .item > view:nth-child(3) {
+    width:60rpx;
+    padding-top: 4rpx;
+}
+
+.loginForm .item:first-child .icon image {
+    display: block;
+    width: 30rpx;
+    height: 46rpx;
+}
+
+.loginForm .item:nth-child(2) .icon image,
+.loginForm .item:nth-child(3) .icon image,
+.loginForm .item:nth-child(4) .icon image {
+    display: block;
+    width: 36rpx;
+    height: 46rpx;
+}
+
+.loginForm .item:nth-child(2) .other image,
+.loginForm .item:nth-child(3) .other image {
+    display: block;
+    width: 50rpx;
+    height: 32rpx;
+}
+
+.loginForm .item:nth-child(4) > .vercode {
+    box-sizing: border-box;
+    width: 200rpx;
+    height: 46rpx;
+
+    font-family:PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgb(243,67,67);
+    text-align: center;
+
+    line-height:46rpx;
+    border-radius:8rpx;
+    
+    border:1px solid rgb(243,67,67);
+
+    background-color: #fff;
+}
+
+
+.loginForm .item .inputText {
+    font-family:PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(153,153,153);
+
+    height: 46rpx;
+}
+
+
+.loginForm .item .inputText input,
+.loginForm .item .inputText input::placeholder{
+    height: 42rpx;
+    line-height: 42rpx;
+    width:100%;
+    min-height: 42rpx;
+}
+
+
+.box {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.box .freeOpen {
+    width: 260rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+
+    font-family:PingFangSC-Regular;
+    font-size:26rpx;
+    color:rgb(243,67,67);
+
+    box-sizing: border-box;
+    border: 1px solid rgb(243,67,67);
+    border-radius: 8rpx;
+    background-color: #fff;
+    text-align: center;
+    
+}
+
+.box .login {
+    width: 260rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+
+    font-family:PingFangSC-Regular;
+    font-size:26rpx;
+    color:#fff;
+
+    box-sizing: border-box;
+    border: 1px solid rgb(243,67,67);
+    border-radius: 8rpx;
+    background-color: rgb(243,67,67);
+    padding: 0;
+    margin: 0;
+}
+
+
+/* 功能性按钮 */
+.fnlist {
+    display: flex;
+    justify-content: space-between;
+
+    font-family:PingFangSC-Regular;
+    font-size:26rpx;
+    color:rgb(153,153,153);
+
+    margin-bottom: 88rpx;
+}
+
+/* 注册按钮 */
+.register {
+    width: 100%;
+
+    border-radius: 8rpx;
+    font-family:PingFangSC-Regular;
+    font-size:26rpx;
+    color:rgb(255,255,255);
+    background-color: rgb(243,67,67);
+
+    text-align: center;
+    line-height: 80rpx;
+}
+
+.disable-button{
+    pointer-events:none;
+    color:rgb(153,153,153);
+    border: 1px solid rgb(153,153,153);
+}

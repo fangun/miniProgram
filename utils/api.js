@@ -23,7 +23,7 @@ const miniProgramGoto = function(sid,mid,mobile){
       'mid':mid,
       'mobile':mobile
     },
-    envVersion: 'develop',
+    envVersion: 'trial',
     success: function(res) {},
     fail: function(res) {},
     complete: function(res) {},

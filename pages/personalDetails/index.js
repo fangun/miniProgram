@@ -101,6 +101,7 @@ Page({
         });
 
         app.globalData.sex = res.data[0].gender;
+        app.globalData.havePassword = res.data[0].password;
       }
     });
   },
@@ -112,7 +113,31 @@ Page({
       phoneNumber: phoneNumber
     })
   },
-  
+
+  // 退出登录
+  exitLogin:function(e){
+
+    wx.removeStorage({
+      key: 'fangun-coreInfo',
+      success: function(res) {
+        console.log('退出登录');
+        console.log(res);
+        app.globalData.loginCache = false;
+        wx.showToast({
+          title: '登录退出成功',
+          success: function () {
+            setTimeout(function () {
+              // 授权页
+              wx.redirectTo({ url: '../customEntrance/index' });
+            }, 1600);
+          }
+        });
+
+      } 
+    });
+
+  },
+
   onLoad: function () {
 
   }

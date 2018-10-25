@@ -11,12 +11,12 @@ Page({
   },
 
   storeHeadPage:function(e){
-
-    if(e.currentTarget.id){
-      app.globalData.storeID = e.currentTarget.id;
+    console.log(e);
+    console.log(app.globalData.coreInfo.mid);
+    console.log(app.globalData.coreInfo.mobile);
+    if(e.currentTarget.dataset.sid){
+      API.miniProgramGoto(e.currentTarget.dataset.sid, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
     }
-    
-    wx.navigateTo({ url: '../storeHead/index' });
   },
 
   searchStore: function (e) {

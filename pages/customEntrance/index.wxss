@@ -11,7 +11,8 @@
     bottom: 0;
     left: 0;
     z-index: 9999;
-    opacity: 0;
+    opacity: 1;
+    display:block;
 }
 
 /* 获取手机号码 授权 */
@@ -573,7 +574,7 @@
     top: 0;
     left: 0;
     background: #000;
-    z-index: 9000;
+    z-index: 2000;
     opacity: 0.7;
 }
  
@@ -656,7 +657,7 @@ button::after{
     background-color:#fff;
     border-radius:14rpx;
     margin:70rpx 30rpx auto 30rpx;
-    z-index:9200;
+    z-index:2100;
     height:800rpx;
 }
 
@@ -823,4 +824,45 @@ button::after{
 
 .z_indexBig {
     z-index: 9101;
+}
+
+
+/* 授权ui */
+.authorize .logo {
+    display: block;
+    width:410rpx;
+    height:330rpx;
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 114rpx;
+    margin-bottom: 95rpx;
+}
+
+.authorize .wxLogin {
+    width:calc(100% - 60rpx);
+    height: 80rpx;
+    line-height: 80rpx;
+
+    text-align: center;
+
+    font-family: PingFangSC-Regular;
+    font-size:30rpx;
+    color:rgba(255,255,255,0.93);
+    background-color: rgb(26, 172, 25);
+
+    border-radius: 8rpx;
+
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+
+    margin-bottom: 34rpx;
+}
+
+.authorize .telLogin {
+    font-family: PingFangSC-Regular;
+    font-size:24rpx;
+    color:rgba(55,177,255,0.93);
+
+    text-align: center;
 }

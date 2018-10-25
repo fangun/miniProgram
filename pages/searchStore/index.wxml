@@ -15,7 +15,7 @@
             <block wx:if="{{storeList.length > 0}}">
                 <!-- 搜索列表 -->
                 <block wx:for="{{storeList}}" wx:key="*this">
-                    <view bindtap="storeHeadPage" class="storeInfo" id="{{item.id}}">
+                    <view bindtap="storeHeadPage" class="storeInfo" data-sid="{{item.id}}">
                         <view class="name">{{item.name}}</view>
                         <view class="address">{{item.pca}}{{item.address}}</view>
                     </view>

@@ -4,17 +4,15 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle: '修改密码'
+    pageTitle: '修改密码',
+    havePassword:false
   },
 
   modifyPassword: function (e) {
-
     console.log(e);
     var op = e.detail.value.oPassword;
     var np = e.detail.value.nPassword;
     var sp = e.detail.value.sPassword;
-
-
     if (op == '' || np == '' || sp == '') {
       wx.showModal({
         content: '请输入完整',
@@ -28,7 +26,6 @@ Page({
         confirmText: '确定'
       })
     } else {
-
       wx.request({
         url: 'https://api.yuyue58.cn/api/editMemberMessage',
         method: "POST",
@@ -58,7 +55,9 @@ Page({
   },
 
   onLoad: function () {
-
+    this.setData({
+      havePassword: app.globalData.havePassword
+    });
   }
 
 })
