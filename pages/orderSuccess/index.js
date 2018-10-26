@@ -69,12 +69,12 @@ Page({
   },
   scanImg:function(e){
     let src = e.currentTarget.dataset.src;
-    let srcArr = ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540530806500&di=57bb1ff49358390796a4b66079c5b43f&imgtype=0&src=http%3A%2F%2Fy3.ifengimg.com%2Fnews_spider%2Fdci_2013%2F09%2Fb85234c4801f8b2d7771353867a7a0f8.jpg"];
+    let srcArr = [];
     // let srcArr = [src]
-    wx.previewImage({
-      // current: src, // 当前显示图片的http链接
-      urls: srcArr // 需要预览的图片http链接列表
-    })
+    // wx.previewImage({
+    //   // current: src, // 当前显示图片的http链接
+    //   urls: srcArr // 需要预览的图片http链接列表
+    // })
     
   },
   goto:function(e){

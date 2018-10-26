@@ -1,6 +1,6 @@
 .calendar{
 	width: 100%;
-  min-height:500rpx;
+  height: 100%;
   background: white
 }
 .calendar .tit{
@@ -11,7 +11,11 @@
 	color: white;
 	padding: 40rpx 0;
   background: rgb(243, 67, 67);
-  border-radius: 15rpx
+  flex: 1
+}
+.tit>view{
+  min-width: 200rpx;
+  height:48rpx
 }
 .calendar .tit .current{
   display: flex;align-items: baseline
@@ -43,9 +47,9 @@
 	margin: 4rpx 0;
 }
 
-.calendar .content .able{
-  color: black;
-  border:2rpx solid rgb(228, 228, 228);
+.calendar .content .ago{
+  color:rgb(201, 199, 199);
+  border:none
 }
 
 /*上月，下月*/
@@ -54,10 +58,13 @@
   border: none
 }
 
-.calendar .content .ago{
-  color:rgb(201, 199, 199);
-  border:none
+
+.calendar .content .able{
+  color: black;
+  border:2rpx solid rgb(228, 228, 228);
 }
+
+
 
 .calendar .content .able,.calendar .content .disabled{
   box-sizing:border-box;
@@ -87,4 +94,8 @@
 }
 .selectDay:after{
   background: white
+}
+
+.pre, .next{
+  width: 200rpx;text-align: center
 }

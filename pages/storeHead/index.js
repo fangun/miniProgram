@@ -32,8 +32,10 @@ Page({
     introLength:0,      //intro简介的长度
     storeIntro: false,  //intro简介 1.展开 0收起
     orderList: [],      //已有的预约  {date: "2018-09-04", time: "16:00", num: 1}数组
+    holidayHourList:[], //员工请假的小时段
     currentYear: "",    
     currentMonth: "",
+    hoursPast:30,        //一格的时间
 
     selectedServices: [],     //已选的服务
     serviceTime: 0,           //总服务时间
@@ -141,11 +143,17 @@ Page({
       },
       success(res) {
         console.log(res.data);
+        let logo = res.data.logo;
+        if(logo == null){
+          logo = "https://www.yuyue58.cn/images/tem3.png"
+        }else{
+          logo = "https://www.yuyue58.cn/fileImage/" + logo
+        }
         that.setData({
           storeData: res.data,
-          storeLogo: "https://www.yuyue58.cn/fileImage/" + res.data.logo,
+          storeLogo: logo,
           introLength: res.data.profile.length,
-          dayLong: res.data.bookingDay*30
+          dayLong: res.data.bookingMonth*30
           // dayLong: 35
         });
 
@@ -168,15 +176,10 @@ Page({
             console.log(res.data);
             //已预定的日期，小时，给时段预约量
             that.setData({
-              // orderList: res.data
-              orderList: [
-                { date: "2018-10-10", time: "13:30", num: 1 },
-                { date: "2018-10-23", time: "20:30", num: 1 },
-                { date: "2018-10-24", time: "13:30", num: 4 },
-                { date: "2018-10-25", time: "15:30", num: 1 },
-                { date: "2018-11-01", time: "19:30", num: 4 }
-                ]
+              orderList: res.data.nums,
+              holidayHourList: res.data.holiday
             })
+            console.log(res.data)
           }
         })
 
@@ -494,7 +497,9 @@ Page({
   },
   
   topPerson:function(){
-    console.log('back')
+    wx.navigateTo({
+      url: '../customEntrance/index'
+    })
   },
 
   //顶部条伸出
@@ -852,6 +857,7 @@ Page({
       hours = hourstring1.split("|")
       console.log(hours)                          //工作时间
     }
+    
     // 1.已满人的hour，2.超过今天已故时间
     let orderList = this.data.orderList.slice(0);
     console.log(orderList)
@@ -871,6 +877,55 @@ Page({
       }
       let timenum = new Date(timeStr).valueOf();          //时间戳 1540256400000
       let timeNownum = new Date().valueOf();     //现在的时间 xxxxxxxxx
+      
+      //找出该人，该天的休息时段
+      // let people = this.data.selectPeople;
+      // let date = this.data.selectDay;
+      // let holidayHourList = this.data.holidayHourList; //
+      // let thisPeopleHoliHour = []
+      // for (let i = 0; i < holidayHourList.length; i++) {
+      //   let ymd = holidayHourList[i].starttime.split(" ")[0];  //格式 2018-10-31
+      //   if (people == holidayHourList[i].eid && date == ymd){
+      //     let starttime = holidayHourList[i].starttime.split(" ")[1]; //16:00:00
+      //     starttime = starttime.substr(0, starttime.length - 3);      //16:00
+      //     let stoptime = holidayHourList[i].stoptime.split(" ")[1];   
+      //     stoptime = stoptime.substr(0, stoptime.length - 3);         //18:30
+          
+      //     let start1 = parseInt(starttime.split(":")[0])               //starttime 的 十位数 16
+      //     let start2 = parseInt(starttime.split(":")[1])                //starttime 的 个位数 00
+          
+      //     let hoursPast = this.data.hoursPast;
+
+      //     let next = ""
+      //     do {
+      //       let next2 = parseInt(start2 + hoursPast)                  //加past之后的分钟数
+      //       let next1 = start1                                         //小时数
+      //       if(next2>60){
+      //         next2 = next2 - 60;                                     //数字的分钟数
+      //         next1 = next1+1                                         //数字的小时数
+
+      //         let strNext2="";
+      //         if(next2<10){
+      //           strNext2 = "0"+next2
+      //         } else{
+      //           strNext2 = next2
+      //         }
+      //         let strNext1 = "";
+      //         if(next1<10){
+      //           strNext1 = "0" + next1;
+      //         }else{
+      //           strNext1 = next1;
+      //         }
+
+      //         next = next1 + ":" + next2
+              
+      //       }
+      //     } while (表达式)
+
+      //   }
+      // }
+
+      
       if(timenum<timeNownum){flag=0}
       hoursArr.push({
         time: hours[i],
@@ -910,6 +965,9 @@ Page({
           hoursPast = 60;
           break;
       }
+      this.setData({
+        hoursPast = hoursPast
+      })
       let past = hoursPast / 60; //时间间隔 转为小数     0.5 为一个间隔
       console.log("past"+past)
       let serviceTime = this.data.serviceTime; //所选服务总时长

@@ -14,21 +14,29 @@ Component({
 		},
     disabledDay:{
       type:Array,
-      value: [{ year: 2018, date: "10-19", week: "周五", weekIndex: 4, id: "2018-10-19" }],
+      value: [],
       observer: function (newVal, oldVal, changedPath) {
-        // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
-        // 通常 newVal 就是新设置的数据， oldVal 是旧数据
-        console.log("disabledDay改变")
+        //选人后，disabledDay相应改变，生成allArr
         this.getAllArr()
+        console.log(this.data.disabledDay)
       }
     },
     selectDay:{
       type:String,
       value:"",
       observer: function (newVal, oldVal, changedPath) {
+        console.log(newVal)
         this.setData({
           selectDay:newVal
         })
+        
+      }
+    },
+    peopleActivityDay:{
+      type:Array,
+      value:[],
+      observer: function (newVal, oldVal, changedPath) {
+        console.log(newVal)
       }
     }
 	},
@@ -44,7 +52,10 @@ Component({
     disabledDay:[],
     today:"",  //xxxx-xx-xx
     selectDay:"",
-    todayDay:'' //今天几号
+    todayDay:'', //今天几号
+    nowMonth: new Date().getMonth() + 1,
+    monthStart:0,
+    monthEnd:0
 	},
 	ready(){
 		this.getAllArr();
@@ -98,33 +109,64 @@ Component({
 		getCurrentArr(){ 
 			let currentMonthDateLen = this.getDateLen(this.data.currentYear, this.data.currentMonth) // 获取当月天数
 			let currentMonthDateArr = []; // 定义空数组
-      let disabledDay = this.data.disabledDay
+      let peopleActivityDay = this.data.peopleActivityDay.slice(0);  //日历1 可选的 日子
+      console.log(peopleActivityDay)
+      let disabledDay = this.data.disabledDay.slice(0) //日历1删掉的日  日历2灰色
       if (currentMonthDateLen > 0) {
 				for (let i = 1; i <= currentMonthDateLen; i++) {
-          let dayId =  this.data.currentYear + "-" + this.data.currentMonth + "-" + i;
-          let flag = false;   //是否在 不可选 的列表中  //默认不在      1.true删
-          for (let j = 0; j < disabledDay.length;j++){
-            if (disabledDay[j].id==dayId){
-              flag=true
+          let i2 = 0;//i<10的问题
+          if(i<10){i2 = "0"+i}else{i2 = i}
+          let dayId =  this.data.currentYear + "-" + this.data.currentMonth + "-" + i2;
+          // console.log(dayId)
+          //判断 activityDay
+          let peopleActivity = 0;
+          for (let j = 0; j < peopleActivityDay.length;j++){
+            if (dayId == peopleActivityDay[j].id){
+              peopleActivity = 1;
+              // console.log(dayId)
             }
-            //console.log(disabledDay[j])
           }
-          //if(.indexOf(dayId))
+
+          //判断 disabledDay
+          let disable = 0;
+          if(peopleActivity==0){
+            for (let k = 0; k < disabledDay.length;k++){
+              if (dayId == disabledDay[k].id){
+                disable = 1;
+              }
+            }
+          }
+          
+
 					currentMonthDateArr.push({
 						month: 'current', // 只是为了增加标识，区分上下月
+            monthNumber:this.data.currentMonth,
 						date: i,
             dayId:dayId,
-            disabled:flag,
+            activity: peopleActivity,
+            disabled: disable
 					})
-				}
+        }
 			}
-
+      //console.log(this.data.peopleActivityDay)
+      //console.log(this.data.disabledDay)
       let today = this.data.currentYear + "-" + this.data.currentMonth + "-" + new Date().getDate();
       let todayDay = new Date().getDate();
+
+      //头月 尾月
+      let monthStart="";
+      let monthEnd="";
+      if(peopleActivityDay.length!=0){
+        monthStart = peopleActivityDay[0].date.split("-")[0];
+        monthEnd = peopleActivityDay[peopleActivityDay.length-1].date.split("-")[0]
+      }
+      
 			this.setData({
 				currentMonthDateLen,
-        today,
-        todayDay
+        today:today,
+        todayDay,
+        monthStart:monthStart,
+        monthEnd:monthEnd
 			})
       
 
@@ -157,7 +199,7 @@ Component({
 			if (nextMonthDateLen > 0) {
 				for (let i = 1; i <= nextMonthDateLen; i++) {
 					nextMonthDateArr.push({
-                        month: 'next',// 只是为了增加标识，区分当、上月
+            month: 'next',// 只是为了增加标识，区分当、上月
 						date: i
 					})
 				}
@@ -173,7 +215,7 @@ Component({
 			this.setData({
 				allArr
 			})
-      
+      console.log(this.data.allArr)
 			let sendObj = {
 				currentYear: this.data.currentYear,
 				currentMonth: this.data.currentMonth,
@@ -206,14 +248,16 @@ Component({
       console.log(e);
       
       let select = e.currentTarget.dataset;
-      let day = select.year + "-" + select.month + "-" +select.date;
+      let date = select.date;
+      if(date<10){date = "0"+date}
+
+      let day = select.year + "-" + select.cumonth + "-" +date;
+      console.log(day)
       this.triggerEvent('myevent', { selectDay: day });
     },
 
-    // change: function () {
-      
-    //   this.triggerEvent('myevent', { selectDay: "2018-10-16" });
-    // }
-
+    selectRestDay(e) {
+      this.triggerEvent('selectRestDay',{data:"data"})
+    }
 	}
 })

@@ -11,8 +11,9 @@
     <!-- <navigator target="miniProgram" open-type="navigate" app-id="wx77f93d6c157819b3" path="pages/customEntrance/index" version="trial" bindtap='navgatorFn'>
       <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
     </navigator> -->
+    <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
     <view>店家首页</view>
-    <!-- <view class='btn'></view> -->
+    <view class='btn'></view>
   </view>
   <view class='topTip {{show == 1?"show":(show == 2?"hide":"")}}'>
     <image src="../../resource/images/storeHead/topTipMark.png"></image>
