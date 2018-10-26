@@ -155,3 +155,9 @@ picker{margin-right: 63rpx}
 .lessOne .modalTip {font-size: 30rpx;padding: 100rpx 60rpx 0;box-sizing: border-box}
 .lessOne .modal_btns{display: flex;width: 100%;margin-top: 40rpx;justify-content: space-between}
 
+ .orderClash .modalTip{box-sizing: border-box;padding: 46rpx 56rpx;font-size: 28rpx;}
+.orderClash .modalTip>view:nth-child(1){font-size: 32rpx;color: rgb(51, 51, 51);margin-bottom: 29rpx;font-weight: 700}
+.orderClash .modalTip>view:nth-child(3){font-size: 28rpx;color: rgb(153, 153, 153);margin-top: 36rpx;margin-bottom: 48rpx}
+.orderClash .modalTip>view:nth-child(4){width: 100%;display: flex;justify-content: space-between}
+
+

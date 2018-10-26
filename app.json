@@ -1,7 +1,9 @@
 {
   "pages":[
     "pages/search/index",
+    "pages/storeHead/index",
     
+
     "pages/customEntrance/index",
     "pages/personalDetails/index",
     "pages/modifyName/index",
@@ -19,7 +21,6 @@
     "pages/forgetPassword/index",
   
 
-    "pages/storeHead/index",
     "pages/orderSuccess/index",
     "pages/web-view/index"
     
