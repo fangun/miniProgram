@@ -47,12 +47,12 @@ page {
 }
 
 .mdi {
-    padding: 20rpx;
-    text-align: center;
-
-    font-family: PingFangSC-Regular;
-    font-size: 24rpx;
-    color: rgb(86, 86 , 86);
+    padding:20rpx;
+    text-align:center;
+    font-family:PingFangSC-Regular;
+    font-size:28rpx;
+    color:rgb(86, 86 , 86);
+    font-weight:bold;
 }
 
 .voiceInput{

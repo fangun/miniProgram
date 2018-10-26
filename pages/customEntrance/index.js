@@ -154,10 +154,10 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
-        res.data.sd.reverse();
 
         res.data.sd.forEach(function (x, y, z) {
           x.show = y == 0 ? true : false;
+          x.data = y == 0 ? true : false;
         });
 
         res.data.hc.forEach(function (x, y, z) {
@@ -171,17 +171,85 @@ Page({
           x.time1 = rq;
         });
 
+        console.log('res.data');
+        res.data.list = [];
+        res.data.list[0] = res.data.hc; 
+        console.log(res.data);
+
         that.setData({
           completedData: res.data
         });
+
       }
     });
   },
 
+  // 定向获取已完成订单
+  getCompletedData2:function(Year,Month,callback){
+
+    var that = this;
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/completeOrder',
+      method: "POST",
+      data: {
+        ID: app.globalData.coreInfo.mid,
+        Year:Year,
+        Month:Month
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      success(res) {
+        console.log('getCompletedData2');
+        console.log(res);
+
+        if(callback){
+          callback(res);
+        }
+      }
+    });
+
+  },
+
   foldSwitch: function (e) {
-    console.log(e);
-    console.log(this);
+    var that = this;
+    var completedData = this.data.completedData;
     var seq = e.currentTarget.dataset.seq;
+
+    completedData.sd.forEach(function (x, y) {
+      
+      if(x.show){
+        x.show = false;
+      } else {
+        x.show = y == seq ? true : false;
+      }
+    });
+
+    if(!completedData.sd[seq].data){
+
+      that.getCompletedData2(completedData.sd[seq].year,completedData.sd[seq].month,function(res){
+        res.data.hc.forEach(function (x, y, z) {
+          var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
+          var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
+          var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
+          var t3 = x.time.slice(0, x.time.indexOf(" ")).split("-");
+          var rq = t3[1] + '-' + t3[2];
+
+          x.time = time;
+          x.time1 = rq;
+        });
+
+        completedData.list[seq] = res.data.hc;
+        completedData.sd[seq].data = true;
+
+        that.setData({
+          completedData: completedData
+        });
+
+      });
+    } else {
+      that.setData({
+        completedData: completedData
+      });
+    }
 
 
   },
@@ -221,11 +289,12 @@ Page({
       success: (res) => {
         console.log('结果');
         console.log(res.result);
-        var seq = res.result.lastIndexOf('%3d');
-        console.log(seq);
-        var sid = res.result.slice(seq + 3);
-        console.log(sid);
-        API.miniProgramGoto(sid, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
+        // var seq = res.result.lastIndexOf('%3d');
+        // console.log(seq);
+        // var sid = res.result.slice(seq + 3);
+        // console.log(sid);
+        // API.miniProgramGoto(sid, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
+
       },
       fail: (res) => { },
       complete: (res) => {
@@ -482,9 +551,6 @@ Page({
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
           app.globalData.coreInfo = res.data;
-          console.log('getPhoneNumber');
-          console.log(res.data);
-          console.log(app.globalData.coreInfo);
           wx.setStorage({
             key: "fangun-coreInfo",
             data: res.data,

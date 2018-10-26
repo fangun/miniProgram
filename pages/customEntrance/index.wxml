@@ -242,28 +242,26 @@
                                         </view>
                                     </view>
 
-                                    <block wx:if="{{index == 0}}">
-                                        <view class="box" style="height:{{item.show ? 'auto' : 0}}">
-                                            <block wx:for="{{completedData.hc}}" wx:key='*this'>
-                                                <view class="item" bindtap="compeletedModalShow" data-item="{{completedData.hc[index]}}">
-                                                    <view class="logo">
-                                                        <image src="{{item.logo ? 'https://www.yuyue58.cn/fileImage/' + item.logo : '../../resource/images/common/logo2.png'}}"></image>
-                                                    </view>
-                                                    <view class="details">
-                                                        <view class="">{{item.sName}}</view>
-                                                        <view class="">
-                                                            服务项目：{{item.serviceitem}}
-                                                        </view>
-                                                    </view>
-                                                    <view class="time">
-                                                        <view class="">{{item.time}}</view>
-                                                        <view class="">{{item.time1}}</view>
-                                                    </view>
-                                                    <view class="state"></view>
+                                    <view class="box" style="height:{{item.show ? 'auto' : 0}}">
+                                        <block wx:for="{{completedData.list[index]}}" wx:key='*this'>
+                                            <view class="item" bindtap="compeletedModalShow" data-item="{{item}}">
+                                                <view class="logo">
+                                                    <image src="{{item.logo ? 'https://www.yuyue58.cn/fileImage/' + item.logo : '../../resource/images/common/logo2.png'}}"></image>
                                                 </view>
-                                            </block>
-                                        </view>
-                                    </block>
+                                                <view class="details">
+                                                    <view class="">{{item.sName}}</view>
+                                                    <view class="">
+                                                        服务项目：{{item.serviceitem}}
+                                                    </view>
+                                                </view>
+                                                <view class="time">
+                                                    <view class="">{{item.time}}</view>
+                                                    <view class="">{{item.time1}}</view>
+                                                </view>
+                                                <view class="state"></view>
+                                            </view>
+                                        </block>
+                                    </view>
 
                                 </view>
                             </block>
@@ -396,31 +394,33 @@
         <view class="mask" catchtouchmove="preventTouchMove"></view>
         <view class="compeletingModal">
             <view class="title">已完成详情</view>
-            <view class="logo" data-id="{{compeletedModalData.sid}}" bindtap="frequentedStore">
-                <image src="{{compeletedModalData.logo ? 'https://www.yuyue58.cn/fileImage/' + compeletedModalData.logo : '../../resource/images/common/logo2.png'}}" />
-                <view>{{compeletedModalData.sName}}</view>
-            </view>
-            <view class="item">
-                <view>服务项目：</view>
-                <view>{{compeletedModalData.serviceitem}}</view>
-            </view>
-            <view class="item">
-                <view>服务人员：</view>
-                <view>{{compeletedModalData.empolyee}}</view>
-            </view>
-            <view class="item" catchtap="makingCalls" data-tel="{{compeletedModalData.sLoginname}}">
-                <view>商家电话：</view>
-                <view>{{compeletedModalData.sLoginname}}</view>
-            </view>
-            <view class="item" catchtap="getMapAddress" data-location="{{compeletedModalData.saddress}}">
-                <view>商家地址：</view>
-                <view>{{compeletedModalData.saddress}}</view>
-            </view>
-            <view class="item">
-                <view class="">服务时间：</view>
-                <view class="detailTime">
-                    <view>{{compeletedModalData.time1}}</view>
-                    <view>{{compeletedModalData.time}}</view>
+            <view class="content">
+                <view class="logo" data-id="{{compeletedModalData.sid}}" bindtap="frequentedStore">
+                    <image src="{{compeletedModalData.logo ? 'https://www.yuyue58.cn/fileImage/' + compeletedModalData.logo : '../../resource/images/common/logo2.png'}}" />
+                    <view>{{compeletedModalData.sName}}</view>
+                </view>
+                <view class="item">
+                    <view>服务项目：</view>
+                    <view>{{compeletedModalData.serviceitem}}</view>
+                </view>
+                <view class="item">
+                    <view>服务人员：</view>
+                    <view>{{compeletedModalData.empolyee}}</view>
+                </view>
+                <view class="item" catchtap="makingCalls" data-tel="{{compeletedModalData.sLoginname}}">
+                    <view>商家电话：</view>
+                    <view>{{compeletedModalData.sLoginname}}</view>
+                </view>
+                <view class="item" catchtap="getMapAddress" data-location="{{compeletedModalData.saddress}}">
+                    <view>商家地址：</view>
+                    <view>{{compeletedModalData.saddress}}</view>
+                </view>
+                <view class="item">
+                    <view class="">服务时间：</view>
+                    <view class="detailTime">
+                        <view>{{compeletedModalData.time1}}</view>
+                        <view>{{compeletedModalData.time}}</view>
+                    </view>
                 </view>
             </view>
             <view class="eventBox">

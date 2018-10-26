@@ -10,7 +10,7 @@
 
     <view class="mdi" bindtap="appointmentByHand">点击手动输入</view>
 
-    <view class="voiceInput">
+    <view class="voiceInput" bindtap="voiceTip">
       <image src="../../resource/images/common/voice3.png" />
     </view>
 

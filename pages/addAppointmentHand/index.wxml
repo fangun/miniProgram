@@ -12,7 +12,7 @@
         </view>
         <view class="itemList">
           <view class="item">翻滚网</view>
-          <view class="item">翻滚美</view>
+          <view class="item">翻滚美术</view>
           <view class="item">翻滚艺术</view>
           <view class="item">翻滚人潮</view>
           <view class="item">翻滚社区</view>
@@ -20,21 +20,28 @@
     </view>
 
     <!-- 起止日期 -->
-    <view class="bbox">
-      <view class="bitem">
-        <view>
-          <text>开始时间</text>
-        </view>
-        <view>周六 09月29日 15:00</view>
-        <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+    <view class="timeItem" >
+      <view>时间</view>
+      <view>
+        <picker mode="date" value="{{date}}" start="2018-10-26" end="2020-01-01" bindchange="bindDateChange">
+            <view>
+              {{date}}
+            </view>
+        </picker>
       </view>
-
-      <view class="bitem">
-        <view>
-          <text>结束时间</text>
-        </view>
-        <view>15:00</view>
-        <view><image class="foldIcon" src="../../resource/images/common/icon-r3.png"/></view>
+      <view>
+        <picker mode="selector" range="{{[1,2,3]}}" value="{{sTime}}" bindchange="bindTimeChange">
+            <view>
+              {{sTime}}
+            </view>
+        </picker>
+      </view>
+      <view>
+        <picker mode="selector" range value="{{eTime}}" bindchange="bindTimeChange1">
+            <view>
+              {{eTime}}
+            </view>
+        </picker>
       </view>
     </view>
 
@@ -73,7 +80,7 @@
 
     </view>
 
-    <view class="vocieInput">
+    <view class="vocieInput" bindtap="voiceTip">
       <image src="../../resource/images/common/voice3.png" />
     </view>
 
