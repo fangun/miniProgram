@@ -2,15 +2,13 @@
   "pages":[
     "pages/customEntrance/index",
     "pages/addAppointmentHand/index",
-  
+    "pages/addAppointmentVoice/index",
     "pages/personalDetails/index",
     "pages/modifyName/index",
     "pages/modifyPassword/index",
     "pages/feedback/index",
     "pages/expenseCalendar/index",
-    "pages/chooseAvatar/index",
-    "pages/addAppointmentVoice/index",
-    
+    "pages/chooseAvatar/index", 
     "pages/searchStore/index",
     "pages/entrancePage/index",
     "pages/storeBackEnd/index",
@@ -22,7 +20,6 @@
     "pages/storeHead/index",
     "pages/orderSuccess/index",
     "pages/web-view/index"
-    
   ],
 
   "window":{

@@ -92,7 +92,7 @@ Page({
       url: 'https://api.yuyue58.cn/api/wxLogin',
       method: "POST",
       data: {
-        app:'wxb',
+        app:'wxe',
         code: app.globalData.code,
         iv: e.detail.iv,
         encryptedData: e.detail.encryptedData

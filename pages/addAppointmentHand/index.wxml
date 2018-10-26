@@ -5,7 +5,7 @@
     <textarea class="programInput" name="serviceitem" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;"></textarea>
 
     <!-- 快捷标签 -->
-    <view class="box">
+    <!-- <view class="box">
         <view class="itemHead">
           <view class="des">快捷标签</view>
           <view></view>
@@ -17,7 +17,7 @@
           <view class="item">翻滚人潮</view>
           <view class="item">翻滚社区</view>
         </view>
-    </view>
+    </view> -->
 
     <!-- 起止日期 -->
     <view class="timeItem" >

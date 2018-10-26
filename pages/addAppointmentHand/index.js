@@ -99,18 +99,17 @@ Page({
       remarks: e.detail.value.remarks,
       force: 0
     }
-    
-    console.log(data.date);
-    console.log(data.time1);
-    console.log(data.time2);
+
     if (!data.serviceitem) {
       wx.showToast({
         title: '请填写服务项目',
+        icon:'none',
         success: function () { }
       });
     } else if (data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
       wx.showToast({
         title: '请选择时间',
+        icon:'none',
         success: function () { }
       });
     } else {
@@ -129,10 +128,14 @@ Page({
       success(res) {
         console.log(res);
         if (res.data == '1') {
+
           wx.showToast({
             title: '修改成功',
-            success: function () { }
+            success: function () {
+              wx.redirectTo({ url: '../customEntrance/index' });
+            }
           });
+          
         } else if (res.data == '-6') {
           wx.showModal({
             title: '预约冲突',
@@ -155,8 +158,10 @@ Page({
     this.setData({
       curDate: util.getFormatDate()
     });
+
     var now = new Date();
     var hour = now.getHours();
+
     var time1Array = this.data.time1Array;
     var timeArray = [];
     time1Array.forEach(function (x, y) {

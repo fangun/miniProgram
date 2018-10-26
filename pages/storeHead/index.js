@@ -93,7 +93,8 @@ Page({
     shortInfo:"",
     orderClashShow:false,
     orderClash:"",
-    lessOneShow:false
+    lessOneShow:false,
+    sendData:{}
   },
   /**
    * 生命周期函数--监听页面加载
@@ -405,13 +406,13 @@ Page({
     let that = this;
     let now =  Date.parse(new Date());
 
-    // let plusTime = this.data.tryNow_time*24*60*60*1000;
-    let plusTime =5*60*1000;     //有效期 5分钟
+    let plusTime = this.data.tryNow_time*24*60*60*1000;
+    // let plusTime =60*1000*60*24*7;     
     let newLastTime = now + plusTime;
     //console.log("now:"+now)
     //console.log("newLastTime"+newLastTime)
     wx.getStorage({
-      key: 'sjrk',  //商家入口 立即体验 7天有效  //试用半分钟
+      key: 'sjrk',  //商家入口 立即体验 7天有效  //
       success: function (res) {
         let lastTime = "";//上次登陆的时间戳
         lastTime = res.data;
@@ -1247,6 +1248,10 @@ Page({
     data.seatMachine = this.data.zuoTel;
 
     console.log(data)
+    this.setData({
+      sendData:data
+    })
+
     let that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/submitBookingList',
@@ -1317,6 +1322,11 @@ Page({
             shortInfo: "您已经在本店有过预约，不可再次预约，如需帮他人预约，请点选【帮别人预定】",
             modal_confirm: false
           })
+        } else if (status == "-10") {
+          that.setData({
+            selfClanShow:true,
+            modal_confirm: false
+          })
         } else {
           //返回字符串 店名
           that.setData({
@@ -1359,6 +1369,29 @@ Page({
   },
   gotoIndex:function(){
     wx.redirectTo({ url: '../customEntrance/index' });
-  }
+  },
+  selfClanclose:function(){
+    this.setData({
+      selfClanShow: false
+    })
+  },
+  selfConti:function(){
+    let data = this.data.sendData;
+    data.force = 1;
+    wx.request({
+      url: 'https://api.yuyue58.cn/api/submitBookingList',
+      method: "POST",
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      data: data,
+      success(res) {
+        that.setData({
+          modal_confirm: false
+        })
+        wx.navigateTo({
+          url: '../orderSuccess/index'
+        })
+      }
+    })
+  }  
   
 })

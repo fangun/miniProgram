@@ -201,7 +201,7 @@
       <block  wx:if="{{vip==1&&storeSet.nameswitch==1}}">
         <view class='formBorder'></view>
         <view>
-          <view>姓名</view>
+          <view style="min-width:60rpx">姓名</view>
           <input style='margin-right:63rpx' value='{{peopleName}}' bindinput='inputPeopleName' style='text-align:right'></input>
         </view>
       </block>
@@ -220,9 +220,10 @@
     <view class='block_title'>
         <image src='../../resource/images/storeHead/titleTriangle.png'></image>
         <text class='titleText'>备注信息</text>
-      </view>
-    <textarea class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip' cursor-spacing='120'>
-    </textarea>
+    </view>
+    <!-- <textarea class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip' cursor-spacing='120'>
+    </textarea> -->
+    <input class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip'></input>
   </view>
   <!-- 要渲染，避免闪条 -->
   <view id="submit" style="display:{{hourBlock.length==0? 'none' : 'flex'}}">
@@ -316,11 +317,12 @@
     </view>
   </view>
   <view class='modal orderClash' wx:if="{{orderClashShow}}">
+  <!-- <view class='modal orderClash' wx:if="1"> -->
     <view class='modalTip'>
       <view>预约产品冲突</view>  
       <view>此时间段您已经在【{{orderClash}}】有过预约，请选择其他时间</view>
       <view>若仍想预约此时段，请先到会员首页取消该笔订单</view>
-      <view class="btns">
+      <view class="modal_btns">
         <view bindtap='gotoIndex'>去取消之前订单</view>
         <view bindtap='orderClashClose'>确定</view>
       </view>
@@ -332,6 +334,16 @@
       <view class="modal_btns">
         <view bindtap='lessOneClose'>我再想想</view>
         <view bindtap='lessOneConti'>继续预约</view>
+      </view>
+    </view>
+  </view>
+  <view class='modal lessOne' wx:if="{{selfClanShow}}">
+  <!-- <view class='modal lessOne' wx:if="1"> -->
+    <view class='modalTip'>
+      <view>您的预约与【私人预约】冲突，是否确定继续预约？</view>
+      <view class="modal_btns">
+        <view bindtap='selfClanclose'>我再想想</view>
+        <view bindtap='selfConti'>继续预约</view>
       </view>
     </view>
   </view>
