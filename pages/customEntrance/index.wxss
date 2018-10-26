@@ -379,6 +379,7 @@
 }
 
 .card .item .header .clash > image {
+    display: block;
     width:30rpx;
     height:30rpx;    
 }

@@ -1,11 +1,11 @@
 <!--index.wxml-->
-<view class="container">
+<form class="container" bindsubmit="addAppointment">
   <view class="pageTitle">{{pageTitle}}</view>
 
-    <textarea class="programInput" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;"></textarea>
+    <textarea class="programInput" name="serviceitem" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;"></textarea>
 
     <!-- 快捷标签 -->
-    <view class="box">
+    <!-- <view class="box">
         <view class="itemHead">
           <view class="des">快捷标签</view>
           <view></view>
@@ -17,29 +17,29 @@
           <view class="item">翻滚人潮</view>
           <view class="item">翻滚社区</view>
         </view>
-    </view>
+    </view> -->
 
     <!-- 起止日期 -->
     <view class="timeItem" >
       <view>时间</view>
       <view>
-        <picker mode="date" value="{{date}}" start="2018-10-26" end="2020-01-01" bindchange="bindDateChange">
+        <picker mode="date" name="date" value="{{date}}" start="{{curDate}}" end="2030-01-01" bindchange="bindDateChange">
             <view>
               {{date}}
             </view>
         </picker>
       </view>
       <view>
-        <picker mode="selector" range="{{[1,2,3]}}" value="{{sTime}}" bindchange="bindTimeChange">
+        <picker mode="selector" name="time1" range="{{time1Array}}" value="{{time1}}" bindchange="bindTimeChange1">
             <view>
-              {{sTime}}
+              {{time1}}
             </view>
         </picker>
       </view>
       <view>
-        <picker mode="selector" range value="{{eTime}}" bindchange="bindTimeChange1">
+        <picker mode="selector" name="time2" range="{{time2Array}}" value="{{time2}}" bindchange="bindTimeChange2">
             <view>
-              {{eTime}}
+              {{time2}}
             </view>
         </picker>
       </view>
@@ -50,7 +50,7 @@
         <view class="bbox">
           <view class="bitem xt">
             <view>
-              <input class="grayStyle" type="text" placeholder="参与人员  (选填)"> </input>
+              <input class="grayStyle" name="empolyee" type="text" placeholder="参与人员  (选填)"> </input>
             </view>
             <view></view>
             <view></view>
@@ -58,14 +58,16 @@
 
           <view class="bitem xt">
             <view>
-              <input class="grayStyle" type="text" placeholder="添加地址  (选填)"></input>
+              <input class="grayStyle" name="address" type="text" placeholder="添加地址  (选填)"></input>
             </view>
             <view></view>
             <view><image class="foldIcon location" src="../../resource/images/common/location3a.png"/></view>
           </view>
         </view>
 
-        <textarea class="programInput" placeholder="添加备注" auto-height style="min-height: 140rpx;margin-top:30rpx;"></textarea>
+        <block wx:if="{{remarkState}}">
+            <textarea class="programInput" name="remarks" placeholder="添加备注" auto-height style="min-height: 140rpx;margin-top:30rpx;"></textarea>
+        </block>
     </view>
 
     <view class="moreInfoTag" bindtap="remarkSwitch">
@@ -84,5 +86,5 @@
       <image src="../../resource/images/common/voice3.png" />
     </view>
 
-    <view class="addSure">确定添加</view>
-</view>
+    <button class='addSure' form-type="submit">确定添加</button>
+</form>

@@ -21,7 +21,7 @@ const formatDate = date => {
   return [year, month, day].map(formatNumber).join('-');
 }
 
-const getDateDimdd = function(prevDate, nextDate) {
+const getDateDimdd = function (prevDate, nextDate) {
   var pdMs = new Date(prevDate).valueOf(),
     ndMs = new Date(nextDate).valueOf();
   return Math.floor((ndMs - pdMs) / (24 * 60 * 60 * 1000));
@@ -29,9 +29,22 @@ const getDateDimdd = function(prevDate, nextDate) {
 
 const uniqArray = (array) => [...new Set(array)]
 
+const getFormatDate = function (par) {
+  var currentDate = par ? new Date(par) : new Date(),
+    curYear = currentDate.getFullYear(),
+    curMonth = currentDate.getMonth() + 1,
+    curDate = currentDate.getDate();
+
+  curMonth = curMonth > 9 ? curMonth : "0" + curMonth;
+  curDate = curDate > 9 ? curDate : "0" + curDate;
+  // 兼容ios
+  return curYear + "-" + curMonth + "-" + curDate;
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
-  getDateDimdd:getDateDimdd,
-  uniqArray:uniqArray
+  getDateDimdd: getDateDimdd,
+  uniqArray: uniqArray,
+  getFormatDate: getFormatDate
 }

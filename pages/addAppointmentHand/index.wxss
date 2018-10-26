@@ -240,7 +240,10 @@ page {
     background-color: #fff;
     padding-left:30rpx;
     padding-right:30rpx;
-    
+    margin-top:30rpx;
+    line-height: 80rpx;
+    text-align: center;
+    border-bottom: 1px solid #eee;
 }
 
 .timeItem > view:first-child{
