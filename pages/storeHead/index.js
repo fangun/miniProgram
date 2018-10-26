@@ -406,13 +406,13 @@ Page({
     let that = this;
     let now =  Date.parse(new Date());
 
-    // let plusTime = this.data.tryNow_time*24*60*60*1000;
-    let plusTime =5*60*1000;     //有效期 5分钟
+    let plusTime = this.data.tryNow_time*24*60*60*1000;
+    // let plusTime =60*1000*60*24*7;     
     let newLastTime = now + plusTime;
     //console.log("now:"+now)
     //console.log("newLastTime"+newLastTime)
     wx.getStorage({
-      key: 'sjrk',  //商家入口 立即体验 7天有效  //试用半分钟
+      key: 'sjrk',  //商家入口 立即体验 7天有效  //
       success: function (res) {
         let lastTime = "";//上次登陆的时间戳
         lastTime = res.data;
