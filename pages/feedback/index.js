@@ -19,7 +19,7 @@ Page({
         Page: 'pages/feedback/index',
         Content: Content,
         Contact: Contact,
-        mid: app.globalData.coreInfo.mid,
+        mid: app.globalData.peopleInfo.mid,
         title: '用户反馈'
       },
       header: { "content-type": "application/x-www-form-urlencoded" },

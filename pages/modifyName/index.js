@@ -23,7 +23,7 @@ Page({
         method: "POST",
 
         data: {
-          id: app.globalData.coreInfo.mid,
+          id: app.globalData.peopleInfo.mid,
           Name: inputName
         },
 

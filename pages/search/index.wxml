@@ -1,0 +1,20 @@
+<view class='container'>
+  <image class='title' src = "../../resource/images/search/title.png" bindtap='test'></image>
+  <view class='searchBlock'>
+    <view class='inputBlock'>
+      <input placeholder='搜索要预约的商家，也可扫描商家二维码' placeholder-class='holder' class='inputText' value='{{searchText}}' bindinput='searchInput'></input>
+      <image src='../../resource/images/search/scan.png' bindtap='scan'></image>
+    </view>
+    <view class="btn_search" bindtap='search'>搜索</view>
+  </view>
+  <view class='resBlock'>
+    <scroll-view class='searchRes' scroll-y="true">
+      <view class='res' wx:for="{{searchResultArr}}" wx:key="key" data-sid = "{{item.id}}" bindtap='selectStore'>
+        <view class='storeName'>{{item.name}}</view>
+        <view class='storeLocation'>{{item.pca}}{{item.address}}</view>
+      </view>
+    </scroll-view>
+  </view>
+  <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize" style="display:{{authorizeState ? 'none' : 'block'}}"></button>
+  
+</view>

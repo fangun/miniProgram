@@ -84,7 +84,7 @@ Page({
     this.setData({
       hotDeleteModal: true,
       hotDeletePar: {
-        mid: app.globalData.coreInfo.mid,
+        mid: app.globalData.peopleInfo.mid,
         sid: sid
       }
     });
@@ -150,7 +150,7 @@ Page({
       url: 'https://api.yuyue58.cn/api/completeOrder',
       method: "POST",
       data: {
-        ID: app.globalData.coreInfo.mid
+        ID: app.globalData.peopleInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
@@ -192,7 +192,7 @@ Page({
       url: 'https://api.yuyue58.cn/api/completeOrder',
       method: "POST",
       data: {
-        ID: app.globalData.coreInfo.mid,
+        ID: app.globalData.peopleInfo.mid,
         Year:Year,
         Month:Month
       },
@@ -270,9 +270,8 @@ Page({
   // 跳转常去店铺
   frequentedStore: function (e) {
     console.log(e);
-    if (e.currentTarget.dataset.id) {
-      API.miniProgramGoto(e.currentTarget.dataset.id, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
-    }
+    app.globalData.peopleInfo.sid = e.currentTarget.dataset.id;
+    wx.navigateTo({ url: '../storeHead/index' });
   },
 
   appointmentVoice: function (e) {
@@ -293,7 +292,6 @@ Page({
         // console.log(seq);
         // var sid = res.result.slice(seq + 3);
         // console.log(sid);
-        // API.miniProgramGoto(sid, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
 
       },
       fail: (res) => { },
@@ -399,7 +397,7 @@ Page({
       url: 'https://api.yuyue58.cn/api/hot',
       method: "POST",
       data: {
-        ID: app.globalData.coreInfo.mid
+        ID: app.globalData.peopleInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
@@ -429,7 +427,7 @@ Page({
       url: 'https://api.yuyue58.cn/api/InCompleteOrderList',
       method: "POST",
       data: {
-        ID: app.globalData.coreInfo.mid
+        ID: app.globalData.peopleInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
@@ -550,9 +548,9 @@ Page({
         },
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
-          app.globalData.coreInfo = res.data;
+          app.globalData.peopleInfo = res.data;
           wx.setStorage({
-            key: "fangun-coreInfo",
+            key: "fangun-storeFront",
             data: res.data,
             success(res) {
               app.globalData.loginCache = true;
@@ -609,9 +607,9 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
 
-      app.loginCacheCallback = coreInfo => {
-        if (coreInfo) {
-          app.globalData.coreInfo = coreInfo;
+      app.loginCacheCallback = peopleInfo => {
+        if (peopleInfo) {
+          app.globalData.peopleInfo = peopleInfo;
           app.globalData.loginCache = true;
           that.authorizeInit();
         }

@@ -21,7 +21,7 @@ Page({
         console.log(res.data);
         if (res.data) {
           app.globalData.loginCache = true;
-          app.globalData.coreInfo = res.data;
+          app.globalData.peopleInfo = res.data;
           wx.showToast({
             title: '登录成功',
             success: function () {

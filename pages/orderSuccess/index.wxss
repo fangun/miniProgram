@@ -1,0 +1,28 @@
+/* pages/orderSuccess/index.wxss */
+.container{font-family: "siyuanhei";display: flex;flex-direction: column;width: 100%;height: 100vh;background: rgb(242, 242, 242)}
+.main{width: 100%;display: flex;flex-direction: column;justify-content: flex-start;align-items: center;background: white;padding-top: 50rpx;box-sizing: border-box}
+.checkImg{width:88rpx;height:88rpx;}
+.orderRes{margin-top: 28rpx;font-size: 30rpx;font-weight: bold}
+.scanImg{width: 564rpx;height: 251rpx;margin-top: 53rpx;margin-bottom: 34rpx}
+.openOrder{width: 690rpx;height: 80rpx;line-height: 80rpx;font-size: 30rpx;background: rgb(243,67,67);color: white;text-align: center;border-radius: 12rpx;margin-bottom: 42rpx;}
+.adv{display: flex;flex-direction: column;justify-content: flex-start;align-items: center}
+.adv view{margin-top: 23rpx;font-size: 34rpx;color:rgb(135, 135, 135);margin-bottom: 15rpx}
+.makeStore{width: 690rpx;height: 340rpx;}
+.adv .virBtn{width: 200rpx;height: 60rpx;background: rgba(0, 0, 0, 0);margin-top: -85rpx}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

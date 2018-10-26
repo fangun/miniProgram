@@ -11,12 +11,8 @@ Page({
   },
 
   storeHeadPage:function(e){
-    console.log(e);
-    console.log(app.globalData.coreInfo.mid);
-    console.log(app.globalData.coreInfo.mobile);
-    if(e.currentTarget.dataset.sid){
-      API.miniProgramGoto(e.currentTarget.dataset.sid, app.globalData.coreInfo.mid, app.globalData.coreInfo.mobile);
-    }
+    app.globalData.peopleInfo.sid = e.currentTarget.dataset.sid;
+    wx.navigateTo({ url: '../storeHead/index' });
   },
 
   searchStore: function (e) {

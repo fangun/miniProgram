@@ -23,10 +23,10 @@ Page({
         },
         header: { "content-type": "application/x-www-form-urlencoded" },
         success(res) {
-          app.globalData.coreInfo = res.data;
+          app.globalData.peopleInfo = res.data;
 
           wx.setStorage({
-            key: "fangun-coreInfo",
+            key: "fangun-storeFront",
             data: res.data,
             success(res) {
               app.globalData.loginCache = true;

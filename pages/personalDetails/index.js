@@ -53,7 +53,7 @@ Page({
       method: "POST",
 
       data: {
-        id: app.globalData.coreInfo.mid,
+        id: app.globalData.peopleInfo.mid,
         Gender: gender
       },
 
@@ -91,7 +91,7 @@ Page({
       url: 'https://api.yuyue58.cn/api/memberMessage',
       method:"POST",
       data: {
-        id: app.globalData.coreInfo.mid
+        id: app.globalData.peopleInfo.mid
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
@@ -118,7 +118,7 @@ Page({
   exitLogin:function(e){
 
     wx.removeStorage({
-      key: 'fangun-coreInfo',
+      key: 'fangun-storeFront',
       success: function(res) {
         console.log('退出登录');
         console.log(res);

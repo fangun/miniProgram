@@ -1,0 +1,14 @@
+<!--pages/orderSuccess/index.wxml-->
+<view class='container'>
+  <view class='main'>
+    <image class="checkImg" src='../../resource/images/orderSuccess/checkGou.png'></image>
+    <view class='orderRes'>预约成功</view>
+    <image class='scanImg' src='../../resource/images/orderSuccess/scan.png' data-src="../../resource/images/orderSuccess/scan.png" bindlongtap='scanImg'></image>
+    <view class='openOrder' bindtap='openOrder'>查看订单</view>
+  </view>
+  <view class='adv'>
+    <view>广告</view>
+    <image class='makeStore' src='../../resource/images/orderSuccess/makeStore.png'></image>
+    <view bindtap='goto' class='virBtn'></view>
+  </view>
+</view>

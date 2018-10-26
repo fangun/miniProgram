@@ -30,7 +30,7 @@ Page({
         url: 'https://api.yuyue58.cn/api/editMemberMessage',
         method: "POST",
         data: {
-          id: app.globalData.coreInfo.mid,
+          id: app.globalData.peopleInfo.mid,
           Password: np
         },
         header: { "content-type": "application/x-www-form-urlencoded" },

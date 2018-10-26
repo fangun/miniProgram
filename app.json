@@ -1,28 +1,27 @@
 {
   "pages":[
+    "pages/search/index",
+    
     "pages/customEntrance/index",
- 
     "pages/personalDetails/index",
-    
-    "pages/storeHead/index",
-    
     "pages/modifyName/index",
     "pages/modifyPassword/index",
     "pages/feedback/index",
     "pages/expenseCalendar/index",
-
     "pages/chooseAvatar/index",
     "pages/addAppointmentVoice/index",
     "pages/addAppointmentHand/index",
     "pages/searchStore/index",
     "pages/entrancePage/index",
     "pages/storeBackEnd/index",
-
     "pages/accountLogin/index",
     "pages/freeOpen/index",
-    
-    "pages/forgetPassword/index"
-    
+    "pages/forgetPassword/index",
+  
+
+    "pages/storeHead/index",
+    "pages/orderSuccess/index",
+    "pages/web-view/index"
     
   ],
 
