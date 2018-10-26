@@ -143,24 +143,37 @@
                                     <block wx:for="{{completingSeqData[index]}}" wx:key='*this'>
                                         <view class="item" catchtap="compeletingModalShow" data-item="{{completingData[item]}}" data-id="{{completingData[item].id}}">
                                             <view class="header">
-                                                <block wx:if="{{completingData[item].type == 0}}">
+                                                <block wx:if="{{completingData[item].type == 0 || completingData[item].type == 1}}">
                                                     <view class="tag" style="background-color: rgb(243,67,67);">
                                                         预约
                                                     </view>
+                                                    <view class="project">
+                                                        {{completingData[item].sName}}
+                                                    </view>
                                                 </block>
-                                                <block wx:elif="{{completingData[item].type == 1}}">
+                                                <block wx:elif="{{completingData[item].type == 2}}">
                                                     <view class="tag" style="background-color: rgb(253,172,110);">
                                                         被约
+                                                    </view>
+                                                    <view class="project">
+                                                        {{completingData[item].serviceitem}}
                                                     </view>
                                                 </block>
                                                 <block wx:else>
                                                     <view class="tag" style="background-color: rgb(148,181,254);">
                                                         私人
                                                     </view>
+                                                    <view class="project">
+                                                        {{completingData[item].serviceitem}}
+                                                    </view>
                                                 </block>
-                                                <view class="project">
-                                                    {{completingData[item].sName}}
-                                                </view>
+
+                                                <block wx:if="{{completingData[item].conflict == '1'}}">
+                                                    <view class="clash">
+                                                        <image src="../../resource/images/customEntrance/clash3.png"></image>
+                                                    </view>
+                                                </block>
+
                                                 <view class="time">
                                                     <block wx:if="{{completingData[item].type == 0 && completingData[item].deposit}}">
                                                         <image src="../../resource/images/customEntrance/dollar3.png"></image>
@@ -168,7 +181,8 @@
                                                     {{completingTime[item]}}
                                                 </view>
                                             </view>
-                                            <block wx:if="{{completingData[item].type == 0}}">
+
+                                            <block wx:if="{{completingData[item].type == 0 || completingData[item].type == 1}}">
                                                 <view class="clause">
                                                     <view class="name">服务项目：</view>
                                                     <view class="definite">
@@ -188,7 +202,8 @@
                                                     </view>
                                                 </view>
                                             </block>
-                                            <block wx:elif="{{completingData[item].type == 1}}">
+
+                                            <block wx:elif="{{completingData[item].type == 2}}">
                                                 <view class="clause">
                                                     <view class="name">客户姓名：</view>
                                                     <view class="definite">
@@ -208,6 +223,35 @@
                                                     </view>
                                                 </view>
                                             </block>
+                                            
+                                            <block wx:else>
+                                                <block wx:if="{{completingData[item].saddress !== '' && completingData[item].saddress}}">
+                                                    <view class="clause">
+                                                        <view class="name">地址：</view>
+                                                        <view class="definite">
+                                                            {{completingData[item].saddress}}
+                                                        </view>
+                                                    </view>
+                                                </block>
+
+                                                <block wx:if="{{completingData[item].empolyee !== '' && completingData[item].empolyee}}">
+                                                    <view class="clause">
+                                                        <view class="name">人员：</view>
+                                                        <view class="definite">
+                                                            {{completingData[item].empolyee}}
+                                                        </view>
+                                                    </view>
+                                                </block>
+
+                                                <block wx:if="{{completingData[item].remarks !== '' && completingData[item].remarks}}">
+                                                    <view class="clause">
+                                                        <view class="name">备    注：</view>
+                                                        <view class="definite">{{completingData[item].remarks}}</view>
+                                                    </view>
+                                                </block>
+
+                                            </block>
+
                                             <view class="footer">
                                                 <view class="cancel" catchtap="showChooseModal" data-id="{{completingData[item].id}}">
                                                     取消

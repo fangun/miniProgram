@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/search/index",
-    
     "pages/customEntrance/index",
+    "pages/addAppointmentHand/index",
+  
     "pages/personalDetails/index",
     "pages/modifyName/index",
     "pages/modifyPassword/index",
@@ -10,7 +10,7 @@
     "pages/expenseCalendar/index",
     "pages/chooseAvatar/index",
     "pages/addAppointmentVoice/index",
-    "pages/addAppointmentHand/index",
+    
     "pages/searchStore/index",
     "pages/entrancePage/index",
     "pages/storeBackEnd/index",
@@ -18,7 +18,7 @@
     "pages/freeOpen/index",
     "pages/forgetPassword/index",
   
-
+    "pages/search/index",
     "pages/storeHead/index",
     "pages/orderSuccess/index",
     "pages/web-view/index"
