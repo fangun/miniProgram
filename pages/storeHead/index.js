@@ -922,33 +922,20 @@ Page({
 
       //   }
     // }
-
     let people = this.data.selectPeople;
     let date = this.data.selectDay;
     let holidayHourList = this.data.holidayHourList; //
-    let peopleDayHoli = "" 
-    for (let i = 0; i < holidayHourList.length;i++){
-      if (holidayHourList[i].eid == people && holidayHourList[i].date == date){
-        peopleDayHoli = peopleDayHoli+holidayHourList[i].time+"|"
+    let peopleDayHoli = ""
+    for (let i = 0; i < holidayHourList.length; i++) {
+      if (holidayHourList[i].eid == people && holidayHourList[i].date == date) {
+        peopleDayHoli = peopleDayHoli + holidayHourList[i].time + "|"
       }
     }
-    peopleDayHoli = peopleDayHoli.substring(0, peopleDayHoli.length-1);
+    peopleDayHoli = peopleDayHoli.substring(0, peopleDayHoli.length - 1);
     //let peopleDayHoliArr = peopleDayHoli.split("|")
     console.log(peopleDayHoli)  //14:00|14:30|21:30|18:00
 
-    for(let i=0;i<hours.length;i++){
-      let a = hours[i];
-      if (peopleDayHoli.indexOf(a)!=-1){
-        hours.splice(i,1);
-        i = i-1;
-      }
-    }
 
-    console.log(hours)
-
-
-
-    
     // 1.已满人的hour，2.超过今天已故时间
     let orderList = this.data.orderList.slice(0);
     console.log(orderList)
@@ -969,8 +956,14 @@ Page({
       let timenum = new Date(timeStr).valueOf();          //时间戳 1540256400000
       let timeNownum = new Date().valueOf();     //现在的时间 xxxxxxxxx
 
-      
       if(timenum<timeNownum){flag=0}
+
+      //员工休息的小时
+      let a = hours[i];
+      if (peopleDayHoli.indexOf(a) != -1) {
+        flag = 0;
+      }
+
       hoursArr.push({
         time: hours[i],
         use:flag,
@@ -978,6 +971,7 @@ Page({
       })
     }
     console.log(hoursArr)
+
     this.setData({
       hoursArr:hoursArr
     })
