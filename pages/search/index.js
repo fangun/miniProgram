@@ -16,6 +16,13 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
+
+    //测试用的 每次就必然清楚缓存
+    wx.clearStorage()
+
+
+
+
     wx.getStorage({
       key: 'fangun-storeFront',
       success: function(res) {
