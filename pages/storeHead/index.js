@@ -176,12 +176,29 @@ Page({
             console.log(res.data);
             //已预定的日期，小时，给时段预约量
             that.setData({
-              orderList: res.data.nums,
-              holidayHourList: res.data.holiday
+              orderList: res.data,
             })
-            console.log(res.data)
           }
         })
+
+        wx.request({
+          url: 'https://api.yuyue58.cn/api/Holiday',
+          method: "POST",
+          header: { "content-type": "application/x-www-form-urlencoded" },
+          data: {
+            sid: that.data.storeId
+          },
+          success(res) {
+            console.log(res.data.holiday);
+            that.setData({
+              // orderList: res.data.nums,       //已预定的日期，小时，给时段预约量
+              holidayHourList:res.data.holiday    //员工休假的 小时段
+            })
+            
+          }
+        })
+
+
 
         //今天 哪年哪月
         let currentYear = new Date().getFullYear();
@@ -855,30 +872,11 @@ Page({
       let hourstring1 = this.data.storeData[weekKey];   //某天的工作时间
       if (hourstring1 == null) { hourstring1=hourString}
       hours = hourstring1.split("|")
-      console.log(hours)                          //工作时间
     }
-    
-    // 1.已满人的hour，2.超过今天已故时间
-    let orderList = this.data.orderList.slice(0);
-    console.log(orderList)
-    for (let i = 0; i < hours.length;i++){
-      let flag = 1;
-      let time = this.data.selectDay + " " + hours[i] + ":00";   //格式 2018-11-4 12:00:00   此天某个hour的时间
-      let timeStr = time.replace(/-/g, "/");                     //格式化 2018/10/23 09:00:00 ios只认这个格式
-      let timestamp = new Date(Date.parse(timeStr)).toString()     //格式 Sun Nov 04 2018 12:00:00 GMT+0800 (中国标准时间)
-      for (let j = 0; j < orderList.length;j++){
-        let timeO = orderList[j].date + " " + orderList[j].time + ":00";
-        let timeOStr = timeO.replace(/-/g, "/"); 
-        let timeOStamp = new Date(Date.parse(timeOStr)).toString()   
-        // console.log(timeOStamp)
-        if (timeOStamp == timestamp && orderList[j].num == this.data.storeData.serviceplace){
-          flag = 0
-        }
-      }
-      let timenum = new Date(timeStr).valueOf();          //时间戳 1540256400000
-      let timeNownum = new Date().valueOf();     //现在的时间 xxxxxxxxx
-      
-      //找出该人，该天的休息时段
+    console.log(hours)                          //工作时间      
+    //["12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"]
+
+    //找出该人，该天的休息时段
       // let people = this.data.selectPeople;
       // let date = this.data.selectDay;
       // let holidayHourList = this.data.holidayHourList; //
@@ -890,10 +888,10 @@ Page({
       //     starttime = starttime.substr(0, starttime.length - 3);      //16:00
       //     let stoptime = holidayHourList[i].stoptime.split(" ")[1];   
       //     stoptime = stoptime.substr(0, stoptime.length - 3);         //18:30
-          
+
       //     let start1 = parseInt(starttime.split(":")[0])               //starttime 的 十位数 16
       //     let start2 = parseInt(starttime.split(":")[1])                //starttime 的 个位数 00
-          
+
       //     let hoursPast = this.data.hoursPast;
 
       //     let next = ""
@@ -918,12 +916,58 @@ Page({
       //         }
 
       //         next = next1 + ":" + next2
-              
+
       //       }
       //     } while (表达式)
 
       //   }
-      // }
+    // }
+
+    let people = this.data.selectPeople;
+    let date = this.data.selectDay;
+    let holidayHourList = this.data.holidayHourList; //
+    let peopleDayHoli = "" 
+    for (let i = 0; i < holidayHourList.length;i++){
+      if (holidayHourList[i].eid == people && holidayHourList[i].date == date){
+        peopleDayHoli = peopleDayHoli+holidayHourList[i].time+"|"
+      }
+    }
+    peopleDayHoli = peopleDayHoli.substring(0, peopleDayHoli.length-1);
+    //let peopleDayHoliArr = peopleDayHoli.split("|")
+    console.log(peopleDayHoli)  //14:00|14:30|21:30|18:00
+
+    for(let i=0;i<hours.length;i++){
+      let a = hours[i];
+      if (peopleDayHoli.indexOf(a)!=-1){
+        hours.splice(i,1);
+        i = i-1;
+      }
+    }
+
+    console.log(hours)
+
+
+
+    
+    // 1.已满人的hour，2.超过今天已故时间
+    let orderList = this.data.orderList.slice(0);
+    console.log(orderList)
+    for (let i = 0; i < hours.length;i++){
+      let flag = 1;
+      let time = this.data.selectDay + " " + hours[i] + ":00";   //格式 2018-11-4 12:00:00   此天某个hour的时间
+      let timeStr = time.replace(/-/g, "/");                     //格式化 2018/10/23 09:00:00 ios只认这个格式
+      let timestamp = new Date(Date.parse(timeStr)).toString()     //格式 Sun Nov 04 2018 12:00:00 GMT+0800 (中国标准时间)
+      for (let j = 0; j < orderList.length;j++){
+        let timeO = orderList[j].date + " " + orderList[j].time + ":00";
+        let timeOStr = timeO.replace(/-/g, "/"); 
+        let timeOStamp = new Date(Date.parse(timeOStr)).toString()   
+        // console.log(timeOStamp)
+        if (timeOStamp == timestamp && orderList[j].num == this.data.storeData.serviceplace){
+          flag = 0
+        }
+      }
+      let timenum = new Date(timeStr).valueOf();          //时间戳 1540256400000
+      let timeNownum = new Date().valueOf();     //现在的时间 xxxxxxxxx
 
       
       if(timenum<timeNownum){flag=0}
@@ -966,7 +1010,7 @@ Page({
           break;
       }
       this.setData({
-        hoursPast = hoursPast
+        hoursPast : hoursPast
       })
       let past = hoursPast / 60; //时间间隔 转为小数     0.5 为一个间隔
       console.log("past"+past)
