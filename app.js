@@ -1,23 +1,28 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     console.log('onLaunch');
     var that = this;
 
     // 缓存登录信息
     wx.getStorage({
       key: 'fangun-storeFront',
-      success: function (res) {
-        that.globalData.peopleInfo = res.data;
-        // that.globalData.sid = res.data.sid;
-        that.globalData.loginCache = true;
-        //由于这里是网络请求，可能会在 Page.onLoad 之后才返回
-        // 所以此处加入 callback 以防止这种情况
-        if (that.loginCacheCallback) {
-          that.loginCacheCallback(res.data);
+      success: function(res) {
+        if (typeof res.data == 'object') {
+          that.globalData.peopleInfo = res.data;
+          // that.globalData.sid = res.data.sid;
+          that.globalData.loginCache = true;
+          //由于这里是网络请求，可能会在 Page.onLoad 之后才返回
+          // 所以此处加入 callback 以防止这种情况
+          if (that.loginCacheCallback) {
+            that.loginCacheCallback(res.data);
+          }
+        } else {
+          console.log('没缓存');
         }
+
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('没缓存');
       }
     });
@@ -27,11 +32,8 @@ App({
   globalData: {
     code: null,
     loginCache: false,
-    //coreInfo: null,
-    // option:null,
-    peopleInfo:null,
-    // sid:null,
+    peopleInfo: null,
     sex: null,
-    havePassword:false,
+    havePassword: false,
   }
 })

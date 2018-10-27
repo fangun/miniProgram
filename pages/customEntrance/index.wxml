@@ -141,7 +141,7 @@
                                         {{completingTitleData[index].rq}}{{completingTitleData[index].bd}}
                                     </view>
                                     <block wx:for="{{completingSeqData[index]}}" wx:key='*this'>
-                                        <view class="item" catchtap="compeletingModalShow" data-item="{{completingData[item]}}" data-id="{{completingData[item].id}}">
+                                        <view class="item" catchtap="{{completingData[item].type == 3 ? '' : 'compeletingModalShow'}}" data-item="{{completingData[item]}}" data-id="{{completingData[item].id}}">
                                             <view class="header">
                                                 <block wx:if="{{completingData[item].type == 0 || completingData[item].type == 1}}">
                                                     <view class="tag" style="background-color: rgb(243,67,67);">
@@ -225,31 +225,27 @@
                                             </block>
                                             
                                             <block wx:else>
-                                                <block wx:if="{{completingData[item].saddress !== '' && completingData[item].saddress}}">
-                                                    <view class="clause">
-                                                        <view class="name">地址：</view>
-                                                        <view class="definite">
-                                                            {{completingData[item].saddress}}
-                                                        </view>
+                                                <view class="clause">
+                                                    <view class="name">地址：</view>
+                                                    <view class="definite">
+                                                        {{completingData[item].saddress}}
+                                                        {{completingData[item].saddress !== '' && completingData[item].saddress ? completingData[item].saddress : '无'}}
                                                     </view>
-                                                </block>
+                                                </view>
 
-                                                <block wx:if="{{completingData[item].empolyee !== '' && completingData[item].empolyee}}">
-                                                    <view class="clause">
-                                                        <view class="name">人员：</view>
-                                                        <view class="definite">
-                                                            {{completingData[item].empolyee}}
-                                                        </view>
+                                                <view class="clause">
+                                                    <view class="name">人员：</view>
+                                                    <view class="definite">
+                                                        {{completingData[item].empolyee !== '' && completingData[item].empolyee ? completingData[item].empolyee : '无'}}
                                                     </view>
-                                                </block>
+                                                </view>
 
-                                                <block wx:if="{{completingData[item].remarks !== '' && completingData[item].remarks}}">
+                                                <block wx:if="{{completingData[item].remarks !== '' && completingData[item].remarks !== 'undefined' && completingData[item].remarks}}">
                                                     <view class="clause">
                                                         <view class="name">备    注：</view>
-                                                        <view class="definite">{{completingData[item].remarks}}</view>
+                                                        <view class="remarks">{{completingData[item].remarks}}</view>
                                                     </view>
                                                 </block>
-
                                             </block>
 
                                             <view class="footer">
