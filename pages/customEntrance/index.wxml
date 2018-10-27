@@ -407,13 +407,20 @@
                     </view>
                 </view>
 
+                <block wx:if="{{compeletingModalData.isHelp == 1}}">
+                    <view class="item">
+                        <view>帮人预约：</view>
+                        <view>{{compeletingModalData.name}}   {{compeletingModalData.gender == 1 ? '男' : '女' }}</view>
+                    </view>
+                </block>
+                
                 <block wx:if="{{compeletingModalData.isFirst == 1}}">
                     <view class="item">
                         <view>新旧客户：</view>
                         <view>新客户</view>
                     </view>
                 </block>
-                
+
                 <block wx:if="{{compeletingModalData.remarks !== '' && compeletingModalData.remarks}}">
                     <view class="item">
                         <view>备    注：</view>

@@ -470,14 +470,15 @@
 .fold .header {
     display: flex;
     justify-content: space-between;
-    line-height: 68rpx;
+    line-height: 78rpx;
     padding-left: 30rpx;
     padding-right: 30rpx;
 
     font-family: PingFangSC-Regular;
     font-size: 26rpx;
     color: rgb(153,153,153);
-    background-color: #eee;
+    background-color: rgb(220,220,220);
+    border-bottom: 2rpx solid #eee;
 }
 
 .fold .header .trigger image {
