@@ -53,7 +53,7 @@ Page({
   },
 
   // 删去经常访问的店家
-  cancleFamiliarShop: function (e) {
+  cancleFamiliarShop: function(e) {
     var that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/DelBookingShop',
@@ -63,7 +63,9 @@ Page({
         sid: that.data.hotDeletePar.sid
       },
 
-      header: { "content-type": "application/x-www-form-urlencoded" },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       success(res) {
         wx.showToast({
           title: '删除成功'
@@ -79,7 +81,7 @@ Page({
   },
 
   // 热榜 删去 提示
-  hotDeleteChooseModal: function (e) {
+  hotDeleteChooseModal: function(e) {
     var sid = e.currentTarget.dataset.sid;
     this.setData({
       hotDeleteModal: true,
@@ -90,19 +92,19 @@ Page({
     });
   },
 
-  hotDeleteChooseModalClose: function (e) {
+  hotDeleteChooseModalClose: function(e) {
     this.setData({
       hotDeleteModal: false
     })
   },
 
-  compeletedModalClose: function () {
+  compeletedModalClose: function() {
     this.setData({
       compeletedModal: false
     })
   },
 
-  compeletedModalShow: function (e) {
+  compeletedModalShow: function(e) {
     var compeletedModalData = e.currentTarget.dataset.item;
 
     this.setData({
@@ -111,7 +113,7 @@ Page({
     })
   },
 
-  compeletingModalShow: function (e) {
+  compeletingModalShow: function(e) {
     var orderId = e.currentTarget.dataset.id;
     var compeletingModalData = e.currentTarget.dataset.item;
     this.setData({
@@ -121,20 +123,20 @@ Page({
     })
   },
 
-  compeletingModalClose: function (e) {
+  compeletingModalClose: function(e) {
     this.setData({
       compeletingModal: false
     })
   },
 
-  selectDoing: function (e) {
+  selectDoing: function(e) {
     this.setData({
       tabState: e.currentTarget.dataset.id,
       tabContentShow: true
     })
   },
 
-  selectDone: function (e) {
+  selectDone: function(e) {
     this.setData({
       tabState: e.currentTarget.dataset.id,
       tabContentShow: false
@@ -144,7 +146,7 @@ Page({
   },
 
   // 完成的订单
-  getCompletedData: function (e) {
+  getCompletedData: function(e) {
     var that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/completeOrder',
@@ -152,15 +154,17 @@ Page({
       data: {
         ID: app.globalData.peopleInfo.mid
       },
-      header: { "content-type": "application/x-www-form-urlencoded" },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       success(res) {
 
-        res.data.sd.forEach(function (x, y, z) {
+        res.data.sd.forEach(function(x, y, z) {
           x.show = y == 0 ? true : false;
           x.data = y == 0 ? true : false;
         });
 
-        res.data.hc.forEach(function (x, y, z) {
+        res.data.hc.forEach(function(x, y, z) {
           var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
           var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
           var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
@@ -173,7 +177,7 @@ Page({
 
         console.log('res.data');
         res.data.list = [];
-        res.data.list[0] = res.data.hc; 
+        res.data.list[0] = res.data.hc;
         console.log(res.data);
 
         that.setData({
@@ -185,7 +189,7 @@ Page({
   },
 
   // 定向获取已完成订单
-  getCompletedData2:function(Year,Month,callback){
+  getCompletedData2: function(Year, Month, callback) {
 
     var that = this;
     wx.request({
@@ -193,15 +197,17 @@ Page({
       method: "POST",
       data: {
         ID: app.globalData.peopleInfo.mid,
-        Year:Year,
-        Month:Month
+        Year: Year,
+        Month: Month
       },
-      header: { "content-type": "application/x-www-form-urlencoded" },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       success(res) {
         console.log('getCompletedData2');
         console.log(res);
 
-        if(callback){
+        if (callback) {
           callback(res);
         }
       }
@@ -209,24 +215,24 @@ Page({
 
   },
 
-  foldSwitch: function (e) {
+  foldSwitch: function(e) {
     var that = this;
     var completedData = this.data.completedData;
     var seq = e.currentTarget.dataset.seq;
 
-    completedData.sd.forEach(function (x, y) {
-      
-      if(x.show){
+    completedData.sd.forEach(function(x, y) {
+
+      if (x.show) {
         x.show = false;
       } else {
         x.show = y == seq ? true : false;
       }
     });
 
-    if(!completedData.sd[seq].data){
+    if (!completedData.sd[seq].data) {
 
-      that.getCompletedData2(completedData.sd[seq].year,completedData.sd[seq].month,function(res){
-        res.data.hc.forEach(function (x, y, z) {
+      that.getCompletedData2(completedData.sd[seq].year, completedData.sd[seq].month, function(res) {
+        res.data.hc.forEach(function(x, y, z) {
           var t1 = x.time.slice(x.time.indexOf(" ") + 1).split(":");
           var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
           var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
@@ -254,58 +260,70 @@ Page({
 
   },
 
-  searchPage: function (e) {
-    wx.navigateTo({ url: '../searchStore/index' });
+  searchPage: function(e) {
+    wx.navigateTo({
+      url: '../searchStore/index'
+    });
   },
 
-  storeBackEnd: function (e) {
+  storeBackEnd: function(e) {
     wx.navigateTo({
       url: '../storeBackEnd/index',
-      success: function () { },
-      fail: function () { },
-      complete: function () { }
+      success: function() {},
+      fail: function() {},
+      complete: function() {}
     })
   },
 
   // 跳转常去店铺
-  frequentedStore: function (e) {
+  frequentedStore: function(e) {
     console.log(e);
     app.globalData.peopleInfo.sid = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '../storeHead/index' });
+    wx.navigateTo({
+      url: '../storeHead/index'
+    });
   },
 
-  appointmentVoice: function (e) {
-    wx.redirectTo({ url: '../addAppointmentVoice/index' });
+  appointmentVoice: function(e) {
+    wx.redirectTo({
+      url: '../addAppointmentVoice/index'
+    });
   },
 
-  minePage: function (e) {
-    wx.redirectTo({ url: '../personalDetails/index' });
+  minePage: function(e) {
+    wx.redirectTo({
+      url: '../personalDetails/index'
+    });
   },
 
   // 扫一扫
-  richScan: function () {
+  richScan: function() {
     wx.scanCode({
-      success: (res) => {
-        console.log('结果');
-        console.log(res.result);
-        // var seq = res.result.lastIndexOf('%3d');
-        // console.log(seq);
-        // var sid = res.result.slice(seq + 3);
-        // console.log(sid);
-
-      },
-      fail: (res) => { },
-      complete: (res) => {
+      success(res) {
+        let url = res.result;
+        //是否有转义了的 %3d
+        let flag1 = url.indexOf("%3d");
+        if(flag1!=-1){
+          let urlArr = url.split("%3d");
+          //最后一个%3d 后面的，应该是sid, 32位
+          let sid = urlArr[urlArr.length-1];
+          if(sid.length==32){
+            app.globalData.peopleInfo.sid = sid
+            wx.navigateTo({
+              url: '../storeHead/index'
+            })
+          }
+        }
       }
     })
   },
   // 禁止冒泡
-  forbidBubbling: function () {
+  forbidBubbling: function() {
     console.log('禁止button冒泡');
   },
 
   // 显示提示弹出层
-  showChooseModal: function (e) {
+  showChooseModal: function(e) {
     var orderId = e.currentTarget.dataset.id;
     this.setData({
       chooseModal: true,
@@ -313,13 +331,13 @@ Page({
     })
   },
 
-  chooseModalClose: function () {
+  chooseModalClose: function() {
     this.setData({
       chooseModal: false
     })
   },
 
-  cancelOrderModal: function (e) {
+  cancelOrderModal: function(e) {
     var that = this;
     var orderId = this.data.orderId;
     if (orderId) {
@@ -329,7 +347,9 @@ Page({
         data: {
           id: orderId
         },
-        header: { "content-type": "application/x-www-form-urlencoded" },
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
         success(res) {
 
           wx.showToast({
@@ -349,7 +369,7 @@ Page({
   },
 
   // 取消订单(进行中的)
-  cancelOrder: function (e) {
+  cancelOrder: function(e) {
     var that = this;
     var orderId = this.data.orderId;
 
@@ -360,7 +380,9 @@ Page({
         data: {
           id: orderId
         },
-        header: { "content-type": "application/x-www-form-urlencoded" },
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
         success(res) {
           wx.showToast({
             title: '成功',
@@ -377,20 +399,20 @@ Page({
     }
   },
 
-  showModalFn: function () {
+  showModalFn: function() {
     this.setData({
       showModal: true
     })
   },
 
-  modalClose: function () {
+  modalClose: function() {
     this.setData({
       showModal: false
     })
   },
 
   // 获取热榜数据
-  getHotData: function () {
+  getHotData: function() {
 
     var that = this;
     wx.request({
@@ -399,7 +421,9 @@ Page({
       data: {
         ID: app.globalData.peopleInfo.mid
       },
-      header: { "content-type": "application/x-www-form-urlencoded" },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       success(res) {
         if (res.data) {
           that.setData({
@@ -421,7 +445,7 @@ Page({
 
   },
   // 获取进行中的数据列表
-  getCompletingData: function () {
+  getCompletingData: function() {
     var that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/InCompleteOrderList',
@@ -429,7 +453,9 @@ Page({
       data: {
         ID: app.globalData.peopleInfo.mid
       },
-      header: { "content-type": "application/x-www-form-urlencoded" },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       success(res) {
         if (res.data) {
           var cData = complete.completing(res.data);
@@ -458,7 +484,7 @@ Page({
   },
 
   // 调用地图
-  getMapAddress: function (e) {
+  getMapAddress: function(e) {
     var that = this;
     var location = e.currentTarget.dataset.location;
     var address = {}; //坐标对象 lat经度 lng维度
@@ -481,10 +507,10 @@ Page({
     })
   },
 
-  getMap: function (location, address) {
+  getMap: function(location, address) {
     qqmapsdk.geocoder({
       address: location,
-      success: function (res) {
+      success: function(res) {
         address = res.result.location;
         var latitude = address.lat;
         var longitude = address.lng;
@@ -494,19 +520,18 @@ Page({
           scale: 28
         })
       },
-      fail: function (e) {
+      fail: function(e) {
         wx.showToast({
           title: '暂时无法找到该位置',
           icon: 'fail',
           duration: 2000
         });
       },
-      complete: function (e) {
-      }
+      complete: function(e) {}
     });
   },
   // 拨打电话
-  makingCalls: function (e) {
+  makingCalls: function(e) {
     var phoneNumber = e.currentTarget.dataset.tel;
     wx.makePhoneCall({
       phoneNumber: phoneNumber
@@ -514,7 +539,7 @@ Page({
   },
 
   // 分享
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
@@ -546,16 +571,34 @@ Page({
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData
         },
-        header: { "content-type": "application/x-www-form-urlencoded" },
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
         success(res) {
-          app.globalData.peopleInfo = res.data;
-          wx.setStorage({
-            key: "fangun-storeFront",
-            data: res.data,
-            success(res) {
-              app.globalData.loginCache = true;
-              that.authorizeInit();
-            }
+          console.log(res.data)
+          if (typeof res.data == 'object') {
+            app.globalData.peopleInfo = res.data;
+
+            wx.setStorage({
+              key: "fangun-storeFront",
+              data: res.data,
+              success(res) {
+                app.globalData.loginCache = true;
+                that.authorizeInit();
+              }
+            });
+          } else {
+            wx.showToast({
+              title: '授权接口异常',
+              success: function() {}
+            });
+          }
+
+        },
+        fail(res) {
+          wx.showToast({
+            title: '授权接口异常',
+            success: function() {}
           });
         }
       });
@@ -563,18 +606,22 @@ Page({
   },
 
   // 手机账号登录
-  accountLogin:function(){
-    wx.navigateTo({ url: '../accountLogin/index' });
+  accountLogin: function() {
+    wx.navigateTo({
+      url: '../accountLogin/index'
+    });
   },
 
   // 页面数据获取
-  initPageData: function (e) {
+  initPageData: function(e) {
     this.getHotData();
     this.getCompletingData();
   },
   // 授权 数据初始化
-  authorizeInit:function(){
+  authorizeInit: function() {
     console.log('authorizeInit');
+    console.log(app.globalData);
+    
     if (app.globalData.loginCache) {
       this.setData({
         loginState: app.globalData.loginCache
@@ -583,7 +630,7 @@ Page({
     }
   },
 
-  onShow:function(){
+  onShow: function() {
     // 登录
     wx.login({
       success: res => {
@@ -593,14 +640,15 @@ Page({
     })
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log('onLoad');
     var that = this;
     //判断是用户是否绑定了
     if (app.globalData.loginCache) {
+      console.log('cache:true');
       that.authorizeInit();
     } else {
-
+      console.log('cache:false');
       this.setData({
         loginState: false
       });
@@ -608,7 +656,7 @@ Page({
       // 所以此处加入 callback 以防止这种情况
 
       app.loginCacheCallback = peopleInfo => {
-        if (peopleInfo) {
+        if (typeof peopleInfo == 'object') {
           app.globalData.peopleInfo = peopleInfo;
           app.globalData.loginCache = true;
           that.authorizeInit();

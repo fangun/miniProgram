@@ -21,15 +21,9 @@ const formatDate = date => {
   return [year, month, day].map(formatNumber).join('-');
 }
 
-const getDateDimdd = function (prevDate, nextDate) {
-  var pdMs = new Date(prevDate).valueOf(),
-    ndMs = new Date(nextDate).valueOf();
-  return Math.floor((ndMs - pdMs) / (24 * 60 * 60 * 1000));
-}
-
 const uniqArray = (array) => [...new Set(array)]
 
-const getFormatDate = function (par) {
+const getFormatDate = function(par) {
   var currentDate = par ? new Date(par) : new Date(),
     curYear = currentDate.getFullYear(),
     curMonth = currentDate.getMonth() + 1,
@@ -41,10 +35,22 @@ const getFormatDate = function (par) {
   return curYear + "-" + curMonth + "-" + curDate;
 }
 
+// 逻辑:根据两个日期获取它们天数差
+// 参数:prevDate nextDate
+// 例子:getDateDimDd("2018-03-12","2018-03-14") => 2
+// 作者:ydlx
+// 日期:2018-03-12
+const getDateDimdd = function(prevDate, nextDate) {
+  var pdMs = new Date(prevDate).valueOf(),
+    ndMs = new Date(nextDate).valueOf();
+  return Math.floor((ndMs - pdMs) / (24 * 60 * 60 * 1000));
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
   getDateDimdd: getDateDimdd,
   uniqArray: uniqArray,
-  getFormatDate: getFormatDate
+  getFormatDate: getFormatDate,
+  getDateDimdd:getDateDimdd
 }
