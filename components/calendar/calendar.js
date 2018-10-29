@@ -65,12 +65,26 @@ Component({
     todayDay:'', //今天几号
     nowMonth: new Date().getMonth() + 1,
     yearmonthStart:0,
-    yearmonthEnd:0
+    yearmonthEnd:0,
+    preShow:true,
+    nextShow:true
 	},
 	ready(){
 		this.getAllArr();
 
-    
+    // this.gotoNextMonth();
+    // this.gotoNextMonth()
+    let selD = this.data.selectDay;
+    console.log(selD);
+    let selMonth = parseInt(selD.split("-")[1]);
+    let selYear = parseInt(selD.split("-")[0]);
+    let nowMonth = parseInt(this.data.currentMonth);
+    let nowyear = parseInt(this.data.currentYear);
+
+    let spanMonth = (selYear - nowyear)*12+selMonth-nowMonth;  //需要向后跳一个月 跳几下
+    for(let i=0;i<spanMonth;i++){
+      this.gotoNextMonth()
+    }
 	},
 
     /**
@@ -240,6 +254,36 @@ Component({
 				currentMonth: this.data.currentMonth,
 				allArr: allArr
 			}
+
+
+      let activityDay = this.data.peopleActivityDay;
+      let firstDayM = activityDay[0].date.split("-")[0]                     //能选的最早的月
+      let firstDayY = activityDay[0].year                                   //能选的最早的年
+      let lastDayM = activityDay[activityDay.length-1].date.split("-")[0];  //能选的最晚的月
+      let lastDayY = activityDay[activityDay.length - 1].year;              //能选的最晚的年
+
+      // console.log(this.data.currentMonth) //当前日历 显示页 的 月份
+      // console.log(this.data.currentYear)
+
+      if (this.data.currentMonth == firstDayM && this.data.currentYear == firstDayY){
+        this.setData({
+          preShow:false
+        })
+      }else{
+        this.setData({
+          preShow: true
+        })
+      }
+      if (this.data.currentMonth == lastDayM && this.data.currentYear == lastDayY){
+        this.setData({
+          nextShow:false
+        })
+      }else{
+        this.setData({
+          nextShow: true
+        })
+      }
+
 			// console.log(sendObj)
 			this.triggerEvent('sendObj', sendObj)
 		},
@@ -269,8 +313,10 @@ Component({
       let select = e.currentTarget.dataset;
       let date = select.date;
       if(date<10){date = "0"+date}
+      let month = select.cumonth;
+      if(month<10){month = "0" + month}
 
-      let day = select.year + "-" + select.cumonth + "-" +date;
+      let day = select.year + "-" + month + "-" +date;
       console.log(day)
       this.triggerEvent('myevent', { selectDay: day });
     },
