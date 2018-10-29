@@ -87,7 +87,7 @@
         </view>
       </view>
       <view>
-        <text>服务{{storeSet.fullAmount}}共用时：</text>
+        <text>服务共用时：</text>
         <text class='textRed'>{{serviceTime}}</text>
         <text class='textBlack' style='margin-right:38rpx'>小时</text>
         <block wx:if="{{storeSet.deposite==1}}">
@@ -171,7 +171,7 @@
     </view> 
   </view>
   <!-- 要渲染，避免闪条 -->
-  <view id='selectOther' style="display:{{hourBlock.length==0? 'none' : 'flex'}}">
+  <view id='selectOther' wx:if="{{hourBlock.length!=0}}">
     <view class='form'>
       <view bindtap='firstArrivalCheck' wx:if="{{storeSet.firstvisit==1}}">
         <text>第一次到店</text>
@@ -191,7 +191,7 @@
         <view class='formBorder'></view>
         <view>
           <view>出生日期 </view>
-          <picker mode="date" value="{{date}}" start="1900-01-01" end="2018-10-23" bindchange="bindBirthChange">
+          <picker mode="date" value="{{birth}}" start="1900-01-01" end="2018-10-23" bindchange="bindBirthChange">
             <view class="picker">
             {{birth}}
             <!-- 0000-00-00 -->
@@ -217,7 +217,7 @@
     </view>
   </view>
   <!-- 要渲染，避免闪条 -->
-  <view id='tip' style="display:{{hourBlock.length==0? 'none' : 'flex'}}">
+  <view id='tip' wx:if="{{hourBlock.length!=0}}">
     <view class='block_title'>
         <image src='../../resource/images/storeHead/titleTriangle.png'></image>
         <text class='titleText'>备注信息</text>
@@ -227,9 +227,11 @@
     <input class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip'></input>
   </view>
   <!-- 要渲染，避免闪条 -->
-  <view id="submit" style="display:{{hourBlock.length==0? 'none' : 'flex'}}">
+  <view id="submit" wx:if="{{hourBlock.length!=0}}">
     <view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
-    <view class='bottomTip' bindtap='gotoV'></view>
+  </view>
+  <view class='bottomTip' bindtap='gotoV'>
+    <image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>
   </view>
   <view class='modal' wx:if="{{modal_calendar_show}}">
     <!-- <view class='modal_back' bindtap='modalBack'></view> -->
@@ -299,7 +301,7 @@
           <view >{{selectDay}} {{hourBlock[0]}}-{{factEndHour}}</view>
         </view>
         <view wx:if="{{storeSet.seposit==1}}">
-          <view class='sub'>共需定金：</view>
+          <view class='sub'>共需订金：</view>
           <view>{{dingjin}}</view>
         </view>
       </view>
@@ -317,8 +319,9 @@
       <view class='btn' bindtap='shortInfoClose'>确定</view>
     </view>
   </view>
+
   <view class='modal orderClash' wx:if="{{orderClashShow}}">
-  <!-- <view class='modal orderClash' wx:if="1"> -->
+    <!-- <view class='modal orderClash' wx:if="1"> -->
     <view class='modalTip'>
       <view>预约产品冲突</view>  
       <view>此时间段您已经在【{{orderClash}}】有过预约，请选择其他时间</view>
@@ -338,6 +341,7 @@
       </view>
     </view>
   </view>
+
   <view class='modal lessOne' wx:if="{{selfClanShow}}">
   <!-- <view class='modal lessOne' wx:if="1"> -->
     <view class='modalTip'>

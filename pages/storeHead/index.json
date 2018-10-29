@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "上预约吧~预订一切生活服务~",
   "navigationBarBackgroundColor": "#000",
   "usingComponents": {
     "calendar": "/components/calendar/calendar"

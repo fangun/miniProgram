@@ -26,11 +26,17 @@ Page({
     wx.getStorage({
       key: 'fangun-storeFront',
       success: function(res) {
-        app.globalData.loginCache = true;
-        app.globalData.peopleInfo = res.data;
-        that.setData({
-          authorizeState:true
-        })
+        //console.log(res.data.message)
+        if (typeof res.data == 'object' && res.data.message !="发生错误。"){
+          console.log("you")
+          app.globalData.loginCache = true;
+          app.globalData.peopleInfo = res.data;
+          that.setData({
+            authorizeState: true
+          })
+        }else{
+          console.log('cuowu')
+        }
       },
       fail:function(res){
 
@@ -100,6 +106,7 @@ Page({
       method: "POST",
       data: {
         app:'wxe',
+        // app: 'wxe',//店家 wxb1881cff7fde6cf6
         code: app.globalData.code,
         iv: e.detail.iv,
         encryptedData: e.detail.encryptedData

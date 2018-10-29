@@ -8,6 +8,7 @@ App({
     wx.getStorage({
       key: 'fangun-storeFront',
       success: function(res) {
+        console.log(res)
         if (typeof res.data == 'object') {
           that.globalData.peopleInfo = res.data;
           // that.globalData.sid = res.data.sid;
