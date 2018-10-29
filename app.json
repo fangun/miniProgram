@@ -1,6 +1,6 @@
 {
   "pages":[
-    
+    "pages/customEntrance/index",
 
     "pages/search/index",
     "pages/storeHead/index",
@@ -20,8 +20,7 @@
     "pages/storeBackEnd/index",
     "pages/accountLogin/index",
     "pages/freeOpen/index",
-    "pages/forgetPassword/index",
-    "pages/customEntrance/index"
+    "pages/forgetPassword/index"
     
   ],
 
