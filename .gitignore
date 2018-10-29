@@ -1,2 +1,4 @@
+# 忽略指定文件
+
 app.json
 project.config.json

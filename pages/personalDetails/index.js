@@ -35,9 +35,13 @@ Page({
   },
 
   expenseCalendarPage: function() {
-    wx.navigateTo({
-      url: '../expenseCalendar/index'
+    wx.showToast({
+      title: '暂未上线,敬请期待',
+      icon:'none'
     });
+    // wx.navigateTo({
+    //   url: '../expenseCalendar/index'
+    // });
   },
 
   customPage: function() {

@@ -92,8 +92,10 @@
     border-radius:8rpx;
     
     border:1px solid rgb(243,67,67);
-
     background-color: #fff;
+
+    padding-left: 0;
+    padding-right: 0;
 }
 
 

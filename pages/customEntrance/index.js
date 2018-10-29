@@ -204,12 +204,24 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       success(res) {
-        console.log('getCompletedData2');
-        console.log(res);
-
-        if (callback) {
-          callback(res);
+        if(typeof res.data == 'object'){
+          if (callback) {
+            callback(res);
+          }
+        } else {
+          wx.showToast({
+            title: '数据异常',
+            icon: 'none',
+            duration: 1200
+          });
         }
+      },
+      fail(e){
+        wx.showToast({
+          title: '数据获取失败',
+          icon: 'none',
+          duration: 1200
+        });       
       }
     });
 

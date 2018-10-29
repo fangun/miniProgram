@@ -229,23 +229,21 @@
                                                     <view class="name">地址：</view>
                                                     <view class="definite">
                                                         {{completingData[item].saddress}}
-                                                        {{completingData[item].saddress !== '' && completingData[item].saddress ? completingData[item].saddress : '无'}}
+                                                        {{completingData[item].saddress !== '' && completingData[item].saddress ? completingData[item].saddress : ''}}
                                                     </view>
                                                 </view>
 
                                                 <view class="clause">
                                                     <view class="name">人员：</view>
                                                     <view class="definite">
-                                                        {{completingData[item].empolyee !== '' && completingData[item].empolyee ? completingData[item].empolyee : '无'}}
+                                                        {{completingData[item].empolyee !== '' && completingData[item].empolyee ? completingData[item].empolyee : ''}}
                                                     </view>
                                                 </view>
 
-                                                <block wx:if="{{completingData[item].remarks !== '' && completingData[item].remarks !== 'undefined' && completingData[item].remarks}}">
-                                                    <view class="clause">
-                                                        <view class="name">备    注：</view>
-                                                        <view class="remarks">{{completingData[item].remarks}}</view>
-                                                    </view>
-                                                </block>
+                                                <view class="clause">
+                                                    <view class="name">备    注：</view>
+                                                    <view class="remarks">{{completingData[item].remarks !== '' && completingData[item].remarks !== 'undefined' && completingData[item].remarks ? completingData[item].remarks : ''}}</view>
+                                                </view>
                                             </block>
 
                                             <view class="footer">
@@ -390,7 +388,7 @@
 
                 <block wx:if="{{compeletingModalData.deposit}}">
                     <view class="item">
-                        <view>已付定金：</view>
+                        <view>已付订金：</view>
                         <view class="payed">{{compeletingModalData.deposit}}</view>
                     </view>
                 </block>
