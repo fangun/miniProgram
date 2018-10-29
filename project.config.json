@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
-	"appid": "wx77f93d6c157819b3",
-	"projectname": "%E9%A2%84%E7%BA%A6%E5%90%A7",
+	"appid": "wxb1881cff7fde6cf6",
+	"projectname": "预约吧",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -32,17 +32,7 @@
 		"miniprogram": {
 			"current": 0,
 			"list": [
-				{
-					"id": -1,
-					"name": "店铺启动",
-					"pathName": "pages/customEntrance/index",
-					"query": "name=can",
-					"scene": "1037",
-					"referrerInfo": {
-						"appId": "wx77f93d6c157819b3",
-						"extraData": "{\"test\":\"123\"}"
-					}
-				}
+				
 			]
 		}
 	}

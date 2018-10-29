@@ -20,21 +20,14 @@ Page({
     socials:[],       //外链
     serviceEmployee: [],  //店员 总表
 
-    black1:{
-      "mainBg":'rgb(52,52,52)',
-      "mainTitle":'rgb(27,27,27)',
-      "introBg":'rgb(27, 27, 27)',
-      "serv_active_bg":'rgb(253,225,81)',
-      "serv_active_color": 'rgb(253,225,81)',
-      "btn_": 'rgb(253,225,81)'
-    },
-
     introLength:0,      //intro简介的长度
     storeIntro: false,  //intro简介 1.展开 0收起
     orderList: [],      //已有的预约  {date: "2018-09-04", time: "16:00", num: 1}数组
     holidayHourList:[], //员工请假的小时段
     currentYear: "",    
     currentMonth: "",
+    selectYear:"",
+    selectMonth:"",
     hoursPast:30,        //一格的时间
 
     selectedServices: [],     //已选的服务
@@ -96,7 +89,14 @@ Page({
     orderClashShow:false,
     orderClash:"",
     lessOneShow:false,
-    sendData:{}
+    sendData:{},
+
+    black1: {
+      "containerBg": 'rgb(52,52,52)'
+    },
+    red1: {
+      "containerBg": 'rgb(52,52,52)'
+    },
   },
   /**
    * 生命周期函数--监听页面加载
@@ -124,9 +124,9 @@ Page({
       key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
     });
 
-    wx.setNavigationBarTitle({
-      title: '上预约吧'
-    })
+    // wx.setNavigationBarTitle({
+    //   title: '上预约吧'
+    // })
   },
 
   /**
@@ -704,22 +704,30 @@ Page({
 
     let deleteDay = [];
     for (let j = 0; j < activityDay.length;j++){
+      let flag = 0;
       //按周删
       let weekIndex = activityDay[j].weekIndex;
       if (holiday.indexOf(weekIndex)!=-1){
         deleteDay.push(activityDay[j])
-        activityDay.splice(j,1)
-        j--
-      } else if (spDates.length != 0 && spDates[0]!=null){
+        // activityDay.splice(j,1)
+        // j--
+        flag = 1
+      } 
+      if (spDates.length != 0 && spDates[0]!=null){
         // 按特殊日删
         for(let n = 0;n<spDates.length;n++){
           let day = spDates[n].split(" ")[0];
           if (day == activityDay[j].id){
             deleteDay.push(activityDay[j])
-            activityDay.splice(j, 1)
-            j--
+            // activityDay.splice(j, 1)
+            // j--
+            flag = 1
           }
         }
+      }
+      if(flag==1){
+        activityDay.splice(j,1)
+        j--
       }
     }
     console.log(deleteDay)
@@ -770,9 +778,13 @@ Page({
   selectDay:function(e){
     if(this.data.selectPeople!=""){
       let selectTimeId = e.currentTarget.dataset.timeid;
+      let selectYear = selectTimeId.split("-")[0]
+      let selectMonth = selectTimeId.split("-")[1]
       this.setData({
         selectDay: selectTimeId,
-        hourBlock: []
+        hourBlock: [],
+        selectYear: selectYear,
+        selectMonth: selectMonth
       })
       console.log(selectTimeId)
       this.makeHours()
@@ -1210,9 +1222,9 @@ Page({
           modal_tip_title: "服务费用说明",
           modal_tip_content: [
             "1.服务开始前1小时，可随时取消订单，并退还押金；",
-            "2.消费后定金会作为消费金额折扣；",
-            "3.到店后商家若未按时服务，定金将翻倍返还;",
-            "4.未提交前与商家协商的情况下，未按时到店，定金将归商家，不予退还。"
+            "2.消费后订金会作为消费金额折扣；",
+            "3.到店后商家若未按时服务，订金将翻倍返还;",
+            "4.未提交前与商家协商的情况下，未按时到店，订金将归商家，不予退还。"
           ]
         })
       }
@@ -1397,13 +1409,13 @@ Page({
         } else if (status == "-7") {
           that.setData({
             shortInfoShow: true,
-            shortInfo: "很抱歉！同店家无法逾越超过三笔，包含自己一笔及帮别人预约2笔",
+            shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
             modal_confirm: false
           })
         } else if (status == "-8") {
           that.setData({
             shortInfoShow: true,
-            shortInfo: "很抱歉！同店家无法逾越超过三笔，包含自己一笔及帮别人预约2笔",
+            shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
             modal_confirm: false
           })
         } else if (status == "-9" && that.data.storeSet.reservationHelp==0) {

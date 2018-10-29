@@ -114,7 +114,8 @@ picker{margin-right: 63rpx}
 .btn_submit{width: 690rpx;height: 80rpx;line-height: 80rpx;font-size: 28rpx;color: white;background: rgb(243, 67,67 );text-align: center;border-radius: 16rpx;margin-bottom: 100rpx}
 .inputtext{size: 24rpx;border: 2rpx solid rgb(153, 153, 153);border-radius: 8rpx;width: 690rpx;padding: 22rpx 25rpx;box-sizing: border-box}
 .textareaPlaceholder{size: 24rpx;padding: 22rpx 25rpx;}
-.bottomTip{width: 100%;height: 72rpx;background-image: url("http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg");background-repeat: no-repeat;background-size: 100%;position: fixed;bottom: 0;z-index: 99}
+.bottomTip{width: 100%;height: 72rpx;position:fixed;bottom: 0;z-index: 99}
+.bottomTip image{height: 100%;width: 100%}
 /*modal .rightCalendar*/
 /* .container .modal_calendar{position: fixed;bottom: 0;height: 724rpx;width: 100%;background: gray;margin:0;} */
 .container .modal_calendar{
@@ -151,7 +152,7 @@ picker{margin-right: 63rpx}
 .modal_tip>.tip{width: 100%;text-align: left;color: rgb(153, 153, 153)}
 
 .shortInfo .modalTip , .orderClash .modalTip,.lessOne .modalTip{background: white;width:650rpx;display: flex;flex-direction: column;border-radius: 16rpx }
-.modalTipText{font-size: 30rpx;color: rgb(51, 51, 51);margin-top: 47rpx;margin-bottom: 54rpx;font-weight: 700}
+.modalTipText{font-size: 30rpx;color: rgb(51, 51, 51);margin-top: 47rpx;margin-bottom: 54rpx;padding:0 50rpx}
 .modalTip .btn{width: 220rpx;height: 60rpx;background: rgb(243, 67, 67);font-size: 30rpx;color: white;text-align: center;line-height: 60rpx;border-radius: 8rpx;margin-bottom: 40rpx}
 .lessOne .modalTip {font-size: 30rpx;padding: 100rpx 60rpx 0;box-sizing: border-box}
 .lessOne .modal_btns{display: flex;width: 100%;margin-top: 40rpx;justify-content: space-between}

@@ -1,6 +1,6 @@
 {
   "pages":[
-    "pages/customEntrance/index",
+    
 
     "pages/search/index",
     "pages/storeHead/index",
@@ -20,15 +20,15 @@
     "pages/storeBackEnd/index",
     "pages/accountLogin/index",
     "pages/freeOpen/index",
-    "pages/forgetPassword/index"
-  
+    "pages/forgetPassword/index",
+    "pages/customEntrance/index"
     
   ],
 
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
-    "navigationBarTitleText": "上预约吧~预定一切生活服务~",
+    "navigationBarTitleText": "上预约吧~预订一切生活服务~",
     "navigationBarTextStyle":"#fff"
   }
 

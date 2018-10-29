@@ -6,11 +6,15 @@ Component({
 	properties: {
 		currentYear: { // 当前显示的年
 			type: Number,
-			value: new Date().getFullYear()
+			value: new Date().getFullYear(),
+      observer: function (newVal, oldVal, changedPath) {
+      }
 		},
 		currentMonth: { // // 当前显示的月
 			type: Number,
-			value: new Date().getMonth() + 1
+			value: new Date().getMonth() + 1,
+      observer: function (newVal, oldVal, changedPath) {
+      }
 		},
     disabledDay:{
       type:Array,
@@ -54,8 +58,8 @@ Component({
     selectDay:"",
     todayDay:'', //今天几号
     nowMonth: new Date().getMonth() + 1,
-    monthStart:0,
-    monthEnd:0
+    yearmonthStart:0,
+    yearmonthEnd:0
 	},
 	ready(){
 		this.getAllArr();
@@ -116,7 +120,9 @@ Component({
 				for (let i = 1; i <= currentMonthDateLen; i++) {
           let i2 = 0;//i<10的问题
           if(i<10){i2 = "0"+i}else{i2 = i}
-          let dayId =  this.data.currentYear + "-" + this.data.currentMonth + "-" + i2;
+          let month2 = this.data.currentMonth;
+          if(month2<10){month2 = "0"+month2}
+          let dayId = this.data.currentYear + "-" + month2 + "-" + i2;
           // console.log(dayId)
           //判断 activityDay
           let peopleActivity = 0;
@@ -153,20 +159,26 @@ Component({
       let today = this.data.currentYear + "-" + this.data.currentMonth + "-" + new Date().getDate();
       let todayDay = new Date().getDate();
 
-      //头月 尾月
-      let monthStart="";
-      let monthEnd="";
+      //头年月 尾年月
+      let yearmonthStart="";
+      let yearmonthEnd="";
       if(peopleActivityDay.length!=0){
-        monthStart = peopleActivityDay[0].date.split("-")[0];
-        monthEnd = peopleActivityDay[peopleActivityDay.length-1].date.split("-")[0]
+        yearmonthStart = {
+          month: new Date().getMonth() + 1,
+          year: new Date().getFullYear()
+        }
+        yearmonthEnd = {
+          month : peopleActivityDay[peopleActivityDay.length-1].date.split("-")[0],
+          year: peopleActivityDay[peopleActivityDay.length - 1].year
+        }
       }
       
 			this.setData({
 				currentMonthDateLen,
         today:today,
         todayDay,
-        monthStart:monthStart,
-        monthEnd:monthEnd
+        yearmonthStart: yearmonthStart,
+        yearmonthEnd: yearmonthEnd
 			})
       
 
@@ -212,6 +224,7 @@ Component({
 			let currentArr = this.getCurrentArr()
 			let nextArr = this.getNextArr()
 			let allArr = [...preArr, ...currentArr, ...nextArr]
+      let selectDay
 			this.setData({
 				allArr
 			})
