@@ -1,7 +1,5 @@
 {
   "pages":[
-    
-
     "pages/search/index",
     "pages/storeHead/index",
     "pages/orderSuccess/index",

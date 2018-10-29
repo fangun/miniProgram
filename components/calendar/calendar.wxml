@@ -2,7 +2,7 @@
 	<view class='tit'>
 		<view>
       <!-- <view class='pre' bindtap='gotoPreMonth' wx:if="{{currentMonth>monthStart&&monthStart!=''}}">{{'<'}}</view> -->
-      <view class='pre' bindtap='gotoPreMonth' data-m = "{{yearmonthStart.month}}" data-y = "{{yearmonthStart.year}}">{{'<'}}</view>
+      <view class='pre' bindtap='gotoPreMonth' wx-if="{{preShow}}">{{'<'}}</view>
     </view>
 		<view class='current'>
       <text>{{currentMonth}}月，</text>
@@ -10,7 +10,7 @@
     </view>
 		<view>
       <!-- <view class='next' bindtap='gotoNextMonth' wx:if="{{currentMonth<monthEnd}}">{{'>'}}</view> -->
-      <view class='next' bindtap='gotoNextMonth' data-m = "{{yearmonthEnd.month}}" data-y = "{{yearmonthEnd.year}}">{{'>'}}</view>
+      <view class='next' bindtap='gotoNextMonth' wx-if="{{nextShow}}">{{'>'}}</view>
     </view>
 	</view>
 
