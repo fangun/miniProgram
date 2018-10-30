@@ -180,7 +180,7 @@
     </view> 
   </view>
   <!-- 要渲染，避免闪条 -->
-  <view id='selectOther' wx:if="{{hourBlock.length!=0}}">
+  <view id='selectOther' wx:if="{{(hourBlock.length!=0)&&otherShow}}">
     <view class='form'>
       <block wx:if="{{storeSet.firstvisit==1}}">
         <view class='formBorder'></view>

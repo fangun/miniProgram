@@ -15,6 +15,7 @@ Page({
     vip:0,
     storeSet: {},       //vip等选项设置
     storeData: {},      //店家具体数据
+    otherShow:true,
     peopleData:{},    //登陆者的数据 生日，手机，姓名，座机
     peopleName:"",
     socials:[],       //外链
@@ -344,6 +345,7 @@ Page({
             "src": src
           })
         }
+        
         that.setData({
           storeSet: res.data,
           vip: res.data.vip,
