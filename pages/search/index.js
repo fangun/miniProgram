@@ -113,20 +113,35 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       success(res) {
-        that.setData({
-          authorizeState:true
-        })
-        console.log(res.data)
-        let data = res.data;
-        //存储缓存
-        wx.setStorage({
-          key: "fangun-storeFront",
-          data: data
-        });
-        //存app
-        app.globalData.loginCache = true;
-        app.globalData.peopleInfo = data;
-        
+        if (typeof res.data == 'object' && res.data.mobile) {
+          that.setData({
+            authorizeState: true
+          })
+          console.log(res.data)
+          let data = res.data;
+          //存储缓存
+          wx.setStorage({
+            key: "fangun-storeFront",
+            data: data
+          });
+          //存app
+          app.globalData.loginCache = true;
+          app.globalData.peopleInfo = data;
+        }else{
+          wx.showToast({
+            title: '授权失败',
+            icon: 'none',
+            success: function () {
+              // 登录
+              wx.login({
+                success: res => {
+                  // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                  app.globalData.code = res.code;
+                }
+              })
+            }
+          });
+        }
       }
     });
   },

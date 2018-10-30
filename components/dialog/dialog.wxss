@@ -1,0 +1,25 @@
+/* components/dialog/dialog.wxss */
+.modal{height: 100%;width:100%;background: rgba(0, 0, 0, 0.7);z-index: 299;padding: 0 51rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: center}
+.header{}
+.header image{width: 140rpx;height: 140rpx}
+.main{width: 100%;border-radius: 14rpx;background: white;padding: 0 56rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: centers}
+.body{display: flex;flex-direction: column}
+.lists{display: flex;flex-direction: column}
+
+.lists>view{display: flex}
+
+.footer{display: flex;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

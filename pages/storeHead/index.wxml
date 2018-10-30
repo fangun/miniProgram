@@ -8,9 +8,6 @@
 </view>
 <view class='container'>
   <view class='topTitle' style='background:{{main_color}}'>
-    <!-- <navigator target="miniProgram" open-type="navigate" app-id="wx77f93d6c157819b3" path="pages/customEntrance/index" version="trial" bindtap='navgatorFn'>
-      <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
-    </navigator> -->
     <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
     <view>店家首页</view>
     <view class='btn'></view>
@@ -68,11 +65,17 @@
       <view wx:for="{{storeData.serviceItems}}" wx:key="key" data-id='{{item.id}}' class='{{item.isSelected?"projectSelected":""}} project' style='background:{{item.isSelected?main_color:""}}' bindtap='selectProject'>{{item.name}}</view>
     </view>
     <view id="projects2" wx:if="{{vip==0}}">
-      <scroll-view scroll-x="true" >
-        <view wx:for="{{storeData.serviceItems}}" wx:key="key"  data-id='{{item.id}}' bindtap='selectProject' class='{{item.isSelected?"projectSelected":""}} project2' style='background:{{item.isSelected?main_color:""}};border-color:{{item.isSelected?main_color:""}}'>
+      <view class='projectArrow' bindtap='projectLeft'>
+        <image src='../../resource/images/storeHead/arrowL.png'></image>
+      </view>
+      <scroll-view scroll-x="true" scroll-into-view="{{toProject}}" scroll-with-animation="true">
+        <view wx:for="{{storeData.serviceItems}}" wx:key="key" wx:for-index="index" id='serv{{index}}' data-index='{{index}}' data-id='{{item.id}}' bindtap='selectProject' class='{{item.isSelected?"projectSelected":""}} project2' style='background:{{item.isSelected?main_color:""}};border-color:{{item.isSelected?main_color:""}}'>
           {{item.name}}
         </view>
       </scroll-view>
+      <view class='projectArrow' bindtap='projectRight'>
+        <image src='../../resource/images/storeHead/arrowR.png'></image>
+      </view>
     </view>
     <view class='selectInfo' wx:if="{{selectedServices.length!=0}}">
     <!-- <view class='selectInfo'> -->
@@ -124,13 +127,16 @@
           <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
           <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
         </block>
-        <text class='{{item.isAbled?"":"name"}}'>{{item.name}}</text>
+        <text class='{{item.isAbled?"":"name"}}' style='text-align:center'>{{item.name}}</text>
       </view>
       <!-- <view wx:if="{{rest}}" >注意：此人今日休假</view> -->
     </view>
     <view class='peopleList2' wx:if="{{vip==0}}">
-      <scroll-view scroll-x="true" >
-        <view wx:for="{{serviceEmployee}}" wx:key="key" class='people'>
+      <view class='peopleArrow' bindtap='peopleLeft'>
+        <image src='../../resource/images/storeHead/arrowL.png'></image>
+      </view>
+      <scroll-view scroll-x="true" scroll-into-view="{{toPeople}}" scroll-with-animation="true" >
+        <view wx:for="{{serviceEmployee}}" wx:key="key" class='people' wx:for-index="index" id='peo{{index}}' data-index='{{index}}'>
           <block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
             <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}'  bindtap="selectPeople"></image>
             <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
@@ -146,6 +152,9 @@
           <text class='{{item.isAbled?"":"name"}}' style='max-width:100rpx;white-space:normal;'>{{item.name}}</text>
         </view>
       </scroll-view>
+      <view class='peopleArrow' bindtap='peopleRight'>
+        <image src='../../resource/images/storeHead/arrowR.png'></image>
+      </view>
     </view>
   </view>
   <view id='selectTime' data-sp="{{selectPeople}}" style='{{hourBlock.length==0?"padding-bottom:80rpx":""}}'>
@@ -173,19 +182,24 @@
   <!-- 要渲染，避免闪条 -->
   <view id='selectOther' wx:if="{{hourBlock.length!=0}}">
     <view class='form'>
-      <view bindtap='firstArrivalCheck' wx:if="{{storeSet.firstvisit==1}}">
-        <text>第一次到店</text>
-        <image class="checkbox" wx:if="{{firstArrival}}" src="../../resource/images/storeHead/checkGou.png" ></image>
-        <image class="checkbox" wx:if="{{!firstArrival}}"src='../../resource/images/storeHead/unCheckGou.png' ></image>
-      </view>
-      <view class='formBorder'></view>
-      <view  bindtap='orderForOther' wx:if="{{storeSet.reservationHelp==1}}">
-        <text>帮别人预定</text>
-        <view>
-          <text wx:if="{{orderForOther}}" style='margin-right:50rpx'>{{otherName?otherName:""}}</text>
-          <image class='checkbox' src="{{orderForOther?'../../resource/images/storeHead/checkGou.png':'../../resource/images/storeHead/unCheckGou.png'}}"></image>
+      <block wx:if="{{storeSet.firstvisit==1}}">
+        <view class='formBorder'></view>
+        <view bindtap='firstArrivalCheck' wx:if="{{storeSet.firstvisit==1}}">
+          <text>第一次到店</text>
+          <image class="checkbox" wx:if="{{firstArrival}}" src="../../resource/images/storeHead/checkGou.png" ></image>
+          <image class="checkbox" wx:if="{{!firstArrival}}"src='../../resource/images/storeHead/unCheckGou.png' ></image>
         </view>
-      </view>
+      </block>
+      <block wx:if="{{storeSet.reservationHelp==1}}">
+        <view class='formBorder'></view>
+        <view  bindtap='orderForOther' wx:if="{{storeSet.reservationHelp==1}}">
+          <text>帮别人预定</text>
+          <view>
+            <text wx:if="{{orderForOther}}" style='margin-right:50rpx'>{{otherName?otherName:""}}</text>
+            <image class='checkbox' src="{{orderForOther?'../../resource/images/storeHead/checkGou.png':'../../resource/images/storeHead/unCheckGou.png'}}"></image>
+          </view>
+        </view>
+      </block>
       <!-- <view wx:if="{{storeSet.birthday}}"> -->
       <block  wx:if="{{vip==1&&storeSet.birthday==1}}">
         <view class='formBorder'></view>
@@ -230,9 +244,7 @@
   <view id="submit" wx:if="{{hourBlock.length!=0}}">
     <view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
   </view>
-  <view class='bottomTip' bindtap='gotoV'>
-    <image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>
-  </view>
+  
   <view class='modal' wx:if="{{modal_calendar_show}}">
     <!-- <view class='modal_back' bindtap='modalBack'></view> -->
     <calendar class="modal_calendar" id="calendar"	currentYear="{{currentYear}}"	currentMonth="{{currentMonth}}"	bindsendObj='getCalendarData'	disabledDay = "{{disabledDay}}"  selectDay = "{{selectDay}}" peopleActivityDay="{{peopleActivityDay}}"  bind:myevent="onMyEvent" bind:selectRestDay="selectRestDay">
@@ -255,11 +267,11 @@
         <view class='selectSex' bindtap='modal_sex'>
           <view>
             <text>男</text>
-            <image class='checkbox' src='{{otherSex==1?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
+            <image class='checkbox' src='{{otherSex==0?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
           </view>
           <view>
             <text>女</text>
-            <image class='checkbox' src='{{otherSex==0?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
+            <image class='checkbox' src='{{otherSex==1?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
           </view>
         </view>
         <input name="name" placeholder='请输入姓名' value='{{otherName}}' bindinput='typeOtherName'/>
@@ -308,7 +320,7 @@
       <view class='tip'>该商家有权经双方协商后取消此笔订单</view>
       <view class='modal_btns'>
         <view bindtap='closeModal_confirm'>返回</view>
-        <view bindtap='confirm_orderOther'>确定</view>
+        <view bindtap='confirm_orderOther' >确定</view>
       </view>
     </view>
       
@@ -354,3 +366,7 @@
   </view>
 </view>
 </scroll-view>
+
+<view class='bottomTip' bindtap='gotoV' wx-if="{{hourBlock.length!=0}}">
+    <image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>
+  </view>

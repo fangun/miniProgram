@@ -61,8 +61,10 @@ to {margin-top: -12rpx;}
 .project{width: 207rpx;height:60rpx;margin-top: 24rpx;margin-right: 18rpx;border-radius: 60rpx;border: 2rpx solid rgb(153,153, 153);font-size: 26rpx;color:rgb(51,51,51);text-align: center;line-height: 67.5rpx;overflow: hidden;padding:0 10rpx;box-sizing:border-box;}
 .project:nth-child(3n){margin-right: 0;}
 .projectSelected{color:white;border: 1rpx solid rgb(243, 67, 67)}
-#selectService #projects2{width: 100%}
-#projects2 scroll-view{width:80vw;height: 96rpx;white-space: nowrap;margin: 0 auto}
+#selectService #projects2{width: 100%;display: flex;justify-content: between}
+#projects2 .projectArrow,.peopleList2 .peopleArrow{width: 83rpx;height: 64rpx;display: flex;justify-content:center;align-items: center}
+.projectArrow image,.peopleList2 .peopleArrow image{width:26rpx;height: 30rpx;}
+#projects2 scroll-view{width:557rpx;height: 96rpx;white-space: nowrap;margin: 0 auto}
 .project2{min-width: 10rpx;height: 60rpx;line-height: 67.5rpx;display: inline-block;padding: 0 38rpx;border: 2rpx solid rgb(153, 153, 153);border-radius: 12rpx;margin-right: 18rpx;font-size: 26rpx;}
 
 .selectInfo{display: flex;flex-direction: column;width: 100%;font-size: 26rpx;color: rgb(153, 153, 153)}
@@ -78,10 +80,10 @@ to {margin-top: -12rpx;}
 .peopleList image,.peopleList2 image{height: 88rpx;width: 88rpx;margin-bottom:26rpx}
 .peopleList text{margin-bottom: 39rpx;width: 88rpx;max-height:144rpx}
 .people{font-size: 24rpx;display: flex;flex-direction: column;align-items: center;margin-right: 55rpx}
-.people:nth-child(5n){margin-right: 0}
+.peopleList .people:nth-child(5n){margin-right: 0}
 .people .name {color: rgb(102, 102, 102);text-align: center}
-.peopleList2{padding-left: 83rpx;padding-right: 83rpx}
-.peopleList2 scroll-view{width: 100%;white-space: nowrap}
+.peopleList2{display: flex;justify-content: space-between;align-items: center}
+.peopleList2 scroll-view{width:557rpx;white-space: nowrap}
 .peopleList2 .people{display: inline-flex;margin-bottom: 39rpx}
 
 #selectTime{display: flex;width: 100%;flex-direction: column;align-items: center}
@@ -104,6 +106,7 @@ to {margin-top: -12rpx;}
 .form>view{height: 90rpx;margin-left: 63rpx;display: flex;justify-content: space-between;align-items: center;font-size: 26rpx;color: rgb(51, 51, 51)}
 .form>view>text{min-width:60rpx;}
 .form>.formBorder{height: 2rpx;background: rgb(201, 201, 201);margin-right: 63rpx}
+.form>.formBorder:nth-child(1){height: 0}
 #selectOther input{margin-right:63rpx}
 picker{margin-right: 63rpx}
 .picker{text-align: right;min-width: 200rpx;min-height: 45rpx;line-height: 45rpx}

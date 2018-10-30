@@ -53,8 +53,11 @@ Page({
     hourBlock:[] ,             //小时，起止  时间块
     factEndHour:"",           //实际结束时间点
 
-    toDate:"",
+    toDate:"",              // 日历自动滚动
     toblock:"",
+    toProject:"serv0",           //项目的滚动
+    toPeople:"peo0",        //服务人员的滚动
+
     //帮他人预约 客户信息 姓名
     inputShow:"white",
     valueShow:"black",
@@ -90,7 +93,7 @@ Page({
     orderClash:"",
     lessOneShow:false,
     sendData:{},
-
+    isfirstAction:true,             //确认提交的弹窗 最后的确定按钮 防止双击多次提交
     black1: {
       "containerBg": 'rgb(52,52,52)'
     },
@@ -587,6 +590,48 @@ Page({
     this.checkPeopleList()
   },
 
+  projectLeft:function(e){
+    let toProject = this.data.toProject;  //serv0
+    let index = toProject.split("serv")[1];
+    if(index>0){
+      index = index - 1
+    }
+    let newToP = "serv" + index
+    this.setData({
+      toProject:newToP
+    })
+  },
+  projectRight: function (e) {
+    let toProject = this.data.toProject;  //serv0
+    let index = parseInt(toProject.split("serv")[1]);
+    let length = this.data.storeData.serviceItems.length;
+    if (index < (length - 1)) { index = index + 1}
+    let newToP = "serv" + index
+    this.setData({
+      toProject: newToP
+    })
+  },
+  peopleLeft: function (e) {
+    let toPeople = this.data.toPeople;  //serv0
+    let index = toPeople.split("peo")[1];
+    if (index > 0) {
+      index = index - 1
+    }
+    let newToP = "peo" + index
+    this.setData({
+      toPeople: newToP
+    })
+  },
+  peopleRight: function (e) {
+    let toPeople = this.data.toPeople;  //peo0
+    let index = parseInt(toPeople.split("peo")[1]);
+    let length = this.data.storeData.serviceEmployee.length;
+    if (index < (length - 1)) { index = index + 1 }
+    let newToP = "peo" + index
+    this.setData({
+      toPeople: newToP
+    })
+  },
   //选择 项目 后，人员的变化
   checkPeopleList:function(){
     //循环选中的项目列表   循环人列表，循环人的项目，无匹配，则为false  有该项目的人列表，比较下一个项目
@@ -595,13 +640,8 @@ Page({
     let projectSelect = this.data.selectedServices.slice(0);
     console.log(projectSelect)
     if(projectSelect.length==0){  //一个项目都没选
-      for (let i = 0; i < this.data.serviceEmployee.length;i++){
-        let parm = "serviceEmployee["+i+"].isAbled";
-        this.setData({
-          [parm]:false,
-          selectPeople:"",        //每次改变项目，selectPeople初始化
-          selectPeopleStr:""
-        })
+      for (let i = 0; i < peopleAll.length;i++){
+        peopleAll[i].isAbled = false
       }
     }else{
       for (let i = 0; i < peopleAll.length;i++){
@@ -613,14 +653,16 @@ Page({
             flag= false;
           }
         }
-        let parm = "serviceEmployee[" + i + "].isAbled";
-        this.setData({
-          [parm]:flag,
-          selectPeople: "",         //每次改变项目，selectPeople初始化
-          selectPeopleStr: ""
-        })
+        peopleAll[i].isAbled = flag;
       }
     }
+
+    // let parm = "serviceEmployee[" + i + "].isAbled";
+    this.setData({
+      serviceEmployee: peopleAll,
+      selectPeople: "",        //每次改变项目，selectPeople初始化
+      selectPeopleStr: ""
+    })
     
     //sconsole.log(peopleAll)
   },
@@ -790,7 +832,7 @@ Page({
       this.makeHours()
     } else if (this.data.selectedServices.length==0){
       this.setData({
-        topTip:"请先选择服务和人员"
+        topTip:"请先选择 服务项目 服务人员"
       })
       this.toptip();
     }else{
@@ -811,12 +853,12 @@ Page({
       })
     } else if (this.data.selectedServices.length==0){
       this.setData({
-        topTip:"请先选人和服务"
+        topTip:"请先选择 服务项目 服务人员"
       })
       this.toptip();
     }else{
       this.setData({
-        topTip: "请先选人和服务"
+        topTip: "请先选择 服务项目 服务人员"
       })
       this.toptip();
     }
@@ -854,10 +896,10 @@ Page({
     let people = this.data.selectPeople;
     let date = this.data.selectDay;
     if (service==undefined){
-      topTip = "请先选择 服务项目 服务人员 日期"
+      topTip = "请先选择 服务项目 服务人员"
     } else if ( people==""){
       // this.setData({topTip:"请先选择服务项目"})
-      topTip = "请先选择 服务人员和时间"
+      topTip = "请先选择 服务人员"
     } else if ( date==""){
       topTip ="请先选择服务日期"
     }
@@ -968,7 +1010,7 @@ Page({
       let timenum = new Date(timeStr).valueOf();          //时间戳 1540256400000
       let timeNownum = new Date().valueOf();     //现在的时间 xxxxxxxxx
 
-      if(timenum<timeNownum){flag=0}
+      if(timenum-timeNownum<1000*60*30){flag=0}
 
       //员工休息的小时
       let a = hours[i];
@@ -1058,7 +1100,10 @@ Page({
           shortInfoShow:true,
           shortInfo: "所选服务超出剩余时间"
         })
-      }else if (tableEnd.time != realEnd) {
+      }
+      console.log(tableEnd.time)
+      console.log(realEnd)
+      if (tableEnd.time != realEnd) {
         this.setData({
           shortInfoShow: true,
           shortInfo: "所选时间不足"
@@ -1070,6 +1115,10 @@ Page({
       if (flag == 1) {
         for (let i = 0; i < number; i++) {
           if (this.data.hoursArr[startHourIndex + i].use == 0) {
+            this.setData({
+              shortInfoShow: true,
+              shortInfo: "所选时间不足"
+            })
             flag = 0;
           }
         }
@@ -1275,6 +1324,17 @@ Page({
         this.toptip()
       }
     }
+    //如果 姓名 开着
+    if (this.data.storeSet.nameswitch == 1) {
+      let peopleName = this.data.peopleName;
+      if (peopleName == null || peopleName.length == 0) {
+        flag = 0;
+        this.setData({
+          topTip: "请填写姓名"
+        })
+        this.toptip()
+      }
+    }
 
     //现在距离开始不足一小时 判断
     if(flag==1){
@@ -1311,140 +1371,151 @@ Page({
     })
   },
   confirm_orderOther:function(){
-    console.log("tijiao");
-    let data = {};
-    data.gender = this.data.otherSex;
-    // data.mid = this.data.peopleData.gender;
-    data.mid =  app.globalData.peopleInfo.mid;
-    data.eid = this.data.selectPeople;
-    let ids = "";
-    for (let i = 0; i < this.data.selectedServices.length;i++){
-      ids = ids + this.data.selectedServices[i].id
-      if (i != this.data.selectedServices.length-1){
-        ids = ids + ","
-      }
-    }
-    data.ids = ids;
-    data.date = this.data.selectDay;
-    let time = "";
-    for(let i=0;i<this.data.hoursArr.length;i++){
-      if(this.data.hoursArr[i].selected==1){
-        time = time + this.data.hoursArr[i].time+"|"
-      }
-    }
-    time = time.substring(0,time.length-1);
-    data.time = time;
-    data.hour = this.data.serviceTime;
-    data.name = this.data.otherName;
-    data.sid =  this.data.storeId;
-    let isFirst = 0;
-    if (this.data.firstArrival){isFirst=1}
-    data.isFirst = isFirst;
-    let isHelp = 0;
-    if (this.data.orderForOther) {isHelp=1}
-    data.isHelp = isHelp;
-    data.remarks = this.data.beizhu; 
-    data.serviceEmployee = this.data.selectPeopleStr;
-    let serviceItem = "";
-    for(let i=0;i < this.data.selectedServices.length;i++){
-      serviceItem = serviceItem + this.data.selectedServices[i].name +","
-    }
-    serviceItem = serviceItem.substring(0, serviceItem.length - 1);
-    data.serviceItem = serviceItem;
-    data.birthday = this.data.birth;
-    data.nameswitch = this.data.peopleName;
-    data.seatMachine = this.data.zuoTel;
-
-    console.log(data)
-    this.setData({
-      sendData:data
-    })
-
-    let that = this;
-    wx.request({
-      url: 'https://api.yuyue58.cn/api/submitBookingList',
-      method: "POST",
-      header: { "content-type": "application/x-www-form-urlencoded" },
-      data: data,
-      success(res) {
-        console.log(res);
-        let status = res.data;
-        if(status>=0){
-          that.setData({
-            modal_confirm: false
-          })
-          wx.navigateTo({
-            url: '../orderSuccess/index'
-          })
-        }else if(status=="-3"){
-          that.setData({
-            shortInfoShow: true,
-            shortInfo:"该会员信息不存在",
-            modal_confirm:false
-          })
-        }else if (status == "-3") {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "该店家信息不存在",
-            modal_confirm: false
-          })
-        } else if (status == "-4") {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "该时段已满",
-            modal_confirm: false
-          })
-        } else if (status == "-5") {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "此时间段已存在员工被预约记录!",
-            modal_confirm: false
-          })
-        } else if (status == "-5") {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "此时间段已经存在预约记录!",
-            modal_confirm: false
-          })
-        } else if (status == "-7") {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
-            modal_confirm: false
-          })
-        } else if (status == "-8") {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
-            modal_confirm: false
-          })
-        } else if (status == "-9" && that.data.storeSet.reservationHelp==0) {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "该商家只允许预约一次，如有需求，可以联系商家开通帮人预约功能",
-            modal_confirm: false
-          })
-        } else if (status == "-9" && that.data.storeSet.reservationHelp == 1) {
-          that.setData({
-            shortInfoShow: true,
-            shortInfo: "您已经在本店有过预约，不可再次预约，如需帮他人预约，请点选【帮别人预定】",
-            modal_confirm: false
-          })
-        } else if (status == "-10") {
-          that.setData({
-            selfClanShow:true,
-            modal_confirm: false
-          })
-        } else {
-          //返回字符串 店名
-          that.setData({
-            orderClashShow: true,
-            orderClash: status,
-            modal_confirm: false
-          })
+    if(this.data.isfirstAction){
+      console.log("tijiao");
+      let that =this;
+      this.setData({
+        isfirstAction: false,
+      },function(){
+        let data = {};
+        data.gender = that.data.otherSex;
+        // data.mid = this.data.peopleData.gender;
+        data.mid = app.globalData.peopleInfo.mid;
+        data.eid = that.data.selectPeople;
+        let ids = "";
+        for (let i = 0; i < that.data.selectedServices.length; i++) {
+          ids = ids + that.data.selectedServices[i].id
+          if (i != that.data.selectedServices.length - 1) {
+            ids = ids + ","
+          }
         }
-      }
-    })
+        data.ids = ids;
+        data.date = that.data.selectDay;
+        let time = "";
+        for (let i = 0; i < that.data.hoursArr.length; i++) {
+          if (that.data.hoursArr[i].selected == 1) {
+            time = time + that.data.hoursArr[i].time + "|"
+          }
+        }
+        time = time.substring(0, time.length - 1);
+        data.time = time;
+        data.hour = that.data.serviceTime;
+        data.name = that.data.otherName;
+        data.sid = that.data.storeId;
+        let isFirst = 0;
+        if (that.data.firstArrival) { isFirst = 1 }
+        data.isFirst = isFirst;
+        let isHelp = 0;
+        if (that.data.orderForOther) { isHelp = 1 }
+        data.isHelp = isHelp;
+        data.remarks = that.data.beizhu;
+        data.serviceEmployee = that.data.selectPeopleStr;
+        let serviceItem = "";
+        for (let i = 0; i < that.data.selectedServices.length; i++) {
+          serviceItem = serviceItem + that.data.selectedServices[i].name + ","
+        }
+        serviceItem = serviceItem.substring(0, serviceItem.length - 1);
+        data.serviceItem = serviceItem;
+        data.birthday = that.data.birth;
+        data.nameswitch = that.data.peopleName;
+        data.seatMachine = that.data.zuoTel;
+
+        console.log(data)
+        that.setData({
+          sendData: data
+        })
+
+        wx.request({
+          url: 'https://api.yuyue58.cn/api/submitBookingList',
+          method: "POST",
+          header: { "content-type": "application/x-www-form-urlencoded" },
+          data: data,
+          success(res) {
+            that.setData({
+              isfirstAction: true
+            })
+            console.log(res);
+            let status = res.data;
+            if (status >= 0) {
+              that.setData({
+                modal_confirm: false,
+              })
+              wx.redirectTo({
+                url: '../orderSuccess/index'
+              })
+            } else if (status == "-3") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "该会员信息不存在",
+                modal_confirm: false
+              })
+            } else if (status == "-3") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "该店家信息不存在",
+                modal_confirm: false
+              })
+            } else if (status == "-4") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "该时段已满",
+                modal_confirm: false
+              })
+            } else if (status == "-5") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "此时间段已存在员工被预约记录!",
+                modal_confirm: false
+              })
+            } else if (status == "-5") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "此时间段已经存在预约记录!",
+                modal_confirm: false
+              })
+            } else if (status == "-7") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
+                modal_confirm: false
+              })
+            } else if (status == "-8") {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
+                modal_confirm: false
+              })
+            } else if (status == "-9" && that.data.storeSet.reservationHelp == 0) {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "该商家只允许预约一次，如有需求，可以联系商家开通帮人预约功能",
+                modal_confirm: false
+              })
+            } else if (status == "-9" && that.data.storeSet.reservationHelp == 1) {
+              that.setData({
+                shortInfoShow: true,
+                shortInfo: "您已经在本店有过预约，不可再次预约，如需帮他人预约，请点选【帮别人预定】",
+                modal_confirm: false
+              })
+            } else if (status == "-10") {
+              that.setData({
+                selfClanShow: true,
+                modal_confirm: false
+              })
+            } else {
+              //返回字符串 店名
+              that.setData({
+                orderClashShow: true,
+                orderClash: status,
+                modal_confirm: false
+              })
+            }
+          }
+        })
+      })
+      
+    }
+    
   },
   
   shortInfoClose:function(){

@@ -1,10 +1,9 @@
 {
-  "pages":[
+  "pages": [
     "pages/search/index",
     "pages/storeHead/index",
     "pages/orderSuccess/index",
     "pages/web-view/index",
-
     "pages/addAppointmentHand/index",
     "pages/addAppointmentVoice/index",
     "pages/personalDetails/index",
@@ -12,7 +11,7 @@
     "pages/modifyPassword/index",
     "pages/feedback/index",
     "pages/expenseCalendar/index",
-    "pages/chooseAvatar/index", 
+    "pages/chooseAvatar/index",
     "pages/searchStore/index",
     "pages/entrancePage/index",
     "pages/storeBackEnd/index",
@@ -20,15 +19,11 @@
     "pages/freeOpen/index",
     "pages/forgetPassword/index",
     "pages/customEntrance/index"
-    
   ],
-
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "上预约吧~预订一切生活服务~",
-    "navigationBarTextStyle":"#fff"
+    "navigationBarTextStyle": "#fff"
   }
-
-
 }

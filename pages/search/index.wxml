@@ -16,5 +16,5 @@
     </scroll-view>
   </view>
   <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize" style="display:{{authorizeState ? 'none' : 'block'}}"></button>
-  
 </view>
+<!-- <dialog/> -->

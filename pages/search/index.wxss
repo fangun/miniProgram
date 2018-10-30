@@ -1,9 +1,9 @@
 /* pages/serach/index.wxss */
 .container{font-family: "siyuanhei";display: flex;flex-direction: column;justify-content: flex-start;align-items: center}
 .title{width: 404rpx;height:49rpx;margin-top: 234rpx;margin-bottom: 62rpx}
-.searchBlock{width: 690rpx;display: flex;height: 68rpx;border: 2rpx solid rgb(243, 67, 67);justify-content: space-around}
+.searchBlock{width: 690rpx;display: flex;height: 68rpx;justify-content: space-between;border: 2rpx solid rgb(243, 67, 67);box-shadow: 0px -1rpx 10rpx 5rpx  #ccc}
 .holder{font-size: 22rpx;color: rgb(218, 218, 218);margin-left: 18rpx}
-.inputBlock{width: 581rpx;height: 100%;display: flex;justify-content: space-around;align-items: center;box-shadow: 0px -1rpx 10rpx 5rpx  #ccc}
+.inputBlock{width: 581rpx;height: 100%;display: flex;justify-content: space-around;align-items: center;}
 .inputBlock>input{height: 100%;width: 531rpx;font-size: 22rpx;padding-left: 18rpx;color: black}
 .inputBlock>image{width: 32rpx;height:32rpx;margin-right: 17rpx}
 .btn_search{width: 109rpx;height: 100%;background: rgb(243, 67, 67);color: white;font-size: 25rpx;text-align: center;line-height: 68rpx}
@@ -13,15 +13,9 @@
 .res:last-child{border: 0}
 .storeName{font-size: 30rpx;color: rgb(51, 51, 51)}
 .storeLocation{font-size: 20rpx;color: rgb(153, 153, 153)}
-.authorize{
-  position: fixed;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-z-index: 9999;
-opacity: 0
-}
+.authorize{position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 9999;opacity: 0}
 
+
+dialog{position: fixed;top: 0;height: 100vh;width: 100vw;z-index: 299}
 
 

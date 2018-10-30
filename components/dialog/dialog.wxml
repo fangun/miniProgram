@@ -1,0 +1,25 @@
+<!--components/dialog/dialog.wxml-->
+<view class='modal'>
+  <view class='main'>
+    <view class='header'>
+      <view class='title'>{{modalData.title}}</view>
+      <image wx:if="{{modalData.headImage.length!=0}}" src='{{modalData.headImage}}'></image>
+      <view wx:if="{{modalData.headImage.length!=0}}">{{modalData.headName}}</view>
+    </view>
+    <view class='body'>
+      <view class='lists'>
+        <view wx:for="{{modalData.list}}" wx:key="{{index}}">
+          <view>{{item.item}}</view>
+          <view>:</view>
+          <view class='itemValue'>
+            <text wx:for="{{item.value}}" wx:for-item="vItem" class='{{vItem.vClass}}'>{{vItem.v}}</text>
+          </view>
+        </view>
+      </view>
+      <view class='remind'>{{modalData.remind}}</view>
+    </view>
+    <view class='footer'>
+      <view wx:for="{{modalData.btns}}" bindtap="{{item.event==''?'':item.event}}">{{item.name}}</view>
+    </view>
+  </view>
+</view>
