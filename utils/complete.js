@@ -21,6 +21,7 @@ const completing = data => {
   var tag;
   var a = [];
   tagArray.forEach(function (x, y, z) {
+    
     if (!tag) {
       tag = x;
     }
@@ -37,6 +38,7 @@ const completing = data => {
     if (tagArray.length - 1 == y) {
       itemArray.push(a);
     }
+
   });
 
   var titleA = util.uniqArray(tagArray);
@@ -45,7 +47,7 @@ const completing = data => {
   var titleB = [];
   titleA.forEach(function (x, y, z) {
     var diff = util.getDateDimdd(today, x);
-    var arry = x.split("-");;
+    var arry = x.split("-");
     if (diff == 0) {
       titleB.push({
         'rq': arry[1] + '月' + arry[2] + '日',
@@ -58,6 +60,7 @@ const completing = data => {
       });
     }
   });
+
   return { 'titleA': titleA, 'titleB': titleB, 'itemArray': itemArray, 'timeArray': timeArray };
 }
 

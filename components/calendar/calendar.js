@@ -4,18 +4,21 @@ Component({
      * 组件的属性列表
      */
 	properties: {
+
 		currentYear: { // 当前显示的年
 			type: Number,
 			value: new Date().getFullYear(),
       observer: function (newVal, oldVal, changedPath) {
       }
 		},
+
 		currentMonth: { // // 当前显示的月
 			type: Number,
 			value: new Date().getMonth() + 1,
       observer: function (newVal, oldVal, changedPath) {
       }
 		},
+
     disabledDay:{
       type:Array,
       value: [],
@@ -24,7 +27,8 @@ Component({
         this.getAllArr()
         console.log(this.data.disabledDay)
       }
-    },
+		},
+		
     selectDay:{
       type:String,
       value:"",
@@ -35,14 +39,16 @@ Component({
         })
         
       }
-    },
+		},
+		
     peopleActivityDay:{
       type:Array,
       value:[],
       observer: function (newVal, oldVal, changedPath) {
         console.log(newVal)
       }
-    }
+		}
+		
 	},
 
     /**
