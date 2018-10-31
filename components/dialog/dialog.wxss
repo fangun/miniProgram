@@ -1,14 +1,22 @@
 /* components/dialog/dialog.wxss */
-.modal{height: 100%;width:100%;background: rgba(0, 0, 0, 0.7);z-index: 299;padding: 0 51rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: center}
-.header{}
-.header image{width: 140rpx;height: 140rpx}
-.main{width: 100%;border-radius: 14rpx;background: white;padding: 0 56rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: centers}
-.body{display: flex;flex-direction: column}
-.lists{display: flex;flex-direction: column}
+.modal{height: 100%;width:100%;background: rgba(0, 0, 0, 0.7);z-index: 299;padding: 0 51rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: center;color: rgb(51, 51, 51)}
+.main{width: 100%;border-radius: 14rpx;background: white;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: centers}
+.main>view{width: 100%;padding:0 56rpx;box-sizing: border-box}
 
+.main .header{margin-top: 46rpx;font-size: 36rpx;font-weight: bold;display: flex;flex-direction: column;align-items: center;padding: 0}
+.header>view{text-align: center}
+.header>.headerBorder{height: 2rpx;width: 100%;background: rgb(208, 208, 208);padding: 0;margin-top: 34rpx}
+.header image{width: 140rpx;height: 140rpx;margin-top: 22rpx;margin-bottom: 16rpx}
+.imgName{font-weight: normal;font-size: 28rpx;margin-bottom: 62rpx}
+
+.body{display: flex;flex-direction: column;}
+.lists{display: flex;flex-direction: column;font-size: 28rpx;}
 .lists>view{display: flex}
+.entry{width: 112rpx;margin-bottom: 28rpx}
+.remind{font-size: 28rpx;color: rgb(153, 153, 153)}
 
-.footer{display: flex;}
+.footer{display: flex;margin: 48rpx 0;justify-content: space-between}
+.btn{width: 220rpx;height: 60rpx;line-height: 60rpx;font-size: 26rpx;border-radius: 8rpx;text-align: center}
 
 
 

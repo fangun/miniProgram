@@ -2,7 +2,7 @@
   <image class='title' src = "../../resource/images/search/title.png" bindtap='test'></image>
   <view class='searchBlock'>
     <view class='inputBlock'>
-      <input placeholder='搜索要预约的商家，也可扫描商家二维码' placeholder-class='holder' class='inputText' value='{{searchText}}' bindinput='searchInput'></input>
+      <input placeholder='搜索要预约的商家，也可扫描商家二维码' placeholder-class='holder' class='inputText' value='{{searchText}}' bindinput='searchInput' confirm-type="search" bindconfirm="search"></input>
       <image src='../../resource/images/search/scan.png' bindtap='scan'></image>
     </view>
     <view class="btn_search" bindtap='search'>搜索</view>
@@ -17,4 +17,4 @@
   </view>
   <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize" style="display:{{authorizeState ? 'none' : 'block'}}"></button>
 </view>
-<!-- <dialog/> -->
+<!-- <dialog modalData = "{{modalData}}"></dialog> -->

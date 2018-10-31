@@ -1,9 +1,8 @@
 {
     "pages":[
     "pages/search/index",
-
+		
     "pages/customEntrance/index",
-    
     "pages/storeHead/index",
     "pages/orderSuccess/index",
     "pages/web-view/index",

@@ -1,25 +1,27 @@
 <!--components/dialog/dialog.wxml-->
-<view class='modal'>
+<view class='modal' wx:if="{{modalShow}}">
   <view class='main'>
     <view class='header'>
-      <view class='title'>{{modalData.title}}</view>
-      <image wx:if="{{modalData.headImage.length!=0}}" src='{{modalData.headImage}}'></image>
-      <view wx:if="{{modalData.headImage.length!=0}}">{{modalData.headName}}</view>
+      <view class='title'>{{modalData.header.title.text}}</view>
+			<view wx:if="{{modalData.header.headImageSrc.length!=0}}" class='headerBorder'></view>
+      <image wx:if="{{modalData.header.headImageSrc.length!=0}}" src='{{modalData.header.headImageSrc}}'></image>
+      <view wx:if="{{modalData.header.headImageSrc.length!=0}}" class='imgName'>{{modalData.header.headName}}</view>
     </view>
     <view class='body'>
       <view class='lists'>
         <view wx:for="{{modalData.list}}" wx:key="{{index}}">
-          <view>{{item.item}}</view>
-          <view>:</view>
+          <view class='' style='color:{{modalData.listEntryColor}}' class='entry'>{{item.entry}}</view>
+          <view style='color:{{modalData.listEntryColor}}'>：</view>
           <view class='itemValue'>
-            <text wx:for="{{item.value}}" wx:for-item="vItem" class='{{vItem.vClass}}'>{{vItem.v}}</text>
+            <text wx:for="{{item.value}}" wx:key="{{key}}" wx:for-item="vItem" class='{{vItem.vClass}}'>{{vItem.v}}</text>
           </view>
         </view>
       </view>
-      <view class='remind'>{{modalData.remind}}</view>
+      <view class='remind' class='remind'>{{modalData.remind}}</view>
     </view>
     <view class='footer'>
-      <view wx:for="{{modalData.btns}}" bindtap="{{item.event==''?'':item.event}}">{{item.name}}</view>
+      <view bindtap="{{modalData.btns[0].type=='close'?'closeModal':modalData.btns[0].event}}" class='btn' style='color:{{modalData.mainColor}};border:2rpx solid {{modalData.mainColor}}' bindtap="{{modalData.btns[0].type=='close'?'closeModal':'' }}">{{modalData.btns[0].name}}</view>
+			<view class='btn' style='background:{{modalData.mainColor}};color:white;border:2rpx solid {{modalData.mainColor}}'>{{modalData.btns[1].name}}</view>
     </view>
   </view>
 </view>
