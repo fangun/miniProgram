@@ -78,7 +78,7 @@
 .loginForm .item .inputText {
     font-family:PingFangSC-Regular;
     font-size:28rpx;
-    color:rgb(153,153,153);
+    color:#333;
 
     height: 46rpx;
 }

@@ -17,13 +17,6 @@ Page({
             success: function() {
             }
           });
-    } else if (!Contact || Contact == '') {
-          wx.showToast({
-            title: '请填写联系方式',
-            icon:'none',
-            success: function() {
-            }
-          });
     } else {
       wx.request({
         url: 'https://api.yuyue58.cn/api/ProblemFeedback',

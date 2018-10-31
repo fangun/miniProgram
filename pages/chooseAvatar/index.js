@@ -6,7 +6,7 @@ Page({
 
   data: {
     pageTitle: '选择头像',
-    avatarList:null,
+    avatarList: null,
     avatarList_b: [
       { 'src': '../../resource/images/personalDetails/013.png', 'key': 'cboyhead1.png', 'active': false },
       { 'src': '../../resource/images/personalDetails/023.png', 'key': 'cboyhead3.png', 'active': false },
@@ -83,11 +83,18 @@ Page({
 
   onLoad: function () {
     var value;
-    if(app.globalData.sex == 0){
+    if (app.globalData.sex == 0) {
       value = this.data.avatarList_b;
     } else {
       value = this.data.avatarList_g;
     }
+
+    value.forEach(function (x, y) {
+      if (x.key == app.globalData.headPhoto) {
+        x.active = true;
+      }
+    });
+
     this.setData({
       avatarList: value
     });

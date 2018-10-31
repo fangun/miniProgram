@@ -63,19 +63,15 @@ page {
 }
 /* 手动输入 */
 .programInput {
-    /* box-sizing: border-box; */
-    /* width: 100%;
-    padding: 22rpx 30rpx; */
     width: calc(100% - 60rpx);
     padding: 22rpx 30rpx;
     background-color: #fff;
-
+    
     font-family: PingFangSC-Regular;
     font-size: 28rpx;
-    color: rgb(125, 125 , 125);
+    color: #333;
 
     border:1px solid rgb(246, 246, 246);
-
     overflow: hidden;
 }
 
@@ -202,7 +198,7 @@ page {
 .bitem > view:first-child > .grayStyle {
     font-family:PingFangSC-Regular;
     font-size:28rpx;
-    color:rgb(153,153,153);
+    color:#333;
 }
 
 .moreInfoTag {
@@ -275,7 +271,7 @@ page {
     height:50rpx;
     line-height:50rpx;
     border-radius:10rpx;
-    padding:0 20rpx;  
+    padding:0 20rpx;
 }
 
 

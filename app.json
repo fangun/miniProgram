@@ -1,12 +1,13 @@
 {
     "pages":[
-    "pages/search/index",
-
     "pages/customEntrance/index",
-    
+
+    "pages/search/index",
     "pages/storeHead/index",
     "pages/orderSuccess/index",
     "pages/web-view/index",
+    "pages/freeOpen/index",
+
     "pages/addAppointmentHand/index",
     "pages/addAppointmentVoice/index",
     "pages/personalDetails/index",
@@ -19,7 +20,8 @@
     "pages/entrancePage/index",
     "pages/storeBackEnd/index",
     "pages/accountLogin/index",
-    "pages/freeOpen/index"
+    "pages/forgetPassword/index"
+    
     
   ],
   "window": {

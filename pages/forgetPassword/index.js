@@ -2,30 +2,48 @@
 const app = getApp()
 Page({
   data: {
-    switchShow1:true,
-    switchShow2:false,
-    tel:null,
-    verCode:false
+    switchShow1: true,
+    switchShow2: true,
+    tel: null,
+    verCode: false,
+    verCodeValue: null,
+    verCodeTime: '获取验证码'
   },
 
   // 手机号获取
-  searchInput: function(e){
+  searchInput: function (e) {
     this.setData({
       tel: e.detail.value
     })
   },
 
   // 获取短息验证码
-  getVerCode:function(e){
+  getVerCode: function (e) {
     var that = this;
     var mobile = this.data.tel;
 
-    if(mobile){
+    if (mobile) {
       var mobileLength = mobile.split('').length;
-      if(mobileLength == 11) {
+      if (mobileLength == 11) {
         that.setData({
-          verCode: true
+          verCode: true,
+          verCodeTime: 60 + 's'
         })
+        var time = 59;
+        var vct = setInterval(function () {
+          if (time > 0) {
+            that.setData({
+              verCodeTime: time + 's'
+            })
+            time--;
+          } else {
+            clearInterval(vct);
+            that.setData({
+              verCode: false,
+              verCodeTime: '获取验证码'
+            })
+          }
+        }, 1000);
 
         wx.request({
           url: 'https://api.yuyue58.cn/api/GetVerifyCode',
@@ -35,14 +53,34 @@ Page({
           },
           header: { "content-type": "application/x-www-form-urlencoded" },
           success(res) {
+            if (res.statusCode == 200) {
+              that.setData({
+                verCodeValue: res.data
+              })
+
+              var date = new Date();
+              wx.setStorage({
+                key: "fangun-verCode",
+                data: {
+                  'time': date.getTime(),
+                  'verCode': res.data
+                },
+                success(res) {
+                  if (res.errMsg) {
+                    console.log('验证码缓存设置成功');
+                  }
+                }
+              });
+            }
+          },
+          fail() {
+            wx.showToast({
+              title: '验证码获取失败',
+              icon: 'none',
+              duration: 1000
+            })
           }
         });
-
-        setTimeout(function(){
-          that.setData({
-            verCode: false
-          })
-        },30000);
 
       } else {
         wx.showToast({
@@ -58,49 +96,100 @@ Page({
         duration: 1000
       })
     }
-
   },
 
   // 注册
   passwordFormSubmit: function (e) {
-    console.log(e);
+    var tel = e.detail.value.tel;
+    var password = e.detail.value.password;
+    var passwordCopy = e.detail.value.passwordCopy;
+    var verCode = e.detail.value.verCode;
+    var verCodeValue = this.data.verCodeValue;
+    if (!tel || tel == '') {
+      wx.showToast({
+        title: '请输入手机号',
+        icon: 'none',
+        success: function () { }
+      });
 
-    // wx.request({
-    //   url: 'https://api.yuyue58.cn/api/passwordLogin',
-    //   method: "POST",
-    //   data: {
-    //     mobile: tel,
-    //     password: password
-    //   },
-    //   header: { "content-type": "application/x-www-form-urlencoded" },
-    //   success(res) {
-    //     console.log(res.data);
-    //     if (res.data) {
-    //       app.globalData.loginCache = true;
-    //       app.globalData.coreInfo = res.data;
-    //       wx.showToast({
-    //         title: '登录成功',
-    //         success: function () {
-    //           setTimeout(function () {
-    //             wx.redirectTo({ url: '../customEntrance/index' });
-    //           }, 1500);
-    //         }
-    //       });
-    //     }
-    //   }
+    } else if (!password || password == '') {
+      wx.showToast({
+        title: '请输入密码',
+        icon: 'none',
+        success: function () { }
+      });
+    } else if (passwordCopy !== password) {
+      wx.showToast({
+        title: '密码不一致',
+        icon: 'none',
+        success: function () { }
+      });
+    } else if (!verCode || verCode == '') {
+      wx.showToast({
+        title: '请输入验证码',
+        icon: 'none',
+        success: function () { }
+      });
+    } else if (!verCodeValue) {
+      wx.showToast({
+        title: '请先获取验证码',
+        icon: 'none',
+        success: function () { }
+      });
+    } else if (verCode !== verCodeValue) {
+      wx.showToast({
+        title: '验证码不一致',
+        icon: 'none',
+        success: function () { }
+      });
+    } else {
 
-    // });
+      wx.request({
+        url: 'https://api.yuyue58.cn/api/memberMessage',
+        method: "POST",
+        data: { mobile: tel },
+        header: { "content-type": "application/x-www-form-urlencoded" },
+        success(res) {
+          if (res.data) {
+            wx.request({
+              url: 'https://api.yuyue58.cn/api/editMemberMessage',
+              method: "POST",
+              data: {
+                id: res.data[0].id,
+                mobile: tel,
+                Password: password
+              },
+              header: { "content-type": "application/x-www-form-urlencoded" },
+              success(res) {
+                if (res.data) {
+                  wx.showToast({
+                    title: '密码修改成功',
+                    icon: 'success',
+                    duration: 1200,
+                    success: function () {
+                      setTimeout(function () {
+                        wx.redirectTo({ url: '../accountLogin/index' });
+                      }, 1300);
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    };
   },
 
   // 切换密码是否可显示
-  switchShow1:function(){
+  switchShow1: function () {
     var switchShow1 = this.data.switchShow1 ? false : true;
     this.setData({
       switchShow1: switchShow1
     })
   },
 
-  switchShow2:function(){
+  switchShow2: function () {
     var switchShow2 = this.data.switchShow2 ? false : true;
     this.setData({
       switchShow2: switchShow2
@@ -108,11 +197,36 @@ Page({
   },
 
   // 已有账号,去登录
-  accountLogin:function(){
+  accountLogin: function () {
     wx.redirectTo({ url: '../accountLogin/index' });
   },
 
   onLoad: function () {
+    var that = this;
+    // 缓存登录信息
+    wx.getStorage({
+      key: 'fangun-verCode',
+      success: function (res) {
+        if(res.data){
+          var date = new Date();
+          var date2 = date.getTime() - parseInt(res.data.time);
+          var leave = date2 % (24 * 3600 * 1000);
+          var hours = Math.floor(leave / (3600 * 1000));
+          if (hours < 5) {
+            that.setData({
+              verCodeValue: res.data.verCode
+            })
+          } else {
+            console.log('验证码已过缓存期');
+          }
+        }
+
+      },
+      fail: function (res) {
+        console.log('获取验证码缓存失败');
+      }
+    });
+
   }
 
 })

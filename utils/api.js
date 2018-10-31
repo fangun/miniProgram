@@ -11,6 +11,10 @@ const API = {
 
   searchStore: {
     search: 'https://api.yuyue58.cn/api/searchShops'
+  },
+
+  addAppointment: {
+    manualInput: 'https://api.yuyue58.cn/api/ManualInput'
   }
 
 }
