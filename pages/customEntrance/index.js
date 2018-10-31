@@ -40,7 +40,8 @@ Page({
     compeletingModal: false,
     compeletedModal: false,
     chooseModal: false,
-
+    compeletingDeleteModal:false,
+    
     orderId: null,
     compeletingModalData: null,
     compeletedModalData: null,
@@ -120,6 +121,12 @@ Page({
     }, function (res) {
       if (typeof res.data == 'object') {
         var cData = complete.completing(res.data);
+        
+        res.data.forEach(function(x,y){
+          x.time = x.time.slice(0, x.time.indexOf(" "));
+          x.time1 = cData.timeArray[y];
+        });
+
         that.setData({
           completingData: res.data,
           completingSeqData: cData.itemArray,
@@ -155,10 +162,12 @@ Page({
           var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
           var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
           var t3 = x.time.slice(0, x.time.indexOf(" ")).split("-");
-          var rq = t3[1] + '-' + t3[2];
+          var rq = t3[0] + '-' + t3[1] + '-' + t3[2];
+          var rq2 = t3[1] + '-' + t3[2];
 
-          x.time = time;
-          x.time1 = rq;
+          x.time = rq;
+          x.time2  = rq2;
+          x.time1 = time;
         });
 
         res.data.list = [];
@@ -217,12 +226,16 @@ Page({
           var t2 = x.time1.slice(x.time1.indexOf(" ") + 1).split(":");
           var time = t1[0] + ':' + t1[1] + '-' + t2[0] + ':' + t2[1];
           var t3 = x.time.slice(0, x.time.indexOf(" ")).split("-");
-          var rq = t3[1] + '-' + t3[2];
-          x.time = time;
-          x.time1 = rq;
+          var rq = t3[0] + '-' + t3[1] + '-' + t3[2];
+          var rq2 = t3[1] + '-' + t3[2];
+          x.time = rq;
+          x.time2 = rq2;
+          x.time1 = time;
         });
         completedData.list[seq] = res.data.hc;
         completedData.sd[seq].data = true;
+
+        
         that.setData({
           completedData: completedData
         });
@@ -250,6 +263,7 @@ Page({
           duration: 1200,
           success: function (e) {
             that.setData({
+              compeletingDeleteModal:false,
               compeletingModal: false
             });
           }
@@ -324,6 +338,7 @@ Page({
               })
             }
           });
+
         }
       });
 
@@ -350,6 +365,18 @@ Page({
     });
   },
 
+  compeletingDeleteModalShow: function (e) {
+    this.setData({
+      compeletingDeleteModal: true
+    })
+  },
+
+  compeletingDeleteModalClose:function(e){
+    this.setData({
+      compeletingDeleteModal: false
+    })
+  },
+
   hotDeleteChooseModalClose: function (e) {
     this.setData({
       hotDeleteModal: false
@@ -374,6 +401,7 @@ Page({
   compeletingModalShow: function (e) {
     var orderId = e.currentTarget.dataset.id;
     var compeletingModalData = e.currentTarget.dataset.item;
+
     this.setData({
       compeletingModal: true,
       orderId: orderId,
@@ -445,6 +473,7 @@ Page({
       url: '../personalDetails/index'
     });
   },
+
   // =================
   // 路由 end
   // =================
@@ -470,6 +499,7 @@ Page({
       }
     })
   },
+
   // 禁止冒泡
   forbidBubbling: function () {
     console.log('禁止button冒泡');
@@ -510,20 +540,21 @@ Page({
     var location = e.currentTarget.dataset.location;
     var address = {}; //坐标对象 lat经度 lng维度
 
-    wx.getSetting({
-      success(res) {
-        var statu = res.authSetting;
-        if (!statu['scope.userLocation']) {
-          wx.openSetting({
-            success(res) {
-              that.getMap(location, address);
-            }
-          })
-        } else {
-          that.getMap(location, address);
-        }
-      }
-    });
+    that.getMap(location, address);
+    // wx.getSetting({
+    //   success(res) {
+    //     var statu = res.authSetting;
+    //     if (!statu['scope.userLocation']) {
+    //       wx.openSetting({
+    //         success(res) {
+    //           that.getMap(location, address);
+    //         }
+    //       })
+    //     } else {
+    //       that.getMap(location, address);
+    //     }
+    //   }
+    // });
 
   },
 
@@ -594,7 +625,9 @@ Page({
     }
   },
 
-  onShow: function () {
+  onShow: function (options) {
+    console.log('onShow-options');
+    console.log(options);
     // 登录
     wx.login({
       success: res => {
@@ -604,15 +637,15 @@ Page({
     })
   },
 
-  onLoad: function (options) {
+  onLoad: function (q) {
     console.log('onLoad');
+    console.log('onLoad-options');
+    console.log(q);
     var that = this;
     //判断是用户是否绑定了
     if (app.globalData.loginCache) {
-      console.log('cache:true');
       that.authorizeInit();
     } else {
-      console.log('cache:false');
       this.setData({
         loginState: false
       });
@@ -626,7 +659,7 @@ Page({
           that.authorizeInit();
         }
       }
-
     }
   }
 });
+

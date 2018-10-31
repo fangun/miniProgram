@@ -25,6 +25,7 @@ const completing = data => {
     if (!tag) {
       tag = x;
     }
+    
     if (tag == x) {
       a.push(y);
     } else {

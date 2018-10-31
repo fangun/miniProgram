@@ -18,7 +18,7 @@
                 <image src="../../resource/images/accountLogin/password3.png" />
             </view>
             <view class="inputText">
-                <input type="{{switchShow ? 'password' : 'text'}}" name="password" placeholder="请输入密码" />
+                <input password="{{switchShow}}" name="password" placeholder="请输入密码" />
             </view>
             <view class="other" bindtap="switchShow">
                 <image src="{{switchShow ? '../../resource/images/accountLogin/hide3.png' : '../../resource/images/accountLogin/show3.png' }}"/>

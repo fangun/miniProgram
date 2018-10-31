@@ -1,7 +1,9 @@
 //app.js
 App({
-  onLaunch: function() {
+  onLaunch: function(options) {
     console.log('onLaunch');
+    console.log(options);
+    
     var that = this;
 
     // 缓存登录信息

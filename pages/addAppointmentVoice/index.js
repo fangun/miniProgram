@@ -22,11 +22,10 @@ Page({
   // 提示
   voiceTip: function () {
     wx.showModal({
-      title: '提示',
+      title: '',
       content: '暂未上线,请选择手动输入！',
       showCancel:false,
       confirmText:'知道了',
-      confirmColor:'rgba(243,67,67,1)',
       success (res) {
       }
     }) 

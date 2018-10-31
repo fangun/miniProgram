@@ -98,11 +98,16 @@
     padding-right: 0;
 }
 
+.loginForm .item:nth-child(4) > button.disable-button{
+    pointer-events:none;
+    color:rgb(153,153,153);
+    border: 1px solid rgb(153,153,153);
+}
 
 .loginForm .item .inputText {
     font-family:PingFangSC-Regular;
     font-size:28rpx;
-    color:rgb(153,153,153);
+    color:#333;
 
     height: 46rpx;
 }
@@ -184,8 +189,3 @@
     line-height: 80rpx;
 }
 
-.disable-button{
-    pointer-events:none;
-    color:rgb(153,153,153);
-    border: 1px solid rgb(153,153,153);
-}
