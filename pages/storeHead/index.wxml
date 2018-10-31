@@ -1,13 +1,5 @@
 <!--pages/storeHead/index.wxml-->
-<scroll-view scroll-y="true" scroll-into-view="{{toblock}}" scroll-with-animation="true">
-  <view class='modal' wx:if="{{Modal_tryNow}}">
-  <view class='modal_trynow'>
-    <image src='../../resource/images/storeHead/tryNow.png'></image>
-    <view bindtap='btn_tryNow' style='background:{{main_color}}'>立即预约</view>
-  </view>
-</view>
-<view class='container'>
-  <view class='topTitle' style='background:{{main_color}}'>
+<view class='topTitle' style='background:{{main_color}}'>
     <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
     <view>店家首页</view>
     <view class='btn'></view>
@@ -16,6 +8,15 @@
     <image src="../../resource/images/storeHead/topTipMark.png"></image>
     <text>{{topTip}}</text>
   </view>
+<scroll-view scroll-y="true" scroll-into-view="{{toblock}}" scroll-with-animation="true">
+<!-- <view> -->
+  <view class='modal' wx:if="{{Modal_tryNow}}">
+  <view class='modal_trynow'>
+    <image src='../../resource/images/storeHead/tryNow.png'></image>
+    <view bindtap='btn_tryNow' style='background:{{main_color}}'>立即预约</view>
+  </view>
+</view>
+<view class='container'>
   <view class='info' wx:if="{{1}}">
     <view id='infoBlock'>
       <view class='intro'>
@@ -180,7 +181,7 @@
     </view> 
   </view>
   <!-- 要渲染，避免闪条 -->
-  <view id='selectOther' wx:if="{{hourBlock.length!=0}}">
+  <view id='selectOther' wx:if="{{(hourBlock.length!=0)&&otherShow}}">
     <view class='form'>
       <block wx:if="{{storeSet.firstvisit==1}}">
         <view class='formBorder'></view>
@@ -230,23 +231,32 @@
       
     </view>
   </view>
+
+	<!-- <view wx:if="{{hourBlock.length!=0}}">
+		<input focus="{{TAfocus}}" bindfocus='pulldown'></input>
+	</view> -->
   <!-- 要渲染，避免闪条 -->
   <view id='tip' wx:if="{{hourBlock.length!=0}}">
     <view class='block_title'>
         <image src='../../resource/images/storeHead/titleTriangle.png'></image>
         <text class='titleText'>备注信息</text>
     </view>
-    <!-- <textarea class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip' cursor-spacing='120'>
+    <!-- <textarea class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' show-confirm-bar="false" value='{{beizhu}}' bindinput='inputTip' cursor-spacing='120' wx:if="{{1}}" bindblur="blurTA"  cursor-spacing="50rpx">
     </textarea> -->
-    <input class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip'></input>
+		<!-- <view wx:if="{{1}}" class='simTextarea' bindtap='cliSimTA'>{{beizhu}}</view> -->
+
+    <input class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip' show-confirm-bar="false" cursor-spacing="50rpx" ></input>
   </view>
+	<!-- <view wx:if="{{hourBlock.length!=0}}">
+		<input focus="true" style='height:0;width:0' cursor-spacing="50rpx"></input>
+	</view> -->
   <!-- 要渲染，避免闪条 -->
   <view id="submit" wx:if="{{hourBlock.length!=0}}">
     <view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
   </view>
   
   <view class='modal' wx:if="{{modal_calendar_show}}">
-    <!-- <view class='modal_back' bindtap='modalBack'></view> -->
+    <view class='modal_back' bindtap='modalBack'></view>
     <calendar class="modal_calendar" id="calendar"	currentYear="{{currentYear}}"	currentMonth="{{currentMonth}}"	bindsendObj='getCalendarData'	disabledDay = "{{disabledDay}}"  selectDay = "{{selectDay}}" peopleActivityDay="{{peopleActivityDay}}"  bind:myevent="onMyEvent" bind:selectRestDay="selectRestDay">
     </calendar>
   </view>
@@ -366,6 +376,7 @@
   </view>
 </view>
 </scroll-view>
+<!-- </view> -->
 
 <view class='bottomTip' bindtap='gotoV' wx-if="{{hourBlock.length!=0}}">
     <image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>

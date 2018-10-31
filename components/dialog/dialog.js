@@ -5,46 +5,52 @@ Component({
    */ 
   properties: {
     modalData: { // 属性名
-      type: Array, 
-      value: {
-        "title":"服务费用说明",
-        "headImage":"",
-        "headName":"新大地发艺",
-        "list": [
-          { 'item': "店家", "value": [{ "v": "翻滚美发" }, { "vClass": "black" }] },
-          { 'item': "服务人员", "value": [{ "v": "梁汉妮" }, { "vClass": "black" }] },
-          { 'item': "服务项目", "value": [{ "v": "洗吹" }, { "vClass": "black" }] },
-          {
-            'item': "服务时间", "value": [{ "v": "2018-09-22", "vClass": "red" },
-            { "v": "19:00-19:30", "vClass": "red" }]
-          },
-          {
-            'item': "共需订金", "value": [{ "v": "0.00", "vClass": "red" },
-            { "v": "元", "vClass": "black" }]
-          }
-        ],
-        "remind":"该商家有权经双方协商后取消此笔订单",
-        "btns": [{ "name": "返回", "type": "close", "event": "testEvent"},
-                  { "name": "确定", "type": "action", "event": "testEvent"}
-        ]
-      },
+      type: Object,  
+      value: {},
       observer: function (newVal, oldVal, changedPath) {
-        
+				if(newVal.header!=undefined){
+					let modalData = newVal;
+
+					//1.处理不足四个字的 项目名称
+					for (let i = 0; i < modalData.list.length; i++) {
+						if (modalData.list[i].entry.length != 4) {
+							let newText = modalData.list[i].entry;
+							let newTextArr = newText.split("");
+							newText = newTextArr[0] + "　　" + newTextArr[1];
+							modalData.list[i].entry = newText;
+						}
+					}
+
+					
+					this.setData({
+						modalData: modalData
+					})
+				}
       }
     }
   },
+
+	//灰字24rpx
 
   /**
    * 组件的初始数据
    */
   data: {
-
+		modalShow:true
   },
+
+	ready(){
+
+	},
 
   /**
    * 组件的方法列表
    */
   methods: {
-
+		closeModal(){
+			this.setData({
+				modalShow:false
+			})
+		}
   }
 })

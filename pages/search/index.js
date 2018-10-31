@@ -8,7 +8,8 @@ Page({
   data: {
     searchText:'',  //搜索框的值
     searchResultArr:[],
-    authorizeState: false
+    authorizeState: false,
+		modalData: {}
   },
 
   /**
@@ -48,7 +49,28 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+		this.setData({
+			modalData: {
+				"mainColor": "rgb(243, 67, 67)",
+				"header": {
+					"title": { "text": "确认提交", "border-b": "0" },//1},
+					"headImageSrc": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540978083927&di=1d0461234e4edac5149cc849a19faff8&imgtype=0&src=http%3A%2F%2Fimg.houxue.com%2Fnewsimg%2Fyasi%2F10.jpg",
+					"headName": "新大地发艺",
+				},
+				"list": [
+					{ "entry": "店家", "value": [{ "v": "翻滚美发", "vClass": "black" }] },
+					{ 'entry': "服务人员", "value": [{ "v": "梁汉妮", "vClass": "black" }] },
+					{ 'entry': "服务项目", "value": [{ "v": "洗吹", "vClass": "black" }], "end": "1" },
+					{ 'entry': "服务时间", "value": [{ "v": "2018-09-22", "vClass": "red" }, { "v": "19:00-19:30", "vClass": "red" }] },
+					{ 'entry': "共需订金", "value": [{ "v": "0.00", "vClass": "red" }, { "v": "元", "vClass": "black" }] }
+				],
+				"listEntryColor": "rgb(152,152,152)",
+				"text": ["1.服务开始前一小时，可随时取消订单，并退还押金"],
+				"remind": "该商家有权经双方协商后取消此笔订单",
+				"btns": [{ "name": "返回", "type": "close"}, { "name": "确定", "type": "action", "event": "testEvent" }],
+				"BtnLong":"" 
+			}
+		})
   },
 
   /**
@@ -202,6 +224,10 @@ Page({
     wx.navigateTo({
       url: '../storeHead/index'
     })
+		this.setData({
+			searchResultArr:[],
+			searchText:""
+		})
   }
 
 

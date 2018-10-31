@@ -15,6 +15,7 @@ Page({
     vip:0,
     storeSet: {},       //vip等选项设置
     storeData: {},      //店家具体数据
+    otherShow:true,
     peopleData:{},    //登陆者的数据 生日，手机，姓名，座机
     peopleName:"",
     socials:[],       //外链
@@ -78,6 +79,9 @@ Page({
     Modal_tryNow:false, //立即体验 显示 
     tryNow_time:7, //立即体验 有效期 天
     topTip:"",
+
+		textareaShow:false,
+		TAfocus:true,
     
     main_color:"rgb(243, 67, 67)",
     // main_color: "black",
@@ -344,6 +348,12 @@ Page({
             "src": src
           })
         }
+        
+				if (res.data.firstvisit == 0 && res.data.reservationHelp == 0 && res.data.birthday == 0 && res.data.seatmachineswitch == 0 && res.data.nameswitch==0){
+					that.setData({
+						otherShow:false
+					})
+				}
         that.setData({
           storeSet: res.data,
           vip: res.data.vip,
@@ -864,6 +874,12 @@ Page({
     }
     
   },
+	//弹出的日历，点击上半部分，收回
+	modalBack:function(e){
+		this.setData({
+			modal_calendar_show:false
+		})
+	},
 
   getCalendarData:function(e) { // 监听日历数据
     console.log(e.detail)
@@ -880,10 +896,15 @@ Page({
   },
 
   selectRestDay:function(e){
-    this.setData({
-      topTip: "此服务人员今天休息"
-    })
-    this.toptip()
+    // this.setData({
+    //   topTip: "此服务人员今天休息"
+    // })
+    // this.toptip()
+		wx.showToast({
+			title: '此服务人员今天休息',
+			icon: 'none',
+			success: function () {}
+		});
   },
 
   //整个selectHour的判断
@@ -1060,6 +1081,7 @@ Page({
       this.setData({
         hoursPast : hoursPast
       })
+
       let past = hoursPast / 60; //时间间隔 转为小数     0.5 为一个间隔
       console.log("past"+past)
       let serviceTime = this.data.serviceTime; //所选服务总时长
@@ -1243,10 +1265,14 @@ Page({
   formSubmit:function(){
     let name = this.data.otherName;
     if(name==""){
-      this.setData({
-        topTip:"姓名不能为空"
-      })
-      this.toptip()
+      // this.setData({
+      //   topTip:"姓名不能为空"
+      // })
+      // this.toptip()
+			wx.showToast({
+				title: '姓名不能为空',
+				icon: 'none'
+			})
     }else{
       this.setData({
         modal_orderOther: 0
@@ -1299,6 +1325,31 @@ Page({
       peopleName: peopleName
     })
   },
+	//虚拟textarea
+	cliSimTA:function(){
+		let beizhu = this.data.beizhu;
+		if(beizhu=="请填写备注"){
+			this.setData({
+				beizhu:"",
+			})
+		}
+		this.setData({
+			textareaShow:true
+		})
+	},
+	//textarea失焦
+	blurTA:function(){
+		this.setData({
+			textareaShow: false
+		})
+	},
+	pulldown:function(e){
+		console.log(e)
+		this.setData({
+			TAfocus:false
+		})
+	},
+
   //提交预约 按钮
   openModal_confirm(){
     let flag = 1;
@@ -1336,27 +1387,34 @@ Page({
       }
     }
 
+		//不做距离不足一小时的判断
+		if(flag==1){
+			this.setData({
+				modal_confirm: true
+			})
+		}
     //现在距离开始不足一小时 判断
-    if(flag==1){
-      let selectDay = this.data.selectDay;
-      let selectTime = this.data.hourBlock[0]+":00"
-      let startTime = selectDay+ " " +selectTime;
-       startTime = startTime.replace(/-/g, "/")
+    // if(flag==1){
+    //   let selectDay = this.data.selectDay;
+    //   let selectTime = this.data.hourBlock[0]+":00"
+    //   let startTime = selectDay+ " " +selectTime;
+    //    startTime = startTime.replace(/-/g, "/")
 
-      let startTimeStamp = Date.parse(new Date(startTime));
-      let newStamp = Date.parse(new Date());
+    //   let startTimeStamp = Date.parse(new Date(startTime));
+    //   let newStamp = Date.parse(new Date());
 
-      // console.log(startTimeStamp - newStamp)
-      if (startTimeStamp - newStamp <60*60*1000){
-        this.setData({
-          lessOneShow:true
-        })
-      }else{
-        this.setData({
-          modal_confirm: true
-        })
-      }
-    }
+    //   // console.log(startTimeStamp - newStamp)
+    //   if (startTimeStamp - newStamp <60*60*1000){
+    //     this.setData({
+    //       lessOneShow:true
+    //     })
+    //   }else{
+    //     this.setData({
+    //       modal_confirm: true
+    //     })
+    //   }
+    // }
+		
     
   },
   closeModal_confirm(){
@@ -1408,7 +1466,9 @@ Page({
         let isHelp = 0;
         if (that.data.orderForOther) { isHelp = 1 }
         data.isHelp = isHelp;
-        data.remarks = that.data.beizhu;
+        let beizhu = that.data.beizhu;
+				if(beizhu=="请填写备注"){beizhu=""}
+				data.remarks = beizhu;
         data.serviceEmployee = that.data.selectPeopleStr;
         let serviceItem = "";
         for (let i = 0; i < that.data.selectedServices.length; i++) {
