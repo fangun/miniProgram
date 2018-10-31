@@ -1,5 +1,5 @@
 <!--components/dialog/dialog.wxml-->
-<view class='modal' wx:if="{{modalShow}}">
+<view class='modal'>
   <view class='main'>
     <view class='header'>
       <view class='title'>{{modalData.header.title.text}}</view>
@@ -20,8 +20,8 @@
       <view class='remind' class='remind'>{{modalData.remind}}</view>
     </view>
     <view class='footer'>
-      <view bindtap="{{modalData.btns[0].type=='close'?'closeModal':modalData.btns[0].event}}" class='btn' style='color:{{modalData.mainColor}};border:2rpx solid {{modalData.mainColor}}' bindtap="{{modalData.btns[0].type=='close'?'closeModal':'' }}">{{modalData.btns[0].name}}</view>
-			<view class='btn' style='background:{{modalData.mainColor}};color:white;border:2rpx solid {{modalData.mainColor}}'>{{modalData.btns[1].name}}</view>
+      <view bindtap="{{modalData.btns[0].type=='close'?'closeModal':modalData.btns[0].event}}" class='btn' style='color:{{modalData.mainColor}};border:2rpx solid {{modalData.mainColor}}' bindtap="{{modalData.btns[0].type=='close'?'closeModal':'modalAction' }}">{{modalData.btns[0].name}}</view>
+			<view class='btn' style='background:{{modalData.mainColor}};color:white;border:2rpx solid {{modalData.mainColor}}' bindtap="{{modalData.btns[1].type=='close'?'closeModal':'modalAction' }}">{{modalData.btns[1].name}}</view>
     </view>
   </view>
 </view>
