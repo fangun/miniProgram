@@ -9,7 +9,8 @@ Page({
     searchText:'',  //搜索框的值
     searchResultArr:[],
     authorizeState: false,
-		modalData: {}
+		modalData: {},
+		modalShow:false
   },
 
   /**
@@ -228,7 +229,25 @@ Page({
 			searchResultArr:[],
 			searchText:""
 		})
-  }
+  },
+
+	closeModal:function(e){
+		let data = e.detail.data
+		this.setData({
+			modalShow:false
+		})
+	},
+
+	modalAction:function(e){
+		let data = e.detail.data;
+		/*后续操作*/
+	},
+
+	modalTest:function(){
+		this.setData({
+			modalShow: true
+		})
+	}
 
 
 })
