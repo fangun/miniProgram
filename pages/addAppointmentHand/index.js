@@ -172,9 +172,9 @@ Page({
         wx.showToast({
           title: '预约成功',
           success: function () {
-            // wx.redirectTo({
-            //   url: '../customEntrance/index'
-            // });
+            wx.redirectTo({
+              url: '../customEntrance/index'
+            });
           }
         });
       } else if (res.data == '-6') {
@@ -183,7 +183,6 @@ Page({
           content: '继续添加此预约?',
           cancelText: '取消',
           confirmText: '确定',
-          confirmColor: 'rgb(243,67,67)',
           success(res) {
             data.force = 1;
             that.doneAppointment(data);

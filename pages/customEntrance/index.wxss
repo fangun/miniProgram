@@ -94,7 +94,7 @@
 .searchColumn .richScan image {
     width: 34rpx;
     height: 34rpx;
-    margin-left: 10rpx;
+    margin-left: 14rpx;
 }
 
 .searchColumn .store image {
@@ -296,7 +296,8 @@
     display:block;
     width:401rpx;
     height:309rpx;
-    margin-left:125rpx;
+    margin-left:auto;
+    margin-right: auto;
     margin-top:58rpx;
 }
 
@@ -324,8 +325,8 @@
 
     border:1px solid rgba(243,67,67,1);
     margin-top:-4rpx;
-    margin-left:-4rpx;
-    margin-right: -4rpx;
+    margin-left:-3rpx;
+    margin-right: -3rpx;
     border-top-left-radius: 20rpx;
     border-top-right-radius: 20rpx;
 
@@ -630,8 +631,8 @@
 }
 
 .modalDlg .fold .box {
-    height: 720rpx;
-    overflow: auto;
+    box-sizing: border-box;
+    position: relative;
 }
 
 button::after{
@@ -695,8 +696,8 @@ button::after{
 
 .compeletingModal .content {
     box-sizing: border-box;
-    overflow: auto;
-    height:550rpx;
+    position: relative;
+
 }
 
 .compeletingModal .title {

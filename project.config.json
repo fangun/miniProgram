@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
-	"appid": "wxb1881cff7fde6cf6",
+	"appid": "wx77f93d6c157819b3",
 	"projectname": "预约吧",
 	"isGameTourist": false,
 	"condition": {
@@ -30,8 +30,35 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
-			"list": []
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "扫描二维码",
+					"pathName": "pages/customEntrance/index",
+					"query": "id=test",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "小程序消息卡片",
+					"pathName": "pages/customEntrance/index",
+					"query": "name='haha'",
+					"scene": "1007"
+				},
+				{
+					"id": 3,
+					"name": "群组小程序消息卡片",
+					"pathName": "pages/customEntrance/index",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "Q06BdAhTdqA-EX4iQ1egtAvyKASVnWHkpX3bTUsJpV4@cr4dev",
+						"shareKey": "3qpMJ-4eNjmVIblc-ZtK4dKLwNnz_Jm2ltBIxgX1cQ0FMc0nEw2zyT5cPCCf9j67QG3eecvuFVu79MBct43mTQ~~"
+					}
+				}
+			]
 		}
 	}
 }

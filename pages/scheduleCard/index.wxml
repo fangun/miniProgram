@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<form class="container" bindsubmit="feedback">
+    <view class="pageTitle">{{pageTitle}}</view>
+    <view class="des">致力为您提供高效，专业，高品质的预约服务，欢迎您提供宝贵的意见与建议</view>
+
+    <view class="box">
+        <view class="header">反馈内容</view>
+        <textarea placeholder="请输入您遇到的问题或建议..." name="Content" style="height:216rpx;"></textarea> 
+    </view>
+
+    <view class="box" style="margin-top:30rpx;">
+        <view class="header">联系方式</view>
+        <textarea placeholder="请留下您的电话，QQ或邮箱 （可能会有惊喜哦)" name="Contact" style="height:134rpx;"></textarea> 
+    </view>
+
+    <button class='feedback' form-type="submit">提交反馈</button>
+</form>

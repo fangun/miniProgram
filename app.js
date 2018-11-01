@@ -36,7 +36,8 @@ App({
     code: null,
     loginCache: false,
     peopleInfo: null,
+
     sex: null,
-    havePassword: false,
+    havePassword: false
   }
 })

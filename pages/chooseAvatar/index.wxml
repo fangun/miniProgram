@@ -11,5 +11,5 @@
     </block>
   </view>
 
-  <view class="modifyAvatar" bindtap="modifyAvatar" data-id="{{avtarSeq}}">确认</view>
+  <view class="modifyAvatar" bindtap="modifyAvatar" data-id="{{avtarSeq}}">确认修改</view>
 </view>

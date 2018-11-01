@@ -22,23 +22,24 @@
     <!-- 起止日期 -->
     <view class="timeItem" >
       <view>时间</view>
+
       <view>
         <picker mode="date" name="date" value="{{date}}" start="{{curDate}}" end="2030-01-01" bindchange="bindDateChange">
-            <view>
+            <view style="color:{{date !== '日期' ? '#333' : ''}}">
               {{date}}
             </view>
         </picker>
       </view>
       <view>
         <picker mode="selector" name="time1" range="{{time1Array}}" value="{{time1}}" bindchange="bindTimeChange1">
-            <view>
+            <view style="color:{{time1 !== '开始' ? '#333' : ''}}">
               {{time1}}
             </view>
         </picker>
       </view>
       <view>
         <picker mode="selector" name="time2" range="{{time2Array}}" value="{{time2}}" bindchange="bindTimeChange2">
-            <view>
+            <view style="color:{{time2 !== '结束' ? '#333' : ''}}">
               {{time2}}
             </view>
         </picker>

@@ -40,8 +40,8 @@ Page({
     compeletingModal: false,
     compeletedModal: false,
     chooseModal: false,
-    compeletingDeleteModal:false,
-    
+    compeletingDeleteModal: false,
+
     orderId: null,
     compeletingModalData: null,
     compeletedModalData: null,
@@ -81,6 +81,7 @@ Page({
         });
       }
     });
+
   },
 
   // 删去经常访问的店家
@@ -121,8 +122,8 @@ Page({
     }, function (res) {
       if (typeof res.data == 'object') {
         var cData = complete.completing(res.data);
-        
-        res.data.forEach(function(x,y){
+
+        res.data.forEach(function (x, y) {
           x.time = x.time.slice(0, x.time.indexOf(" "));
           x.time1 = cData.timeArray[y];
         });
@@ -151,7 +152,6 @@ Page({
       ID: app.globalData.peopleInfo.mid
     }, function (res) {
       if (typeof res.data == 'object') {
-
         res.data.sd.forEach(function (x, y, z) {
           x.show = y == 0 ? true : false;
           x.data = y == 0 ? true : false;
@@ -166,13 +166,13 @@ Page({
           var rq2 = t3[1] + '-' + t3[2];
 
           x.time = rq;
-          x.time2  = rq2;
+          x.time2 = rq2;
           x.time1 = time;
         });
 
         res.data.list = [];
         res.data.list[0] = res.data.hc;
-
+        
         that.setData({
           completedData: res.data
         });
@@ -235,7 +235,7 @@ Page({
         completedData.list[seq] = res.data.hc;
         completedData.sd[seq].data = true;
 
-        
+
         that.setData({
           completedData: completedData
         });
@@ -263,7 +263,7 @@ Page({
           duration: 1200,
           success: function (e) {
             that.setData({
-              compeletingDeleteModal:false,
+              compeletingDeleteModal: false,
               compeletingModal: false
             });
           }
@@ -371,7 +371,7 @@ Page({
     })
   },
 
-  compeletingDeleteModalClose:function(e){
+  compeletingDeleteModalClose: function (e) {
     this.setData({
       compeletingDeleteModal: false
     })
@@ -532,8 +532,6 @@ Page({
     })
   },
 
-
-
   // 调用地图
   getMapAddress: function (e) {
     var that = this;
@@ -541,6 +539,7 @@ Page({
     var address = {}; //坐标对象 lat经度 lng维度
 
     that.getMap(location, address);
+
     // wx.getSetting({
     //   success(res) {
     //     var statu = res.authSetting;
@@ -598,8 +597,29 @@ Page({
     }
     return {
       title: res.target.dataset.id,
-      path: 'pages/customEntrance/index',
-      imageUrl: '../../resource/images/common/logo.png'
+      path: 'pages/customEntrance/index?par=xixi&test=haha',
+      imageUrl: '../../resource/images/common/logo.png',
+      success: function (res) {
+        // var shareTickets = res.shareTickets;
+        // if (shareTickets.length == 0) {
+        //     return false;
+        // }
+        // wx.getShareInfo({
+        //     shareTicket: shareTickets[0],
+        //     success: function(res){
+        //         var encryptedData = res.encryptedData;
+        //         var iv = res.iv;
+
+        //         console.log('onShareAppMessage');
+        //         console.log(encryptedData);
+        //         console.log(iv);
+        //     }
+        // })
+      },
+      //## 转发操作失败/取消 后的回调处理，一般是个提示语句即可
+      fail: function () {
+        console.log('转发失败')
+      }
     }
   },
 
@@ -625,9 +645,7 @@ Page({
     }
   },
 
-  onShow: function (options) {
-    console.log('onShow-options');
-    console.log(options);
+  onShow: function () {
     // 登录
     wx.login({
       success: res => {
@@ -639,7 +657,6 @@ Page({
 
   onLoad: function (q) {
     console.log('onLoad');
-    console.log('onLoad-options');
     console.log(q);
     var that = this;
     //判断是用户是否绑定了

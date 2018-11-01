@@ -19,6 +19,12 @@ Page({
         showCancel: false,
         confirmText: '确定'
       })
+    } else if (op !== app.globalData.havePassword){
+      wx.showToast({
+        title: '原密码错误',
+        icon:'none',
+        success: function () {}
+      });      
     } else if (np !== sp) {
       wx.showModal({
         content: '新密码不一致',

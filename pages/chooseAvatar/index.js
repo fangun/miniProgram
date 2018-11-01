@@ -24,12 +24,6 @@ Page({
     avtarSeq: null
   },
 
-  modifyAvatar: function () {
-    wx.showToast({
-      title: '修改成功'
-    });
-  },
-
   chooseAvatar: function (e) {
     var seq = e.target.dataset.id;
     var newAl = this.data.avatarList;
@@ -49,10 +43,15 @@ Page({
     var seq = e.currentTarget.dataset.id;
 
     if (seq == null) {
-      wx.showModal({
-        content: '请选择头像',
-        showCancel: false,
-        confirmText: '确定'
+      // wx.showModal({
+      //   content: '请选择头像',
+      //   showCancel: false,
+      //   confirmText: '确定'
+      // })
+      // 返回上一页
+      var pageInn = getCurrentPages();
+      wx.navigateBack({
+        delta: pageInn.length - 1
       })
     } else {
       wx.request({
