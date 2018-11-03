@@ -359,7 +359,8 @@
 .card .item .header .time > image {
     width:40rpx;
     height:40rpx;
-    margin-right:10rpx;  
+    padding-left: 30rpx;
+    padding-right: 20rpx;
 }
 
 .card .item .header .tag {
@@ -419,6 +420,7 @@
 }
 
 .card .item .clause  .definite {
+    width:420rpx;
     font-family: PingFangSC-Regular;
     word-break:keep-all;           /* 不换行 */
     white-space:nowrap;          /* 不换行 */
@@ -541,6 +543,15 @@
     color: rgb(51,51,51);
     height:100rpx;
 }
+
+.fold .box .item > .details > view {
+    width:400rpx;
+    word-break:keep-all;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
 
 .fold .box .item .details > view:first-child{
     font-family: PingFangSC-Medium;
@@ -681,7 +692,8 @@ button::after{
 /* 正在进行弹出层 */
 .compeletingModal,
 .compeletedModal,
-.chooseModal {
+.chooseModal,
+.moneyModal {
     position:fixed;
     top:0;
     left:0;
@@ -805,6 +817,10 @@ button::after{
     background-color:rgb(243, 67, 67);
 }
 
+.compeletingSelfModal {
+    height: 700rpx;
+}
+
 /* 选择性弹出层 */
 .chooseModal {
     width:648rpx;
@@ -845,6 +861,51 @@ button::after{
     background-color:rgb(243, 67, 67);
 }
 
+.moneyModal {
+    width: 648rpx;
+    height: 340rpx;
+    margin: auto;
+}
+
+.moneyModal .title{
+    font-weight: bold;
+    font-size: 36rpx;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    line-height: 1;
+
+    padding: 46rpx 0 34rpx 0;
+
+}
+
+.moneyModal .text{
+    display: flex;
+    align-items: center;
+
+    font-size: 28rpx;
+    color: rgb(51, 51, 51);
+    padding-left: 60rpx;
+    padding-right: 60rpx;
+    text-align: center;
+}
+
+.moneyModal .close{
+    width:260rpx;
+    height:60rpx;
+
+    border-radius:10rpx;
+    background-color: rgb(243, 67, 67);
+    font-family:PingFangSC-Regular;
+    color:#fff;  
+    font-size:28rpx;
+    text-align:center;
+    line-height:60rpx;
+
+    margin-top: 50rpx;
+    margin-bottom: 40rpx;
+    margin-left: auto;
+    margin-right: auto;  
+}
 /* 层级 */
 .z_index {
     z-index: 9100;

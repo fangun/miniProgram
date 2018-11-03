@@ -33,7 +33,7 @@ page {
     right: 0;
     bottom: 0;
 
-    background-color:rgba(243,67,67,1);
+    background-color:rgb(245, 65, 60);
     font-family:PingFangSC-Medium;
     font-size:28rpx;
     text-align:center;
@@ -43,6 +43,10 @@ page {
     z-index: 11;
     border:none;
     border-radius: 0;
+}
+
+.addSure.active{
+    background-color:rgb(221, 9, 4);
 }
 
 .vocieInput {
@@ -274,5 +278,9 @@ page {
     padding:0 20rpx;
 }
 
-
+.disableClick {
+    pointer-events: none;
+    cursor: default;
+    background-color:rgb(251, 161, 160);
+}
 

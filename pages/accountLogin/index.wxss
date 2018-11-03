@@ -80,9 +80,13 @@
     font-size:28rpx;
     color:#333;
 
-    height: 46rpx;
+    height: 71rpx;
 }
 
+.loginForm .item .inputText input {
+    padding-top: 4rpx;
+    padding-bottom: 24rpx;
+}
 
 .loginForm .item .inputText input,
 .loginForm .item .inputText input::placeholder{
@@ -126,9 +130,9 @@
     color:#fff;
 
     box-sizing: border-box;
-    border: 1px solid rgb(243,67,67);
+    border: 1px solid rgb(245, 65, 60);
     border-radius: 8rpx;
-    background-color: rgb(243,67,67);
+    background-color: rgb(245, 65, 60);
     padding: 0;
     margin: 0;
 }
@@ -144,4 +148,15 @@
     color:rgb(153,153,153);
 
     margin-bottom: 268rpx;
+}
+
+
+.login.active {
+    background-color:rgb(221, 9, 4);
+}
+
+.disableClick {
+    pointer-events: none;
+    cursor: default;
+    background-color:rgb(251, 161, 160);
 }

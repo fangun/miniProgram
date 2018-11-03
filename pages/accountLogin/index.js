@@ -2,10 +2,12 @@
 const app = getApp()
 Page({
   data: {
-    switchShow: true
+    switchShow: true,
+    login:true
   },
   // 登录
   loginFormSubmit: function (e) {
+    var that = this;
     var tel = e.detail.value.tel;
     var password = e.detail.value.password;
 
@@ -20,6 +22,9 @@ Page({
         icon: 'none'
       });
     } else {
+      that.setData({
+        login: false
+      });
       wx.request({
         url: 'https://api.yuyue58.cn/api/passwordLogin',
         method: "POST",
@@ -57,6 +62,10 @@ Page({
               icon: 'none',
               success: function () {
               }
+            });
+            
+            that.setData({
+              login: true
             });
           }
         }

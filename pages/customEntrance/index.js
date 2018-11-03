@@ -48,11 +48,17 @@ Page({
 
     hotDeleteModal: false,
 
+    depositModal: false,
+    fullAmountModal: false,
+    moneyModalBelong: null,
+
+
     hotDeletePar: {
       mid: null,
       sid: null
     },
-    loginState: true
+    loginState: true,
+    compeletingSelfModal:false
   },
 
   // =================
@@ -172,7 +178,7 @@ Page({
 
         res.data.list = [];
         res.data.list[0] = res.data.hc;
-        
+
         that.setData({
           completedData: res.data
         });
@@ -297,6 +303,15 @@ Page({
     });
   },
 
+  // 修改私人预约
+  compeletingSelfModalMod:function(e){
+    var item = e.currentTarget.dataset.item;
+    console.log(item)
+    wx.redirectTo({
+      url: `../addAppointmentHand/index?id=${item.id}&serviceitem=${item.serviceitem}&rq=${item.time}&time=${item.time1}&empolyee=${item.empolyee}&saddress=${item.saddress}&remarks=${item.remarks}`
+    });
+  },
+
   // 获取电话授权
   getPhoneNumber(e) {
     var that = this;
@@ -398,6 +413,20 @@ Page({
     })
   },
 
+  compeletingSelfModalShow: function (e) {
+    var compeletingModalData = e.currentTarget.dataset.item;
+    this.setData({
+      compeletingSelfModal: true,
+      compeletingModalData: compeletingModalData
+    })
+  },
+
+  compeletingSelfModalClose:function(e){
+    this.setData({
+      compeletingSelfModal: false
+    })
+  },
+
   compeletingModalShow: function (e) {
     var orderId = e.currentTarget.dataset.id;
     var compeletingModalData = e.currentTarget.dataset.item;
@@ -429,6 +458,36 @@ Page({
     });
 
     this.getCompletedData();
+  },
+
+  // 订金 全额 弹出框显示
+  moneyModalShow: function (e) {
+    var item = e.currentTarget.dataset.item;
+    if (item.deposit) {
+      this.setData({
+        depositModal: true,
+        moneyModalBelong: 'depositModal'
+      })
+    } else if (item.fullAmount) {
+      this.setData({
+        fullAmountModal: true,
+        moneyModalBelong: 'fullAmountModal'
+      })
+    }
+  },
+
+  moneyModalClose: function () {
+    var belong = this.data.moneyModalBelong;
+
+    if (belong == 'depositModal') {
+      this.setData({
+        depositModal: false
+      })
+    } else {
+      this.setData({
+        fullAmountModal: false
+      })
+    }
   },
 
   // =================
@@ -490,7 +549,8 @@ Page({
           //最后一个%3d 后面的，应该是sid, 32位
           let sid = urlArr[urlArr.length - 1];
           if (sid.length == 32) {
-            app.globalData.peopleInfo.sid = sid
+            app.globalData.peopleInfo.sid = sid;
+
             wx.navigateTo({
               url: '../storeHead/index'
             })
@@ -504,6 +564,7 @@ Page({
   forbidBubbling: function () {
     console.log('禁止button冒泡');
   },
+
 
   // 显示提示弹出层
   showChooseModal: function (e) {

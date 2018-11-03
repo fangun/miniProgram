@@ -38,23 +38,36 @@
     font-family:PingFangSC-Regular;
     font-size: 32rpx;
     color: rgb(102, 102, 102);
-
     border-bottom: 1px solid #eee;
+
+    zoom: 1;
+}
+
+.item:after{
+    content: "020"; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;  
+}
+
+.box .item > view,
+.box .item > input {
+    float: left;
 }
 
 .box .item > view {
-    flex: 140rpx;
-}
-
-.box .item:nth-child(3) > view {
-    flex: 160rpx;
+    width:240rpx;
 }
 
 .item input {
-    flex: auto;
+    width:100%;
+    padding-top: 24rpx;
+    padding-bottom: 24rpx;
 }
+
 .modifyPassword {
-    background-color:rgba(243,67,67,1);
+    background-color:rgb(245, 65, 60);
     font-family:PingFangSC-Medium;
     font-size:36rpx;
     text-align:center;
@@ -65,4 +78,14 @@
     margin-left: 30rpx;
     margin-right: 30rpx;
     margin-top:306rpx;
+}
+
+.modifyPassword.active {
+    background-color:rgb(221, 9, 4);
+}
+
+.disableClick {
+    pointer-events: none;
+    cursor: default;
+    background-color:rgb(251, 161, 160);
 }

@@ -4,21 +4,21 @@
 
     <view class="box">
         <block wx:if="{{havePassword}}">
-            <view class="item">
+            <view class="item" bindtap="clickFocus" data-focus="state">
                 <view>原密码：</view>
-                <input type="password" name="oPassword"></input>
+                <input type="text" password="{{true}}" focus="{{state}}" name="oPassword"></input>
             </view>
         </block>
-        <view class="item">
+        <view class="item" bindtap="clickFocus" data-focus="state1">
             <view>新密码：</view>
-            <input type="password" name="nPassword"></input>
+            <input type="text" password="{{true}}" focus="{{state1}}" name="nPassword"></input>
         </view>
 
-        <view class="item">
+        <view class="item" bindtap="clickFocus" data-focus="state2">
             <view>确认密码：</view>
-            <input type="password" name="sPassword"></input>
+            <input type="text" password="{{true}}" focus="{{state2}}" name="sPassword"></input>
         </view>
     </view>
 
-    <button class="modifyPassword" form-type='submit'>确认</button>
+    <button class="modifyPassword {{modifyPassword ? '' : 'disableClick'}}" form-type='submit'>确认</button>
 </form>

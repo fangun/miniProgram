@@ -14,7 +14,8 @@ const API = {
   },
 
   addAppointment: {
-    manualInput: 'https://api.yuyue58.cn/api/ManualInput'
+    manualInput: 'https://api.yuyue58.cn/api/ManualInput',
+    ManualEdit:'https://api.yuyue58.cn/api/ManualEdit'
   }
 
 }

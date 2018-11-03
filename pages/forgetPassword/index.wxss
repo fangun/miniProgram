@@ -109,9 +109,13 @@
     font-size:28rpx;
     color:#333;
 
-    height: 46rpx;
+    height: 71rpx;
 }
 
+.loginForm .item .inputText input {
+    padding-top: 4rpx;
+    padding-bottom: 24rpx;
+}
 
 .loginForm .item .inputText input,
 .loginForm .item .inputText input::placeholder{
@@ -183,9 +187,18 @@
     font-family:PingFangSC-Regular;
     font-size:26rpx;
     color:rgb(255,255,255);
-    background-color: rgb(243,67,67);
+    background-color: rgb(245, 65, 60);
 
     text-align: center;
     line-height: 80rpx;
 }
 
+.register.active {
+    background-color:rgb(221, 9, 4);
+}
+
+.disableClick {
+    pointer-events: none;
+    cursor: default;
+    background-color:rgb(251, 161, 160);
+}
