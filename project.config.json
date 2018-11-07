@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
-	"appid": "wx77f93d6c157819b3",
+	"appid": "wxb1881cff7fde6cf6",
 	"projectname": "预约吧",
 	"isGameTourist": false,
 	"condition": {
@@ -30,17 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
-			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "扫二维码",
-					"pathName": "pages/storeHead/index",
-					"query": "id=erweimaid",
-					"scene": "1011"
-=======
-			"current": -1,
+		"current": 0,
 			"list": [
 				{
 					"id": 0,
@@ -67,7 +57,6 @@
 						"shareName": "Q06BdAhTdqA-EX4iQ1egtAvyKASVnWHkpX3bTUsJpV4@cr4dev",
 						"shareKey": "3qpMJ-4eNjmVIblc-ZtK4dKLwNnz_Jm2ltBIxgX1cQ0FMc0nEw2zyT5cPCCf9j67QG3eecvuFVu79MBct43mTQ~~"
 					}
->>>>>>> master
 				}
 			]
 		}
