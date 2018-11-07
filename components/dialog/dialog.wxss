@@ -1,6 +1,6 @@
 /* components/dialog/dialog.wxss */
-.modal{height: 100%;width:100%;background: rgba(0, 0, 0, 0.7);z-index: 299;padding: 0 51rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: center;color: rgb(51, 51, 51)}
-.main{width: 100%;border-radius: 14rpx;background: white;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: centers}
+.modal{height: 100%;width:100%;background: rgba(0, 0, 0, 0.7);z-index: 299;padding: 0 51rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: center;}
+.main{width: 100%;border-radius: 14rpx;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: centers}
 .main>view{width: 100%;padding:0 56rpx;box-sizing: border-box}
 
 .main .header{margin-top: 46rpx;font-size: 36rpx;font-weight: bold;display: flex;flex-direction: column;align-items: center;padding: 0}
@@ -10,15 +10,34 @@
 .imgName{font-weight: normal;font-size: 28rpx;margin-bottom: 62rpx}
 
 .body{display: flex;flex-direction: column;}
-.lists{display: flex;flex-direction: column;font-size: 28rpx;}
+.lists{display: flex;flex-direction: column;font-size: 28rpx;margin-top: 34rpx}
 .lists>view{display: flex}
 .entry{width: 112rpx;margin-bottom: 28rpx}
-.remind{font-size: 28rpx;color: rgb(153, 153, 153)}
+
+.text{display: flex;flex-direction: column;font-size: 28rpx;margin-top: 34rpx}
+.text text{text-align: left;line-height: 46rpx}/*多条text左对齐*/
+.oneText text{text-align: center;line-height: 46rpx}/*单条text居中对齐*/
+
+.remind{font-size: 26rpx;color: rgb(153, 153, 153);line-height: 46rpx;text-align: left}
 
 .footer{display: flex;margin: 48rpx 0;justify-content: space-between}
+.btnOne{justify-content: center}
 .btn{width: 220rpx;height: 60rpx;line-height: 60rpx;font-size: 26rpx;border-radius: 8rpx;text-align: center}
 
+.sRed{color:white}
+.sRed .main{background: white;color:rgb(51, 51, 51)}
+.sRed text1{color: rgb(243, 67, 67)}
+.sRed .footer view:nth-child(1){border: 2rpx solid rgb(243, 67, 67);color:rgb(243, 67, 67)}
+.sRed .footer view:nth-child(2),.sRed .btnOne view:nth-child(1){border: 2rpx solid rgb(243, 67, 67);color:white;background: rgb(243, 67, 67)}
+.sRed .mctext{color:rgb(243, 67, 67)}
+.sRed .mctext2{color:#333}
 
+.sBlack .main{background: #333;color:white}
+.sBlack text1{color:whtie}
+.sBlack .footer view:nth-child(1){border: 2rpx solid #ffe33f;color:#ffe33f;background: #333}
+.sBlack .footer view:nth-child(2),.sBlack .btnOne view:nth-child(1){border: 2rpx solid #ffe33f;color:#333;background: #ffe33f}
+.sBlack .mctext{color:#ffe33f}
+.sBlack .mctext2{color:white}
 
 
 

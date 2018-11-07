@@ -18,4 +18,4 @@
   <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize" style="display:{{authorizeState ? 'none' : 'block'}}"></button>
 </view>
 <!-- <view bindtap='modalTest'>modal测试</view>
-<dialog modalData = "{{modalData}}" bind:closeModal="closeModal" bind:modalAction="modalAction" wx:if="{{modalShow}}"></dialog> -->
+<dialog modalData = "{{modalData}}" skin="1" bind:closeModal="closeModal" bind:modalAction="modalAction" wx:if="{{modalShow}}"></dialog> -->

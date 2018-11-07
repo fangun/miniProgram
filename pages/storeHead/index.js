@@ -8,12 +8,10 @@ Page({
    */
   data: {
     getData:"",
-    // storeId:  "40fde5448673476cbbab8ad9cebf114c",
-    // storeId: "56327a2f0f164a59b9eff195ba4a4d15",
-    // storeId: "66c3b14635da4ad8bb73829b60c6ee99",
     storeId:"",
     vip:0,
     storeSet: {},       //vip等选项设置
+		skin:"",
     storeData: {},      //店家具体数据
     otherShow:true,
     peopleData:{},    //登陆者的数据 生日，手机，姓名，座机
@@ -82,9 +80,7 @@ Page({
 
 		textareaShow:false,
 		TAfocus:true,
-    
-    main_color:"rgb(243, 67, 67)",
-    // main_color: "black",
+
     selectDay:"", //已选的day
     selectOther:[
       {}
@@ -95,20 +91,26 @@ Page({
     shortInfo:"",
     orderClashShow:false,
     orderClash:"",
-    lessOneShow:false,
+    // lessOneShow:false,
     sendData:{},
     isfirstAction:true,             //确认提交的弹窗 最后的确定按钮 防止双击多次提交
-    black1: {
-      "containerBg": 'rgb(52,52,52)'
-    },
-    red1: {
-      "containerBg": 'rgb(52,52,52)'
-    },
+   
+		modalShow:false,	 						//模板的弹窗
+		modalData:{}
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options,q) {
+		// console.log("options:")
+		// console.log(options);
+		// console.log("q");
+		// console.log(q)
+
+
+
+
+
     let sid = app.globalData.peopleInfo.sid;
     let mid = app.globalData.peopleInfo.mid;
     console.log(mid)
@@ -278,7 +280,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+		wx.login({
+			success: res => {
+				// 发送 res.code 到后台换取 openId, sessionKey, unionId
+				app.globalData.code = res.code;
+			}
+		})
   },
 
   /**
@@ -328,36 +335,46 @@ Page({
       },
       success(res) {
         console.log(res.data)
-        let socialArr = res.data.social.split("|");
-        let socials = [];
-
-        for (let i = 0; i < socialArr.length; i++) {
-          let type = "";
-          let src = socialArr[i];
-          if (src.indexOf("dianping") != -1) {
-            type = "dianping"
-          } else if (src.indexOf("meituan") != -1) {
-            type = "meituan"
-          } else if (src.indexOf("koubei") != -1) {
-            type = "koubei"
-          } else {
-            type = "social"
-          }
-          socials.push({
-            "type": type,
-            "src": src
-          })
-        }
+        // let socialArr = res.data.social.split("|");
+        // let socials = [];
+        // for (let i = 0; i < socialArr.length; i++) {
+        //   let type = "";
+        //   let src = socialArr[i];
+        //   if (src.indexOf("dianping") != -1) {
+        //     type = "dianping"
+        //   } else if (src.indexOf("meituan") != -1) {
+        //     type = "meituan"
+        //   } else if (src.indexOf("koubei") != -1) {
+        //     type = "koubei"
+        //   } else {
+        //     type = "social"
+        //   }
+        //   socials.push({
+        //     "type": type,
+        //     "src": src
+        //   })
+        // }
         
 				if (res.data.firstvisit == 0 && res.data.reservationHelp == 0 && res.data.birthday == 0 && res.data.seatmachineswitch == 0 && res.data.nameswitch==0){
 					that.setData({
 						otherShow:false
 					})
 				}
+				//换肤
+				let skin = "";
+				switch (res.data.skin) {
+					case 0:
+						skin = "sRed"
+						break;
+					case 1:
+						skin = "sBlack"
+						break;
+				}
         that.setData({
           storeSet: res.data,
           vip: res.data.vip,
-          socials: socials
+          // socials: socials,
+					skin:skin
         })
       },
       fail(res) {
@@ -798,14 +815,15 @@ Page({
     month = month+1;
     if(month<10){month = "0"+month}
     let date = today.getDate();
+		if(date<10){date = "0"+date}
     console.log("today:");
     let todayStr = year + "-" + month + "-" + date;
     console.log(todayStr)
-    // console.log(deleteDay[0].id)
     let flag =false;
+		console.log(deleteDay);
     for (let n = 0; n < deleteDay.length;n++){
       if (deleteDay[n].id == todayStr){
-        flag = true
+        flag = true;
         this.setData({
           topTip: "注意：此服务人员今天休假"
         })
@@ -868,7 +886,7 @@ Page({
       this.toptip();
     }else{
       this.setData({
-        topTip: "请先选择 服务项目 服务人员"
+        topTip: "请先选择 服务人员"
       })
       this.toptip();
     }
@@ -949,54 +967,6 @@ Page({
       hours = hourstring1.split("|")
     }
     console.log(hours)                          //工作时间      
-    //["12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"]
-
-    //找出该人，该天的休息时段
-      // let people = this.data.selectPeople;
-      // let date = this.data.selectDay;
-      // let holidayHourList = this.data.holidayHourList; //
-      // let thisPeopleHoliHour = []
-      // for (let i = 0; i < holidayHourList.length; i++) {
-      //   let ymd = holidayHourList[i].starttime.split(" ")[0];  //格式 2018-10-31
-      //   if (people == holidayHourList[i].eid && date == ymd){
-      //     let starttime = holidayHourList[i].starttime.split(" ")[1]; //16:00:00
-      //     starttime = starttime.substr(0, starttime.length - 3);      //16:00
-      //     let stoptime = holidayHourList[i].stoptime.split(" ")[1];   
-      //     stoptime = stoptime.substr(0, stoptime.length - 3);         //18:30
-
-      //     let start1 = parseInt(starttime.split(":")[0])               //starttime 的 十位数 16
-      //     let start2 = parseInt(starttime.split(":")[1])                //starttime 的 个位数 00
-
-      //     let hoursPast = this.data.hoursPast;
-
-      //     let next = ""
-      //     do {
-      //       let next2 = parseInt(start2 + hoursPast)                  //加past之后的分钟数
-      //       let next1 = start1                                         //小时数
-      //       if(next2>60){
-      //         next2 = next2 - 60;                                     //数字的分钟数
-      //         next1 = next1+1                                         //数字的小时数
-
-      //         let strNext2="";
-      //         if(next2<10){
-      //           strNext2 = "0"+next2
-      //         } else{
-      //           strNext2 = next2
-      //         }
-      //         let strNext1 = "";
-      //         if(next1<10){
-      //           strNext1 = "0" + next1;
-      //         }else{
-      //           strNext1 = next1;
-      //         }
-
-      //         next = next1 + ":" + next2
-
-      //       }
-      //     } while (表达式)
-
-      //   }
-    // }
     let people = this.data.selectPeople;
     let date = this.data.selectDay;
     let holidayHourList = this.data.holidayHourList; //
@@ -1118,18 +1088,39 @@ Page({
       }
       if(tableEnd==undefined){
         flag = 0;
-        this.setData({
-          shortInfoShow:true,
-          shortInfo: "所选服务超出剩余时间"
-        })
+        // this.setData({
+        //   shortInfoShow:true,
+        //   shortInfo: "所选服务超出剩余时间"
+        // })
+				let modalData = {
+					"text": [
+						"所选服务超出剩余时间"
+					],
+					"btns": [
+						{ "name": "确定", "type": "close" }
+					]
+				}
+				this.setData({
+					//modal_confirm: true
+					modalData: modalData,
+					modalShow: true
+				})
       }
       console.log(tableEnd.time)
       console.log(realEnd)
       if (tableEnd.time != realEnd) {
-        this.setData({
-          shortInfoShow: true,
-          shortInfo: "所选时间不足"
-        })
+        // this.setData({
+        //   shortInfoShow: true,
+        //   shortInfo: "所选时间不足"
+        // })
+				let modalData={
+					text:["所选时间不足"],
+					btns: [{ "name": "确定", "type": "close", "event": "testEvent" }]
+				}
+				this.setData({
+					modalShow:true,
+					modalData:modalData
+				})
         flag = 0
       }
 
@@ -1137,10 +1128,18 @@ Page({
       if (flag == 1) {
         for (let i = 0; i < number; i++) {
           if (this.data.hoursArr[startHourIndex + i].use == 0) {
-            this.setData({
-              shortInfoShow: true,
-              shortInfo: "所选时间不足"
-            })
+            // this.setData({
+            //   shortInfoShow: true,
+            //   shortInfo: "所选时间不足"
+            // })
+						let modalData = {
+							text: ["所选时间不足"],
+							btns: [{ "name": "确定", "type": "close", "event": "testEvent" }]
+						}
+						this.setData({
+							modalShow: true,
+							modalData: modalData
+						})
             flag = 0;
           }
         }
@@ -1389,8 +1388,42 @@ Page({
 
 		//不做距离不足一小时的判断
 		if(flag==1){
+			let selectedServices = this.data.selectedServices;
+			let selectedServicesArr = ""
+			for (let i = 0; i < selectedServices.length;i++){
+				selectedServicesArr = selectedServicesArr + selectedServices[i].name;
+				if (i != selectedServices.length-1){
+					selectedServicesArr = selectedServicesArr + "、"
+				}
+			}
+			let modalData = {
+				"header":{
+					"title":{
+						"text":"确认提交"
+					}
+				},
+				"list":[
+					{ 'entry': "店家", "value": [{ "v": this.data.storeData.name}]},
+					{ 'entry': "服务人员", "value": [{ "v": this.data.selectPeopleStr}] },
+					{ 'entry': "服务项目", "value": [{ "v": selectedServicesArr,"vClass":"mctext"}] },
+					{ 'entry': "服务时间", "value": [{ "v": this.data.selectDay + ' ' + this.data.hourBlock[0] +"-"+ this.data.factEndHour, "vClass": "mctext"}] },
+					{ 'entry': "共需订金", "showState": this.data.storeSet.deposit,"value": [{ "v": this.data.dingjin, "vClass": "mctext" }, { "v": "元", "vClass": "mctext2" }], "show":"storeSet.seposit==1"}
+				],
+				"remind":"该商家有权经双方协商后取消此笔订单",
+				"btns":[
+					{ "name": "返回", "type": "close"},
+					{ "name": "确定", "type": "action", "event": "testEvent" }
+				]
+			};
+
+			this.modalAction = function(){
+				this.confirm_orderOther()
+			}
+			
 			this.setData({
-				modal_confirm: true
+				//modal_confirm: true
+				modalData: modalData,
+				modalShow:true
 			})
 		}
     //现在距离开始不足一小时 判断
@@ -1429,6 +1462,10 @@ Page({
     })
   },
   confirm_orderOther:function(){
+		this.setData({
+			modalData: {},
+			modalShow: false,
+		})
     if(this.data.isfirstAction){
       console.log("tijiao");
       let that =this;
@@ -1498,77 +1535,217 @@ Page({
             let status = res.data;
             if (status >= 0) {
               that.setData({
-                modal_confirm: false,
+                // modal_confirm: false,
+								modalShow: false,
               })
               wx.redirectTo({
                 url: '../orderSuccess/index'
               })
             } else if (status == "-3") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "该会员信息不存在",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "该会员信息不存在",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"该会员信息不存在"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-3") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "该店家信息不存在",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "该店家信息不存在",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"该店家信息不存在"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-4") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "该时段已满",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "该时段已满",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"该时段位置已满"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-5") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "此时间段已存在员工被预约记录!",
-                modal_confirm: false
-              })
-            } else if (status == "-5") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "此时间段已经存在预约记录!",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "此时间段已存在员工被预约记录!",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"此时间段已存在员工被预约记录!"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-7") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-8") {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"很抱歉！同一家店无法预约超过三笔，包含自己一笔及帮别人预约二笔"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-9" && that.data.storeSet.reservationHelp == 0) {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "该商家只允许预约一次，如有需求，可以联系商家开通帮人预约功能",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "该商家只允许预约一次，如有需求，可以联系商家开通帮人预约功能",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"该商家只允许预约一次，如有需求，可以联系商家开通帮人预约功能"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
             } else if (status == "-9" && that.data.storeSet.reservationHelp == 1) {
-              that.setData({
-                shortInfoShow: true,
-                shortInfo: "您已经在本店有过预约，不可再次预约，如需帮他人预约，请点选【帮别人预定】",
-                modal_confirm: false
-              })
+              // that.setData({
+              //   shortInfoShow: true,
+              //   shortInfo: "您已经在本店有过预约，不可再次预约，如需帮他人预约，请点选【帮别人预定】",
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"您已经在本店有过预约，不可再次预约，如需帮他人预约，请点选【帮别人预定】"
+								],
+								"btns": [
+									{ "name": "确定", "type": "close" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
+
             } else if (status == "-10") {
-              that.setData({
-                selfClanShow: true,
-                modal_confirm: false
-              })
+              // that.setData({
+              //   selfClanShow: true,
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"text": [
+									"您的预约与【私人预约】冲突，是否确定继续预约？"
+								],
+								"btns": [
+									{ "name": "我再想想", "type": "close" },
+									{ "name": "确定", "type": "ModalAction" }
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
+							that.modalAction = function(){
+								that.openModal_confirm()
+							}
             } else {
               //返回字符串 店名
-              that.setData({
-                orderClashShow: true,
-                orderClash: status,
-                modal_confirm: false
-              })
+              // that.setData({
+              //   orderClashShow: true,
+              //   orderClash: status,
+              //   modal_confirm: false
+              // })
+							let modalData = {
+								"header": {
+									"title": {
+										"text": "预约冲突"
+									}
+								},
+								"text":[
+									"此时间段您已经在【" + status +"】有过预约，请选择其他时间"
+								],
+								"remind": "若仍想预约此时段，请先到会员首页取消该笔订单",
+								"btns": [
+									{ "name": "去取消之前订单", "type": "modalAction", "event": "testEvent" },
+									{ "name": "确定", "type": "close"}
+								]
+							}
+							that.setData({
+								//modal_confirm: true
+								modalData: modalData,
+								modalShow: true
+							})
+							that.modalAction = function(){
+								that.gotoIndex()
+							}
             }
           }
         })
@@ -1590,17 +1767,17 @@ Page({
     })
   },
 
-  lessOneClose:function(){
-    this.setData({
-      lessOneShow: false
-    })
-  },
-  lessOneConti:function(){
-    this.setData({
-      lessOneShow: false,
-      modal_confirm:true
-    })
-  },
+  // lessOneClose:function(){
+  //   this.setData({
+  //     lessOneShow: false
+  //   })
+  // },
+  // lessOneConti:function(){
+  //   this.setData({
+  //     lessOneShow: false,
+  //     modal_confirm:true
+  //   })
+  // },
   orderClashClose:function(){
     this.setData({
       orderClashShow:false
@@ -1631,6 +1808,19 @@ Page({
         })
       }
     })
-  }  
+  },
+
+
+
+
+	//modal
+	closeModal: function (e) {
+		this.setData({
+			modalShow: false
+		})
+	},
+	modalAction:function(e){
+
+	}  
   
 })

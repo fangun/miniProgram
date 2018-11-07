@@ -1,383 +1,405 @@
 <!--pages/storeHead/index.wxml-->
-<view class='topTitle' style='background:{{main_color}}'>
-    <image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
-    <view>店家首页</view>
-    <view class='btn'></view>
-  </view>
-  <view class='topTip {{show == 1?"show":(show == 2?"hide":"")}}'>
-    <image src="../../resource/images/storeHead/topTipMark.png"></image>
-    <text>{{topTip}}</text>
-  </view>
-<scroll-view scroll-y="true" scroll-into-view="{{toblock}}" scroll-with-animation="true">
-<!-- <view> -->
+<view class="{{skin}}">
+	<view class='topTitle'>
+		<image class='btn' src='../../resource/images/storeHead/title_person.png' bindtap='topPerson'></image>
+		<view>店家首页</view>
+		<view class='btn'></view>
+	</view>
+	<view class='topTip {{show == 1?"show":(show == 2?"hide":"")}}'>
+		<image src="../../resource/images/storeHead/topTipMark.png"></image>
+		<text>{{topTip}}</text>
+	</view>
+</view>
+<scroll-view scroll-y="true" scroll-into-view="{{toblock}}" scroll-with-animation="true" class='{{skin}}'>
   <view class='modal' wx:if="{{Modal_tryNow}}">
-  <view class='modal_trynow'>
-    <image src='../../resource/images/storeHead/tryNow.png'></image>
-    <view bindtap='btn_tryNow' style='background:{{main_color}}'>立即预约</view>
-  </view>
-</view>
-<view class='container'>
-  <view class='info' wx:if="{{1}}">
-    <view id='infoBlock'>
-      <view class='intro'>
-        <!-- <image wx:if="{{storeData.logo==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></image> -->
-        <image wx:if="{{storeData.logo==''}}" id='headImage' src="../../resource/images/storeHead/noLogo.png"></image>
-        <image wx:if="{{storeData.logo!=''}}" id='headImage' style='background-image:url({{storeLogo}});'></image>
-        <view id="nameintro">
-          <view class='storeTitle'>
-            <text style='font-weight:bold;border-left:4rpx solid rgb(243, 67, 67);padding-left:8rpx;height:36rpx;line-height:36rpx'>{{storeData.name}}</text>
-            <image class='image_ding' src='../../resource/images/storeHead/ding.png' wx:if="{{storeSet.deposit==1}}"></image>
-          </view>
-          <view class='introText'>
-            <text class='{{storeIntro?"open":""}}' >{{storeData.profile}}</text>
-            <view class='ellipsis' decode="{{true}}" wx:if="{{introLength>30&&!storeIntro}}">>>></view>
-          </view>
-        </view>
-      </view>
-      <text bindtap='switchIntro' style="padding:6rpx" wx:if="{{introLength>30}}">{{storeIntro?"收起":"展开"}}</text>
-      <view id='contact'>
-        <view class='location' bindtap='openMap' data-location='{{storeData.pca}}{{storeData.address}}'>
-          <image class='image_location' src='../../resource/images/storeHead/location.png'></image>
-          <text>{{storeData.pca}}{{storeData.address}}</text>
-        </view>
-        <view class='tel' >
-          <image class='image_tel' src='../../resource/images/storeHead/phone.png'></image>
-          <view class='tel_right'>
-            <text wx:if="{{storeData.mobile}}" bindtap='{{storeData.mobile!=""?"tel":""}}' data-tel='{{storeData.mobile?storeData.mobile:""}}'>{{storeData.mobile?storeData.mobile:""}}</text>
-            <text wx:if="{{storeData.phone}}" bindtap='{{storeData.phone!=""?"tel":""}}' data-tel='{{storeData.phone?storeData.phone:""}}'>{{storeData.phone?storeData.phone:""}}</text>
-            <view wx:if="{{vip==1}}" class='outBtn' wx:if="{{0}}">
-              <!-- <image id='koubei' src="../../resource/images/storeHead/koubei.png"></image> -->
-              <image wx:for="{{socials}}" wx:key="{{key}}" src="{{'../../resource/images/storeHead/'+item.type+'.png'}}" data-type="{{item.type}}"></image>
-            </view>
-            <view>
-              <view class='moreIntro'style="color:{{main_color}};border-color:{{main_color}};margin-bottom:4rpx" wx:if="{{0}}">更多介绍</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-  <view id='selectService'>
-    <view class='block_title'>
-      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
-      <text class='titleText'>{{storeData.description1==null?"选择服务项目":storeData.description1}}</text>
-    </view>
-    <view id="projects" wx:if="{{vip==1}}">
-      <view wx:for="{{storeData.serviceItems}}" wx:key="key" data-id='{{item.id}}' class='{{item.isSelected?"projectSelected":""}} project' style='background:{{item.isSelected?main_color:""}}' bindtap='selectProject'>{{item.name}}</view>
-    </view>
-    <view id="projects2" wx:if="{{vip==0}}">
-      <view class='projectArrow' bindtap='projectLeft'>
-        <image src='../../resource/images/storeHead/arrowL.png'></image>
-      </view>
-      <scroll-view scroll-x="true" scroll-into-view="{{toProject}}" scroll-with-animation="true">
-        <view wx:for="{{storeData.serviceItems}}" wx:key="key" wx:for-index="index" id='serv{{index}}' data-index='{{index}}' data-id='{{item.id}}' bindtap='selectProject' class='{{item.isSelected?"projectSelected":""}} project2' style='background:{{item.isSelected?main_color:""}};border-color:{{item.isSelected?main_color:""}}'>
-          {{item.name}}
-        </view>
-      </scroll-view>
-      <view class='projectArrow' bindtap='projectRight'>
-        <image src='../../resource/images/storeHead/arrowR.png'></image>
-      </view>
-    </view>
-    <view class='selectInfo' wx:if="{{selectedServices.length!=0}}">
-    <!-- <view class='selectInfo'> -->
-      <view>
-        <text style='flex-shrink:0'>你选择了：</text>
-        <view class='projectlist'>
-          <block wx:for="{{selectedServices}}" wx:for-index = "i" wx:key="key">
-            <!-- <text >{{item.name}}</text> -->
-            <view class="textRed">{{item.name}}</view>
-            <text wx:if="{{i!=selectedServices.length-1}}">，</text>
-          </block>
-        </view>
-      </view>
-      <view>
-        <text>服务共用时：</text>
-        <text class='textRed'>{{serviceTime}}</text>
-        <text class='textBlack' style='margin-right:38rpx'>小时</text>
-        <block wx:if="{{storeSet.deposite==1}}">
-          <text>共需订金：</text>
-          <text class='textRed'>{{dingjin}}</text>
-          <text class='textBlack'>元</text>
-          <image src='../../resource/images/storeHead/wenhao.png' bindtap='modalTip' data-id = "dingjin"></image>
-        </block>
-        <block wx:if="{{storeSet.fullAmount==1}}">
-          <text>共需总额：</text>
-          <text class='textRed'>{{totalMoney}}</text>
-          <text class='textBlack'>元</text>
-          <image src='../../resource/images/storeHead/wenhao.png' bindtap='modalTip' data-id = "totalMoney"></image>
-        </block>
-      </view>
-    </view>
-  </view>
-  <view id='selectPeople'>
-    <view class='block_title'>
-      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
-      <text class='titleText'>{{storeData.description2==null?"选择服务人员":storeData.description2}}</text>
-    </view>
-    <view class='peopleList' wx:if="{{vip==1}}">
-      <view wx:for="{{serviceEmployee}}" wx:key="key" class='people'>
-        <block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
-          <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
-          <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
-        </block>
-        <block wx:if="{{item.isAbled&&item.id==selectPeople}}">
-          <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mSelected.png"></image>
-          <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feSelected.png"></image>
-        </block>
-        <block wx:if="{{!item.isAbled}}">
-          <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
-          <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
-        </block>
-        <text class='{{item.isAbled?"":"name"}}' style='text-align:center'>{{item.name}}</text>
-      </view>
-      <!-- <view wx:if="{{rest}}" >注意：此人今日休假</view> -->
-    </view>
-    <view class='peopleList2' wx:if="{{vip==0}}">
-      <view class='peopleArrow' bindtap='peopleLeft'>
-        <image src='../../resource/images/storeHead/arrowL.png'></image>
-      </view>
-      <scroll-view scroll-x="true" scroll-into-view="{{toPeople}}" scroll-with-animation="true" >
-        <view wx:for="{{serviceEmployee}}" wx:key="key" class='people' wx:for-index="index" id='peo{{index}}' data-index='{{index}}'>
-          <block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
-            <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}'  bindtap="selectPeople"></image>
-            <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
-          </block>
-          <block wx:if="{{item.isAbled&&item.id==selectPeople}}">
-            <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mSelected.png"></image>
-            <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feSelected.png"></image>
-          </block>
-          <block wx:if="{{!item.isAbled}}">
-            <image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
-            <image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
-          </block>
-          <text class='{{item.isAbled?"":"name"}}' style='max-width:100rpx;white-space:normal;'>{{item.name}}</text>
-        </view>
-      </scroll-view>
-      <view class='peopleArrow' bindtap='peopleRight'>
-        <image src='../../resource/images/storeHead/arrowR.png'></image>
-      </view>
-    </view>
-  </view>
-  <view id='selectTime' data-sp="{{selectPeople}}" style='{{hourBlock.length==0?"padding-bottom:80rpx":""}}'>
-    <view class='block_title'>
-      <image src='../../resource/images/storeHead/titleTriangle.png'></image>
-      <text class='titleText'>选择服务时间</text>
-    </view>
-    <view class='slideDate'>
-      <scroll-view scroll-x="true" scroll-into-view="{{toDate}}" scroll-with-animation="true">
-        <view wx:for="{{peopleActivityDay}}" wx:key="key" class='date {{item.id==selectDay?"dateSelected":""}}' id="i{{item.id}}" data-timeid = "{{item.id}}" bindtap='selectDay'>
-          <text>{{item.week}}</text>
-          <text>{{item.date}}</text>
-        </view>
-      </scroll-view>
-      <image class='rightCalendar' src="../../resource/images/storeHead/calendar.png" bindtap='rightCalendar'></image>
-    </view>
-    <view class='selectHour' bindtap='hourTip'>
-    <!-- {{item.useless==0?"timeUnable":""}} -->
-      <view wx:for="{{hoursArr}}" wx:key="key" class='time {{item.use==0?"timeUnable":""}} {{item.selected==1?"timeSelect":""}}' data-hour="{{item.time}}" data-index="{{index}}" data-use="{{item.use}}" data-selected="{{item.selected}}" bindtap='{{item.use==1?"selectHour":""}}'>{{item.time}}</view>
-      <view class='time' style='background:white;color:white;border:0' wx:if="{{hoursArr.length%4<=1}}">00:00</view>
-      <view class='time' style='background:white;color:white;border:0' wx:if="{{hoursArr.length%4<=2}}">00:00</view>
-      <view class='time' style='background:white;color:white;border:0' wx:if="{{hoursArr.length%4<=3}}">00:00</view>
-    </view> 
-  </view>
-  <!-- 要渲染，避免闪条 -->
-  <view id='selectOther' wx:if="{{(hourBlock.length!=0)&&otherShow}}">
-    <view class='form'>
-      <block wx:if="{{storeSet.firstvisit==1}}">
-        <view class='formBorder'></view>
-        <view bindtap='firstArrivalCheck' wx:if="{{storeSet.firstvisit==1}}">
-          <text>第一次到店</text>
-          <image class="checkbox" wx:if="{{firstArrival}}" src="../../resource/images/storeHead/checkGou.png" ></image>
-          <image class="checkbox" wx:if="{{!firstArrival}}"src='../../resource/images/storeHead/unCheckGou.png' ></image>
-        </view>
-      </block>
-      <block wx:if="{{storeSet.reservationHelp==1}}">
-        <view class='formBorder'></view>
-        <view  bindtap='orderForOther' wx:if="{{storeSet.reservationHelp==1}}">
-          <text>帮别人预定</text>
-          <view>
-            <text wx:if="{{orderForOther}}" style='margin-right:50rpx'>{{otherName?otherName:""}}</text>
-            <image class='checkbox' src="{{orderForOther?'../../resource/images/storeHead/checkGou.png':'../../resource/images/storeHead/unCheckGou.png'}}"></image>
-          </view>
-        </view>
-      </block>
-      <!-- <view wx:if="{{storeSet.birthday}}"> -->
-      <block  wx:if="{{vip==1&&storeSet.birthday==1}}">
-        <view class='formBorder'></view>
-        <view>
-          <view>出生日期 </view>
-          <picker mode="date" value="{{birth}}" start="1900-01-01" end="2018-10-23" bindchange="bindBirthChange">
-            <view class="picker">
-            {{birth}}
-            <!-- 0000-00-00 -->
-            </view>
-          </picker>
-        </view>
-      </block>
-      <block  wx:if="{{vip==1&&storeSet.nameswitch==1}}">
-        <view class='formBorder'></view>
-        <view>
-          <view style="min-width:60rpx">姓名</view>
-          <input style='margin-right:63rpx' value='{{peopleName}}' bindinput='inputPeopleName' style='text-align:right'></input>
-        </view>
-      </block>
-      <block  wx:if="{{vip==1&&storeSet.seatmachineswitch==1}}">
-        <view class='formBorder'></view>
-        <view>
-          <text>座机</text>
-          <input type='number' style='text-align:right' value='{{zuoTel==null?"暂无":zuoTel}}' bindinput='inputZuoTel'></input>
-        </view>
-      </block>
-      
-    </view>
-  </view>
+		<view class='modal_trynow'>
+			<image src='../../resource/images/storeHead/tryNow.png'></image>
+			<view bindtap='btn_tryNow' style='background:{{main_color}}'>立即预约</view>
+		</view>
+	</view>
+	<view class='container'>
+		<view class='info' wx:if="{{1}}">
+			<view id='infoBlock'>
+				<view class='intro'>
+					<!-- <image wx:if="{{storeData.logo==''}}" id='headImage' style='background-image:url(../../resource/images/storeHead/noLogo.png);'></image> -->
+					<image wx:if="{{storeData.logo==''}}" id='headImage' src="../../resource/images/storeHead/noLogo.png"></image>
+					<image wx:if="{{storeData.logo!=''}}" id='headImage' style='background-image:url({{storeLogo}});'></image>
+					<view id="nameintro">
+						<view class='storeTitle'>
+							<text>{{storeData.name}}</text>
+							<image class='image_ding' src='../../resource/images/storeHead/ding.png' wx:if="{{storeSet.deposit==1}}"></image>
+						</view>
+						<view class='introText'>
+							<text class='{{storeIntro?"open":""}}' >{{storeData.profile}}</text>
+							<view class='ellipsis' decode="{{true}}" wx:if="{{introLength>30&&!storeIntro}}">>>></view>
+						</view>
+					</view>
+				</view>
+				<text bindtap='switchIntro' style="padding:6rpx" wx:if="{{introLength>30}}">{{storeIntro?"收起":"展开"}}</text>
+				<view id='contact'>
+					<view class='location' bindtap='openMap' data-location='{{storeData.pca}}{{storeData.address}}'>
+						<image class='image_location' src='../../resource/images/storeHead/location.png' wx:if="{{storeSet.skin==0}}"></image>
+						<image class='image_location' src='../../resource/images/storeHead/location_sBlack.png' wx:if="{{storeSet.skin==1}}"></image>
+						<text>{{storeData.pca}}{{storeData.address}}</text>
+					</view>
+					<view class='tel' >
+						<image class='image_tel' src='../../resource/images/storeHead/phone.png' wx:if="{{storeSet.skin==0}}"></image>
+						<image class='image_tel' src='../../resource/images/storeHead/phone_sBlack.png' wx:if="{{storeSet.skin==1}}"></image>
+						<view class='tel_right'>
+							<text wx:if="{{storeData.mobile}}" bindtap='{{storeData.mobile!=""?"tel":""}}' data-tel='{{storeData.mobile?storeData.mobile:""}}'>{{storeData.mobile?storeData.mobile:""}}</text>
+							<text wx:if="{{storeData.phone}}" bindtap='{{storeData.phone!=""?"tel":""}}' data-tel='{{storeData.phone?storeData.phone:""}}'>{{storeData.phone?storeData.phone:""}}</text>
+							<view wx:if="{{vip==1}}" class='outBtn' wx:if="{{0}}">
+								<!-- <image id='koubei' src="../../resource/images/storeHead/koubei.png"></image> -->
+								<image wx:for="{{socials}}" wx:key="{{key}}" src="{{'../../resource/images/storeHead/'+item.type+'.png'}}" data-type="{{item.type}}"></image>
+							</view>
+							<view>
+								<view class='moreIntro'style="color:{{main_color}};border-color:{{main_color}};margin-bottom:4rpx" wx:if="{{0}}">更多介绍</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view id='selectService'>
+			<view class='block_title'>
+				<image src='../../resource/images/storeHead/titleTriangle.png' wx:if="{{storeSet.skin==0}}"></image>
+				<image src='../../resource/images/storeHead/titleLine.png' wx:if="{{storeSet.skin==1}}"></image>
+				<text class='titleText'>{{storeData.description1==null?"选择服务项目":storeData.description1}}</text>
+			</view>
+			<view id="projects" wx:if="{{vip==1}}">
+				<view wx:for="{{storeData.serviceItems}}" wx:key="key" data-id='{{item.id}}' class=' project {{item.isSelected?"projectSelected":""}}' style='background:{{item.isSelected?main_color:""}}' bindtap='selectProject'>{{item.name}}</view>
+			</view>
+			<view id="projects2" wx:if="{{vip==0}}">
+				<view class='projectArrow' bindtap='projectLeft'>
+					<image src='../../resource/images/storeHead/arrowL.png'></image>
+				</view>
+				<scroll-view scroll-x="true" scroll-into-view="{{toProject}}" scroll-with-animation="true">
+					<view wx:for="{{storeData.serviceItems}}" wx:key="key" wx:for-index="index" id='serv{{index}}' data-index='{{index}}' data-id='{{item.id}}' bindtap='selectProject' class=' project2 {{item.isSelected?"projectSelected":""}}' style='background:{{item.isSelected?main_color:""}};border-color:{{item.isSelected?main_color:""}}'>
+						{{item.name}}
+					</view>
+				</scroll-view>
+				<view class='projectArrow' bindtap='projectRight'>
+					<image src='../../resource/images/storeHead/arrowR.png'></image>
+				</view>
+			</view>
+			<view class='selectInfo' wx:if="{{selectedServices.length!=0}}">
+			<!-- <view class='selectInfo'> -->
+				<view>
+					<text style='flex-shrink:0'>你选择了：</text>
+					<view class='projectlist'>
+						<block wx:for="{{selectedServices}}" wx:for-index = "i" wx:key="key">
+							<!-- <text >{{item.name}}</text> -->
+							<view class="textRed">{{item.name}}</view>
+							<text wx:if="{{i!=selectedServices.length-1}}">，</text>
+						</block>
+					</view>
+				</view>
+				<view>
+					<text>服务共用时：</text>
+					<text class='textRed'>{{serviceTime}}</text>
+					<text class='textBlack' style='margin-right:38rpx'>小时</text>
+					<block wx:if="{{0}}">
+					<!-- <block wx:if="{{storeSet.deposite==1&&dingjin!=0}}"> 暂时无脑隐藏-->
+						<text>共需订金：</text>
+						<text class='textRed'>{{dingjin}}</text>
+						<text class='textBlack'>元</text>
+						<image src='../../resource/images/storeHead/wenhao.png' bindtap='modalTip' data-id = "dingjin"></image>
+					</block>
+					<block wx:if="{{0}}">
+					<!-- <block wx:if="{{storeSet.fullAmount==1&&totalMoney!=0}}">暂时无脑隐藏-->
+						<text>共需总额：</text>
+						<text class='textRed'>{{totalMoney}}</text>
+						<text class='textBlack'>元</text>
+						<image src='../../resource/images/storeHead/wenhao.png' bindtap='modalTip' data-id = "totalMoney"></image>
+					</block>
+				</view>
+			</view>
+		</view>
+		<view id='selectPeople'>
+			<view class='block_title'>
+				<image src='../../resource/images/storeHead/titleTriangle.png' wx:if="{{storeSet.skin==0}}"></image>
+				<image src='../../resource/images/storeHead/titleLine.png' wx:if="{{storeSet.skin==1}}"></image>
+				<text class='titleText'>{{storeData.description2==null?"选择服务人员":storeData.description2}}</text>
+			</view>
+			<view class='peopleList' wx:if="{{vip==1}}">
+				<view wx:for="{{serviceEmployee}}" wx:key="key" class='people'>
+					<block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
+						<image wx:if="{{item.gender==0&&storeSet.skin == 0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin == 1}}" src="../../resource/images/storeHead/mAble_sBlack.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin == 0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin == 1}}" src="../../resource/images/storeHead/feAble_sBlack.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+					</block>
+					<block wx:if="{{item.isAbled&&item.id==selectPeople}}">
+						<image wx:if="{{item.gender==0&&storeSet.skin==0}}" src="../../resource/images/storeHead/mSelected.png"></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin==1}}" src="../../resource/images/storeHead/mSelected_sBlack.png"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin==0}}" src="../../resource/images/storeHead/feSelected.png"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin==1}}" src="../../resource/images/storeHead/feSelected_sBlack.png"></image>
+					</block>
+					<block wx:if="{{!item.isAbled}}">
+						<image wx:if="{{item.gender==0&&storeSet.skin==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin==1}}" src="../../resource/images/storeHead/mDisable_sBlack.png" bindtap='selectDisablePeople'></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin==0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin==1}}" src="../../resource/images/storeHead/feDisable_sBlack.png" bindtap='selectDisablePeople'></image>
+					</block>
+					<text class='{{item.id==selectPeople?"selectName":"name"}}' style='text-align:center'>{{item.name}}</text>
+				</view>
+				<!-- <view wx:if="{{rest}}" >注意：此人今日休假</view> -->
+			</view>
+			<view class='peopleList2' wx:if="{{vip==0}}">
+				<view class='peopleArrow' bindtap='peopleLeft'>
+					<image src='../../resource/images/storeHead/arrowL.png'></image>
+				</view>
+				<scroll-view scroll-x="true" scroll-into-view="{{toPeople}}" scroll-with-animation="true" >
+					<view wx:for="{{serviceEmployee}}" wx:key="key" class='people' wx:for-index="index" id='peo{{index}}' data-index='{{index}}'>
+						<block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
+							<image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}'  bindtap="selectPeople"></image>
+							<image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+						</block>
+						<block wx:if="{{item.isAbled&&item.id==selectPeople}}">
+							<image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mSelected.png"></image>
+							<image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feSelected.png"></image>
+						</block>
+						<block wx:if="{{!item.isAbled}}">
+							<image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
+							<image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
+						</block>
+						<text class='{{item.id==selectPeople?"selectName":"name"}}' style='max-width:100rpx;white-space:normal;'>{{item.name}}</text>
+					</view>
+				</scroll-view>
+				<view class='peopleArrow' bindtap='peopleRight'>
+					<image src='../../resource/images/storeHead/arrowR.png'></image>
+				</view>
+			</view>
+		</view>
+		<view id='selectTime' data-sp="{{selectPeople}}" style='{{hourBlock.length==0?"padding-bottom:80rpx":""}}'>
+			<view class='block_title'>
+				<image src='../../resource/images/storeHead/titleTriangle.png' wx:if="{{storeSet.skin==0}}"></image>
+				<image src='../../resource/images/storeHead/titleLine.png' wx:if="{{storeSet.skin==1}}"></image>
+				<text class='titleText'>选择服务时间</text>
+			</view>
+			<view class='slideDate'>
+				<scroll-view scroll-x="true" scroll-into-view="{{toDate}}" scroll-with-animation="true">
+					<view wx:for="{{peopleActivityDay}}" wx:key="key" class='date {{item.id==selectDay?"dateSelected":""}}' id="i{{item.id}}" data-timeid = "{{item.id}}" bindtap='selectDay'>
+						<text>{{item.week}}</text>
+						<text>{{item.date}}</text>
+					</view>
+				</scroll-view>
+				<image class='rightCalendar' src="../../resource/images/storeHead/calendar.png" bindtap='rightCalendar' wx:if="{{storeSet.skin==0}}"></image>
+				<image class='rightCalendar' src="../../resource/images/storeHead/calendar_sBlack.png" bindtap='rightCalendar' wx:if="{{storeSet.skin==1}}"></image>
+			</view>
+			<view class='selectHour' bindtap='hourTip'>
+			<!-- {{item.useless==0?"timeUnable":""}} -->
+				<view wx:for="{{hoursArr}}" wx:key="key" class='time {{item.use==0?"timeUnable":""}} {{item.selected==1?"timeSelect":""}}' data-hour="{{item.time}}" data-index="{{index}}" data-use="{{item.use}}" data-selected="{{item.selected}}" bindtap='{{item.use==1?"selectHour":""}}'>{{item.time}}</view>
+				<view class='time fillTimeBlock' wx:if="{{hoursArr.length%4<=1}}">00:00</view>
+				<view class='time fillTimeBlock' wx:if="{{hoursArr.length%4<=2}}">00:00</view>
+				<view class='time fillTimeBlock' wx:if="{{hoursArr.length%4<=3}}">00:00</view>
+			</view> 
+		</view>
+		<!-- 要渲染，避免闪条 -->
+		<view id='selectOther' wx:if="{{(hourBlock.length!=0)&&otherShow}}">
+			<view class='form'>
+				<block wx:if="{{storeSet.firstvisit==1}}">
+					<view class='formBorder'></view>
+					<view bindtap='firstArrivalCheck' wx:if="{{storeSet.firstvisit==1}}">
+						<text>第一次到店</text>
+						<image wx:if="{{storeSet.skin==0}}" class="checkbox" src="{{firstArrival?'../../resource/images/storeHead/checkGou.png':'../../resource/images/storeHead/unCheckGou.png'}}" ></image>
+						<image wx:if="{{storeSet.skin==1}}" class="checkbox" src="{{firstArrival?'../../resource/images/storeHead/checkGou_sBlack.png':'../../resource/images/storeHead/unCheckGou_sBlack.png'}}" ></image>
+					</view>
+				</block>
+				<block wx:if="{{storeSet.reservationHelp==1}}">
+					<view class='formBorder'></view>
+					<view  bindtap='orderForOther' wx:if="{{storeSet.reservationHelp==1}}">
+						<text>帮别人预定</text>
+						<view>
+							<text wx:if="{{orderForOther}}" style='margin-right:50rpx'>{{otherName?otherName:""}}</text>
+							<image wx:if="{{storeSet.skin==0}}" class="checkbox" src="{{orderForOther?'../../resource/images/storeHead/checkGou.png':'../../resource/images/storeHead/unCheckGou.png'}}" ></image>
+						<image wx:if="{{storeSet.skin==1}}" class="checkbox" src="{{orderForOther?'../../resource/images/storeHead/checkGou_sBlack.png':'../../resource/images/storeHead/unCheckGou_sBlack.png'}}" ></image>
+						</view>
+					</view>
+				</block>
+				<!-- <view wx:if="{{storeSet.birthday}}"> -->
+				<block  wx:if="{{vip==1&&storeSet.birthday==1}}">
+					<view class='formBorder'></view>
+					<view>
+						<view>出生日期 </view>
+						<picker mode="date" value="{{birth}}" start="1900-01-01" end="2018-10-23" bindchange="bindBirthChange">
+							<view class="picker">
+							{{birth}}
+							<!-- 0000-00-00 -->
+							</view>
+						</picker>
+					</view>
+				</block>
+				<block  wx:if="{{vip==1&&storeSet.nameswitch==1}}">
+					<view class='formBorder'></view>
+					<view>
+						<view style="min-width:60rpx">姓名</view>
+						<input style='margin-right:63rpx' value='{{peopleName}}' bindinput='inputPeopleName' style='text-align:right'></input>
+					</view>
+				</block>
+				<block  wx:if="{{vip==1&&storeSet.seatmachineswitch==1}}">
+					<view class='formBorder'></view>
+					<view>
+						<text>座机</text>
+						<input type='number' style='text-align:right' value='{{zuoTel==null?"暂无":zuoTel}}' bindinput='inputZuoTel'></input>
+					</view>
+				</block>
+				
+			</view>
+		</view>
 
-	<!-- <view wx:if="{{hourBlock.length!=0}}">
-		<input focus="{{TAfocus}}" bindfocus='pulldown'></input>
-	</view> -->
-  <!-- 要渲染，避免闪条 -->
-  <view id='tip' wx:if="{{hourBlock.length!=0}}">
-    <view class='block_title'>
-        <image src='../../resource/images/storeHead/titleTriangle.png'></image>
-        <text class='titleText'>备注信息</text>
-    </view>
-    <!-- <textarea class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' show-confirm-bar="false" value='{{beizhu}}' bindinput='inputTip' cursor-spacing='120' wx:if="{{1}}" bindblur="blurTA"  cursor-spacing="50rpx">
-    </textarea> -->
-		<!-- <view wx:if="{{1}}" class='simTextarea' bindtap='cliSimTA'>{{beizhu}}</view> -->
+		<!-- <view wx:if="{{hourBlock.length!=0}}">
+			<input focus="{{TAfocus}}" bindfocus='pulldown'></input>
+		</view> -->
+		<!-- 要渲染，避免闪条 -->
+		<view id='tip' wx:if="{{hourBlock.length!=0}}">
+			<view class='block_title'>
+					<image src='../../resource/images/storeHead/titleTriangle.png' wx:if="{{storeSet.skin==0}}"></image>
+				<image src='../../resource/images/storeHead/titleLine.png' wx:if="{{storeSet.skin==1}}"></image>
+					<text class='titleText'>备注信息</text>
+			</view>
+			<!-- <textarea class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' show-confirm-bar="false" value='{{beizhu}}' bindinput='inputTip' cursor-spacing='120' wx:if="{{1}}" bindblur="blurTA"  cursor-spacing="50rpx">
+			</textarea> -->
+			<!-- <view wx:if="{{1}}" class='simTextarea' bindtap='cliSimTA'>{{beizhu}}</view> -->
 
-    <input class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip' show-confirm-bar="false" cursor-spacing="50rpx" ></input>
-  </view>
-	<!-- <view wx:if="{{hourBlock.length!=0}}">
-		<input focus="true" style='height:0;width:0' cursor-spacing="50rpx"></input>
-	</view> -->
-  <!-- 要渲染，避免闪条 -->
-  <view id="submit" wx:if="{{hourBlock.length!=0}}">
-    <view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
-  </view>
-  
-  <view class='modal' wx:if="{{modal_calendar_show}}">
-    <view class='modal_back' bindtap='modalBack'></view>
-    <calendar class="modal_calendar" id="calendar"	currentYear="{{currentYear}}"	currentMonth="{{currentMonth}}"	bindsendObj='getCalendarData'	disabledDay = "{{disabledDay}}"  selectDay = "{{selectDay}}" peopleActivityDay="{{peopleActivityDay}}"  bind:myevent="onMyEvent" bind:selectRestDay="selectRestDay">
-    </calendar>
-  </view>
-  <view class='modal modal_tip_out' wx:if="{{modal_tip_show}}" >
-    <view class='modal_tip'>
-      <text class='modal_title'>{{modal_tip_title}}</text>
-      <view class='modal_content' >
-        <view wx:for="{{modal_tip_content}}" wx:key="key">{{item}}</view>
-      </view>
-      <view class='modal_btn' bindtap='modalTip' data-id='fwfysm'>我知道了</view>
-    </view>
-  </view>
-  <view class='modal'  wx:if="{{modal_orderOther}}">
-  
-    <view class='modal_tip'>
-      <form class='khxx' >
-        <view class='modal_title'>客户信息</view>
-        <view class='selectSex' bindtap='modal_sex'>
-          <view>
-            <text>男</text>
-            <image class='checkbox' src='{{otherSex==0?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
-          </view>
-          <view>
-            <text>女</text>
-            <image class='checkbox' src='{{otherSex==1?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
-          </view>
-        </view>
-        <input name="name" placeholder='请输入姓名' value='{{otherName}}' bindinput='typeOtherName'/>
-        <view class='orderForOther_histroy'>
-          <view class='modal_title'>历史纪录</view>
-          <view class='modal_title2'>(便于快速选择)</view>
-          <scroll-view class='borderForm' scroll-y="true">
-            <view  wx:for="{{history}}" wx:key="{{key}}" bindtap='selectForOther'  data-name = "{{item.name}}" data-sex = "{{item.gender}}" class="historyOne">
-              <text>{{item.name}}</text>
-              <image class="checkbox"  src='{{item.name==otherName&&item.gender==otherSex?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
-            </view>
-          </scroll-view>
-        </view>
-        <view class='modal_btns'>
-          <view bindtap='closeModal_orderOther'>取消</view>
-          <view bindtap="formSubmit">确定</view>
-        </view>
-      </form>
-    </view>
-  </view>
-  <view  class='modal' wx:if="{{modal_confirm}}">
-    <view class='modal_tip'>
-      <view class='modal_title'>确认提交</view>
-      <view class="conf_content">
-        <view>
-          <view class='sub'>店　　家：</view>
-          <view>{{storeData.name}}</view>
-        </view>
-        <view>
-          <view class='sub'>服务人员：</view>
-          <view>{{selectPeopleStr}}</view>
-        </view>
-        <view>
-          <view class='sub' >服务项目：</view>
-          <view  wx:for="{{selectedServices}}" wx:for-index="index" wx:key="{{key}}" >{{index==0?"":"、"}}{{item.name}}</view>
-        </view>
-        <view>
-          <view class='sub'>服务时间：</view>
-          <view >{{selectDay}} {{hourBlock[0]}}-{{factEndHour}}</view>
-        </view>
-        <view wx:if="{{storeSet.seposit==1}}">
-          <view class='sub'>共需订金：</view>
-          <view>{{dingjin}}</view>
-        </view>
-      </view>
-      <view class='tip'>该商家有权经双方协商后取消此笔订单</view>
-      <view class='modal_btns'>
-        <view bindtap='closeModal_confirm'>返回</view>
-        <view bindtap='confirm_orderOther' >确定</view>
-      </view>
-    </view>
-      
-  </view>
-  <view class="modal shortInfo" wx:if="{{shortInfoShow}}" >
-    <view class='modalTip'>
-      <view class="modalTipText">{{shortInfo}}</view>
-      <view class='btn' bindtap='shortInfoClose'>确定</view>
-    </view>
-  </view>
+			<input class='inputtext' placeholder='请填写备注' placeholder-class='textareaPlaceholder' value='{{beizhu}}' bindinput='inputTip' show-confirm-bar="false" cursor-spacing="50rpx" ></input>
+		</view>
+		<!-- <view wx:if="{{hourBlock.length!=0}}">
+			<input focus="true" style='height:0;width:0' cursor-spacing="50rpx"></input>
+		</view> -->
+		<!-- 要渲染，避免闪条 -->
+		<view id="submit" wx:if="{{hourBlock.length!=0}}">
+			<view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
+		</view>
+		
+		<view class='modal' wx:if="{{modal_calendar_show}}">
+			<view class='modal_back' bindtap='modalBack'></view>
+			<calendar class="modal_calendar" id="calendar" skin="{{storeSet.skin}}"	currentYear="{{currentYear}}"	currentMonth="{{currentMonth}}"	bindsendObj='getCalendarData'	disabledDay = "{{disabledDay}}"  selectDay = "{{selectDay}}" peopleActivityDay="{{peopleActivityDay}}"  bind:myevent="onMyEvent" bind:selectRestDay="selectRestDay">
+			</calendar>
+		</view>
+		<!-- <view class='modal modal_tip_out' wx:if="{{modal_tip_show}}" >
+			<view class='modal_tip'>
+				<text class='modal_title'>{{modal_tip_title}}</text>
+				<view class='modal_content' >
+					<view wx:for="{{modal_tip_content}}" wx:key="key">{{item}}</view>
+				</view>
+				<view class='modal_btn' bindtap='modalTip' data-id='fwfysm'>我知道了</view>
+			</view>
+		</view> -->
+		<!-- 帮他人 -->
+		<view class='modal'  wx:if="{{modal_orderOther}}">
+			<view class='modal_tip'>
+				<form class='khxx' >
+					<view class='modal_title'>客户信息</view>
+					<view class='selectSex' bindtap='modal_sex'>
+						<view>
+							<text>男</text>
+							<image wx:if="{{storeSet.skin==0}}" class='checkbox' src='{{otherSex==0?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
+							<image wx:if="{{storeSet.skin==1}}" class='checkbox' src='{{otherSex==0?"../../resource/images/storeHead/checkGou_sBlack.png":"../../resource/images/storeHead/unCheckGou_sBlack.png"}}'></image>
+						</view>
+						<view>
+							<text>女</text>
+							<image wx:if="{{storeSet.skin==0}}" class='checkbox' src='{{otherSex==1?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
+							<image wx:if="{{storeSet.skin==1}}" class='checkbox' src='{{otherSex==1?"../../resource/images/storeHead/checkGou_sBlack.png":"../../resource/images/storeHead/unCheckGou_sBlack.png"}}'></image>
+						</view>
+					</view>
+					<input name="name" placeholder='请输入姓名' value='{{otherName}}' bindinput='typeOtherName'/>
+					<view class='orderForOther_histroy'>
+						<view class='modal_title'>历史纪录</view>
+						<view class='modal_title2'>(便于快速选择)</view>
+						<scroll-view class='borderForm' scroll-y="true">
+							<view  wx:for="{{history}}" wx:key="{{key}}" bindtap='selectForOther'  data-name = "{{item.name}}" data-sex = "{{item.gender}}" class="historyOne">
+								<text>{{item.name}}</text>
+								<image wx:if="{{storeSet.skin==0}}" class='checkbox' src='{{item.name==otherName&&item.gender==otherSex?"../../resource/images/storeHead/checkGou.png":"../../resource/images/storeHead/unCheckGou.png"}}'></image>
+							<image wx:if="{{storeSet.skin==1}}" class='checkbox' src='{{item.name==otherName&&item.gender==otherSex?"../../resource/images/storeHead/checkGou_sBlack.png":"../../resource/images/storeHead/unCheckGou_sBlack.png"}}'></image>
+							</view>
+						</scroll-view>
+					</view>
+					<view class='modal_btns'>
+						<view bindtap='closeModal_orderOther'>取消</view>
+						<view bindtap="formSubmit">确定</view>
+					</view>
+				</form>
+			</view>
+		</view>
+		<!-- <view  class='modal' wx:if="{{modal_confirm}}">
+			<view class='modal_tip'>
+				<view class='modal_title'>确认提交</view>
+				<view class="conf_content">
+					<view>
+						<view class='sub'>店　　家：</view>
+						<view>{{storeData.name}}</view>
+					</view>
+					<view>
+						<view class='sub'>服务人员：</view>
+						<view>{{selectPeopleStr}}</view>
+					</view>
+					<view>
+						<view class='sub' >服务项目：</view>
+						<view  wx:for="{{selectedServices}}" wx:for-index="index" wx:key="{{key}}" >{{index==0?"":"、"}}{{item.name}}</view>
+					</view>
+					<view>
+						<view class='sub'>服务时间：</view>
+						<view >{{selectDay}} {{hourBlock[0]}}-{{factEndHour}}</view>
+					</view>
+					<view wx:if="{{storeSet.seposit==1}}">
+						<view class='sub'>共需订金：</view>
+						<view>{{dingjin}}</view>
+					</view>
+				</view>
+				<view class='tip'>该商家有权经双方协商后取消此笔订单</view>
+				<view class='modal_btns'>
+					<view bindtap='closeModal_confirm'>返回</view>
+					<view bindtap='confirm_orderOther' >确定</view>
+				</view>
+			</view>
+				
+		</view> -->
 
-  <view class='modal orderClash' wx:if="{{orderClashShow}}">
-    <!-- <view class='modal orderClash' wx:if="1"> -->
-    <view class='modalTip'>
-      <view>预约产品冲突</view>  
-      <view>此时间段您已经在【{{orderClash}}】有过预约，请选择其他时间</view>
-      <view>若仍想预约此时段，请先到会员首页取消该笔订单</view>
-      <view class="modal_btns">
-        <view bindtap='gotoIndex'>去取消之前订单</view>
-        <view bindtap='orderClashClose'>确定</view>
-      </view>
-    </view>
-  </view>
-  <view class='modal lessOne' wx:if="{{lessOneShow}}">
-    <view class='modalTip'>
-      <view>距离服务开始不满一小时了，此笔订单无法取消，确定继续预约该服务吗？</view>
-      <view class="modal_btns">
-        <view bindtap='lessOneClose'>我再想想</view>
-        <view bindtap='lessOneConti'>继续预约</view>
-      </view>
-    </view>
-  </view>
+		<view class="modal shortInfo" wx:if="{{shortInfoShow}}" >
+			<view class='modalTip'>
+				<view class="modalTipText">{{shortInfo}}</view>
+				<view class='btn' bindtap='shortInfoClose'>确定</view>
+			</view>
+		</view>
 
-  <view class='modal lessOne' wx:if="{{selfClanShow}}">
-  <!-- <view class='modal lessOne' wx:if="1"> -->
-    <view class='modalTip'>
-      <view>您的预约与【私人预约】冲突，是否确定继续预约？</view>
-      <view class="modal_btns">
-        <view bindtap='selfClanclose'>我再想想</view>
-        <view bindtap='selfConti'>继续预约</view>
-      </view>
-    </view>
-  </view>
-</view>
+		<!-- <view class='modal orderClash' wx:if="{{orderClashShow}}"> -->
+			<!-- <view class='modal orderClash' wx:if="1"> -->
+			<!-- <view class='modalTip'>
+				<view>预约产品冲突</view>  
+				<view>此时间段您已经在【{{orderClash}}】有过预约，请选择其他时间</view>
+				<view>若仍想预约此时段，请先到会员首页取消该笔订单</view>
+				<view class="modal_btns">
+					<view bindtap='gotoIndex'>去取消之前订单</view>
+					<view bindtap='orderClashClose'>确定</view>
+				</view>
+			</view>
+		</view> -->
+		<!-- <view class='modal lessOne' wx:if="{{lessOneShow}}">
+			<view class='modalTip'>
+				<view>距离服务开始不满一小时了，此笔订单无法取消，确定继续预约该服务吗？</view>
+				<view class="modal_btns">
+					<view bindtap='lessOneClose'>我再想想</view>
+					<view bindtap='lessOneConti'>继续预约</view>
+				</view>
+			</view>
+		</view> -->
+
+		<!-- <view class='modal lessOne' wx:if="{{selfClanShow}}">
+			<view class='modalTip'>
+				<view>您的预约与【私人预约】冲突，是否确定继续预约？</view>
+				<view class="modal_btns">
+					<view bindtap='selfClanclose'>我再想想</view>
+					<view bindtap='selfConti'>继续预约</view>
+				</view>
+			</view>
+		</view> -->
+	</view>
+	
+	<dialog 	modalData = "{{modalData}}" skin = "{{storeSet.skin}}"	bind:closeModal="closeModal"	bind:modalAction="modalAction"	wx:if="{{modalShow}}"></dialog>
 </scroll-view>
-<!-- </view> -->
 
+<!-- 防止加载闪到中间 -->
 <view class='bottomTip' bindtap='gotoV' wx-if="{{hourBlock.length!=0}}">
-    <image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>
-  </view>
+	<image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>
+</view>

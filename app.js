@@ -2,7 +2,7 @@
 App({
   onLaunch: function(options) {
     console.log('onLaunch');
-    console.log(options);
+    console.log(options);	
     
     var that = this;
 

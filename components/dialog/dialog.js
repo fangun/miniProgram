@@ -1,10 +1,9 @@
 // components/dialog/dialog.js
 /*
 *modalData
-	1 mainColor默认rgb(243, 67, 67)
 	2 header
 		2.1 title:object	标题
-				2.1.1 text:string 提示框的标题（必要）
+				2.1.1 text:string 提示框的标题
 				2.1.2 border_b:int 0/1 提示框的标题 下方 是否有横隔线
 		2.2 headImageSrc:string 头像的地址
 		2.3 headName:string 头像的名字
@@ -33,28 +32,54 @@ Component({
   properties: {
     modalData: { // 属性名
       type: Object,  
-      value: {},
+      value: {
+				"header": {
+					"title": { "text": "标题尚未填写", "border-b": "0" }
+				},
+				"list":[],
+				//"text":[],
+				"listEntryColor": "rgb(152,152,152)",
+				"btns":[]
+
+			},
       observer: function (newVal, oldVal, changedPath) {
 				if(newVal.header!=undefined){
 					let modalData = newVal;
 
 					//1.处理不足四个字的 项目名称
-					for (let i = 0; i < modalData.list.length; i++) {
-						if (modalData.list[i].entry.length != 4) {
-							let newText = modalData.list[i].entry;
-							let newTextArr = newText.split("");
-							newText = newTextArr[0] + "　　" + newTextArr[1];
-							modalData.list[i].entry = newText;
+					if (modalData.list!=undefined){
+						for (let i = 0; i < modalData.list.length; i++) {
+							if (modalData.list[i].entry.length != 4) {
+								let newText = modalData.list[i].entry;
+								let newTextArr = newText.split("");
+								newText = newTextArr[0] + "　　" + newTextArr[1];
+								modalData.list[i].entry = newText;
+							}
 						}
+					}
+					
+
+					//2.默认颜色
+					if(modalData.mainColor==undefined || modalData.mainColor == ""){
+						modalData.mainColor = "rgb(243, 67, 67)"
 					}
 
 					
 					this.setData({
 						modalData: modalData
 					})
+					console.log("zujian_modalData");
+					console.log(this.data.modalData)
 				}
       }
-    }
+    },
+		skin:{
+			type:String,
+			value:"0",
+			observer: function (newVal, oldVal, changedPath){
+				console.log("skin:"+ newVal)
+			}
+		}
   },
 
 	//灰字24rpx
@@ -63,10 +88,23 @@ Component({
    * 组件的初始数据
    */
   data: {
+		skin:""
   },
 
 	ready(){
-
+			console.log(this.data.skin)
+			switch (this.data.skin) {
+				case "0":
+				this.setData({
+					"skin":"sRed"
+				})
+					break;
+				case "1":
+					this.setData({
+						"skin": "sBlack"
+					})
+					break;
+			}
 	},
 
   /**

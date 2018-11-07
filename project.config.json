@@ -31,7 +31,15 @@
 		},
 		"miniprogram": {
 			"current": 0,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "扫二维码",
+					"pathName": "pages/storeHead/index",
+					"query": "id=erweimaid",
+					"scene": "1011"
+				}
+			]
 		}
 	}
 }

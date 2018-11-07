@@ -4,6 +4,13 @@ Component({
      * 组件的属性列表
      */
 	properties: {
+		skin: {
+			type: String,
+			value: "0",
+			observer: function (newVal, oldVal, changedPath) {
+				console.log("日历skin:" + newVal)
+			}
+		},
 
 		currentYear: { // 当前显示的年
 			type: Number,
@@ -67,9 +74,25 @@ Component({
     yearmonthStart:0,
     yearmonthEnd:0,
     preShow:true,
-    nextShow:true
+    nextShow:true,
+
+		skin: ""
 	},
 	ready(){
+		console.log(this.data.skin)
+		switch (this.data.skin) {
+			case "0":
+				this.setData({
+					"skin": "sRed"
+				})
+				break;
+			case "1":
+				this.setData({
+					"skin": "sBlack"
+				})
+				break;
+		}
+
 		this.getAllArr();
 
     // this.gotoNextMonth();
