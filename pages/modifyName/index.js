@@ -4,10 +4,12 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle: '修改姓名'
+    pageTitle: '修改姓名',
+    modifyName:true
   },
 
   modifyName: function (e) {
+    var that = this;
     var inputName = e.detail.value.name;
 
     if (inputName == '') {
@@ -17,6 +19,10 @@ Page({
         confirmText: '确定'
       })
     } else {
+
+      that.setData({
+        modifyName: false
+      });
 
       wx.request({
         url: 'https://api.yuyue58.cn/api/editMemberMessage',
@@ -41,11 +47,14 @@ Page({
               }, 1600);
             }
           });
-
         },
+        
         fail() {
           wx.showToast({
             title: '修改失败'
+          });
+          that.setData({
+            modifyName: true
           });
         }
       });

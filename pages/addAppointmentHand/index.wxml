@@ -1,8 +1,8 @@
 <!--index.wxml-->
-<form class="container" bindsubmit="addAppointment">
+<form class="container" bindsubmit="{{modState ? 'modAppointment' : 'addAppointment'}}">
   <view class="pageTitle">{{pageTitle}}</view>
 
-    <textarea class="programInput" name="serviceitem" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;"></textarea>
+    <textarea class="programInput" name="serviceitem" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;" value="{{serviceitem}}"></textarea>
 
     <!-- 快捷标签 -->
     <!-- <view class="box">
@@ -22,23 +22,24 @@
     <!-- 起止日期 -->
     <view class="timeItem" >
       <view>时间</view>
+
       <view>
         <picker mode="date" name="date" value="{{date}}" start="{{curDate}}" end="2030-01-01" bindchange="bindDateChange">
-            <view>
+            <view style="color:{{date !== '日期' ? '#333' : ''}}">
               {{date}}
             </view>
         </picker>
       </view>
       <view>
         <picker mode="selector" name="time1" range="{{time1Array}}" value="{{time1}}" bindchange="bindTimeChange1">
-            <view>
+            <view style="color:{{time1 !== '开始' ? '#333' : ''}}">
               {{time1}}
             </view>
         </picker>
       </view>
       <view>
         <picker mode="selector" name="time2" range="{{time2Array}}" value="{{time2}}" bindchange="bindTimeChange2">
-            <view>
+            <view style="color:{{time2 !== '结束' ? '#333' : ''}}">
               {{time2}}
             </view>
         </picker>
@@ -50,7 +51,7 @@
         <view class="bbox">
           <view class="bitem xt">
             <view>
-              <input class="grayStyle" name="empolyee" type="text" placeholder="参与人员  (选填)"> </input>
+              <input class="grayStyle" name="empolyee" type="text" value="{{empolyee}}" placeholder="参与人员  (选填)"> </input>
             </view>
             <view></view>
             <view></view>
@@ -58,7 +59,7 @@
 
           <view class="bitem xt">
             <view>
-              <input class="grayStyle" name="address" type="text" placeholder="添加地址  (选填)"></input>
+              <input class="grayStyle" name="address" type="text" value="{{address}}" placeholder="添加地址  (选填)"></input>
             </view>
             <view></view>
             <view><image class="foldIcon location" src="../../resource/images/common/location3a.png"/></view>
@@ -66,7 +67,7 @@
         </view>
 
         <block wx:if="{{remarkState}}">
-            <textarea class="programInput" name="remarks" placeholder="添加备注" auto-height style="min-height: 140rpx;margin-top:30rpx;"></textarea>
+            <textarea class="programInput" name="remarks" value="{{remarks}}" placeholder="添加备注" auto-height style="min-height: 140rpx;margin-top:30rpx;"></textarea>
         </block>
     </view>
 
@@ -86,5 +87,5 @@
       <image src="../../resource/images/common/voice3.png" />
     </view>
 
-    <button class='addSure' form-type="submit">确定添加</button>
+    <button class="addSure {{addSure ? '' : 'disableClick'}}"  form-type="submit">{{modState ? '确定修改' : '确定添加'}}</button>
 </form>

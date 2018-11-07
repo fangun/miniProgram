@@ -1,18 +1,16 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
     <image class="logo" src="../../resource/images/authorizeEntrance/logo3.png" />
-
     <form class="loginForm" bindsubmit="loginFormSubmit">
         <view class="item">
-             <view class="icon">
-                 <image src="../../resource/images/accountLogin/tel3.png" />
-             </view>
-              <view class="inputText">
-                  <input type="number" name="tel" placeholder="请输入手机号码" />
-              </view>
-              <view></view>
+            <view class="icon">
+                <image src="../../resource/images/accountLogin/tel3.png" />
+            </view>
+            <view class="inputText">
+                <input type="number" name="tel" placeholder="请输入手机号码" />
+            </view>
+            <view></view>
         </view>
-
         <view class="item">
             <view class="icon">
                 <image src="../../resource/images/accountLogin/password3.png" />
@@ -21,20 +19,16 @@
                 <input password="{{switchShow}}" name="password" placeholder="请输入密码" />
             </view>
             <view class="other" bindtap="switchShow">
-                <image src="{{switchShow ? '../../resource/images/accountLogin/hide3.png' : '../../resource/images/accountLogin/show3.png' }}"/>
+                <image src="{{switchShow ? '../../resource/images/accountLogin/hide3.png' : '../../resource/images/accountLogin/show3.png' }}" />
             </view>
         </view>
-        
         <view class="fnlist">
             <view class="reqister"></view>
             <view class="forgetPassword" bindtap="forgetPassword">忘记密码</view>
         </view>
-
         <view class="box">
             <view class="freeOpen" bindtap="freeOpen">免费开通</view>
-
-            <button class="login" formType="submit">登录</button>
+            <button class="login {{login ? '' : 'disableClick'}}" formType="submit">登录</button>
         </view>
-
     </form>
 </view>

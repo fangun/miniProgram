@@ -40,19 +40,25 @@ Page({
     compeletingModal: false,
     compeletedModal: false,
     chooseModal: false,
-    compeletingDeleteModal:false,
-    
+    compeletingDeleteModal: false,
+
     orderId: null,
     compeletingModalData: null,
     compeletedModalData: null,
 
     hotDeleteModal: false,
 
+    depositModal: false,
+    fullAmountModal: false,
+    moneyModalBelong: null,
+
+
     hotDeletePar: {
       mid: null,
       sid: null
     },
-    loginState: true
+    loginState: true,
+    compeletingSelfModal:false
   },
 
   // =================
@@ -81,6 +87,7 @@ Page({
         });
       }
     });
+
   },
 
   // 删去经常访问的店家
@@ -121,8 +128,8 @@ Page({
     }, function (res) {
       if (typeof res.data == 'object') {
         var cData = complete.completing(res.data);
-        
-        res.data.forEach(function(x,y){
+
+        res.data.forEach(function (x, y) {
           x.time = x.time.slice(0, x.time.indexOf(" "));
           x.time1 = cData.timeArray[y];
         });
@@ -151,7 +158,6 @@ Page({
       ID: app.globalData.peopleInfo.mid
     }, function (res) {
       if (typeof res.data == 'object') {
-
         res.data.sd.forEach(function (x, y, z) {
           x.show = y == 0 ? true : false;
           x.data = y == 0 ? true : false;
@@ -166,7 +172,7 @@ Page({
           var rq2 = t3[1] + '-' + t3[2];
 
           x.time = rq;
-          x.time2  = rq2;
+          x.time2 = rq2;
           x.time1 = time;
         });
 
@@ -235,7 +241,7 @@ Page({
         completedData.list[seq] = res.data.hc;
         completedData.sd[seq].data = true;
 
-        
+
         that.setData({
           completedData: completedData
         });
@@ -263,7 +269,7 @@ Page({
           duration: 1200,
           success: function (e) {
             that.setData({
-              compeletingDeleteModal:false,
+              compeletingDeleteModal: false,
               compeletingModal: false
             });
           }
@@ -294,6 +300,15 @@ Page({
           }
         });
       }
+    });
+  },
+
+  // 修改私人预约
+  compeletingSelfModalMod:function(e){
+    var item = e.currentTarget.dataset.item;
+    console.log(item)
+    wx.redirectTo({
+      url: `../addAppointmentHand/index?id=${item.id}&serviceitem=${item.serviceitem}&rq=${item.time}&time=${item.time1}&empolyee=${item.empolyee}&saddress=${item.saddress}&remarks=${item.remarks}`
     });
   },
 
@@ -371,7 +386,7 @@ Page({
     })
   },
 
-  compeletingDeleteModalClose:function(e){
+  compeletingDeleteModalClose: function (e) {
     this.setData({
       compeletingDeleteModal: false
     })
@@ -395,6 +410,20 @@ Page({
     this.setData({
       compeletedModal: true,
       compeletedModalData: compeletedModalData
+    })
+  },
+
+  compeletingSelfModalShow: function (e) {
+    var compeletingModalData = e.currentTarget.dataset.item;
+    this.setData({
+      compeletingSelfModal: true,
+      compeletingModalData: compeletingModalData
+    })
+  },
+
+  compeletingSelfModalClose:function(e){
+    this.setData({
+      compeletingSelfModal: false
     })
   },
 
@@ -429,6 +458,36 @@ Page({
     });
 
     this.getCompletedData();
+  },
+
+  // 订金 全额 弹出框显示
+  moneyModalShow: function (e) {
+    var item = e.currentTarget.dataset.item;
+    if (item.deposit) {
+      this.setData({
+        depositModal: true,
+        moneyModalBelong: 'depositModal'
+      })
+    } else if (item.fullAmount) {
+      this.setData({
+        fullAmountModal: true,
+        moneyModalBelong: 'fullAmountModal'
+      })
+    }
+  },
+
+  moneyModalClose: function () {
+    var belong = this.data.moneyModalBelong;
+
+    if (belong == 'depositModal') {
+      this.setData({
+        depositModal: false
+      })
+    } else {
+      this.setData({
+        fullAmountModal: false
+      })
+    }
   },
 
   // =================
@@ -490,7 +549,8 @@ Page({
           //最后一个%3d 后面的，应该是sid, 32位
           let sid = urlArr[urlArr.length - 1];
           if (sid.length == 32) {
-            app.globalData.peopleInfo.sid = sid
+            app.globalData.peopleInfo.sid = sid;
+
             wx.navigateTo({
               url: '../storeHead/index'
             })
@@ -504,6 +564,7 @@ Page({
   forbidBubbling: function () {
     console.log('禁止button冒泡');
   },
+
 
   // 显示提示弹出层
   showChooseModal: function (e) {
@@ -532,8 +593,6 @@ Page({
     })
   },
 
-
-
   // 调用地图
   getMapAddress: function (e) {
     var that = this;
@@ -541,6 +600,7 @@ Page({
     var address = {}; //坐标对象 lat经度 lng维度
 
     that.getMap(location, address);
+
     // wx.getSetting({
     //   success(res) {
     //     var statu = res.authSetting;
@@ -598,8 +658,29 @@ Page({
     }
     return {
       title: res.target.dataset.id,
-      path: 'pages/customEntrance/index',
-      imageUrl: '../../resource/images/common/logo.png'
+      path: 'pages/customEntrance/index?par=xixi&test=haha',
+      imageUrl: '../../resource/images/common/logo.png',
+      success: function (res) {
+        // var shareTickets = res.shareTickets;
+        // if (shareTickets.length == 0) {
+        //     return false;
+        // }
+        // wx.getShareInfo({
+        //     shareTicket: shareTickets[0],
+        //     success: function(res){
+        //         var encryptedData = res.encryptedData;
+        //         var iv = res.iv;
+
+        //         console.log('onShareAppMessage');
+        //         console.log(encryptedData);
+        //         console.log(iv);
+        //     }
+        // })
+      },
+      //## 转发操作失败/取消 后的回调处理，一般是个提示语句即可
+      fail: function () {
+        console.log('转发失败')
+      }
     }
   },
 
@@ -625,9 +706,7 @@ Page({
     }
   },
 
-  onShow: function (options) {
-    console.log('onShow-options');
-    console.log(options);
+  onShow: function () {
     // 登录
     wx.login({
       success: res => {
@@ -639,7 +718,6 @@ Page({
 
   onLoad: function (q) {
     console.log('onLoad');
-    console.log('onLoad-options');
     console.log(q);
     var that = this;
     //判断是用户是否绑定了

@@ -64,7 +64,7 @@
 
 
 .feedback {
-    background-color:rgba(243,67,67,1);
+    background-color:rgb(245, 65, 60);
 
     font-family:PingFangSC-Medium;
     font-size:36rpx;
@@ -77,4 +77,14 @@
     margin-right: 30rpx;
 
     margin-top:43rpx;
+}
+
+.feedback.active {
+    background-color:rgb(221, 9, 4);
+}
+
+.disableClick {
+    pointer-events: none;
+    cursor: default;
+    background-color:rgb(251, 161, 160);
 }

@@ -7,7 +7,8 @@ Page({
     tel: null,
     verCode: false,
     verCodeValue: null,
-    verCodeTime: '获取验证码'
+    verCodeTime: '获取验证码',
+    register: true
   },
 
   // 手机号获取
@@ -100,6 +101,7 @@ Page({
 
   // 注册
   passwordFormSubmit: function (e) {
+    var that = this;
     var tel = e.detail.value.tel;
     var password = e.detail.value.password;
     var passwordCopy = e.detail.value.passwordCopy;
@@ -143,7 +145,9 @@ Page({
         success: function () { }
       });
     } else {
-
+      that.setData({
+        register: false
+      });
       wx.request({
         url: 'https://api.yuyue58.cn/api/memberMessage',
         method: "POST",
@@ -172,7 +176,16 @@ Page({
                       }, 1300);
                     }
                   });
+                } else {
+                  that.setData({
+                    register: true
+                  });
                 }
+              },
+              fail() {
+                that.setData({
+                  register: true
+                });
               }
             });
           }
@@ -207,7 +220,7 @@ Page({
     wx.getStorage({
       key: 'fangun-verCode',
       success: function (res) {
-        if(res.data){
+        if (res.data) {
           var date = new Date();
           var date2 = date.getTime() - parseInt(res.data.time);
           var leave = date2 % (24 * 3600 * 1000);

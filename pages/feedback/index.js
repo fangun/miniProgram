@@ -4,10 +4,12 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle: '意见反馈'
+    pageTitle: '意见反馈',
+    feedback: true
   },
 
   feedback: function(e) {
+    var that = this;
     var Content = e.detail.value.Content;
     var Contact = e.detail.value.Contact;
     if (!Content || Content == '') {
@@ -18,6 +20,9 @@ Page({
             }
           });
     } else {
+      that.setData({
+        feedback: false
+      });
       wx.request({
         url: 'https://api.yuyue58.cn/api/ProblemFeedback',
         method: "POST",
@@ -43,6 +48,11 @@ Page({
                 })
               }, 1600);
             }
+          });
+        },
+        fail(){
+          that.setData({
+            feedback: true
           });
         }
       });

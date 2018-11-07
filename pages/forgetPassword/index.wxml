@@ -55,7 +55,7 @@
             <view class="forgetPassword" bindtap="accountLogin">已有账号,去登陆</view>
         </view>
 
-        <button class="register" formType="submit">修改密码</button>
+        <button class="register {{register ? '' : 'disableClick'}}" formType="submit">修改密码</button>
 
     </form>
 </view>

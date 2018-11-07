@@ -21,13 +21,8 @@ Page({
       { 'src': '../../resource/images/personalDetails/143.png', 'key': 'chead4.png', 'active': false },
       { 'src': '../../resource/images/personalDetails/153.png', 'key': 'chead5.png', 'active': false }
     ],
-    avtarSeq: null
-  },
-
-  modifyAvatar: function () {
-    wx.showToast({
-      title: '修改成功'
-    });
+    avtarSeq: null,
+    modifyAvatar:true
   },
 
   chooseAvatar: function (e) {
@@ -49,35 +44,52 @@ Page({
     var seq = e.currentTarget.dataset.id;
 
     if (seq == null) {
-      wx.showModal({
-        content: '请选择头像',
-        showCancel: false,
-        confirmText: '确定'
+      // wx.showModal({
+      //   content: '请选择头像',
+      //   showCancel: false,
+      //   confirmText: '确定'
+      // })
+      // 返回上一页
+      var pageInn = getCurrentPages();
+      wx.navigateBack({
+        delta: pageInn.length - 1
       })
     } else {
-      wx.request({
-        url: 'https://api.yuyue58.cn/api/editMemberMessage',
-        method: "POST",
-        data: {
-          id: app.globalData.peopleInfo.mid,
-          HeadPhoto: that.data.avatarList[seq].key
-        },
-        header: { "content-type": "application/x-www-form-urlencoded" },
-        success(res) {
-          wx.showToast({
-            title: '修改成功',
-            success: function () {
-              setTimeout(function () {
-                // 返回上一页
-                var pageInn = getCurrentPages();
-                wx.navigateBack({
-                  delta: pageInn.length - 1
-                })
-              }, 1600);
-            }
-          });
-        }
-      });
+      var modifyAvatar = that.data.modifyAvatar;
+      if(modifyAvatar){
+        that.setData({
+          modifyAvatar: false
+        });
+        wx.request({
+          url: 'https://api.yuyue58.cn/api/editMemberMessage',
+          method: "POST",
+          data: {
+            id: app.globalData.peopleInfo.mid,
+            HeadPhoto: that.data.avatarList[seq].key
+          },
+          header: { "content-type": "application/x-www-form-urlencoded" },
+          success(res) {
+            wx.showToast({
+              title: '修改成功',
+              success: function () {
+                setTimeout(function () {
+                  // 返回上一页
+                  var pageInn = getCurrentPages();
+                  wx.navigateBack({
+                    delta: pageInn.length - 1
+                  })
+                }, 1600);
+              }
+            });
+          },
+          fail(){
+            that.setData({
+              modifyAvatar: true
+            });
+          }
+        });
+      }
+
     }
   },
 
