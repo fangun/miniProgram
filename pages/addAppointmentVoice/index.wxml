@@ -8,6 +8,8 @@
     <view class="voiceInput" bindtap="voiceTip">
         <image src="../../resource/images/common/voice3.png" />
     </view>
+
+    <!-- <view bindtap="stop">停止</view> -->
     <!-- 底部导航栏 -->
     <view class="tabtar-box">
         <view class="tabtar-item" bindtap="customPage">

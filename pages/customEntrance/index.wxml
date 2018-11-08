@@ -250,7 +250,7 @@
                                                 <view class="cancel" catchtap="showChooseModal" data-id="{{completingData[item].id}}">
                                                     取消
                                                 </view>
-                                                <button class="share" catchtap="forbidBubbling" open-type="share" data-id="{{completingData[item].serviceitem}}">
+                                                <button class="share" catchtap="forbidBubbling" open-type="share" data-item="{{completingData[item]}}" data-id="{{completingData[item].serviceitem}}">
                                                     分享
                                                 </button>
                                             </view>

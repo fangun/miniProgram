@@ -329,8 +329,10 @@ Page({
 
 	onLoad: function(options) {
 		// 日期初始值
-
-		if (options.serviceitem) {
+		console.log('预约');
+		console.log(options);
+		// 兼容小卡片分享
+		if (options.serviceitem && options.scene !== '1007') {
 			this.setData({
 				modState: true,
 				orderId: options.id,

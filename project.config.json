@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -57,6 +57,20 @@
 						"shareName": "Q06BdAhTdqA-EX4iQ1egtAvyKASVnWHkpX3bTUsJpV4@cr4dev",
 						"shareKey": "3qpMJ-4eNjmVIblc-ZtK4dKLwNnz_Jm2ltBIxgX1cQ0FMc0nEw2zyT5cPCCf9j67QG3eecvuFVu79MBct43mTQ~~"
 					}
+				},
+				{
+					"id": 3,
+					"name": "单人聊天会话中的小程序消息卡片",
+					"pathName": "pages/messageCard/index",
+					"query": "mid=a4b618628dfc466b81f02e8dd5f1dede&scene=1007",
+					"scene": "1007"
+				},
+				{
+					"id": -1,
+					"name": "1001: 发现栏小程序主入口",
+					"pathName": "pages/customEntrance/index",
+					"query": "mid=a4b618628dfc466b81f02e8dd5f1dede&scene=1007",
+					"scene": "1001"
 				}
 			]
 		}
