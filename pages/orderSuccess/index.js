@@ -81,5 +81,9 @@ Page({
     wx.navigateTo({
       url: '../web-view/index'
     })
-  }
+  },
+
+	adv_goto:function(e){
+		
+	}
 })

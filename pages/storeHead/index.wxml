@@ -6,12 +6,15 @@
 		<view class='btn'></view>
 	</view>
 	<view class='topTip {{show == 1?"show":(show == 2?"hide":"")}}'>
-		<image src="../../resource/images/storeHead/topTipMark.png"></image>
+		<image src="../../resource/images/storeHead/topTipMark.png" wx:if="{{storeSet.skin==0}}"></image>
+		<image src="../../resource/images/storeHead/topTipMark_sBlack.png" wx:if="{{storeSet.skin==1}}"></image>
 		<text>{{topTip}}</text>
 	</view>
 </view>
 <scroll-view scroll-y="true" scroll-into-view="{{toblock}}" scroll-with-animation="true" class='{{skin}}'>
-  <view class='modal' wx:if="{{Modal_tryNow}}">
+	<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize" style="display:{{authorizeState ? 'none' : 'block'}}">
+	</button>
+  <view class='modal' wx:if="{{Modal_tryNow}}" style='z-index:20000'>
 		<view class='modal_trynow'>
 			<image src='../../resource/images/storeHead/tryNow.png'></image>
 			<view bindtap='btn_tryNow' style='background:{{main_color}}'>立即预约</view>
@@ -83,7 +86,6 @@
 				</view>
 			</view>
 			<view class='selectInfo' wx:if="{{selectedServices.length!=0}}">
-			<!-- <view class='selectInfo'> -->
 				<view>
 					<text style='flex-shrink:0'>你选择了：</text>
 					<view class='projectlist'>
@@ -115,6 +117,7 @@
 				</view>
 			</view>
 		</view>
+		
 		<view id='selectPeople'>
 			<view class='block_title'>
 				<image src='../../resource/images/storeHead/titleTriangle.png' wx:if="{{storeSet.skin==0}}"></image>
@@ -122,12 +125,12 @@
 				<text class='titleText'>{{storeData.description2==null?"选择服务人员":storeData.description2}}</text>
 			</view>
 			<view class='peopleList' wx:if="{{vip==1}}">
-				<view wx:for="{{serviceEmployee}}" wx:key="key" class='people'>
+				<view wx:for="{{serviceEmployee}}" wx:key="key" class='people' data-disType='{{item.disabledType}}' data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople">
 					<block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
-						<image wx:if="{{item.gender==0&&storeSet.skin == 0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
-						<image wx:if="{{item.gender==0&&storeSet.skin == 1}}" src="../../resource/images/storeHead/mAble_sBlack.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
-						<image wx:if="{{item.gender!=0&&storeSet.skin == 0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
-						<image wx:if="{{item.gender!=0&&storeSet.skin == 1}}" src="../../resource/images/storeHead/feAble_sBlack.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin == 0}}" src="../../resource/images/storeHead/mAble.png"></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin == 1}}" src="../../resource/images/storeHead/mAble_sBlack.png"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin == 0}}" src="../../resource/images/storeHead/feAble.png"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin == 1}}" src="../../resource/images/storeHead/feAble_sBlack.png"></image>
 					</block>
 					<block wx:if="{{item.isAbled&&item.id==selectPeople}}">
 						<image wx:if="{{item.gender==0&&storeSet.skin==0}}" src="../../resource/images/storeHead/mSelected.png"></image>
@@ -136,10 +139,10 @@
 						<image wx:if="{{item.gender!=0&&storeSet.skin==1}}" src="../../resource/images/storeHead/feSelected_sBlack.png"></image>
 					</block>
 					<block wx:if="{{!item.isAbled}}">
-						<image wx:if="{{item.gender==0&&storeSet.skin==0}}" src="../../resource/images/storeHead/mDisable.png" bindtap='selectDisablePeople'></image>
-						<image wx:if="{{item.gender==0&&storeSet.skin==1}}" src="../../resource/images/storeHead/mDisable_sBlack.png" bindtap='selectDisablePeople'></image>
-						<image wx:if="{{item.gender!=0&&storeSet.skin==0}}" src="../../resource/images/storeHead/feDisable.png" bindtap='selectDisablePeople'></image>
-						<image wx:if="{{item.gender!=0&&storeSet.skin==1}}" src="../../resource/images/storeHead/feDisable_sBlack.png" bindtap='selectDisablePeople'></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin==0}}" src="../../resource/images/storeHead/mDisable.png"></image>
+						<image wx:if="{{item.gender==0&&storeSet.skin==1}}" src="../../resource/images/storeHead/mDisable_sBlack.png"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin==0}}" src="../../resource/images/storeHead/feDisable.png"></image>
+						<image wx:if="{{item.gender!=0&&storeSet.skin==1}}" src="../../resource/images/storeHead/feDisable_sBlack.png"></image>
 					</block>
 					<text class='{{item.id==selectPeople?"selectName":"name"}}' style='text-align:center'>{{item.name}}</text>
 				</view>
@@ -270,6 +273,8 @@
 		<!-- 要渲染，避免闪条 -->
 		<view id="submit" wx:if="{{hourBlock.length!=0}}">
 			<view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
+			<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize2" style="display:{{authorizeState2 ? 'none' : 'block'}}">
+	</button>
 		</view>
 		
 		<view class='modal' wx:if="{{modal_calendar_show}}">
@@ -398,8 +403,8 @@
 	
 	<dialog 	modalData = "{{modalData}}" skin = "{{storeSet.skin}}"	bind:closeModal="closeModal"	bind:modalAction="modalAction"	wx:if="{{modalShow}}"></dialog>
 </scroll-view>
-
 <!-- 防止加载闪到中间 -->
 <view class='bottomTip' bindtap='gotoV' wx-if="{{hourBlock.length!=0}}">
 	<image src="http://wx4.sinaimg.cn/mw690/0060lm7Tly1fwj49l3i2gj30ku02074h.jpg"></image>
 </view>
+

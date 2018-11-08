@@ -30,13 +30,13 @@
 			"list": []
 		},
 		"miniprogram": {
-		"current": 0,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "扫描二维码",
-					"pathName": "pages/customEntrance/index",
-					"query": "id=test",
+					"pathName": "pages/storeHead/index",
+					"query": "",
 					"scene": "1011"
 				},
 				{

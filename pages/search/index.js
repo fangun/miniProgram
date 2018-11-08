@@ -8,7 +8,8 @@ Page({
   data: {
     searchText:'',  //搜索框的值
     searchResultArr:[],
-    authorizeState: false,
+    // authorizeState: false,		//是否授权						//存 全局
+		authorize:false,				//透明授权按钮层 是否显示	//存 本页 
 		modalData: {},
 		modalShow:false
   },
@@ -28,13 +29,13 @@ Page({
     wx.getStorage({
       key: 'fangun-storeFront',
       success: function(res) {
-        //console.log(res.data.message)
-        if (typeof res.data == 'object' && res.data.message !="发生错误。"){
+        console.log(res.data)
+        if (typeof res.data == 'object'){
           console.log("you")
           app.globalData.loginCache = true;
           app.globalData.peopleInfo = res.data;
           that.setData({
-            authorizeState: true
+						authorize: true,
           })
         }else{
           console.log('cuowu')
@@ -126,7 +127,7 @@ Page({
       success(res) {
         if (typeof res.data == 'object' && res.data.mobile) {
           that.setData({
-            authorizeState: true
+            authorize: true,
           })
           console.log(res.data)
           let data = res.data;
@@ -138,12 +139,18 @@ Page({
           //存app
           app.globalData.loginCache = true;
           app.globalData.peopleInfo = data;
+					console.log(app.globalData)
         }else{
+					that.setData({
+						authorize: true
+					})
           wx.showToast({
             title: '授权失败',
             icon: 'none',
             success: function () {
-              // 登录
+							app.globalData.peopleInfo = {}
+							app.globalData.loginCache = false;
+							console.log(app.globalData)
               wx.login({
                 success: res => {
                   // 发送 res.code 到后台换取 openId, sessionKey, unionId

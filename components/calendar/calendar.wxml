@@ -22,7 +22,7 @@
 		<view>四</view>
 		<view>五</view>
 		<view>六</view>
-		<view 	wx:for="{{allArr}}" 	wx:key="{{index}}" class="ago {{item.activity==1?'able':' '}} {{item.disabled?'disabled':''}} {{item.month == 'current' ? '' : 'gray'}} {{(currentMonth==nowMonth&&item.date<todayDay)?'ago':''}} {{selectDay==item.dayId?'selectDay':''}}"	data-year='{{currentYear}}' data-cumonth='{{currentMonth}}' data-nomonth='{{nowMonth}}' data-date = '{{item.date}}' data-ac = "{{item.activity}} "  data-id="{{item.dayId}}" bindtap='{{item.activity==1?"selectDate":""}}{{item.disabled?"selectRestDay":""}}'>{{item.date}}</view>
+		<view 	wx:for="{{allArr}}" 	wx:key="{{index}}" class="ago {{item.activity==1?'able':' '}} {{item.disabled?'disabled':''}} {{item.month == 'current' ? '' : 'gray'}} {{(currentMonth==nowMonth&&item.date<todayDay)?'ago':''}} {{(currentMonth==nowMonth&&item.date==todayDay)?'underline':''}} {{selectDay==item.dayId?'selectDay':''}}"	data-year='{{currentYear}}' data-cumonth='{{currentMonth}}' data-nomonth='{{nowMonth}}' data-date = '{{item.date}}' data-ac = "{{item.activity}} "  data-id="{{item.dayId}}" bindtap='{{item.activity==1?"selectDate":""}}{{item.disabled?"selectRestDay":""}}'>{{item.date}}</view>
 	</view>
   <!-- class=" {{item.month == 'current' ? 'ago' : 'gray'}} {{(currentMonth==nowMonth&&item.date>0&&item.date<todayDay)?'ago':''}} {{currentMonth==nowMonth&&item.date==todayDay?'underline':''}} {{item.activity==1?'able':' '}}   " -->
   <!--  -->

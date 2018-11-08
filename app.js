@@ -1,8 +1,9 @@
 //app.js
 App({
   onLaunch: function(options) {
-    console.log('onLaunch');
-    console.log(options);	
+    console.log('onLaunch123');
+    console.log(options);
+		this.globalData.scene = options.scene;
     
     var that = this;
 
@@ -32,12 +33,14 @@ App({
 
   },
 
+	
+
   globalData: {
     code: null,
     loginCache: false,
     peopleInfo: null,
-
     sex: null,
-    havePassword: false
+    havePassword: false,
+		scene:null
   }
 })
