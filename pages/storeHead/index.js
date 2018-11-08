@@ -96,59 +96,118 @@ Page({
     isfirstAction:true,             //确认提交的弹窗 最后的确定按钮 防止双击多次提交
    
 		modalShow:false,	 						//模板的弹窗
-		modalData:{}
+		modalData:{},
+		authorizeState:false,
+		authorizeState2:false
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options,q) {
-		// console.log("options:")
-		// console.log(options);
-		// console.log("q");
-		// console.log(q)
+  onLoad: function (option) {
+		console.log("onload")
+		let that  = this;
+		console.log(app.globalData)
+		let loginCache = app.globalData.loginCache;
+		let scene = app.globalData.scene;
+		let sid ="d03c4a737be3462ba6218a6b494dafb7"
+		console.log("option")
+		console.log(option)
+		// search页进来	1.sid 2.sid和mid
+		
+		if (scene != "1011") {			//为调试，改成分享卡片进入
+			console.log("!!1011")
+			 sid = app.globalData.peopleInfo.sid;
+			console.log(sid)
+			this.setData({
+				storeId: sid,
+				authorizeState:true	//search跳转，此处不做授权验证
+			})
+			//3 店家是否为vip，各板块是否开着
+			this.getStoreSet();
+			if(loginCache){
+				this.setData({
+					authorizeState2: true		//如已授权，关闭 提交 处的授权层
+				})
+				let mid = app.globalData.peopleInfo.mid;
+				let mPhone = app.globalData.peopleInfo.mobile;
 
+				//1 登陆者 的信息  名字 电话 性别 座机 头像 生日 等
+				this.getMemberInfo();
 
+				//2 登陆者 的 替他人预约历史
+				this.getMemberHistory()
+			}else{
+				console.log("无授权跳转")
+			}
+		}
+		//微信scan进来 ,判断一次授权
+		if(scene =="1011"){
+			console.log("1011")
+			let url = option.q;
+			sid = url.split("%3D")[1];
+			console.log(sid)
+			app.globalData.peopleInfo = {
+				"sid":sid
+			};
+			// 1 店家是否为vip，各板块是否开着
+			this.getStoreSet();
 
+			//判断缓存
+			wx.getStorage({
+				key: 'fangun-storeFront',
+				success: function (res) {
+					//console.log(res.data.message)
+					if (typeof res.data == 'object' && res.data.message != "发生错误。") {
+						console.log("you")
+						app.globalData.loginCache = true;
+						app.globalData.peopleInfo = res.data;
+						that.setData({
+							authorizeState: true,
+							authorizeState2: true
+						},()=>{
+							//1 登陆者 的信息  名字 电话 性别 座机 头像 生日 等
+							that.getMemberInfo();
 
+							//2 登陆者 的 替他人预约历史
+							that.getMemberHistory()
+						})
+						
+					} else {
+						that.setData({
+							authorizeState: true
+						})
+						app.globalData.loginCache = false;
+					}
+				},
+				fail: function (res) {
 
-    let sid = app.globalData.peopleInfo.sid;
-    let mid = app.globalData.peopleInfo.mid;
-    console.log(mid)
-    let mPhone = app.globalData.peopleInfo.mobile;
-    this.setData({
-      storeId:sid
-    })
-    //登陆者 的信息  名字 电话 性别 座机 头像 生日 等
-    this.getMemberInfo();
+				}
+			})
 
-    //是否为vip，各板块是否开着
-    this.getStoreSet();
-    
-    //登陆者 的 替他人预约历史
-    this.getMemberHistory()
+			console.log(app.globalData)
+		}
 
-    
-
+		this.setData({
+			sid:sid
+		})
     qqmapsdk = new QQMapWX({
       key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
     });
 
-    // wx.setNavigationBarTitle({
-    //   title: '上预约吧'
-    // })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+		console.log("onready")
     let that = this;
     wx.request({
       url: 'https://api.yuyue58.cn/api/selecShop',
       method: "POST",
       header: { "content-type": "application/x-www-form-urlencoded" },
       data: {
-        id: that.data.storeId
+				id: app.globalData.peopleInfo.sid
       },
       success(res) {
         console.log(res.data);
@@ -179,7 +238,7 @@ Page({
           method: "POST",
           header: { "content-type": "application/x-www-form-urlencoded" },
           data: {
-            sid: that.data.storeId
+						sid: app.globalData.peopleInfo.sid
           },
           success(res) {
             console.log(res.data);
@@ -195,7 +254,7 @@ Page({
           method: "POST",
           header: { "content-type": "application/x-www-form-urlencoded" },
           data: {
-            sid: that.data.storeId
+						sid: app.globalData.peopleInfo.sid
           },
           success(res) {
             console.log(res.data.holiday);
@@ -323,6 +382,63 @@ Page({
 
   },
 
+	getPhoneNumber(e) {
+		wx.login({
+			success: res => {
+				// 发送 res.code 到后台换取 openId, sessionKey, unionId
+				app.globalData.code = res.code;
+			}
+		})
+		let that = this;
+		wx.request({
+			url: 'https://api.yuyue58.cn/api/wxLogin',
+			method: "POST",
+			data: {
+				app: 'wxe',
+				// app: 'wxe',//店家 wxb1881cff7fde6cf6
+				code: app.globalData.code,
+				iv: e.detail.iv,
+				encryptedData: e.detail.encryptedData
+			},
+			header: { "content-type": "application/x-www-form-urlencoded" },
+			success(res) {
+				if (typeof res.data == 'object' && res.data.mobile) {
+					console.log(res.data)
+					let data = res.data;
+					//存储缓存
+					wx.setStorage({
+						key: "fangun-storeFront",
+						data: data
+					});
+					//存app
+					app.globalData.loginCache = true;
+					app.globalData.peopleInfo = data;
+					that.setData({
+						authorizeState:true,
+						authorizeState2: true
+					})
+					//1 登陆者 的信息  名字 电话 性别 座机 头像 生日 等
+					that.getMemberInfo();
+
+					//2 登陆者 的 替他人预约历史
+					that.getMemberHistory()
+				} else {
+					wx.showToast({
+						title: '授权失败',
+						icon: 'none',
+						success: function () {
+						}
+					});
+					that.setData({
+						authorizeState: true,
+						authorizeState2: false
+					})
+				}
+			}
+		});
+	},
+	
+
   getStoreSet:function(){
     let that = this;
     let flag = 0; //试5次还错误，就是接口坏了
@@ -331,29 +447,11 @@ Page({
       method: "POST",
       header: { "content-type": "application/x-www-form-urlencoded" },
       data: {
-        sid: app.globalData.peopleInfo.sid
+				sid: app.globalData.peopleInfo.sid
       },
       success(res) {
+				console.log("getStoreSet")
         console.log(res.data)
-        // let socialArr = res.data.social.split("|");
-        // let socials = [];
-        // for (let i = 0; i < socialArr.length; i++) {
-        //   let type = "";
-        //   let src = socialArr[i];
-        //   if (src.indexOf("dianping") != -1) {
-        //     type = "dianping"
-        //   } else if (src.indexOf("meituan") != -1) {
-        //     type = "meituan"
-        //   } else if (src.indexOf("koubei") != -1) {
-        //     type = "koubei"
-        //   } else {
-        //     type = "social"
-        //   }
-        //   socials.push({
-        //     "type": type,
-        //     "src": src
-        //   })
-        // }
         
 				if (res.data.firstvisit == 0 && res.data.reservationHelp == 0 && res.data.birthday == 0 && res.data.seatmachineswitch == 0 && res.data.nameswitch==0){
 					that.setData({
@@ -379,10 +477,6 @@ Page({
       },
       fail(res) {
         console.log("getVipFail")
-        flag = flag +1;
-        if(flag<5){
-          that.getStoreSet()
-        }
       }
     })
   },
@@ -401,12 +495,14 @@ Page({
         if(res.data.length == 0){
           console.log("getMemberInfo_data0")
         }else{
+					console.log(res.data)
           let birth = ""
           if (res.data[0].birthday == null) {
             birth = "　　　　　　　　　　" //10格
           } else {
             birth = res.data[0].birthday
           }
+					console.log(birth)
           that.setData({
             peopleData: res.data[0],
             zuoTel: res.data[0].seatMachine,
@@ -565,6 +661,11 @@ Page({
 
   //点击 单个项目
   selectProject: function (e) {
+		// if (app.globalData.loginCache==false){
+
+		// }
+
+
     let that = this;
     let projectId = e.currentTarget.dataset.id;
     let serviceItems = this.data.storeData.serviceItems.slice(0);
@@ -673,14 +774,21 @@ Page({
     }else{
       for (let i = 0; i < peopleAll.length;i++){
         let flag = true;
+				let disabledType = ""
         for (let j = 0; j < projectSelect.length;j++){
           let selId = projectSelect[j].id;
           let have = peopleAll[i].good.indexOf(selId);
           if(have==-1){
             flag= false;
+						disabledType="service"
           }
+					if (peopleAll[i].holiday == "0,1,2,3,4,5,6"){
+						flag = false;
+						disabledType = "holiday"
+					}
         }
         peopleAll[i].isAbled = flag;
+				peopleAll[i].disabledType = disabledType;
       }
     }
 
@@ -711,136 +819,166 @@ Page({
   },
   //点击可选的人
   selectPeople:function(e){
-    let peopleId = e.currentTarget.dataset.id;
-    let peoplename = e.currentTarget.dataset.name;
-    console.log(peopleId);
-    let hoursArr = this.data.hoursArr;
-    for (let i = 0; i < hoursArr.length;i++){
-      hoursArr[i].selected = 0
-    }
-    this.setData({
-      selectPeople:peopleId,
-      selectPeopleStr: peoplename,
-      selectDay:"",
-      hoursArr: hoursArr,
-      hourBlock:[]
-      
-    })
-    //删除 横滚条中 休假的 周几
-    //删店家的休息holiday 和 个人的休息 specialdate
-    let holiday = ''; //0 周一    "0,1,2"  //此人的休假 按周
-    let spDates = [];                     //此人的休假 具体某日
-    let serviceEmployee = this.data.serviceEmployee.slice(0);
-    for (let k = 0; k < serviceEmployee.length;k++){
-      if (serviceEmployee[k].id == peopleId){
-        holiday = serviceEmployee[k].holiday;
-        spDates = serviceEmployee[k].specialdate.slice(0)
-      }
-    }
-    console.log(spDates)
+		//console.log(e)
+		if (e.currentTarget.dataset.distype==""){
+			let peopleId = e.currentTarget.dataset.id;
+			let peoplename = e.currentTarget.dataset.name;
+			console.log(peopleId);
+			let hoursArr = this.data.hoursArr;
+			for (let i = 0; i < hoursArr.length; i++) {
+				hoursArr[i].selected = 0
+			}
+			this.setData({
+				selectPeople: peopleId,
+				selectPeopleStr: peoplename,
+				selectDay: "",
+				hoursArr: hoursArr,
+				hourBlock: []
 
-    let activityDay =[];
-    let weeks = [ "周日","周一", "周二", "周三", "周四", "周五", "周六"];
-    //总时长
-    for(let i=0;i<this.data.dayLong;i++){
-      let today = new Date();
-      today.setDate(today.getDate() + i); //today向后设置一天
-      let day = today.getDate();           //日
-      let dayshow = "";
-      if(day<10){
-        dayshow = "0"+day
-      }else{
-        dayshow = day
-      }
-      let month = today.getMonth()+1;      //月
-      if(month<10){
-        month = "0"+month
-      }
-      let weekIndex = today.getDay();   //0周日 1 周一  周
-      let week = weeks[weekIndex];      //周几
-      //后端传来的值 0为周一，6为周日
-      weekIndex--;
-      if(weekIndex==-1){weekIndex = 6}
+			})
+			//删除 横滚条中 休假的 周几
+			//删店家的休息holiday 和 个人的休息 specialdate
+			let holiday = ''; //0 周一    "0,1,2"  //此人的休假 按周
+			let spDates = [];                     //此人的休假 具体某日
+			let serviceEmployee = this.data.serviceEmployee.slice(0);
+			for (let k = 0; k < serviceEmployee.length; k++) {
+				if (serviceEmployee[k].id == peopleId) {
+					holiday = serviceEmployee[k].holiday;
+					spDates = serviceEmployee[k].specialdate.slice(0)
+				}
+			}
+			console.log(spDates)
 
-      activityDay.push({
-        "year": today.getFullYear(),
-        "date": month + "-" + dayshow,
-        "week": week,
-        "weekIndex": weekIndex ,
-        "id": today.getFullYear() + "-" + month + "-" + dayshow
-      })
-    }
+			let activityDay = [];
+			let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+			//总时长
+			for (let i = 0; i < this.data.dayLong; i++) {
+				let today = new Date();
+				today.setDate(today.getDate() + i); //today向后设置一天
+				let day = today.getDate();           //日
+				let dayshow = "";
+				if (day < 10) {
+					dayshow = "0" + day
+				} else {
+					dayshow = day
+				}
+				let month = today.getMonth() + 1;      //月
+				if (month < 10) {
+					month = "0" + month
+				}
+				let weekIndex = today.getDay();   //0周日 1 周一  周
+				let week = weeks[weekIndex];      //周几
+				//后端传来的值 0为周一，6为周日
+				weekIndex--;
+				if (weekIndex == -1) { weekIndex = 6 }
 
-    let deleteDay = [];
-    for (let j = 0; j < activityDay.length;j++){
-      let flag = 0;
-      //按周删
-      let weekIndex = activityDay[j].weekIndex;
-      if (holiday.indexOf(weekIndex)!=-1){
-        deleteDay.push(activityDay[j])
-        // activityDay.splice(j,1)
-        // j--
-        flag = 1
-      } 
-      if (spDates.length != 0 && spDates[0]!=null){
-        // 按特殊日删
-        for(let n = 0;n<spDates.length;n++){
-          let day = spDates[n].split(" ")[0];
-          if (day == activityDay[j].id){
-            deleteDay.push(activityDay[j])
-            // activityDay.splice(j, 1)
-            // j--
-            flag = 1
-          }
-        }
-      }
-      if(flag==1){
-        activityDay.splice(j,1)
-        j--
-      }
-    }
-    console.log(deleteDay)
-    console.log("activityDay:")
-    console.log(activityDay)
+				activityDay.push({
+					"year": today.getFullYear(),
+					"date": month + "-" + dayshow,
+					"week": week,
+					"weekIndex": weekIndex,
+					"id": today.getFullYear() + "-" + month + "-" + dayshow
+				})
+			}
 
-    //今天是否被删
+			let deleteDay = [];
+			for (let j = 0; j < activityDay.length; j++) {
+				let flag = 0;
+				//按周删
+				let weekIndex = activityDay[j].weekIndex;
+				if (holiday.indexOf(weekIndex) != -1) {
+					deleteDay.push(activityDay[j])
+					// activityDay.splice(j,1)
+					// j--
+					flag = 1
+				}
+				if (spDates.length != 0 && spDates[0] != null) {
+					// 按特殊日删
+					for (let n = 0; n < spDates.length; n++) {
+						let day = spDates[n].split(" ")[0];
+						if (day == activityDay[j].id) {
+							deleteDay.push(activityDay[j])
+							// activityDay.splice(j, 1)
+							// j--
+							flag = 1
+						}
+					}
+				}
+				if (flag == 1) {
+					activityDay.splice(j, 1)
+					j--
+				}
+			}
+			console.log(deleteDay)
+			console.log("activityDay:")
+			console.log(activityDay)
+
+			if (activityDay.length != 0) {
+				//今天是否被删
+
+				// new Date(Date.parse(timeStr)).toString() 
+				let today = new Date(); //"2018/10/23 下午8:02:01"
+				// let n = 
+				// let todayDate = today.split(" ")[0].replace(/\//g, "-")
+				// console.log("today"+today)
+				let year = today.getFullYear();
+				let month = today.getMonth();
+				month = month + 1;
+				if (month < 10) { month = "0" + month }
+				let date = today.getDate();
+				if (date < 10) { date = "0" + date }
+				console.log("today:");
+				let todayStr = year + "-" + month + "-" + date;
+				console.log(todayStr)
+				let flag = false;
+				console.log(deleteDay);
+				for (let n = 0; n < deleteDay.length; n++) {
+					if (deleteDay[n].id == todayStr) {
+						flag = true;
+						this.setData({
+							topTip: "注意：此服务人员今天休假"
+						})
+						this.toptip()
+					}
+				}
+
+				//剩下的第一天为默认
+				let firstDay = activityDay[0].id;
+
+				this.setData({
+					toDate:"i"+firstDay,
+					peopleActivityDay: activityDay,
+					disabledDay: deleteDay,
+					selectDay: firstDay,
+					hourBlock: []
+				})
+				this.makeHours()
+			}
+		}
+		if (e.currentTarget.dataset.distype == "service"){
+			{
+				this.setData({
+					topTip: "该人员未开通此服务"
+				})
+			}
+			this.toptip();
+		}
+		if (this.data.selectedServices.length == 0) {
+			let unselect = (this.data.storeData.description1 == null ? "服务项目" : this.data.storeData.description1)
+			this.setData({
+				topTip: "请先选择" + unselect
+			})
+			this.toptip();
+		}
+		if (e.currentTarget.dataset.distype == "holiday"){
+			 {
+				this.setData({
+					topTip: "该人员休息"
+				})
+			}
+			this.toptip();
+		}
     
-    // new Date(Date.parse(timeStr)).toString() 
-    let today = new Date(); //"2018/10/23 下午8:02:01"
-    // let n = 
-    // let todayDate = today.split(" ")[0].replace(/\//g, "-")
-    // console.log("today"+today)
-    let year = today.getFullYear();
-    let month = today.getMonth();
-    month = month+1;
-    if(month<10){month = "0"+month}
-    let date = today.getDate();
-		if(date<10){date = "0"+date}
-    console.log("today:");
-    let todayStr = year + "-" + month + "-" + date;
-    console.log(todayStr)
-    let flag =false;
-		console.log(deleteDay);
-    for (let n = 0; n < deleteDay.length;n++){
-      if (deleteDay[n].id == todayStr){
-        flag = true;
-        this.setData({
-          topTip: "注意：此服务人员今天休假"
-        })
-        this.toptip()
-      }
-    }
-
-    //剩下的第一天为默认
-    let firstDay = activityDay[0].id;
-
-    this.setData({
-      peopleActivityDay: activityDay,
-      disabledDay:deleteDay,
-      selectDay: firstDay,
-      hourBlock: []
-    })
-    this.makeHours()
   },
 
 
@@ -1426,27 +1564,6 @@ Page({
 				modalShow:true
 			})
 		}
-    //现在距离开始不足一小时 判断
-    // if(flag==1){
-    //   let selectDay = this.data.selectDay;
-    //   let selectTime = this.data.hourBlock[0]+":00"
-    //   let startTime = selectDay+ " " +selectTime;
-    //    startTime = startTime.replace(/-/g, "/")
-
-    //   let startTimeStamp = Date.parse(new Date(startTime));
-    //   let newStamp = Date.parse(new Date());
-
-    //   // console.log(startTimeStamp - newStamp)
-    //   if (startTimeStamp - newStamp <60*60*1000){
-    //     this.setData({
-    //       lessOneShow:true
-    //     })
-    //   }else{
-    //     this.setData({
-    //       modal_confirm: true
-    //     })
-    //   }
-    // }
 		
     
   },
@@ -1455,6 +1572,7 @@ Page({
       modal_confirm:false
     })
   },
+
   inputTip:function(e){
     let name = e.detail.value;
     this.setData({
@@ -1496,7 +1614,7 @@ Page({
         data.time = time;
         data.hour = that.data.serviceTime;
         data.name = that.data.otherName;
-        data.sid = that.data.storeId;
+				data.sid = app.globalData.peopleInfo.sid;
         let isFirst = 0;
         if (that.data.firstArrival) { isFirst = 1 }
         data.isFirst = isFirst;
@@ -1541,7 +1659,7 @@ Page({
               wx.redirectTo({
                 url: '../orderSuccess/index'
               })
-            } else if (status == "-3") {
+            } else if (status == "-2") {
               // that.setData({
               //   shortInfoShow: true,
               //   shortInfo: "该会员信息不存在",

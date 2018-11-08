@@ -3,7 +3,12 @@
 page {
   height: 100%;
 }
-
+.authorize{
+	position: fixed;width: 100vw;height: 100vh;z-index: 10000;background: transparent
+}
+.authorize2{
+	position: absolute;width: 690rpx;height: 80rpx;background: transparent
+}
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -639,6 +644,7 @@ picker {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+	padding-bottom: 100rpx
 }
 
 .btn_submit {
@@ -648,7 +654,6 @@ picker {
   font-size: 28rpx;
   text-align: center;
   border-radius: 16rpx;
-  margin-bottom: 100rpx;
 }
 /*textarea*/
 .inputtext {

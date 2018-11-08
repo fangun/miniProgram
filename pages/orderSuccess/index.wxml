@@ -8,7 +8,7 @@
   </view>
   <view class='adv'>
     <view>广告</view>
-    <image class='makeStore' src='../../resource/images/orderSuccess/makeStore.png'></image>
+    <image class='makeStore' src='../../resource/images/orderSuccess/makeStore.png' bindtap='adv_goto'></image>
     <view bindtap='goto' class='virBtn'></view>
   </view>
 </view>
