@@ -47,6 +47,7 @@
 	margin: 4rpx 0;
 }
 
+/*本月已过的*/
 .calendar .content .ago{
   color:rgb(201, 199, 199);
   border:none
@@ -99,3 +100,28 @@
 .pre, .next{
   width: 200rpx;text-align: center
 }
+
+
+.sBlack{background: #333;}
+.sBlack .tit{color: #333;background: #ffe33f;}
+.sBlack .content view{color:white}
+/*本月已过的*/
+.sBlack .content .ago{color:#c9c7c7;}
+/*上月，下月*/
+.sBlack .content .gray{color: #7f7f7f;}
+.sBlack .content .able{color: #ffe33f;border:2rpx solid #ffe33f;}
+.sBlack .content .disabled{background: #3d3d3d;border:2rpx solid #3d3d3d;color: #7f7f7f}
+.sBlack .content .selectDay{background: #ffe33f;color:#333;}
+.sBlack .underline:after{background: #7f7f7f;}
+.sBlack .selectDay:after{background: #333}
+
+
+
+
+
+
+
+
+
+
+

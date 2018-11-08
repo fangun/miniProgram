@@ -1,169 +1,1023 @@
 /* pages/storeHead/index.wxss */
-page{height: 100%}
-::-webkit-scrollbar{width: 0;height: 0;color: transparent;}
-page>scroll-view{height: 100%}
-.modal,.container .modal{width: 100%;height: 100%;background: rgba(0, 0, 0, 0.7);position: fixed;z-index: 599;display: flex;flex-direction: column;align-items: center;justify-content: center}
-.modal image{width: 630rpx;height: 915rpx;}
-.modal>view{display: flex;flex-direction: column;align-items: center}
-.modal_trynow{width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: space-between}
-.modal_trynow>view{width: 100%;height: 88rpx;line-height: 88rpx;font-size: 28rpx;text-align: center;color: white}
-.container{padding: 0;width: 100%;display: flex;flex-direction: column;background: #F0F0F0;justify-content: flex-start;align-items: center;font-family: "siyuanhei"}
-.container>view{margin-bottom: 10rpx;background: white;width: 100%;}
-.topTitle{width: 100%;height: 88rpx;font-size: 34rpx;color:white;display: flex;justify-content: space-between;align-items: center;position: fixed;top: 0;z-index: 499;}
-.topTitle .btn{width: 37rpx;height:37rpx;}
+
+page {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+page>scroll-view {
+  height: 100%;
+}
+
+.modal, .container .modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 599;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal image {
+  width: 630rpx;
+  height: 915rpx;
+}
+
+.modal>view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal_trynow {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal_trynow>view {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 28rpx;
+  text-align: center;
+  
+}
+
+.container {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "siyuanhei";
+}
+
+.container>view {
+  margin-bottom: 10rpx;
+  width: 100%;
+}
+
+.topTitle {
+  width: 100%;
+  height: 88rpx;
+  font-size: 34rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 499;
+}
+
+.topTitle .btn {
+  width: 37rpx;
+  height: 37rpx;
+}
+
 /* .topTitle>view{width: 100%;text-align: center} */
-.topTitle .btn:nth-child(1){margin-left:30rpx }
-.topTitle .btn:nth-child(3){margin-right:30rpx }
-.topTip{height: 100rpx;width: 100%;background: rgb(251,112,112);position: fixed;z-index: 399;display: flex;justify-content: center;align-items: center;font-size: 28rpx;color: white;margin-top: -12rpx}
-.topTip image{width: 28rpx;height: 28rpx;margin-right: 15rpx}
-.show{top: 0rpx;margin-top: 80rpx;animation: show 1s;animation-timing-function:ease;}
-@keyframes show{
-from {margin-top:-12rpx;}
-to {margin-top:88rpx;}
-}
-.hide{margin-top: -12rpx;animation: hide 2s;animation-timing-function:ease-in-out;}
-@keyframes hide{
-from {margin-top: 88rpx;}
-to {margin-top: -12rpx;}
+
+.topTitle .btn:nth-child(1) {
+  margin-left: 30rpx;
 }
 
-.container>view:nth-child(2),.container>view:nth-child(3),.container>view:last-child,.container #tip{margin-bottom: 0}/*商家信息*/
-.info{width: 100%;margin-top: 80rpx}
-#infoBlock{margin: 30rpx;padding-top: 26rpx;padding-bottom: 29rpx;border-radius: 5rpx;box-shadow: 0 0 6rpx 6rpx #eee}
-.intro{margin: 0 26rpx 0 26rpx;display: flex}
-#headImage{width: 138rpx;height: 138rpx;flex-shrink: 0;background-position:center;background-size:100%;border-radius: 10rpx}
-#nameintro{margin-left: 48rpx;flex-direction: column;}
-.storeTitle{font-size: 34rpx;color: rgb(51, 51, 51);display: flex;align-items: center;}
-.image_ding{width:29rpx;height: 23rpx;margin-left: 8rpx;}
-.introText{margin-top: 14rpx;}
-.introText>text{display: block;font-size: 24rpx;line-height: 32rpx;height: 64rpx;color: rgb(102, 102, 102);overflow: hidden;}
-.introText>.ellipsis{font-size: 24rpx;height: 32rpx;line-height: 32rpx;background: white;color:rgb(102, 102, 102)}
-.introText>.open{height:auto}
-#infoBlock>text{display: block;text-align: right;margin-right: 21rpx;font-size: 24rpx;color: rgb(102, 102, 102);margin-top: -16rpx}
-#contact{margin:38rpx 0 0 26rpx;}
-#contact>view{display: flex;align-items: center;justify-content: flex-start}
-#contact>view:nth-child(1){margin-bottom: 18rpx;}
-.image_location{width:20rpx;height: 27rpx; margin-right: 15rpx;}
-.image_tel{width:27rpx;height:27rpx;margin-right: 8rpx;}
-#contact text{font-size: 24rpx;color: rgb(102, 102, 102)}
-.tel_right{display: flex;flex-grow: 1;align-items: center}
-.tel_right text{display: block;flex-grow: 1}
-.moreIntro{width: 80rpx;height: 32rpx;font-size: 14rpx;border:1rpx solid;border-radius: 50rpx;line-height: 32rpx;text-align: center;margin-right: 24rpx}
-.outBtn{display: flex}
-.outBtn image{width: 32rpx;height: 32rpx;background-position:center;background-size:100%;margin-right: 26rpx;}
-.outBtn image:last-child{margin-right: 24rpx}
+.topTitle .btn:nth-child(3) {
+  margin-right: 30rpx;
+}
+
+.topTip {
+  height: 100rpx;
+  width: 100%;
+  position: fixed;
+  z-index: 399;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  margin-top: -12rpx;
+}
+
+.topTip image {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 15rpx;
+}
+
+.show {
+  top: 0rpx;
+  margin-top: 80rpx;
+  animation: show 1s;
+  animation-timing-function: ease;
+}
+
+@keyframes show {
+  from {
+    margin-top: -12rpx;
+  }
+
+  to {
+    margin-top: 88rpx;
+  }
+}
+
+.hide {
+  margin-top: -12rpx;
+  animation: hide 2s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes hide {
+  from {
+    margin-top: 88rpx;
+  }
+
+  to {
+    margin-top: -12rpx;
+  }
+}
+
+
+.container>view:last-child, .container #tip {
+  margin-bottom: 0;
+}
+
+/*商家信息*/
+
+.info {
+  width: 100%;
+  margin-top: 80rpx;
+}
+
+#infoBlock {
+  margin: 30rpx;
+  padding-top: 26rpx;
+  padding-bottom: 29rpx;
+  border-radius: 5rpx;
+}
+
+.intro {
+  margin: 0 26rpx 0 26rpx;
+  display: flex;
+}
+
+#headImage {
+  width: 138rpx;
+  height: 138rpx;
+  flex-shrink: 0;
+  background-position: center;
+  background-size: 100%;
+  border-radius: 10rpx;
+}
+
+#nameintro {
+  margin-left: 48rpx;
+  flex-direction: column;
+}
+
+.storeTitle {
+  font-size: 34rpx;
+  color: rgb(51, 51, 51);
+  display: flex;
+  align-items: center;
+}
+.storeTitle text{
+	font-weight:bold;
+	padding-left:4px;height:18px;
+	line-height:18px
+}
+
+.image_ding {
+  width: 29rpx;
+  height: 23rpx;
+  margin-left: 8rpx;
+}
+
+.introText {
+  margin-top: 14rpx;
+}
+
+.introText>text {
+  display: block;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  height: 64rpx;
+  color: rgb(102, 102, 102);
+  overflow: hidden;
+	width: 400rpx
+}
+
+.introText>.ellipsis {
+  font-size: 24rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+}
+
+.introText>.open {
+  height: auto;
+}
+
+#infoBlock>text {
+  display: block;
+  text-align: right;
+  margin-right: 21rpx;
+  font-size: 24rpx;
+  color: rgb(102, 102, 102);
+  margin-top: -16rpx;
+}
+
+#contact {
+  margin: 38rpx 0 0 26rpx;
+}
+
+#contact>view {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#contact>view:nth-child(1) {
+  margin-bottom: 18rpx;
+}
+
+.image_location {
+  width: 20rpx;
+  height: 27rpx;
+  margin-right: 15rpx;
+}
+
+.image_tel {
+  width: 27rpx;
+  height: 27rpx;
+  margin-right: 8rpx;
+}
+
+#contact text {
+  font-size: 24rpx
+}
+
+.tel_right {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.tel_right text {
+  display: block;
+  /* flex-grow: 1; */
+	min-width: 200rpx
+}
+
+.moreIntro {
+  width: 80rpx;
+  height: 32rpx;
+  font-size: 14rpx;
+  border: 1rpx solid;
+  border-radius: 50rpx;
+  line-height: 32rpx;
+  text-align: center;
+  margin-right: 24rpx;
+}
+
+.outBtn {
+  display: flex;
+}
+
+.outBtn image {
+  width: 32rpx;
+  height: 32rpx;
+  background-position: center;
+  background-size: 100%;
+  margin-right: 26rpx;
+}
+
+.outBtn image:last-child {
+  margin-right: 24rpx;
+}
+
 /*选择服务*/
-#selectService{display: flex;flex-direction: column;align-items: center}
-.block_title{width: 100%;display: flex;flex-direction: column;align-items: center;justify-content: center;font-size: 34rpx;color: rgb(51, 51, 51);margin:24rpx 0;font-weight: bold}
-.block_title image{height:65rpx;width: 241rpx}
-.block_title text{margin-top: -65rpx;height: 65rpx;line-height: 65rpx;}
-#projects{display: flex;width: 666rpx;margin:0 46rpx 40rpx 46rpx ;flex-wrap: wrap;justify-content: flex-start;}
-.project{width: 207rpx;height:60rpx;margin-top: 24rpx;margin-right: 18rpx;border-radius: 60rpx;border: 2rpx solid rgb(153,153, 153);font-size: 26rpx;color:rgb(51,51,51);text-align: center;line-height: 67.5rpx;overflow: hidden;padding:0 10rpx;box-sizing:border-box;}
-.project:nth-child(3n){margin-right: 0;}
-.projectSelected{color:white;border: 1rpx solid rgb(243, 67, 67)}
-#selectService #projects2{width: 100%;display: flex;justify-content: between}
-#projects2 .projectArrow,.peopleList2 .peopleArrow{width: 83rpx;height: 64rpx;display: flex;justify-content:center;align-items: center}
-.projectArrow image,.peopleList2 .peopleArrow image{width:26rpx;height: 30rpx;}
-#projects2 scroll-view{width:557rpx;height: 96rpx;white-space: nowrap;margin: 0 auto}
-.project2{min-width: 10rpx;height: 60rpx;line-height: 67.5rpx;display: inline-block;padding: 0 38rpx;border: 2rpx solid rgb(153, 153, 153);border-radius: 12rpx;margin-right: 18rpx;font-size: 26rpx;}
 
-.selectInfo{display: flex;flex-direction: column;width: 100%;font-size: 26rpx;color: rgb(153, 153, 153)}
-.selectInfo>view{margin-left: 25rpx;margin-right: 25rpx;display: flex;align-items: center}
-.selectInfo>view:nth-child(1){align-items: flex-start}
-.projectlist{display: flex;flex-wrap: wrap}
-.selectInfo>view:nth-child(2){margin-top: 17rpx;margin-bottom: 40rpx}
-.textRed{color: rgb(243, 67, 67)}
-.textBlack{color: black}
-.selectInfo image{width: 29rpx;height: 29rpx;margin-left: 16rpx;}
-/*选择服务人员*/
-.peopleList{display: flex;flex-wrap: wrap;width: 660rpx;margin: 0 auto}
-.peopleList image,.peopleList2 image{height: 88rpx;width: 88rpx;margin-bottom:26rpx}
-.peopleList text{margin-bottom: 39rpx;width: 88rpx;max-height:144rpx}
-.people{font-size: 24rpx;display: flex;flex-direction: column;align-items: center;margin-right: 55rpx}
-.peopleList .people:nth-child(5n){margin-right: 0}
-.people .name {color: rgb(102, 102, 102);text-align: center}
-.peopleList2{display: flex;justify-content: space-between;align-items: center}
-.peopleList2 scroll-view{width:557rpx;white-space: nowrap}
-.peopleList2 .people{display: inline-flex;margin-bottom: 39rpx}
-
-#selectTime{display: flex;width: 100%;flex-direction: column;align-items: center}
-.slideDate{height: 80rpx;width: 100%;border-top: 4rpx solid;border-bottom: 4rpx solid;border-color:rgb(255, 170, 170);display: flex;align-items: center;justify-content:space-between;}
-.slideDate scroll-view{width:86vw;height: 96rpx;white-space: nowrap;}
-.date{width: 101rpx;height:96rpx;display: inline-flex;flex-direction: column;align-items: center;justify-content: center;color: rgb(111, 111, 111);border-radius: 10rpx;font-size:26rpx;margin-left: 50rpx}
-.date:nth-child(1){margin-left: 20rpx;}
-.dateSelected{background: rgb(243, 67, 67);color: white}
-.rightCalendar{width: 42rpx;height: 44rpx;margin-right: 33rpx;background-size: 100%;}
-
-.selectHour{display: flex;flex-wrap: wrap;text-align: center;width: 650rpx;justify-content: space-between;margin-top: 34rpx}
-.time{width: 140rpx;height:56rpx;line-height: 56rpx;border-radius: 8rpx;font-size: 26rpx;margin-bottom: 14rpx;border: 2rpx solid rgb(201, 201, 201);color: rgb(51, 51, 51)}
-.time:nth-child(5n),.time:nth-child(1){margin-left: 0}
-.timeUnable{background: rgb(239, 239, 239);border-color: rgb(239, 239, 239);color: rgb(153, 153, 153)}
-.timeSelect{background: rgb(243, 67, 67);border-color:rgb(243, 67, 67) ;color: white}
-
-#selectOther,#tip{width:100%;display: flex;flex-direction: column;align-items: center;box-sizing: border-box;padding: 38rpx 32rpx}
-#tip{padding-top: 0}
-.form{width: 100%;border: 2rpx solid rgb(201, 201, 201);border-radius: 8rpx;display: flex;flex-direction: column;}
-.form>view{height: 90rpx;margin-left: 63rpx;display: flex;justify-content: space-between;align-items: center;font-size: 26rpx;color: rgb(51, 51, 51)}
-.form>view>text{min-width:60rpx;}
-.form>.formBorder{height: 2rpx;background: rgb(201, 201, 201);margin-right: 63rpx}
-.form>.formBorder:nth-child(1){height: 0}
-#selectOther input{margin-right:63rpx}
-picker{margin-right: 63rpx}
-.picker{text-align: right;min-width: 200rpx;min-height: 45rpx;line-height: 45rpx}
-#tip input{padding:22rpx 25rpx;box-sizing: border-box;height: 200rpx;width: 100%;border: 2rpx solid rgb(201, 201, 201);border-radius: 8rpx;}
-.modal .checkbox{width: 30rpx;height:30rpx}
-.form .checkbox{width: 30rpx;height:30rpx;margin-right: 63rpx}
-#submit{width: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;}
-.btn_submit{width: 690rpx;height: 80rpx;line-height: 80rpx;font-size: 28rpx;color: white;background: rgb(243, 67,67 );text-align: center;border-radius: 16rpx;margin-bottom: 100rpx}
-.inputtext{size: 24rpx;border: 2rpx solid rgb(153, 153, 153);border-radius: 8rpx;width: 100%;height: 300rpx;padding: 22rpx 25rpx;box-sizing: border-box}
-.textareaPlaceholder{size: 24rpx;padding: 22rpx 25rpx;}
-.simTextarea{width: 100%;height: 300rpx;background: gray;border:2rpx solid rgb(153, 153, 153);border-radius:8rpx;padding:22rpx 25rpx;box-sizing:border-box;}
-.bottomTip{width: 100%;height: 72rpx;position:fixed;bottom: 0;z-index: 99}
-.bottomTip image{height: 100%;width: 100%}
-/*modal .rightCalendar*/
-/* .container .modal_calendar{position: fixed;bottom: 0;height: 724rpx;width: 100%;background: gray;margin:0;} */
-.container .modal_calendar{
-  bottom: 0;width:100%;padding-bottom:20rpx;background: white;  border-top-right-radius:15rpx;
-  border-top-left-radius:15rpx;overflow: hidden;position: fixed;
+#selectService {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.modal>.modal_back{position: absolute;height: 100%;width: 100%;background: rgba(0, 0, 0, 0)}
-.modal>.modal_tip{width: 650rpx;min-height:300rpx;background: white;color: rgb(51, 51, 51);border-radius: 14rpx;font-size: 28rpx;padding-left:56rpx;padding-right: 56rpx;box-sizing: border-box}
-.modal_tip_out{padding-left:51rpx;padding-right: 51rpx;}
-.modal_tip .modal_title{font-size: 32rpx;margin-top: 48rpx;margin-bottom: 36rpx;text-align: center}
-.modal_content{display: flex;flex-direction: column;align-items: flex-start;}
-.modal_content>view{line-height: 180%}
-.modal_tip .modal_btn{background: rgb(243, 67,67 );height: 80rpx;width:100%;color: white;font-size: 26rpx;text-align: center;border-radius: 8rpx;line-height: 80rpx;margin-top: 48rpx;margin-bottom: 40rpx}
 
-.khxx,.orderForOther_histroy{width: 100%;display: flex;flex-direction: column}
-.selectSex, .khxx input{display: flex;height:88rpx;align-items: center;border-bottom:2rpx solid rgb(201, 201, 201)}
-.selectSex{justify-content: space-around;}
-.selectSex>view{display: flex;align-items: center}
-.selectSex>view>text{margin-right: 32rpx}
-.modal_tip .modal_btns{display: flex;justify-content: space-between;margin-top: 50rpx}
-.orderForOther_histroy .modal_title{margin-bottom: 0}
-.orderForOther_histroy .modal_title2{text-align: center;font-size: 24rpx;color: rgb(153, 153, 153);margin: 20rpx 0}
-.orderForOther_histroy .borderForm{display:flex;flex-direction: column;height: 300rpx;border: 2rpx solid rgb(201, 201, 201);border-radius: 8rpx;padding:0 20rpx;}
-.borderForm .historyOne{height: 90rpx;line-height: 90rpx;border-bottom: 2rpx solid rgb(201, 201, 201);display: flex;justify-content: space-between;align-items: center}
-.historyOne:last-child{border: 0}
-.modal_tip>.modal_btns{margin-top: 54rpx;justify-content: space-between;width: 100%}
-.modal_btns>view{width: 220rpx;height:60rpx;line-height: 60rpx;border: 2rpx solid rgb(243, 67, 67);text-align: center;border-radius: 8rpx;margin-bottom: 40rpx}
-.modal_btns>view:nth-child(1){color: rgb(243, 67, 67)}
-.modal_btns>view:nth-child(2){color: white;background: rgb(243, 67, 67)}
+.block_title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  margin: 24rpx 0;
+  font-weight: bold;
+}
 
-.modal_tip>.conf_content{display: flex;flex-direction: column;width: 100%;font-size: 28rpx;}
-.conf_content>view{margin-bottom: 23rpx;display: flex;}
-.sub{width: 140rpx}
-.modal_tip>.tip{width: 100%;text-align: left;color: rgb(153, 153, 153)}
+.block_title image {
+  height: 65rpx;
+  /* width: 241rpx; */
+	width: 493rpx
+}
 
-.shortInfo .modalTip , .orderClash .modalTip,.lessOne .modalTip{background: white;width:650rpx;display: flex;flex-direction: column;border-radius: 16rpx }
-.modalTipText{font-size: 30rpx;color: rgb(51, 51, 51);margin-top: 47rpx;margin-bottom: 54rpx;padding:0 50rpx}
-.modalTip .btn{width: 220rpx;height: 60rpx;background: rgb(243, 67, 67);font-size: 30rpx;color: white;text-align: center;line-height: 60rpx;border-radius: 8rpx;margin-bottom: 40rpx}
-.lessOne .modalTip {font-size: 30rpx;padding: 100rpx 60rpx 0;box-sizing: border-box}
-.lessOne .modal_btns{display: flex;width: 100%;margin-top: 40rpx;justify-content: space-between}
+.block_title text {
+  margin-top: -60rpx;
+  height:65rpx;
+  line-height: 65rpx;
+}
 
- .orderClash .modalTip{box-sizing: border-box;padding: 46rpx 56rpx;font-size: 28rpx;}
-.orderClash .modalTip>view:nth-child(1){font-size: 32rpx;color: rgb(51, 51, 51);margin-bottom: 29rpx;font-weight: 700}
-.orderClash .modalTip>view:nth-child(3){font-size: 28rpx;color: rgb(153, 153, 153);margin-top: 36rpx;margin-bottom: 48rpx}
-.orderClash .modalTip>view:nth-child(4){width: 100%;display: flex;justify-content: space-between}
+#projects {
+  display: flex;
+  width: 666rpx;
+  margin: 0 46rpx 40rpx 46rpx;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.project {
+  width: 207rpx;
+  height: 60rpx;
+  margin-top: 24rpx;
+  margin-right: 18rpx;
+  border-radius: 60rpx;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 67.5rpx;
+  overflow: hidden;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+}
+
+.project:nth-child(3n) {
+  margin-right: 0;
+}
+
+
+#selectService #projects2 {
+  width: 100%;
+  display: flex;
+  justify-content: between;
+}
+
+#projects2 .projectArrow, .peopleList2 .peopleArrow {
+  width: 83rpx;
+  height: 64rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.projectArrow image, .peopleList2 .peopleArrow image {
+  width: 26rpx;
+  height: 30rpx;
+}
+
+#projects2 scroll-view {
+  width: 557rpx;
+  height: 96rpx;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.project2 {
+  min-width: 10rpx;
+  height: 60rpx;
+  line-height: 67.5rpx;
+  display: inline-block;
+  padding: 0 38rpx;
+  border-radius: 12rpx;
+  margin-right: 18rpx;
+  font-size: 26rpx;
+}
+
+.selectInfo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
+}
+
+.selectInfo>view {
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+  display: flex;
+  align-items: center;
+}
+
+.selectInfo>view:nth-child(1) {
+  align-items: flex-start;
+}
+
+.projectlist {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectInfo>view:nth-child(2) {
+  margin-top: 17rpx;
+  margin-bottom: 40rpx;
+}
+
+.selectInfo image {
+  width: 29rpx;
+  height: 29rpx;
+  margin-left: 16rpx;
+}
+
+/*选择服务人员*/
+
+.peopleList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 660rpx;
+  margin: 0 auto;
+}
+
+.peopleList image, .peopleList2 image {
+  height: 88rpx;
+  width: 88rpx;
+  margin-bottom: 26rpx;
+}
+
+.peopleList text {
+  margin-bottom: 39rpx;
+  width: 88rpx;
+  max-height: 144rpx;
+}
+
+.people {
+  font-size: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 55rpx;
+}
+
+.peopleList .people:nth-child(5n) {
+  margin-right: 0;
+}
+
+.people .name {
+  color: rgb(102, 102, 102);
+  text-align: center;
+}
+
+.peopleList2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.peopleList2 scroll-view {
+  width: 557rpx;
+  white-space: nowrap;
+}
+
+.peopleList2 .people {
+  display: inline-flex;
+  margin-bottom: 39rpx;
+}
+
+#selectTime {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slideDate {
+  height: 80rpx;
+  width: 100%;
+  border-top: 4rpx solid;
+  border-bottom: 4rpx solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slideDate scroll-view {
+  width: 86vw;
+  height: 96rpx;
+  white-space: nowrap;
+}
+
+.date {
+  width: 101rpx;
+  height: 96rpx;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  margin-left: 50rpx;
+}
+
+.date:nth-child(1) {
+  margin-left: 20rpx;
+}
+
+.rightCalendar {
+  width: 42rpx;
+  height: 44rpx;
+  margin-right: 33rpx;
+  background-size: 100%;
+}
+
+.selectHour {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 650rpx;
+  justify-content: space-between;
+  margin-top: 34rpx;
+}
+
+.time {
+  width: 140rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  margin-bottom: 14rpx;
+}
+
+.time:nth-child(5n), .time:nth-child(1) {
+  margin-left: 0;
+}
+
+#selectOther, #tip {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 38rpx 32rpx;
+}
+
+#tip {
+  padding-top: 0;
+}
+
+.form {
+  width: 100%;
+  border: 2rpx solid rgb(201, 201, 201);
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.form>view {
+  height: 90rpx;
+  margin-left: 63rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+}
+
+.form>view>text {
+  min-width: 60rpx;
+}
+
+.form>.formBorder {
+  height: 2rpx;
+  margin-right: 63rpx;
+}
+
+.form>.formBorder:nth-child(1) {
+  height: 0;
+}
+
+#selectOther input {
+  margin-right: 63rpx;
+}
+
+picker {
+  margin-right: 63rpx;
+}
+
+.picker {
+  text-align: right;
+  min-width: 200rpx;
+  min-height: 45rpx;
+  line-height: 45rpx;
+}
+
+#tip input {
+  padding: 22rpx 25rpx;
+  box-sizing: border-box;
+  height: 200rpx;
+  width: 100%;
+  border-radius: 8rpx;
+}
+
+.modal .checkbox {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.form .checkbox {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 63rpx;
+}
+
+#submit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_submit {
+  width: 690rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  text-align: center;
+  border-radius: 16rpx;
+  margin-bottom: 100rpx;
+}
+/*textarea*/
+.inputtext {
+  size: 24rpx;
+  border: 2rpx solid rgb(153, 153, 153);
+  border-radius: 8rpx;
+  width: 100%;
+  height: 300rpx;
+  padding: 22rpx 25rpx;
+  box-sizing: border-box;
+}
+
+.textareaPlaceholder {
+  size: 24rpx;
+  padding: 22rpx 25rpx;
+}
+
+.simTextarea {
+  width: 100%;
+  height: 300rpx;
+  background: gray;
+  border: 2rpx solid rgb(153, 153, 153);
+  border-radius: 8rpx;
+  padding: 22rpx 25rpx;
+  box-sizing: border-box;
+}
+
+.bottomTip {
+  width: 100%;
+  height: 72rpx;
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+}
+
+.bottomTip image {
+  height: 100%;
+  width: 100%;
+}
+
+/*modal .rightCalendar*/
+
+/* .container .modal_calendar{position: fixed;bottom: 0;height: 724rpx;width: 100%;background: gray;margin:0;} */
+
+.container .modal_calendar {
+  bottom: 0;
+  width: 100%;
+  background: white;
+  border-top-right-radius: 15rpx;
+  border-top-left-radius: 15rpx;
+  overflow: hidden;
+  position: fixed;
+}
+
+.modal>.modal_back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0);
+}
+
+.modal>.modal_tip {
+  width: 650rpx;
+  min-height: 300rpx;
+  border-radius: 14rpx;
+  font-size: 28rpx;
+  padding-left: 56rpx;
+  padding-right: 56rpx;
+  box-sizing: border-box;
+}
+
+.modal_tip_out {
+  padding-left: 51rpx;
+  padding-right: 51rpx;
+}
+
+.modal_tip .modal_title {
+  font-size: 32rpx;
+  margin-top: 48rpx;
+  margin-bottom: 36rpx;
+  text-align: center;
+}
+
+.modal_content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modal_content>view {
+  line-height: 180%;
+}
+
+.modal_tip .modal_btn {
+  background: rgb(243, 67, 67);
+	color: white;
+  height: 80rpx;
+  width: 100%;
+  font-size: 26rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  line-height: 80rpx;
+  margin-top: 48rpx;
+  margin-bottom: 40rpx;
+}
+
+.khxx, .orderForOther_histroy {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.selectSex, .khxx input {
+  display: flex;
+  height: 88rpx;
+  align-items: center;
+  border-bottom: 2rpx solid rgb(201, 201, 201);
+}
+
+.selectSex {
+  justify-content: space-around;
+}
+
+.selectSex>view {
+  display: flex;
+  align-items: center;
+}
+
+.selectSex>view>text {
+  margin-right: 32rpx;
+}
+
+.modal_tip .modal_btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50rpx;
+}
+
+.orderForOther_histroy .modal_title {
+  margin-bottom: 0;
+}
+
+.orderForOther_histroy .modal_title2 {
+  text-align: center;
+  font-size: 24rpx;
+  color: rgb(153, 153, 153);
+  margin: 20rpx 0;
+}
+
+.orderForOther_histroy .borderForm {
+  display: flex;
+  flex-direction: column;
+  height: 300rpx;
+  border: 2rpx solid rgb(201, 201, 201);
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+}
+
+.borderForm .historyOne {
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 2rpx solid rgb(201, 201, 201);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.historyOne:last-child {
+  border: 0;
+}
+
+.modal_tip>.modal_btns {
+  margin-top: 54rpx;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.modal_btns>view {
+  width: 220rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: 2rpx solid rgb(243, 67, 67);
+  text-align: center;
+  border-radius: 8rpx;
+  margin-bottom: 40rpx;
+}
+
+.modal_btns>view:nth-child(1) {
+  color: rgb(243, 67, 67);
+}
+
+.modal_btns>view:nth-child(2) {
+  color: white;
+  background: rgb(243, 67, 67);
+}
+
+.modal_tip>.conf_content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 28rpx;
+}
+
+.conf_content>view {
+  margin-bottom: 23rpx;
+  display: flex;
+}
+
+.sub {
+  width: 140rpx;
+}
+
+.modal_tip>.tip {
+  width: 100%;
+  text-align: left;
+  color: rgb(153, 153, 153);
+}
+
+.shortInfo .modalTip, .orderClash .modalTip, .lessOne .modalTip {
+  background: white;
+  width: 650rpx;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16rpx;
+}
+
+.modalTipText {
+  font-size: 30rpx;
+  color: rgb(51, 51, 51);
+  margin-top: 47rpx;
+  margin-bottom: 54rpx;
+  padding: 0 50rpx;
+}
+
+.modalTip .btn {
+  width: 220rpx;
+  height: 60rpx;
+  background: rgb(243, 67, 67);
+  font-size: 30rpx;
+  color: white;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 8rpx;
+  margin-bottom: 40rpx;
+}
+
+.lessOne .modalTip {
+  font-size: 30rpx;
+  padding: 100rpx 60rpx 0;
+  box-sizing: border-box;
+}
+
+.lessOne .modal_btns {
+  display: flex;
+  width: 100%;
+  margin-top: 40rpx;
+  justify-content: space-between;
+}
+
+.orderClash .modalTip {
+  box-sizing: border-box;
+  padding: 46rpx 56rpx;
+  font-size: 28rpx;
+}
+
+.orderClash .modalTip>view:nth-child(1) {
+  font-size: 32rpx;
+  color: rgb(51, 51, 51);
+  margin-bottom: 29rpx;
+  font-weight: 700;
+}
+
+.orderClash .modalTip>view:nth-child(3) {
+  font-size: 28rpx;
+  color: rgb(153, 153, 153);
+  margin-top: 36rpx;
+  margin-bottom: 48rpx;
+}
+
+.orderClash .modalTip>view:nth-child(4) {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+dialog{
+		position: fixed;
+		top: 0;
+		height: 100vh;
+		width: 100vw;
+		z-index: 299
+	}
+
+
+
+.sRed .modal_trynow>view{color: white;background: rgb(243, 67, 67)}
+.sRed .container{background: #f0f0f0;}
+.sRed .container>view{background: white;}
+.sRed .modal,.sRed .container .modal,.sBlack .modal,.sBlack .container .modal{background: rgba(0, 0, 0, 0.7);}
+.sRed .topTitle {background: rgb(243, 67, 67);color: white}
+.sRed #infoBlock{box-shadow:0 0 6rpx 6rpx #eee;background: white}
+.sRed .storeTitle {color: rgb(51, 51, 51)}
+.sRed .storeTitle text{border-left:2px solid rgb(243, 67, 67);}
+.sRed .introText>.ellipsis {background: white;color: rgb(102, 102, 102)}
+.sRed #contact text {color: rgb(102, 102, 102);}
+.sRed .block_title {color: rgb(51, 51, 51)}
+.sRed .project{	color: rgb(51, 51, 51);border: 2rpx solid rgb(153, 153, 153);}
+.sRed .project2{border: 2rpx solid rgb(153, 153, 153);}
+.sRed .projectSelected {color: white;border: 1rpx solid rgb(243, 67, 67);background: rgb(243, 67, 67)}
+.sRed .textRed {color: rgb(243, 67, 67);}
+.sRed .textBlack {color: black;}
+.sRed .people .name {color: rgb(102, 102, 102);}
+.sRed .people .selectName {color: black;}
+.sRed .slideDate{border-color: rgb(255, 170, 170);}
+.sRed .date{color: rgb(111, 111, 111)}
+.sRed .dateSelected {background: rgb(243, 67, 67);color: white;}
+.sRed .time{  border: 2rpx solid rgb(201, 201, 201);color: rgb(51, 51, 51);}
+.sRed .fillTimeBlock{background:white;color:white;border:0}
+.sRed .timeUnable {background: rgb(239, 239, 239);border-color: rgb(239, 239, 239);color: rgb(153, 153, 153);}
+.sRed .timeSelect {background: rgb(243, 67, 67);border-color: rgb(243, 67, 67);color: white;}
+.sRed .form{  border: 2rpx solid rgb(201, 201, 201);}
+.sRed .form>view{color: rgb(51, 51, 51);}
+.sRed .form>.formBorder {background: rgb(201, 201, 201);}
+.sRed #tip input {border: 2rpx solid rgb(201, 201, 201);}
+.sRed .btn_submit{color: white;background: rgb(243, 67, 67)}
+.sRed .topTip{  background: rgb(251, 112, 112);color: white;}
+.sRed .modal>.modal_tip {background: white;color: rgb(51, 51, 51);}
+.sRed .modal_tip .modal_btn {background: rgb(243, 67, 67);color: white;}
+.sRed .modal_btns>view {border: 2rpx solid rgb(243, 67, 67);}
+.sRed .modal_btns>view:nth-child(1) {color: rgb(243, 67, 67);}
+.sRed .modal_btns>view:nth-child(2) {color: white;background: rgb(243, 67, 67);}
+
+
+
+
+.sBlack .modal_trynow>view{color: #333;background: #ffe33f}
+.sBlack .container{background: #191919;}
+.sBlack .container>view{background: rgb(51, 51, 51)}
+.sBlack .topTitle {background: #1c1c1c;color: white}
+.sBlack #infoBlock{background: #1c1c1c}
+.sBlack .storeTitle {color: #fff}
+.sBlack .storeTitle text{border-left:2px solid #ffe33f}
+.sBlack .introText>.ellipsis {background: #1c1c1c;color: rgb(102, 102, 102)}
+.sBlack #contact text {color: white}
+.sBlack .block_title {color: white}
+.sBlack .project{	color: #ffe33f;border: 2rpx solid #ffe33f}
+.sBlack .project2{border: 2rpx solid #ffe33f;color: #ffe33f}
+.sBlack .projectSelected {color: #333;border: 1rpx solid #ffe33f;background: #ffe33f}
+.sBlack .textRed {color:#ffe33f}
+.sBlack .textBlack {color: white;}
+.sBlack .people .name {color: white;}
+.sBlack .people .selectName {color: #ffe33f}
+.sBlack .slideDate{border-color: #575656}
+.sBlack .date{color:#8c8c8c}
+.sBlack .dateSelected {background: #3d3d3d;color: white;border-radius: 200rpx;border: 4rpx solid #ffe33f;box-sizing: border-box}
+.sBlack .time{border: 2rpx solid #ffe33f;color: #ffe33f}
+.sBlack .fillTimeBlock{background:#333;color:#333;border:0}
+.sBlack .timeUnable {background: #3d3d3d;border-color: #3d3d3d;color: #999;}
+.sBlack .timeSelect {background: #ffe33f;border-color: #ffe33f;color: #333;}
+.sBlack .form{border: 2rpx solid #ffe33f;}
+.sBlack .form>view{color: white}
+.sBlack .form>.formBorder {background: #ffe33f}
+.sBlack #tip input {border: 2rpx solid #ffe33f;color: white}
+.sBlack .btn_submit{color: #333;background: #ffe33f}
+.sBlack .topTip{background: #ffe33f;color: #333}
+.sBlack .modal>.modal_tip {background: #333;color: white}
+.sBlack .modal_tip .modal_btn {background: #ffe33f;color: #ffe33f}
+.sBlack .modal_btns>view {border: 2rpx solid #ffe33f;}
+.sBlack .modal_btns>view:nth-child(1) {color: #ffe33f;}
+.sBlack .modal_btns>view:nth-child(2) {color: #333;background: #ffe33f;}
 
 

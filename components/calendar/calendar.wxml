@@ -1,4 +1,4 @@
-<view class="calendar">
+<view class="calendar {{skin}}">
 	<view class='tit'>
 		<view>
       <!-- <view class='pre' bindtap='gotoPreMonth' wx:if="{{currentMonth>monthStart&&monthStart!=''}}">{{'<'}}</view> -->

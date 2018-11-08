@@ -31,25 +31,6 @@ App({
 	onShow: function(options) {
 		console.log('onShow');
 		console.log(options);
-		// if (options.scene == '1007') {
-		// 	var pars = 'pages/messageCard/index';
-		// 	[ 'mid', 'empolyee', 'serviceitem', 'sName', 'saddress' ].forEach(function(x, y) {
-		// 		if (options.query[x] && options.query[x] !== '') {
-		// 			if(y == 0){
-		// 				pars += '?' + x + '=' + options.query[x];
-		// 			}else {
-		// 				pars += '&' + x + '=' + options.query[x];
-		// 			}
-					
-		// 		}
-		// 	});
-
-		// 	var url = pars + '&scene=' + options.scene;
-		// 	console.log(url);
-		// 	wx.navigateTo({
-		// 		url: url
-		// 	});
-		// }
 	},
 	globalData: {
 		code: null,

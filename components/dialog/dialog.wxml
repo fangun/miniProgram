@@ -1,27 +1,39 @@
 <!--components/dialog/dialog.wxml-->
-<view class='modal'>
+<view class='modal {{skin}}' >
   <view class='main'>
-    <view class='header'>
+    <view class='header' wx:if="{{modalData.header!=undefined}}">
       <view class='title'>{{modalData.header.title.text}}</view>
-			<view wx:if="{{modalData.header.headImageSrc.length!=0}}" class='headerBorder'></view>
-      <image wx:if="{{modalData.header.headImageSrc.length!=0}}" src='{{modalData.header.headImageSrc}}'></image>
-      <view wx:if="{{modalData.header.headImageSrc.length!=0}}" class='imgName'>{{modalData.header.headName}}</view>
+			<block wx:if="{{modalData.header.headImageSrc!=undefine}}">
+				<view class='headerBorder' wx:if="{{modalData.header}}"></view>
+				<image src='{{modalData.header.headImageSrc}}'></image>
+				<view class='imgName'>{{modalData.header.headName}}</view>
+			</block>
     </view>
     <view class='body'>
-      <view class='lists'>
-        <view wx:for="{{modalData.list}}" wx:key="{{index}}">
-          <view class='' style='color:{{modalData.listEntryColor}}' class='entry'>{{item.entry}}</view>
-          <view style='color:{{modalData.listEntryColor}}'>：</view>
-          <view class='itemValue'>
-            <text wx:for="{{item.value}}" wx:key="{{key}}" wx:for-item="vItem" class='{{vItem.vClass}}'>{{vItem.v}}</text>
-          </view>
-        </view>
+      <view class='lists' wx:if="{{modalData.list!=undefined && modalData.list.length!=0}}">
+				<block wx:for="{{modalData.list}}" wx:key="{{index}}">
+					<view wx:if="{{item.showState!=0}}">
+						<view class='' style='color:{{modalData.listEntryColor}}' class='entry'>{{item.entry}}</view>
+						<view style='color:{{modalData.listEntryColor}}'>：</view>
+						<view class='itemValue'>
+							<text wx:for="{{item.value}}" wx:key="{{key}}" wx:for-item="vItem" class='{{vItem.vClass}}'>{{vItem.v}}</text>
+						</view>
+					</view>
+				</block>
+
       </view>
-      <view class='remind' class='remind'>{{modalData.remind}}</view>
+			<view wx:elif="{{modalData.text!=undefined && modalData.text.length!=0}}" class='text {{modalData.text.length==1?"oneText":""}}'  style="margin-top:{{modalData.header==undefined?'56rpx':'34rpx'}}">
+				<text wx:for="{{modalData.text}}" wx:key="{{key}}">{{item}}</text>
+			</view>
+      <view class='remind' class='remind' wx:if="{{modalData.remind!=undefine}}">{{modalData.remind}}</view>
     </view>
-    <view class='footer'>
-      <view bindtap="{{modalData.btns[0].type=='close'?'closeModal':modalData.btns[0].event}}" class='btn' style='color:{{modalData.mainColor}};border:2rpx solid {{modalData.mainColor}}' bindtap="{{modalData.btns[0].type=='close'?'closeModal':'modalAction' }}">{{modalData.btns[0].name}}</view>
-			<view class='btn' style='background:{{modalData.mainColor}};color:white;border:2rpx solid {{modalData.mainColor}}' bindtap="{{modalData.btns[1].type=='close'?'closeModal':'modalAction' }}">{{modalData.btns[1].name}}</view>
+    <view class='footer {{modalData.btns.length==1?"btnOne":""}}'>
+      <!-- <view bindtap="{{modalData.btns[0].type=='close'?'closeModal':modalData.btns[0].event}}" class='btn' bindtap="{{modalData.btns[0].type=='close'?'closeModal':'modalAction' }}" wx:if="{{modalData.btns.length==2}}">{{modalData.btns[0].name}}</view>
+			<view class='btn'  bindtap="{{modalData.btns[1].type=='close'?'closeModal':'modalAction' }}">{{modalData.btns[1].name}}</view> -->
+			<view wx:for="{{modalData.btns}}" wx:key="{{key}}"
+				bindtap="{{item.type=='close'?'closeModal':'modalAction'}}"
+				class="btn"
+			>{{item.name}}</view>
     </view>
   </view>
 </view>
