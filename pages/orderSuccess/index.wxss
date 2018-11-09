@@ -1,5 +1,8 @@
 /* pages/orderSuccess/index.wxss */
-.container{font-family: "siyuanhei";display: flex;flex-direction: column;width: 100%;height: 100vh;background: rgb(242, 242, 242)}
+page{
+	background: rgb(242, 242, 242)
+}
+.container{font-family: "siyuanhei";display: flex;flex-direction: column;width: 100%;background: rgb(242, 242, 242)}
 .main{width: 100%;display: flex;flex-direction: column;justify-content: flex-start;align-items: center;background: white;padding-top: 50rpx;box-sizing: border-box}
 .checkImg{width:88rpx;height:88rpx;}
 .orderRes{margin-top: 28rpx;font-size: 30rpx;font-weight: bold}

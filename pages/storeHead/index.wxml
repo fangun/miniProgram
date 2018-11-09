@@ -237,14 +237,14 @@
 					<view class='formBorder'></view>
 					<view>
 						<view style="min-width:60rpx">姓名</view>
-						<input style='margin-right:63rpx' value='{{peopleName}}' bindinput='inputPeopleName' style='text-align:right'></input>
+						<input style='margin-right:63rpx' value='{{peopleName}}' bindinput='inputPeopleName' style='text-align:right' value='{{peopleName=="null"||peopleName==""?"":peopleName}}' placeholder='{{peopleName=="null"||peopleName==""?"暂无":""}}'></input>
 					</view>
 				</block>
 				<block  wx:if="{{vip==1&&storeSet.seatmachineswitch==1}}">
 					<view class='formBorder'></view>
 					<view>
 						<text>座机</text>
-						<input type='number' style='text-align:right' value='{{zuoTel==null?"暂无":zuoTel}}' bindinput='inputZuoTel'></input>
+						<input type='number' style='text-align:right' value='{{zuoTel=="null"||zuoTel==""?"":zuoTel}}' placeholder='{{zuoTel=="null"||zuoTel==""?"暂无":""}}' bindinput='inputZuoTel'></input>
 					</view>
 				</block>
 				
