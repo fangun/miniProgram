@@ -533,7 +533,7 @@ Page({
 	},
 
 	storeBackEnd: function(e) {
-		wx.navigateTo({
+		wx.redirectTo({
 			url: '../storeBackEnd/index',
 			success: function() {},
 			fail: function() {},
@@ -544,7 +544,7 @@ Page({
 	// 跳转常去店铺
 	frequentedStore: function(e) {
 		app.globalData.peopleInfo.sid = e.currentTarget.dataset.id;
-		wx.navigateTo({
+		wx.redirectTo({
 			url: '../storeHead/index'
 		});
 	},
