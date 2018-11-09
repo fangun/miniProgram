@@ -985,8 +985,9 @@ dialog{
 .sRed .modal_btns>view {border: 2rpx solid rgb(243, 67, 67);}
 .sRed .modal_btns>view:nth-child(1) {color: rgb(243, 67, 67);}
 .sRed .modal_btns>view:nth-child(2) {color: white;background: rgb(243, 67, 67);}
-
-
+.sRed .btn_ui{background: rgb(221, 9, 4)}
+.sRed .modal_btns>view:nth-child(2).btn_ui{background:#E9CC25}
+.sRed .modal_btns>view:nth-child(1).btn_ui{background:#222}
 
 
 .sBlack .modal_trynow>view{color: #333;background: #ffe33f}
@@ -1024,5 +1025,6 @@ dialog{
 .sBlack .modal_btns>view {border: 2rpx solid #ffe33f;}
 .sBlack .modal_btns>view:nth-child(1) {color: #ffe33f;}
 .sBlack .modal_btns>view:nth-child(2) {color: #333;background: #ffe33f;}
-
-
+.sBlack .btn_ui{background: #E9CC25}
+.sBlack .modal_btns>view:nth-child(1).btn_ui{background:#222}
+.sBlack .modal_btns>view:nth-child(2).btn_ui{background:#E9CC25}

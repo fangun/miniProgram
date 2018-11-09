@@ -423,6 +423,7 @@ Page({
 					//2 登陆者 的 替他人预约历史
 					that.getMemberHistory()
 				} else {
+					
 					wx.showToast({
 						title: '授权失败',
 						icon: 'none',

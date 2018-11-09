@@ -31,6 +31,9 @@
 .sRed .footer view:nth-child(2),.sRed .btnOne view:nth-child(1){border: 2rpx solid rgb(243, 67, 67);color:white;background: rgb(243, 67, 67)}
 .sRed .mctext{color:rgb(243, 67, 67)}
 .sRed .mctext2{color:#333}
+.sRed .footer view:nth-child(1).btn_ui_left{background: rgb(255, 233, 233)}
+.sRed .footer view:nth-child(2).btn_ui_right{background: rgb(221, 9, 4)}
+.sRed .btnOne .btn_ui_left{background: rgb(221, 9, 4)}
 
 .sBlack .main{background: #333;color:white}
 .sBlack text1{color:whtie}
@@ -38,7 +41,9 @@
 .sBlack .footer view:nth-child(2),.sBlack .btnOne view:nth-child(1){border: 2rpx solid #ffe33f;color:#333;background: #ffe33f}
 .sBlack .mctext{color:#ffe33f}
 .sBlack .mctext2{color:white}
-
+.sBlack .footer view:nth-child(1).btn_ui_left{background: #222}
+.sBlack .footer view:nth-child(2).btn_ui_right{background: #e9cc25}
+.sBlack .btnOne .btn_ui_left{background: #e9cc25}
 
 
 

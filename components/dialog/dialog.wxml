@@ -32,7 +32,7 @@
 			<view class='btn'  bindtap="{{modalData.btns[1].type=='close'?'closeModal':'modalAction' }}">{{modalData.btns[1].name}}</view> -->
 			<view wx:for="{{modalData.btns}}" wx:key="{{key}}"
 				bindtap="{{item.type=='close'?'closeModal':'modalAction'}}"
-				class="btn"
+				class="btn " hover-class="{{item.type=='close'?'btn_ui_left':'btn_ui_right'}}" hover-stay-time="10"
 			>{{item.name}}</view>
     </view>
   </view>

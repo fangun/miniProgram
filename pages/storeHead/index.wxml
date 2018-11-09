@@ -153,10 +153,10 @@
 					<image src='../../resource/images/storeHead/arrowL.png'></image>
 				</view>
 				<scroll-view scroll-x="true" scroll-into-view="{{toPeople}}" scroll-with-animation="true" >
-					<view wx:for="{{serviceEmployee}}" wx:key="key" class='people' wx:for-index="index" id='peo{{index}}' data-index='{{index}}'>
+					<view wx:for="{{serviceEmployee}}" wx:key="key" class='people' wx:for-index="index" id='peo{{index}}' data-index='{{index}}' data-disType='{{item.disabledType}}' data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople">
 						<block wx:if="{{item.isAbled&&item.id!=selectPeople}}">
-							<image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}'  bindtap="selectPeople"></image>
-							<image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}' bindtap="selectPeople"></image>
+							<image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mAble.png" data-id = "{{item.id}}" data-name='{{item.name}}'></image>
+							<image wx:if="{{item.gender!=0}}" src="../../resource/images/storeHead/feAble.png" data-id = "{{item.id}}" data-name='{{item.name}}'></image>
 						</block>
 						<block wx:if="{{item.isAbled&&item.id==selectPeople}}">
 							<image wx:if="{{item.gender==0}}" src="../../resource/images/storeHead/mSelected.png"></image>
@@ -272,7 +272,7 @@
 		</view> -->
 		<!-- 要渲染，避免闪条 -->
 		<view id="submit" wx:if="{{hourBlock.length!=0}}">
-			<view bindtap='openModal_confirm' class='btn_submit'>提交预约</view>
+			<view bindtap='openModal_confirm' class='btn_submit' hover-class='btn_ui' hover-stay-time="10">提交预约</view>
 			<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorize2" style="display:{{authorizeState2 ? 'none' : 'block'}}">
 	</button>
 		</view>
@@ -321,8 +321,8 @@
 						</scroll-view>
 					</view>
 					<view class='modal_btns'>
-						<view bindtap='closeModal_orderOther'>取消</view>
-						<view bindtap="formSubmit">确定</view>
+						<view bindtap='closeModal_orderOther' hover-class='btn_ui' hover-stay-time="10">取消</view>
+						<view bindtap="formSubmit" hover-class='btn_ui' hover-stay-time="10">确定</view>
 					</view>
 				</form>
 			</view>
