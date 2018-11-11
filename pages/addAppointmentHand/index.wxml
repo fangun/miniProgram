@@ -83,9 +83,9 @@
 
     </view>
 
-    <view class="vocieInput" bindtap="voiceTip">
+    <!-- <view class="vocieInput" bindtap="voiceTip">
       <image src="../../resource/images/common/voice3.png" />
-    </view>
+    </view> -->
 
     <button class="addSure {{addSure ? '' : 'disableClick'}}"  form-type="submit">{{modState ? '确定修改' : '确定添加'}}</button>
 </form>

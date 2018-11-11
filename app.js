@@ -29,9 +29,23 @@ App({
 	},
 
 	onShow: function(options) {
+		var that = this;
 		console.log('onShow');
 		console.log(options);
+		// =======================
+		// 获取微信用户的基本信息
+		// =======================
+		// wx.getUserInfo({
+		// 	success: function(res) {
+		// 		// var userInfo = res.userInfo,
+		// 		// 	nickName = userInfo.nickName,
+		// 		// 	avatarUrl = userInfo.avatarUrl;
+		// 		console.log(res);
+		// 		that.globalData.userInfo = res.userInfo;
+		// 	}
+		// });
 	},
+	
 	globalData: {
 		code: null,
 		loginCache: false,

@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
-var complete = require('../../utils/complete.js');
+const app = getApp();
+
 var QQMapWX = require('../../resource/SDK/qqmap-wx-jssdk.js');
 var qqmapsdk = new QQMapWX({
 	key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
@@ -8,7 +9,8 @@ var qqmapsdk = new QQMapWX({
 
 var API = require('../../utils/api.js');
 var REQUEST = require('../../utils/request.js');
-const app = getApp();
+var complete = require('../../utils/complete.js');
+var UTIL = require('../../utils/util.js');
 
 Page({
 	data: {
@@ -142,8 +144,6 @@ Page({
 						x.time = x.time.slice(0, x.time.indexOf(' '));
 						x.time1 = cData.timeArray[y];
 					});
-					console.log("res.data");
-					console.log(res.data);
 					that.setData({
 						completingData: res.data,
 						completingSeqData: cData.itemArray,
@@ -332,7 +332,7 @@ Page({
 	// 修改私人预约
 	compeletingSelfModalMod: function(e) {
 		var item = e.currentTarget.dataset.item;
-		console.log(item);
+
 		wx.redirectTo({
 			url: `../addAppointmentHand/index?id=${item.id}&serviceitem=${item.serviceitem}&rq=${item.time}&time=${item.time1}&empolyee=${item.empolyee}&saddress=${item.saddress}&remarks=${item.remarks}`
 		});
@@ -683,30 +683,61 @@ Page({
 			console.log(res.target);
 		}
 		var item = res.target.dataset.item;
-		var pars = 'pages/messageCard/index?';
+		var rq = res.target.dataset.rq;
+		var time = res.target.dataset.time;
+		var date = item.time;
+		var week = UTIL.getWeekByDay(date);
+		var logo;
 
+		if(item.logo && item.logo !== ''){
+			logo = this.data.apiPrefix + '' + item.logo;
+		} else {
+			logo = '../../resource/images/common/logo.png';
+		}
+		var pars = 'pages/messageCard/index?';
 		if (item.type == 3) {
-			[ 'name','serviceitem', 'saddress','type' ].forEach(function(x, y) {
+			[ 'name','serviceitem', 'saddress','empolyee','remarks','type'].forEach(function(x, y) {
 				if (item[x]) {
 					if (y == 0) {
 						pars += x + '=' + item[x];
 					} else {
 						pars += '&' + x + '=' + item[x];
 					}
+				} else {
+					if (y == 0) {
+						pars += x + '=' + '';
+					} else {
+						pars += '&' + x + '=' + '';
+					}
 				}
 			});
 		} else {
 			[ 'sid', 'name','empolyee', 'serviceitem', 'sName', 'saddress','type' ].forEach(function(x, y) {
-				if (y == 0) {
-					pars += x + '=' + item[x];
+				if (item[x]) {
+					if (y == 0) {
+						pars += x + '=' + item[x];
+					} else {
+						pars += '&' + x + '=' + item[x];
+					}
 				} else {
-					pars += '&' + x + '=' + item[x];
+					if (y == 0) {
+						pars += x + '=' + '';
+					} else {
+						pars += '&' + x + '=' + '';
+					}
 				}
 			});
 		}
 
+		// 日期 星期 小时区间
+		pars += '&date=' + date + '&rq=' + rq + '&time=' + time + '&week=' + week + '&logo=' + logo;
+
+		if(!item.mname){
+			item.mname = "";
+		}
+		var title = item.mname + '' + rq + '要去...';
 		return {
-			title: res.target.dataset.id,
+			title: title,
 			path: pars,
 			imageUrl: '../../resource/images/messageCard/000.png',
 			success: function(res) {
@@ -755,6 +786,8 @@ Page({
 	},
 
 	onShow: function(option) {
+		console.log('onShow');
+		console.log(option);
 		// 登录
 		wx.login({
 			success: (res) => {
@@ -769,6 +802,13 @@ Page({
 		console.log('onLoad');
 		console.log(q);
 
+		if(q.messageCard && q.messageCard == 3){
+			wx.showToast({
+				title: '添加成功',
+				duration:1500,
+				success: function() {}
+			});
+		};
 		//判断是用户是否绑定了
 		if (app.globalData.loginCache) {
 			that.authorizeInit();

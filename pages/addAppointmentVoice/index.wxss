@@ -68,7 +68,7 @@ page {
 .voiceInput{
     position: absolute;
 
-    bottom: 124rpx;
+    bottom: 144rpx;
     left: 0;
     right: 0;
 

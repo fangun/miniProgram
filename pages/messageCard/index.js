@@ -6,10 +6,13 @@ var REQUEST = require('../../utils/request.js');
 
 Page({
 	data: {
-    pageTitle: '日程卡',
-    options:null
-  },
-  onShow: function() {
+		pageTitle: '日程卡',
+		options: null,
+		authorizeState: false
+	},
+
+	onShow: function() {
+		var that = this;
 		// 登录
 		wx.login({
 			success: (res) => {
@@ -18,6 +21,7 @@ Page({
 			}
 		});
 	},
+
 	// 获取电话授权
 	getPhoneNumber(e) {
 		var that = this;
@@ -45,20 +49,11 @@ Page({
 							data: res.data,
 							success(res) {
 								app.globalData.loginCache = true;
-								
-								var pars = that.data.options;
-								
-								if(pars.type == 3){
-                  wx.navigateTo({
-                    url: '../addAppointmentVoice/index'
-                  })
-								} else {
-									app.globalData.peopleInfo.sid = pars.sid;
-                  wx.navigateTo({
-                    url: '../storeHead/index'
-                  })
-								}
 
+								that.setData({
+									authorizeState: true
+								});
+								// that.cardAppointment();
 							}
 						});
 					} else {
@@ -79,16 +74,137 @@ Page({
 				}
 			);
 		}
-  },
-  
+	},
+
+	// 跳转主页面
+	gotoHome: function() {
+		wx.navigateTo({
+			url: '../customEntrance/index'
+		});
+	},
+
+	// 卡片预约业务逻辑
+	cardAppointment: function() {
+		var that = this;
+		var options = this.data.options;
+		if (options.type == 3) {
+			// var url = '../addAppointmentHand/index?';
+			// [
+			// 	'name',
+			// 	'logo',
+			// 	'date',
+			// 	'time',
+			// 	'serviceitem',
+			// 	'saddress',
+			// 	'empolyee',
+			// 	'remarks',
+			// 	'type'
+			// ].forEach(function(x, y) {
+			// 	if (item[x]) {
+			// 		if (y == 0) {
+			// 			url += x + '=' + item[x];
+			// 		} else {
+			// 			url += '&' + x + '=' + item[x];
+			// 		}
+			// 	} else {
+			// 		if (y == 0) {
+			// 			url += x + '=' + '';
+			// 		} else {
+			// 			url += '&' + x + '=' + '';
+			// 		}
+			// 	}
+			// });
+
+			// wx.navigateTo({
+			// 	url: url
+			// });
+
+			var t1 = options.time.slice(0, options.time.indexOf('-'));
+			var t2 = options.time.slice(options.time.indexOf('-') + 1);
+
+			var data = {
+				mid: app.globalData.peopleInfo.mid,
+				date: options.date,
+				time1: t1,
+				time2: t2,
+				serviceitem: options.serviceitem,
+				empolyee: options.empolyee,
+				address: options.saddress,
+				remarks: options.remarks,
+				force: 0
+			};
+			
+			that.doneAppointment(data);
+		} else {
+			app.globalData.peopleInfo.sid = options.sid;
+			wx.navigateTo({
+				url: '../storeHead/index'
+			});
+		}
+	},
+
+	// 预约
+	doneAppointment: function(data) {
+		var that = this;
+		REQUEST.POST(API.addAppointment.manualInput, data, function(res) {
+			if (res.data == '1') {
+				wx.showToast({
+					title: '预约成功',
+					success: function() {
+						wx.redirectTo({
+							url: '../customEntrance/index?messageCard=3'
+						});
+					}
+				});
+			} else if (res.data == '-6') {
+				wx.showModal({
+					title: '预约冲突',
+					content: '继续添加此预约?',
+					cancelText: '取消',
+					confirmText: '确定',
+					success(res) {
+						if (res.confirm) {
+							data.force = 1;
+							that.doneAppointment(data);
+						} else if (res.cancel) {
+
+						}
+					}
+				});
+			}
+		});
+	},
+
 	onLoad: function(options) {
 		console.log('日程卡');
-    console.log(options);
-    if(options){
-      this.setData({
-        options: options
-      });
-    }
+		console.log(options);
 
+		var that = this;
+
+		if (options) {
+			this.setData({
+				options: options
+			});
+		}
+
+		wx.getStorage({
+			key: 'fangun-storeFront',
+			success: function(res) {
+				console.log(res);
+				if (typeof res.data == 'object') {
+					app.globalData.peopleInfo = res.data;
+					app.globalData.loginCache = true;
+
+					that.setData({
+						authorizeState: true
+					});
+				} else {
+					console.log('没缓存');
+				}
+			},
+			fail: function(res) {
+				console.log('没缓存');
+			}
+		});
 	}
 });

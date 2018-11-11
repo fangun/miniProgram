@@ -1,36 +1,53 @@
 <view class="container">
-    <view class="pageTitle">{{pageTitle}}</view>
+    <block wx:if="{{!authorizeState}}">
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorizeState"></button>
+    </block>
+
+
+    
+    <view class="pageTitle">
+        <view class="cardHome" bindtap="gotoHome">
+            <image src="../../resource/images/common/cardHome2.png" />
+        </view>
+        {{pageTitle}}
+    </view>
 
     <block wx:if="{{options}}">
         <view class="box">
-            <image class="logo" src="../../resource/images/messageCard/032.png" />
+            <image class="logo" src="{{options.logo}}" />
             <view class="name">{{options.name}}</view>
-            <view class="date">{{options.time}}</view>
-            <view class="time">{{options.time1}}</view>
+            <view class="date">{{options.rq}} {{options.week}}</view>
+            <view class="time">{{options.time}}</view>
 
             <block wx:if="{{options.type == 3}}">
                 <view class="item">
-                    <image src="../../resource/images/messageCard/052.png" />
-                    <view>服务项目:</view>
+                    <image src="../../resource/images/messageCard/042.png" />
+                    <view>预约项目:</view>
                     <view>{{options.serviceitem}}</view>
                 </view>
                 <view class="item">
                     <image src="../../resource/images/messageCard/012.png" />
-                    <view>店家地址:</view>
+                    <view>地   址:</view>
                     <view>{{options.saddress}}</view>
                 </view>
             </block>
             <block wx:else>
                 <view class="item">
-                    <image src="../../resource/images/messageCard/042.png" />
+                    <image src="../../resource/images/messageCard/052.png" />
                     <view>服务人员:</view>
                     <view>{{options.empolyee}}</view>
                 </view>
                 <view class="item">
-                    <image src="../../resource/images/messageCard/052.png" />
+                    <image src="../../resource/images/messageCard/042.png" />
                     <view>服务项目:</view>
                     <view>{{options.serviceitem}}</view>
                 </view>
+                <view class="item">
+                    <image src="../../resource/images/messageCard/022.png" />
+                    <view>店家名称:</view>
+                    <view>{{options.sName}}</view>
+                </view>
+
                 <view class="item">
                     <image src="../../resource/images/messageCard/012.png" />
                     <view>店家地址:</view>
@@ -39,7 +56,11 @@
             </block>
             </view>
     </block>
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="appointMent">
+
+  
+    <view bindtap="cardAppointment" class="appointMent">
         {{options.type == 3 ? '帮我添加预约' : '我也要预约'}}
-    </button>
+    </view>
+
+
 </view>

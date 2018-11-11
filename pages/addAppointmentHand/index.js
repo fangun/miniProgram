@@ -71,9 +71,9 @@ Page({
 		modState: false,
 		orderId: null,
 
-		empolyee:'',
-		address:'',
-		remarks:''
+		empolyee: '',
+		address: '',
+		remarks: ''
 	},
 
 	remarkSwitch: function() {
@@ -195,6 +195,7 @@ Page({
 			force: 0
 		};
 
+		console.log(data);
 		if (!data.serviceitem) {
 			wx.showToast({
 				title: '请填写服务项目',
@@ -332,12 +333,15 @@ Page({
 		console.log('预约');
 		console.log(options);
 		// 兼容小卡片分享
-		if (options.serviceitem && options.scene !== '1007') {
+
+		// 修改预约
+		if (options.id && options.scene !== '1007') {
 			this.setData({
 				modState: true,
 				orderId: options.id,
-				remarkState:true
+				remarkState: true
 			});
+
 			var t1 = options.time.slice(0, options.time.indexOf('-'));
 			var t2 = options.time.slice(options.time.indexOf('-') + 1);
 			var t1Seq, t2Seq;
@@ -369,9 +373,9 @@ Page({
 			};
 			this.bindTimeChange2(t2Obj);
 
-			if(!options.empolyee) options.empolyee = '';
-			if(!options.saddress) options.saddress = '';
-			if(!options.remarks) options.remarks = '';
+			if (!options.empolyee) options.empolyee = '';
+			if (!options.saddress) options.saddress = '';
+			if (!options.remarks) options.remarks = '';
 
 			this.setData({
 				serviceitem: options.serviceitem,
@@ -379,9 +383,9 @@ Page({
 				time1: t1,
 				time2: t2,
 				curDate: util.getFormatDate(),
-				empolyee:options.empolyee,
-				address:options.saddress,
-				remarks:options.remarks
+				empolyee: options.empolyee,
+				address: options.saddress,
+				remarks: options.remarks
 			});
 		} else {
 			this.setData({

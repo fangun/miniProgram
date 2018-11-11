@@ -1,4 +1,34 @@
+.cardHome {
+    position: absolute;
+    left: 0;
+    right: 500rpx;
+    top: 0;
+    height: 88rpx;
+
+    z-index: 101;
+}
+
+.cardHome > image {
+    display: block;
+    width:37rpx;
+    height: 36rpx;
+
+    margin-top: 26rpx;
+    margin-left: 30rpx;
+}
+
+.authorizeState {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    opacity: 0;
+}
+
 .pageTitle {
+    position: relative;
     font-family:PingFangSC-Medium;
     font-size:36rpx;
     color:#fff;
@@ -105,12 +135,12 @@
 
 
 .box .item view:nth-child(2) {
-    width: 190rpx;
+    width: 150rpx;
 }
 
 
 .box .item view:nth-child(3){
-    width:100%;
+    width:calc(100% - 202rpx);
     display: flex;
     flex-wrap: wrap;
 }

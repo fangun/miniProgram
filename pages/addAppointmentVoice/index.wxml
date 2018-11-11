@@ -5,9 +5,14 @@
     <view class="card">我要在本周六下午两点半到四点半和小张去篮球场打球</view>
     <view class="card">我在明天下午五点到六点半去接小孩</view>
     <view class="mdi" bindtap="appointmentByHand">点击手动输入</view>
-    <view class="voiceInput" bindtap="voiceTip">
+
+    <view class="voiceInput" bindtap="start">
         <image src="../../resource/images/common/voice3.png" />
     </view>
+
+    <!-- <view class="voiceInput" bindlongtap="longTap" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image src="../../resource/images/common/voice3.png" />
+    </view> -->
 
     <!-- <view bindtap="stop">停止</view> -->
     <!-- 底部导航栏 -->
