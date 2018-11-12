@@ -150,6 +150,7 @@ Page({
 			if (res.data == '1') {
 				wx.showToast({
 					title: '预约成功',
+					icon:'none',
 					success: function() {
 						wx.redirectTo({
 							url: '../customEntrance/index?messageCard=3'

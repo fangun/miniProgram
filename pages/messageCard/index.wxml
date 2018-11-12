@@ -14,8 +14,11 @@
 
     <block wx:if="{{options}}">
         <view class="box">
-            <image class="logo" src="{{options.logo}}" />
-            <view class="name">{{options.name}}</view>
+
+            <image class="logo" src="{{options.wxAvatarUrl}}" />
+            <view class="name">{{options.wxName}}</view>
+
+
             <view class="date">{{options.rq}} {{options.week}}</view>
             <view class="time">{{options.time}}</view>
 

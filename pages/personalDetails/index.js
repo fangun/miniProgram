@@ -81,6 +81,7 @@ Page({
       success(res) {
         wx.showToast({
           title: '修改成功',
+          icon:'none',
           success: function () {
             setTimeout(function () {
 
@@ -98,7 +99,8 @@ Page({
       },
       fail() {
         wx.showToast({
-          title: '修改失败'
+          title: '修改失败',
+          icon:'none'
         });
       }
     });
@@ -154,6 +156,7 @@ Page({
               app.globalData.loginCache = false;
               wx.showToast({
                 title: '退出登录成功',
+                icon:'none',
                 success: function () {
                   setTimeout(function () {
                     // 授权页

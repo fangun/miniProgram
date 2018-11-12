@@ -227,6 +227,7 @@ Page({
 			if (res.data == '1') {
 				wx.showToast({
 					title: '预约成功',
+					icon:'none',
 					success: function() {
 						wx.redirectTo({
 							url: '../customEntrance/index'
@@ -298,6 +299,7 @@ Page({
 			if (res.data == '200') {
 				wx.showToast({
 					title: '修改成功',
+					icon:'none',
 					success: function() {
 						wx.redirectTo({
 							url: '../customEntrance/index'
@@ -322,6 +324,12 @@ Page({
 					}
 				});
 			}
+		});
+	},
+
+	getMapAddress:function(){
+		wx.navigateTo({
+			url: '../getMapAddress/index'
 		});
 	},
 	// =================

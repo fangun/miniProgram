@@ -1334,8 +1334,6 @@ Page({
       console.log(flag) //1能约
 
     }
-
-    
   },
 
   firstArrivalCheck:function(){

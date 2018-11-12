@@ -250,9 +250,16 @@
                                                 <view class="cancel" catchtap="showChooseModal" data-id="{{completingData[item].id}}">
                                                     取消
                                                 </view>
-                                                <button class="share" catchtap="forbidBubbling" open-type="share" data-item="{{completingData[item]}}" data-rq="{{completingTitleData[index].rq}}" data-time="{{completingTime[item]}}" data-id="{{completingData[item].serviceitem}}">
-                                                    分享
-                                                </button>
+                                                
+                                                <block wx:if="{{userInfoState}}">
+                                                    <button class="share" catchtap="forbidBubbling" open-type="share" data-item="{{completingData[item]}}" data-rq="{{completingTitleData[index].rq}}" data-time="{{completingTime[item]}}" data-id="{{completingData[item].serviceitem}}">
+                                                        分享
+                                                    </button>
+                                                </block>
+
+                                                <block wx:else>
+                                                    <button class="share" catchtap="forbidBubbling" open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo">分享</button>
+                                                </block>
                                             </view>
                                         </view>
                                     </block>
@@ -322,10 +329,23 @@
             <image src="../../resource/images/common/add3.png" />
             <view>添加</view>
         </view>
-        <view class="tabtar-item" bindtap="minePage">
-            <image src="../../resource/images/common/mine3.png" />
-            <view>我的</view>
-        </view>
+
+
+        <block wx:if="{{userInfoState}}">
+            <view class="tabtar-item" bindtap="minePage">
+                <image src="../../resource/images/common/mine3.png" />
+                <view>我的</view>
+            </view>
+        </block>
+
+        <block wx:else>
+            <button class="tabtar-item" open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo">
+                <image src="../../resource/images/common/mine3.png" />
+                <view>我的</view>
+            </button>
+        </block>
+
+
     </view>
 
     <!-- 弹出层 -->

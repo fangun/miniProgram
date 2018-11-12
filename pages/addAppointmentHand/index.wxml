@@ -57,9 +57,9 @@
             <view></view>
           </view>
 
-          <view class="bitem xt">
+          <view class="bitem xt" bindtap="getMapAddress">
             <view>
-              <input class="grayStyle" name="address" type="text" value="{{address}}" placeholder="添加地址  (选填)"></input>
+              <input class="grayStyle" name="address" disabled="true" type="text" value="{{address}}" placeholder="添加地址  (选填)"></input>
             </view>
             <view></view>
             <view><image class="foldIcon location" src="../../resource/images/common/location3a.png"/></view>
@@ -69,6 +69,7 @@
         <block wx:if="{{remarkState}}">
             <textarea class="programInput" name="remarks" value="{{remarks}}" placeholder="添加备注" auto-height style="min-height: 140rpx;margin-top:30rpx;"></textarea>
         </block>
+
     </view>
 
     <view class="moreInfoTag" bindtap="remarkSwitch">

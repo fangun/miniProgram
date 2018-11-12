@@ -59,7 +59,8 @@ Page({
 			sid: null
 		},
 		loginState: true,
-		compeletingSelfModal: false
+		compeletingSelfModal: false,
+		userInfoState:false
 	},
 
 	// =================
@@ -109,7 +110,7 @@ Page({
 					that.getHotData();
 					wx.showToast({
 						title: '删除成功',
-						icon: 'success',
+						icon: 'none',
 						success: function(e) {
 							that.setData({
 								hotDeleteModal: false
@@ -286,7 +287,7 @@ Page({
 					that.getCompletingData();
 					wx.showToast({
 						title: '成功',
-						icon: 'success',
+						icon: 'none',
 						duration: 1200,
 						success: function(e) {
 							that.setData({
@@ -316,7 +317,7 @@ Page({
 					that.getCompletingData();
 					wx.showToast({
 						title: '成功',
-						icon: 'success',
+						icon: 'none',
 						duration: 1200,
 						success: function(e) {
 							that.setData({
@@ -660,7 +661,7 @@ Page({
 			fail: function(e) {
 				wx.showToast({
 					title: '暂时无法找到该位置',
-					icon: 'fail',
+					icon: 'none',
 					duration: 2000
 				});
 			},
@@ -730,12 +731,16 @@ Page({
 		}
 
 		// 日期 星期 小时区间
-		pars += '&date=' + date + '&rq=' + rq + '&time=' + time + '&week=' + week + '&logo=' + logo;
+		pars += '&date=' + date + '&rq=' + rq + '&time=' + time + '&week=' + week + '&logo=' + logo
+		 + '&wxName=' + app.globalData.userInfo.nickName + '&wxAvatarUrl=' + app.globalData.userInfo.avatarUrl;
 
-		if(!item.mname){
-			item.mname = "";
+		var title;
+		if(!item.mname && item.mname !== ''){
+			title = app.globalData.userInfo.nickName + '' + rq + '要去...';
+		} else {
+			title = item.mname + '' + rq + '要去...';
 		}
-		var title = item.mname + '' + rq + '要去...';
+
 		return {
 			title: title,
 			path: pars,
@@ -786,8 +791,6 @@ Page({
 	},
 
 	onShow: function(option) {
-		console.log('onShow');
-		console.log(option);
 		// 登录
 		wx.login({
 			success: (res) => {
@@ -797,19 +800,37 @@ Page({
 		});
 	},
 
+	onGotUserInfo: function (e) {
+		console.log(e);
+		if(e.detail.errMsg !== 'getUserInfo:fail auth deny'){
+			this.setData({
+				userInfoState: true
+			});
+			app.globalData.userInfo = e.detail.userInfo;
+		}
+	},
+	
 	onLoad: function(q) {
 		var that = this;
-		console.log('onLoad');
-		console.log(q);
+		// 微信头像等授权状态
 
+		if(app.globalData.userInfo){
+			this.setData({
+				userInfoState: true
+			});
+		};
+
+		// 消息卡片分享
 		if(q.messageCard && q.messageCard == 3){
 			wx.showToast({
 				title: '添加成功',
+				icon:'none',
 				duration:1500,
 				success: function() {}
 			});
 		};
-		//判断是用户是否绑定了
+
+		// 判断是用户是否绑定了
 		if (app.globalData.loginCache) {
 			that.authorizeInit();
 		} else {

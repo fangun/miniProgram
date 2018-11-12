@@ -52,6 +52,7 @@ App({
 		peopleInfo: null,
 
 		sex: null,
-		havePassword: false
+		havePassword: false,
+		userInfo:null
 	}
 });

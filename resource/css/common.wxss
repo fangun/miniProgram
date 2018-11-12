@@ -16,6 +16,12 @@
 
 }
 
+.tabtar-box .tabtar-item  {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
 .tabtar-box .tabtar-item > image {
     display:block;
     width:60rpx;
@@ -27,6 +33,7 @@
     font-size: 20rpx;
     text-align: center;
     color:#c5c5c5;
+    line-height: 1.2;
 }
 
 .tabtar-box .tabtar-item.active > view {

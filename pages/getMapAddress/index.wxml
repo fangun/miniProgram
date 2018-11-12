@@ -1,0 +1,17 @@
+<!-- 绑定点击事件
+<button bindtap="nearby_search">搜索周边KFC</button>
+<input type="text" bindtap="nearby_search">>
+<form action="">
+
+    
+</form> -->
+<!-- <button bindtap="nearby_search">搜索</button> -->
+
+<!-- <input type="text" bindtap="nearby_search">> -->
+<!--地图容器-->
+<!-- <map id="myMap"
+   markers="{{markers}}"
+   style="width:100%;height:300px;"
+   longitude="116.313972"
+   latitude="39.980014" scale='16'>
+</map> -->
