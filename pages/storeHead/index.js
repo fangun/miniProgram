@@ -104,6 +104,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (option) {
+
+
+
+
+
+		
 		console.log("onload")
 		let that  = this;
 		console.log(app.globalData)
@@ -191,7 +197,7 @@ Page({
 			sid:sid
 		})
     qqmapsdk = new QQMapWX({
-      key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
+			key: 'JS7BZ-LOMH3-NVV3P-3656S-IC6N2-L7FXR'
     });
 
   },
@@ -618,6 +624,7 @@ Page({
         })
       },
       fail: function (res) {
+				console.log(res)
         that.setData({
           topTip:"暂时无法找到该位置"
         });
