@@ -71,7 +71,7 @@ Page({
           success(res) {
             wx.showToast({
               title: '修改成功',
-              icon:'none',
+              
               success: function () {
                 setTimeout(function () {
                   // 返回上一页

@@ -55,8 +55,7 @@ const getDateDimdd = function(prevDate, nextDate) {
 // 日期:2018-11-11
 const getWeekByDay = function(dayValue) {
 	var day = new Date(Date.parse(dayValue.replace(/-/g, '/')));
-	var today = new Array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
-	console.log(today[day.getDay()]);
+	var today = new Array('日', '一', '二', '三', '四', '五', '六');
 	return today[day.getDay()]; //返一个星期中的某一天，其中0为星期日
 };
 

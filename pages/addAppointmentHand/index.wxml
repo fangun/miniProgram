@@ -30,20 +30,19 @@
             </view>
         </picker>
       </view>
+
       <view>
-        <picker mode="selector" name="time1" range="{{time1Array}}" value="{{time1}}" bindchange="bindTimeChange1">
-            <view style="color:{{time1 !== '开始' ? '#333' : ''}}">
-              {{time1}}
-            </view>
+        <picker mode="selector" name="time1" range="{{time1Array}}" range-key="{{'time'}}" value="{{index1}}" bindchange="bindTimeChange1">
+            <view style="color:{{time1 !== '开始' ? '#333' : ''}}">{{time1}}</view>
         </picker>
       </view>
+
       <view>
-        <picker mode="selector" name="time2" range="{{time2Array}}" value="{{time2}}" bindchange="bindTimeChange2">
-            <view style="color:{{time2 !== '结束' ? '#333' : ''}}">
-              {{time2}}
-            </view>
+        <picker mode="selector" name="time2" range="{{time2Array}}"  range-key="{{'time'}}" value="{{index2}}" bindchange="bindTimeChange2">
+            <view style="color:{{time2 !== '结束' ? '#333' : ''}}">{{time2}}</view>
         </picker>
       </view>
+
     </view>
 
     <view class="moreInfo" style="height:{{remarkState ? 'auto' : 0}}">
@@ -57,12 +56,12 @@
             <view></view>
           </view>
 
-          <view class="bitem xt" bindtap="getMapAddress">
+          <view class="bitem xt">
             <view>
-              <input class="grayStyle" name="address" disabled="true" type="text" value="{{address}}" placeholder="添加地址  (选填)"></input>
+              <input class="grayStyle" name="address" type="text" value="{{address}}" placeholder="添加地址  (选填)"></input>
             </view>
             <view></view>
-            <view><image class="foldIcon location" src="../../resource/images/common/location3a.png"/></view>
+            <view bindtap="getMapAddress"><image class="foldIcon location" src="../../resource/images/common/location3a.png"/></view>
           </view>
         </view>
 
@@ -81,8 +80,9 @@
         展开更多
         <image src="../../resource/images/common/icon-b3.png"></image>
       </block>
-
     </view>
+
+    <!-- 语音跳转返回 -->
 
     <!-- <view class="vocieInput" bindtap="voiceTip">
       <image src="../../resource/images/common/voice3.png" />

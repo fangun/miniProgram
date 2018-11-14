@@ -4,7 +4,7 @@ const app = getApp();
 
 var QQMapWX = require('../../resource/SDK/qqmap-wx-jssdk.js');
 var qqmapsdk = new QQMapWX({
-	key: 'RILBZ-DTEAF-TZ6J2-JYDOW-DVRQT-G6FGZ' //我个人的key
+	key: 'JS7BZ-LOMH3-NVV3P-3656S-IC6N2-L7FXR'
 });
 
 var API = require('../../utils/api.js');
@@ -87,7 +87,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '获取热榜数据失败',
-						icon: 'none',
+	
 						success: function(e) {}
 					});
 				}
@@ -110,7 +110,6 @@ Page({
 					that.getHotData();
 					wx.showToast({
 						title: '删除成功',
-						icon: 'none',
 						success: function(e) {
 							that.setData({
 								hotDeleteModal: false
@@ -120,7 +119,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '删除失败',
-						icon: 'none',
+						
 						success: function(e) {}
 					});
 				}
@@ -145,6 +144,7 @@ Page({
 						x.time = x.time.slice(0, x.time.indexOf(' '));
 						x.time1 = cData.timeArray[y];
 					});
+
 					that.setData({
 						completingData: res.data,
 						completingSeqData: cData.itemArray,
@@ -154,7 +154,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '获取进行中的数据失败',
-						icon: 'none',
+						
 						success: function(e) {}
 					});
 				}
@@ -200,7 +200,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '获取已完成的数据失败',
-						icon: 'none',
+						
 						success: function(e) {}
 					});
 				}
@@ -226,7 +226,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '数据异常',
-						icon: 'none',
+					
 						duration: 1200
 					});
 				}
@@ -287,7 +287,7 @@ Page({
 					that.getCompletingData();
 					wx.showToast({
 						title: '成功',
-						icon: 'none',
+						
 						duration: 1200,
 						success: function(e) {
 							that.setData({
@@ -317,7 +317,7 @@ Page({
 					that.getCompletingData();
 					wx.showToast({
 						title: '成功',
-						icon: 'none',
+						
 						duration: 1200,
 						success: function(e) {
 							that.setData({
@@ -333,10 +333,23 @@ Page({
 	// 修改私人预约
 	compeletingSelfModalMod: function(e) {
 		var item = e.currentTarget.dataset.item;
-
 		wx.redirectTo({
 			url: `../addAppointmentHand/index?id=${item.id}&serviceitem=${item.serviceitem}&rq=${item.time}&time=${item.time1}&empolyee=${item.empolyee}&saddress=${item.saddress}&remarks=${item.remarks}`
 		});
+	},
+
+	// 用户授权信息 注册(存储到数据库)
+	userInfoRegister: function(data) {
+		var that = this;
+		REQUEST.POST(
+			API.customEntrance.userInfoRegister,
+			data,
+			function(res) {
+				if(res.data == 200) {
+
+				}
+			}
+		);
 	},
 
 	// 获取电话授权
@@ -372,7 +385,7 @@ Page({
 					} else {
 						wx.showToast({
 							title: '授权失败',
-							icon: 'none',
+							
 							success: function() {
 								// 登录
 								wx.login({
@@ -621,54 +634,6 @@ Page({
 		});
 	},
 
-	// 调用地图
-	getMapAddress: function(e) {
-		var that = this;
-		var location = e.currentTarget.dataset.location;
-		var address = {}; //坐标对象 lat经度 lng维度
-
-		that.getMap(location, address);
-
-		// wx.getSetting({
-		//   success(res) {
-		//     var statu = res.authSetting;
-		//     if (!statu['scope.userLocation']) {
-		//       wx.openSetting({
-		//         success(res) {
-		//           that.getMap(location, address);
-		//         }
-		//       })
-		//     } else {
-		//       that.getMap(location, address);
-		//     }
-		//   }
-		// });
-	},
-
-	getMap: function(location, address) {
-		qqmapsdk.geocoder({
-			address: location,
-			success: function(res) {
-				address = res.result.location;
-				var latitude = address.lat;
-				var longitude = address.lng;
-				wx.openLocation({
-					latitude: Number(latitude),
-					longitude: Number(longitude),
-					scale: 28
-				});
-			},
-			fail: function(e) {
-				wx.showToast({
-					title: '暂时无法找到该位置',
-					icon: 'none',
-					duration: 2000
-				});
-			},
-			complete: function(e) {}
-		});
-	},
-
 	// 拨打电话
 	makingCalls: function(e) {
 		var phoneNumber = e.currentTarget.dataset.tel;
@@ -734,12 +699,7 @@ Page({
 		pars += '&date=' + date + '&rq=' + rq + '&time=' + time + '&week=' + week + '&logo=' + logo
 		 + '&wxName=' + app.globalData.userInfo.nickName + '&wxAvatarUrl=' + app.globalData.userInfo.avatarUrl;
 
-		var title;
-		if(!item.mname && item.mname !== ''){
-			title = app.globalData.userInfo.nickName + '' + rq + '要去...';
-		} else {
-			title = item.mname + '' + rq + '要去...';
-		}
+		var title = app.globalData.userInfo.nickName + '' + rq + '要去...';
 
 		return {
 			title: title,
@@ -788,6 +748,93 @@ Page({
 			});
 			this.initPageData();
 		}
+
+		// 获取微信头像及名字 如果有则不调用授权接口
+		var that = this;
+		if(!this.data.userInfoState && app.globalData.peopleInfo){
+			// console.log(app.globalData.peopleInfo);
+			var mid = app.globalData.peopleInfo.mid;
+			REQUEST.POST(
+				API.personalDetails.memberMessage,
+				{
+					id: mid
+				},
+				function(res) {
+					console.log('userInfoState');
+					console.log(res);
+					
+					if(res.data.avatarUrl && res.data.nickName){
+						app.globalData.userInfo = res.data[0];
+						that.setData({
+							userInfoState: true
+						});
+					}
+
+				}
+			);
+		}
+	},
+
+	onGotUserInfo: function (e) {
+		console.log(e);
+		if(e.detail.errMsg == 'getUserInfo:ok'){
+			app.globalData.userInfo = e.detail.userInfo;
+
+			this.setData({
+				userInfoState: true
+			});
+
+			var data = {
+				mid:app.globalData.peopleInfo.mid,
+				code:app.globalData.code,
+				signature:e.detail.signature,
+				app:'wxb',
+				encryptedData:e.detail.encryptedData,
+				iv:e.detail.iv,
+				rawData:e.detail.rawData
+			}
+
+			this.userInfoRegister(data);
+		}
+
+		if(e.currentTarget.dataset.target == 'personalDetails')  {
+			wx.redirectTo({
+				url: '../personalDetails/index'
+			});
+		}
+
+	},
+	
+	// 调用地图
+	getMapAddress: function(e) {
+		var that = this;
+		var location = e.currentTarget.dataset.location;
+		var address = {}; //坐标对象 lat经度 lng维度
+
+		that.getMap(location, address);
+	},
+
+	getMap: function(location, address) {
+		qqmapsdk.geocoder({
+			address: location,
+			success: function(res) {
+				address = res.result.location;
+				var latitude = address.lat;
+				var longitude = address.lng;
+				wx.openLocation({
+					latitude: Number(latitude),
+					longitude: Number(longitude),
+					scale: 28
+				});
+			},
+			fail: function(e) {
+				wx.showToast({
+					title: '暂时无法找到该位置',
+					duration: 2000
+				});
+			},
+			complete: function(e) {}
+		});
 	},
 
 	onShow: function(option) {
@@ -800,16 +847,6 @@ Page({
 		});
 	},
 
-	onGotUserInfo: function (e) {
-		console.log(e);
-		if(e.detail.errMsg !== 'getUserInfo:fail auth deny'){
-			this.setData({
-				userInfoState: true
-			});
-			app.globalData.userInfo = e.detail.userInfo;
-		}
-	},
-	
 	onLoad: function(q) {
 		var that = this;
 		// 微信头像等授权状态
@@ -824,7 +861,6 @@ Page({
 		if(q.messageCard && q.messageCard == 3){
 			wx.showToast({
 				title: '添加成功',
-				icon:'none',
 				duration:1500,
 				success: function() {}
 			});
@@ -847,6 +883,7 @@ Page({
 					that.authorizeInit();
 				}
 			};
-		}
+		};
+
 	}
 });

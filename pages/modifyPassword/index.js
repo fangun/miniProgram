@@ -45,7 +45,7 @@ Page({
     } else if (op !== app.globalData.havePassword) {
       wx.showToast({
         title: '原密码错误',
-        icon: 'none',
+        
         success: function () { }
       });
     } else if (np !== sp) {
@@ -71,7 +71,7 @@ Page({
         success(res) {
           wx.showToast({
             title: '修改成功',
-            icon:'none',
+            
             success: function () {
               setTimeout(function () {
                 // 返回上一页

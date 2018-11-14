@@ -36,8 +36,7 @@ Page({
 
   expenseCalendarPage: function () {
     wx.showToast({
-      title: '暂未上线,敬请期待',
-      icon: 'none'
+      title: '暂未上线,敬请期待'
     });
     // wx.navigateTo({
     //   url: '../expenseCalendar/index'
@@ -81,7 +80,6 @@ Page({
       success(res) {
         wx.showToast({
           title: '修改成功',
-          icon:'none',
           success: function () {
             setTimeout(function () {
 
@@ -99,8 +97,7 @@ Page({
       },
       fail() {
         wx.showToast({
-          title: '修改失败',
-          icon:'none'
+          title: '修改失败'
         });
       }
     });

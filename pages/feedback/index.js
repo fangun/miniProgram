@@ -15,7 +15,7 @@ Page({
     if (!Content || Content == '') {
           wx.showToast({
             title: '请填写反馈内容',
-            icon:'none',
+            
             success: function() {
             }
           });
@@ -39,7 +39,7 @@ Page({
         success(res) {
           wx.showToast({
             title: '提交成功',
-            icon:'none',
+            
             success: function() {
               setTimeout(function() {
                 // 返回上一页

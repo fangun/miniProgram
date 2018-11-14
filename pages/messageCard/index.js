@@ -24,6 +24,7 @@ Page({
 
 	// 获取电话授权
 	getPhoneNumber(e) {
+		console.log(e);
 		var that = this;
 		if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
 			// wx.showModal({
@@ -48,18 +49,25 @@ Page({
 							key: 'fangun-storeFront',
 							data: res.data,
 							success(res) {
+								console.log('授权成功');
 								app.globalData.loginCache = true;
-
 								that.setData({
 									authorizeState: true
 								});
-								// that.cardAppointment();
+
+								if(e.currentTarget.dataset.name && e.currentTarget.dataset.name == "addAppointment"){
+									that.cardAppointment();
+								} else if (e.currentTarget.dataset.name && e.currentTarget.dataset.name == "userCenter") {
+									wx.navigateTo({
+										url: '../customEntrance/index'
+									});
+								}
 							}
 						});
 					} else {
 						wx.showToast({
 							title: '授权失败',
-							icon: 'none',
+							
 							success: function() {
 								// 登录
 								wx.login({
@@ -88,37 +96,6 @@ Page({
 		var that = this;
 		var options = this.data.options;
 		if (options.type == 3) {
-			// var url = '../addAppointmentHand/index?';
-			// [
-			// 	'name',
-			// 	'logo',
-			// 	'date',
-			// 	'time',
-			// 	'serviceitem',
-			// 	'saddress',
-			// 	'empolyee',
-			// 	'remarks',
-			// 	'type'
-			// ].forEach(function(x, y) {
-			// 	if (item[x]) {
-			// 		if (y == 0) {
-			// 			url += x + '=' + item[x];
-			// 		} else {
-			// 			url += '&' + x + '=' + item[x];
-			// 		}
-			// 	} else {
-			// 		if (y == 0) {
-			// 			url += x + '=' + '';
-			// 		} else {
-			// 			url += '&' + x + '=' + '';
-			// 		}
-			// 	}
-			// });
-
-			// wx.navigateTo({
-			// 	url: url
-			// });
-
 			var t1 = options.time.slice(0, options.time.indexOf('-'));
 			var t2 = options.time.slice(options.time.indexOf('-') + 1);
 
@@ -150,7 +127,7 @@ Page({
 			if (res.data == '1') {
 				wx.showToast({
 					title: '预约成功',
-					icon:'none',
+					
 					success: function() {
 						wx.redirectTo({
 							url: '../customEntrance/index?messageCard=3'
@@ -179,10 +156,12 @@ Page({
 	onLoad: function(options) {
 		console.log('日程卡');
 		console.log(options);
-
 		var that = this;
+		if (options && JSON.stringify(options) !== "{}") {
+			var rq = options.rq.split('/');
+			options.rq = rq[0] + '月' + rq[1] + '日';
+			options.week = '星期' + options.week;
 
-		if (options) {
 			this.setData({
 				options: options
 			});
@@ -199,6 +178,7 @@ Page({
 					that.setData({
 						authorizeState: true
 					});
+
 				} else {
 					console.log('没缓存');
 				}

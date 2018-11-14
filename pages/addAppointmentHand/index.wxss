@@ -179,13 +179,20 @@ page {
     color:rgb(51,51,51);
 }
 
-.xt > view:first-child {
-    flex:6;
+.xt > view {
+    padding-top: 13rpx;
+    padding-bottom: 13rpx;
 }
 
-.xt > view:nth-child(2),
-.xt > view:nth-child(3) {
+.xt > view:first-child {
+    flex:16;
+}
+
+.xt > view:nth-child(2){
     flex:1;
+}
+.xt > view:nth-child(3) {
+    flex:8;
 }
 
 .bitem > view > .foldIcon {

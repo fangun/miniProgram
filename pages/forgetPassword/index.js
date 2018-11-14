@@ -77,7 +77,7 @@ Page({
           fail() {
             wx.showToast({
               title: '验证码获取失败',
-              icon: 'none',
+              
               duration: 1000
             })
           }
@@ -86,14 +86,14 @@ Page({
       } else {
         wx.showToast({
           title: '请输入正确的手机号',
-          icon: 'none',
+         
           duration: 1000
         })
       }
     } else {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none',
+        
         duration: 1000
       })
     }
@@ -110,38 +110,38 @@ Page({
     if (!tel || tel == '') {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none',
+        
         success: function () { }
       });
 
     } else if (!password || password == '') {
       wx.showToast({
         title: '请输入密码',
-        icon: 'none',
+        
         success: function () { }
       });
     } else if (passwordCopy !== password) {
       wx.showToast({
         title: '密码不一致',
-        icon: 'none',
+        
         success: function () { }
       });
     } else if (!verCode || verCode == '') {
       wx.showToast({
         title: '请输入验证码',
-        icon: 'none',
+        
         success: function () { }
       });
     } else if (!verCodeValue) {
       wx.showToast({
         title: '请先获取验证码',
-        icon: 'none',
+        
         success: function () { }
       });
     } else if (verCode !== verCodeValue) {
       wx.showToast({
         title: '验证码不一致',
-        icon: 'none',
+        
         success: function () { }
       });
     } else {

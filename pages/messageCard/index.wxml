@@ -1,6 +1,7 @@
 <view class="container">
     <block wx:if="{{!authorizeState}}">
-            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorizeState"></button>
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorizeStateTop" data-name="userCenter"></button>
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="authorizeStateBottom" data-name="addAppointment"></button>
     </block>
 
 
