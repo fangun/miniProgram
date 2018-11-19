@@ -28,13 +28,11 @@ Page({
 
 	onLoad: function() {
     var that = this;
-
 		wx.chooseLocation({
 			success: function(res) {
         console.log(res);
         that.backPage(res);
 			}
     });
-
 	}
 });

@@ -12,7 +12,7 @@ Page({
 	},
 
 	appointmentByHand: function() {
-		wx.navigateTo({ url: '../addAppointmentHand/index' });
+		wx.redirectTo({ url: '../addAppointmentHand/index' });
 	},
 
 	customPage: function() {

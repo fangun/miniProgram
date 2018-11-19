@@ -345,9 +345,7 @@ Page({
 			API.customEntrance.userInfoRegister,
 			data,
 			function(res) {
-				if(res.data == 200) {
-
-				}
+				console.log(res);
 			}
 		);
 	},
@@ -763,7 +761,7 @@ Page({
 					console.log('userInfoState');
 					console.log(res);
 					
-					if(res.data.avatarUrl && res.data.nickName){
+					if(res.data[0].avatarUrl && res.data[0].nickName){
 						app.globalData.userInfo = res.data[0];
 						that.setData({
 							userInfoState: true
@@ -778,23 +776,27 @@ Page({
 	onGotUserInfo: function (e) {
 		console.log(e);
 		if(e.detail.errMsg == 'getUserInfo:ok'){
-			app.globalData.userInfo = e.detail.userInfo;
+			wx.login({
+				success: (res) => {
+					app.globalData.userInfo = e.detail.userInfo;
 
-			this.setData({
-				userInfoState: true
+					this.setData({
+						userInfoState: true
+					});
+		
+					var data = {
+						mid:app.globalData.peopleInfo.mid,
+						code:res.code,
+						signature:e.detail.signature,
+						app:'wxb',
+						encryptedData:e.detail.encryptedData,
+						iv:e.detail.iv,
+						rawData:e.detail.rawData
+					}
+		
+					this.userInfoRegister(data);
+				}
 			});
-
-			var data = {
-				mid:app.globalData.peopleInfo.mid,
-				code:app.globalData.code,
-				signature:e.detail.signature,
-				app:'wxb',
-				encryptedData:e.detail.encryptedData,
-				iv:e.detail.iv,
-				rawData:e.detail.rawData
-			}
-
-			this.userInfoRegister(data);
 		}
 
 		if(e.currentTarget.dataset.target == 'personalDetails')  {

@@ -1,8 +1,9 @@
 //index.js
 //获取应用实例
 const app = getApp();
-var API = require('../../utils/api.js');
-var REQUEST = require('../../utils/request.js');
+const API = require('../../utils/api.js');
+const REQUEST = require('../../utils/request.js');
+const util = require('../../utils/util.js');
 
 Page({
 	data: {
@@ -95,23 +96,44 @@ Page({
 	cardAppointment: function() {
 		var that = this;
 		var options = this.data.options;
+
 		if (options.type == 3) {
 			var t1 = options.time.slice(0, options.time.indexOf('-'));
 			var t2 = options.time.slice(options.time.indexOf('-') + 1);
 
-			var data = {
-				mid: app.globalData.peopleInfo.mid,
-				date: options.date,
-				time1: t1,
-				time2: t2,
-				serviceitem: options.serviceitem,
-				empolyee: options.empolyee,
-				address: options.saddress,
-				remarks: options.remarks,
-				force: 0
-			};
-			
-			that.doneAppointment(data);
+			var today = util.getFormatDate();
+			var diff = util.getDateDimdd(today,options.date);
+			var intT1 = parseInt(t1);
+			var now = new Date();
+			var hour = now.getHours();
+
+			//（BUG）之前分享过的行程卡片，时间已经过了后，再点击后，还是可以添加到行程！
+			if(diff == 0 && intT1 < hour){
+				wx.showModal({
+					title: '紧急通知',
+					content: '已过可预约时间！',
+					showCancel: false,
+					confirmText: '知道了',
+					success(res) {
+						if (res.confirm) {}
+					}
+				});
+			} else {
+				var data = {
+					mid: app.globalData.peopleInfo.mid,
+					date: options.date,
+					time1: t1,
+					time2: t2,
+					serviceitem: options.serviceitem,
+					empolyee: options.empolyee,
+					address: options.saddress,
+					remarks: options.remarks,
+					force: 0
+				};
+				
+				that.doneAppointment(data);
+			}
+
 		} else {
 			app.globalData.peopleInfo.sid = options.sid;
 			wx.navigateTo({
@@ -149,7 +171,20 @@ Page({
 						}
 					}
 				});
+			} else {
+				wx.showModal({
+					title: '紧急通知',
+					content: '卡片预约出现Bug啦！',
+					showCancel: false,
+					confirmText: '知道了',
+					success(res) {
+						if (res.confirm) {
+							
+						}
+					}
+				});
 			}
+
 		});
 	},
 

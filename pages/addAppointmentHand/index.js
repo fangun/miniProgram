@@ -1,34 +1,12 @@
 //index.js
 //获取应用实例
 const app = getApp();
-var util = require('../../utils/util.js');
-var API = require('../../utils/api.js');
-var REQUEST = require('../../utils/request.js');
+const util = require('../../utils/util.js');
+const API = require('../../utils/api.js');
+const REQUEST = require('../../utils/request.js');
 
 Page({
 	data: {
-		pageTitle: '添加预约',
-
-		serviceitem: '',
-		remarkState: false,
-		addSure: true,
-		modState: false,
-		orderId: null,
-		empolyee: '',
-		
-		remarks: '',
-		index: '',
-
-		address: '',
-
-		curDate: null,
-		date: '日期',
-		time1: '开始',
-		time2: '结束',
-		index1: 0,
-		index2: 0,
-		time1Array: null,
-		time2Array: null,
 		timeArray: [
 			{
 				id: 0,
@@ -226,12 +204,45 @@ Page({
 				id: 48,
 				time: '23:59'
 			}
-		]
+		],
+
+		pageTitle: '添加预约',
+
+		addSure: true,
+
+		modState: false,
+		orderId: null,
+
+		serviceitem: '',
+		empolyee: '',
+		remarks: '',
+		address: '',
+		index: '',
+
+		curDate: null,
+		date: '日期',
+		time1: '开始',
+		time2: '结束',
+		index1: 0,
+		index2: 0,
+		time1Array: null,
+		time2Array: null,
+
+		remarkState: false
 	},
 
+	// 跳转主页面
+	gotoHome: function() {
+		wx.redirectTo({
+			url: '../customEntrance/index'
+		});
+	},
+	
 	// 选择日期
 	// 1.设置日期值 2.初始化开始时间值
 	bindDateChange: function(e) {
+		console.log('bindDateChange');
+
 		var today = util.getFormatDate();
 		var diff = util.getDateDimdd(today, e.detail.value);
 		var time1Array = [];
@@ -240,6 +251,7 @@ Page({
 		if (diff == 0) {
 			var now = new Date();
 			var hour = now.getHours();
+
 			timeArray.forEach(function(x, y) {
 				y > hour * 2 + 1 ? time1Array.push(x) : '';
 			});
@@ -247,8 +259,11 @@ Page({
 			time1Array = timeArray;
 		}
 
+		// 加星期
+		var week = util.getWeekByDay(e.detail.value);
+
 		this.setData({
-			date: e.detail.value,
+			date: e.detail.value + '('+ week +')',
 			time1Array: time1Array,
 			time1: '开始',
 			time2: '结束',
@@ -260,96 +275,133 @@ Page({
 	// 开始时间
 	// 1.设置开始时间 2.初始化结束时间值 3.与结束时间联动
 	bindTimeChange1: function(e) {
+		console.log('bindTimeChange1');
+		// 时间列表
 		var time1Array = this.data.time1Array;
-		var index1 = e.detail.value;
+		// 时间下标
+		var index1 = parseInt(e.detail.value);
+		// 时间内容
 		var time2 = this.data.time2;
+		var time2Array = [];
 
-		if (time1Array) {
-			var time2Array = [];
-			time1Array.forEach(function(x, y) {
-				if (y > index1) {
-					time2Array.push(x);
-				}
-			});
-
-			if (time2 !== '结束') {
-				var index2 = parseInt(this.data.index2);
-
-				this.setData({
-					index1: index1,
-					time1: time1Array[index1].time,
-					index2: index2,
-					time2: time2Array[index2].time,
-					time2Array: time2Array
-				});
-			} else {
-				this.setData({
-					index1: index1,
-					time1: time1Array[index1].time,
-					time2Array: time2Array
-				});
+		time1Array.forEach(function(x, y) {
+			if (y > index1) {
+				time2Array.push(x);
 			}
-			// time2Array.push('00:00');
+		});
+
+		// 数据初始化
+		if (time2 !== '结束') {
+			var index2 = parseInt(this.data.index2);
+
+			this.setData({
+				index1: index1,
+				time1: time1Array[index1].time,
+				index2: index2,
+				time2: time2Array[index2].time,
+				time2Array: time2Array
+			});
+		} else {
+			this.setData({
+				index1: index1,
+				time1: time1Array[index1].time,
+				time2Array: time2Array
+			});
 		}
+		
 	},
 
 	// 结束时间
 	// 1.设置结束时间
 	bindTimeChange2: function(e) {
+		console.log('bindTimeChange2');
+		var index2 = parseInt(e.detail.value);
 		var time2Array = this.data.time2Array;
 
-		if (time2Array) {
-			this.setData({
-				index2: e.detail.value,
-				time2: time2Array[e.detail.value].time
-			});
-		}
+		// 数据初始化
+		this.setData({
+			index2: index2,
+			time2: time2Array[index2].time
+		});
 	},
 
 	// 添加预约
 	addAppointment: function(e) {
+		// 开始及结束时间
+		var time1 = this.data.time1;
+		var time2 = this.data.time2;
+		// 去掉星期
+		var dateSeq = e.detail.value.date.indexOf('(');
+		var date;
+		if(e.detail.value.date !== '日期'){
+			date = e.detail.value.date.slice(0, dateSeq);
+		} else {
+			date = e.detail.value.date;
+		}
+		// remarks 为 undefined
+		var remarks = e.detail.value.remarks ? e.detail.value.remarks : '';
+
 		var data = {
 			mid: app.globalData.peopleInfo.mid,
-			date: e.detail.value.date,
-			time1: e.detail.value.time1,
-			time2: e.detail.value.time2,
+			date: date,
+			time1: time1,
+			time2: time2,
 			serviceitem: e.detail.value.serviceitem,
 			empolyee: e.detail.value.empolyee,
 			address: e.detail.value.address,
-			remarks: e.detail.value.remarks,
+			remarks: remarks,
 			force: 0
 		};
 
-		if (!data.serviceitem) {
+		if(!data.serviceitem){
 			wx.showToast({
-				title: '请填写服务项目',
+				title: '请输入项目跟时间',
+				success: function() {}
+			});
+		} else if (data.serviceitem == '' || data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
+			wx.showToast({
+				title: '请输入项目跟时间',
 				success: function() {}
 			});
 		} else if (data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
 			wx.showToast({
-				title: '请选择时间',
+				title: '请输入日期跟时间',
+				success: function() {}
+			});
+		} else if(data.serviceitem == '' || data.time1 == '开始' || data.time2 == '结束'){
+			wx.showToast({
+				title: '请输入项目跟时间',
+				success: function() {}
+			});
+		} else if(data.time1 == '开始' || data.time2 == '结束'){
+			wx.showToast({
+				title: '请输入开始及结束时间',
 				success: function() {}
 			});
 		} else {
 			this.doneAppointment(data);
 		}
 	},
-
 	// =================
 	// 数据源 start
 	// =================
 
 	// 预约
 	doneAppointment: function(data) {
+		console.log('doneAppointment');
+		console.log(data);
 		var that = this;
+
 		that.setData({
 			addSure: false
 		});
+
 		REQUEST.POST(API.addAppointment.manualInput, data, function(res) {
+			console.log('doneAppointment');
+			console.log('添加预约');
 			if (res.data == '1') {
 				wx.showToast({
 					title: '预约成功',
-
 					success: function() {
 						wx.redirectTo({
 							url: '../customEntrance/index'
@@ -373,50 +425,91 @@ Page({
 						}
 					}
 				});
+			} else {
+				wx.showModal({
+					title: '紧急通知',
+					content: '添加预约出现Bug啦！',
+					showCancel: false,
+					confirmText: '知道了',
+					success(res) {
+						if (res.confirm) {
+							wx.redirectTo({ url: '../customEntrance/index' });
+						}
+					}
+				});
 			}
 		});
 	},
 
+	// 修改预约
+	// 1.修改预约 
 	modAppointment: function(e) {
 		var orderId = this.data.orderId;
+
+		// 去掉星期
+		var dateSeq = e.detail.value.date.indexOf('(');
+		var date;
+		if(e.detail.value.date !== '日期'){
+			date = e.detail.value.date.slice(0, dateSeq);
+		} else {
+			date = e.detail.value.date;
+		}
+		// 开始及结束时间
+		var time1 = this.data.time1;
+		var time2 = this.data.time2;
+
 		var data = {
 			id: orderId,
-			date: e.detail.value.date,
-			starttime: e.detail.value.time1,
-			stoptime: e.detail.value.time2,
+			date: date,
+			starttime: time1,
+			stoptime: time2,
 			serviceitem: e.detail.value.serviceitem,
 			empolyee: e.detail.value.empolyee,
 			address: e.detail.value.address,
 			remarks: e.detail.value.remarks,
 			force: 0
 		};
-
-		console.log(data);
-		if (!data.serviceitem) {
+		
+		if(!data.serviceitem){
 			wx.showToast({
-				title: '请填写服务项目',
+				title: '请输入项目跟时间',
 				success: function() {}
 			});
-		} else if (data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
+		} else if (data.serviceitem == '' || data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
 			wx.showToast({
-				title: '请选择时间',
+				title: '请输入项目跟时间',
 				success: function() {}
 			});
-		} else {
+		} else if (data.date == '日期' || data.starttime == '开始' || data.stoptime == '结束') {
+			wx.showToast({
+				title: '请输入日期跟时间',
+				success: function() {}
+			});
+		} else if(data.serviceitem == '' ||  data.starttime == '开始' || data.stoptime == '结束'){
+			wx.showToast({
+				title: '请输入项目跟时间',
+				success: function() {}
+			});
+		} else if(data.starttime == '开始' || data.stoptime == '结束'){
+			wx.showToast({
+				title: '请输入开始及结束时间',
+				success: function() {}
+			});
+		} else{
 			this.doneModAppointment(data);
 		}
 	},
 
 	// 预约
 	doneModAppointment: function(data) {
+		console.log('doneModAppointment');
+		
 		var that = this;
-
 		that.setData({
 			addSure: false
 		});
-		
+	
 		REQUEST.POST(API.addAppointment.ManualEdit, data, function(res) {
-			console.log(res);
 
 			if (res.data == '200') {
 				wx.showToast({
@@ -444,14 +537,28 @@ Page({
 						}
 					}
 				});
+			} else {
+				wx.showModal({
+					title: '紧急通知',
+					content: '修改预约出现Bug啦！',
+					showCancel: false,
+					confirmText: '知道了',
+					success(res) {
+						if (res.confirm) {
+							that.setData({
+								addSure: true
+							});
+						}
+					}
+				});
 			}
+
 		});
 	},
 
 	// =================
 	// 数据源 end
 	// =================
-
 	// 获取地址地图
 	getMapAddress: function() {
 		wx.navigateTo({
@@ -493,61 +600,94 @@ Page({
 		// 日期初始值
 		console.log('预约');
 		console.log(options);
+		var that = this;
 		// 兼容小卡片分享
 		// 修改预约
 		if (options.id && options.scene !== '1007') {
-			this.setData({
-				modState: true,
-				orderId: options.id,
-				remarkState: true
-			});
-
-			var t1 = options.time.slice(0, options.time.indexOf('-'));
-			var t2 = options.time.slice(options.time.indexOf('-') + 1);
-			var t1Seq, t2Seq;
-			var rv = {
+			console.log('修改预约');
+			var time1 = options.time.slice(0, options.time.indexOf('-'));
+			var time2 = options.time.slice(options.time.indexOf('-') + 1);
+			var index1;
+			var index2;
+			// 初始化日期及时间
+			that.bindDateChange({
 				detail: {
 					value: options.rq
 				}
-			};
-
-			this.bindDateChange(rv);
-			this.data.time1Array.forEach(function(x, y) {
-				if (x == t1) t1Seq = y;
 			});
-			var t1Obj = {
-				detail: {
-					value: t1Seq
-				}
-			};
-			this.bindTimeChange1(t1Obj);
 
-			this.data.time1Array.forEach(function(x, y) {
-				if (x == t2) t2Seq = y;
-			});
-			var t2Obj = {
+			var y1;
+			var y2;
+
+			var today = util.getFormatDate();
+			var diff = util.getDateDimdd(today, options.rq);
+
+			if(diff == 0){
+				var now = new Date();
+				var hour = now.getHours();
+
+				that.data.timeArray.forEach(function(x, y) {
+					if (x.time == time1) {
+						y1 = y - hour*2 -2;
+					};
+
+					if (x.time == time2){
+						y2 = y - hour*2 - 2;
+					};
+				});
+	
+			} else {
+				that.data.timeArray.forEach(function(x, y) {
+					if (x.time == time1) {
+						y1 = y;
+					};
+
+					if (x.time == time2){
+						y2 = y;
+					};
+				});
+			}
+
+			that.bindTimeChange1({
 				detail: {
-					value: t2Seq
+					value: y1
 				}
-			};
-			this.bindTimeChange2(t2Obj);
+			});	
+
+			that.bindTimeChange2({
+				detail: {
+					value: y2 - y1 - 1
+				}
+			});
 
 			if (!options.empolyee) options.empolyee = '';
 			if (!options.saddress) options.saddress = '';
 			if (!options.remarks) options.remarks = '';
 
-			this.setData({
+			var week = util.getWeekByDay(options.rq);
+
+
+			that.setData({
 				serviceitem: options.serviceitem,
-				date: options.rq,
-				time1: t1,
-				time2: t2,
-				curDate: util.getFormatDate(),
 				empolyee: options.empolyee,
 				address: options.saddress,
-				remarks: options.remarks
+
+				curDate: util.getFormatDate(),
+				date: options.rq + '(' + week +')',
+				time1: time1,
+				time2: time2,
+				// index1:index1,
+				// index2:index2,
+
+				remarks: options.remarks,
+
+				orderId: options.id,
+				modState: true,
+				remarkState: true
 			});
+
 		} else {
-			this.setData({
+			that.setData({
 				curDate: util.getFormatDate()
 			});
 		}

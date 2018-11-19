@@ -1,6 +1,11 @@
 <!--index.wxml-->
 <form class="container" bindsubmit="{{modState ? 'modAppointment' : 'addAppointment'}}">
-  <view class="pageTitle">{{pageTitle}}</view>
+  <view class="pageTitle">
+          <view class="cardHome" bindtap="gotoHome">
+            <image src="../../resource/images/common/cardHome2.png" />
+        </view>
+  {{pageTitle}}
+  </view>
 
     <textarea class="programInput" name="serviceitem" placeholder="请输入预约项目" auto-height style="min-height: 90rpx;" value="{{serviceitem}}"></textarea>
 
@@ -38,6 +43,7 @@
       </view>
 
       <view>
+
         <picker mode="selector" name="time2" range="{{time2Array}}"  range-key="{{'time'}}" value="{{index2}}" bindchange="bindTimeChange2">
             <view style="color:{{time2 !== '结束' ? '#333' : ''}}">{{time2}}</view>
         </picker>

@@ -555,7 +555,7 @@
             <view class="chooseModal" catchtouchmove>
                 <view class="text">取消预约?</view>
                 <view class="eventBox">
-                    <view class="cancel" bindtap="cancelOrder">取消预约</view>
+                    <view class="cancel" bindtap="cancelOrder">确定取消</view>
                     <view class="close" bindtap="chooseModalClose">我再想想</view>
                 </view>
             </view>
@@ -578,7 +578,7 @@
             <view class="chooseModal z_indexBig" catchtouchmove>
                 <view class="text">取消预约?</view>
                 <view class="eventBox">
-                    <view class="cancel" bindtap="cancelOrderModal">取消预约</view>
+                    <view class="cancel" bindtap="cancelOrderModal">确定取消</view>
                     <view class="close" bindtap="compeletingDeleteModalClose">我再想想</view>
                 </view>
             </view>

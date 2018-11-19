@@ -17,7 +17,27 @@ page {
     padding: 0;
 }
 
+.cardHome {
+    position: absolute;
+    left: 0;
+    right: 500rpx;
+    top: 0;
+    height: 88rpx;
+
+    z-index: 101;
+}
+
+.cardHome > image {
+    display: block;
+    width:37rpx;
+    height: 36rpx;
+
+    margin-top: 26rpx;
+    margin-left: 30rpx;
+}
+
 .pageTitle {
+    position: relative;
     width:100%;
     background-color:rgba(243,67,67,1);
     font-family:PingFangSC-Medium;
@@ -262,7 +282,7 @@ page {
 
 .timeItem > view:nth-child(2){
     align-items: center;
-    flex:3;
+    flex:4;
 }
 
 .timeItem > view:nth-child(3),
