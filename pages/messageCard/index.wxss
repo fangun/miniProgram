@@ -47,20 +47,25 @@
     line-height: 88rpx;
 }
 
-.appointMent {
+.appointMentBox {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
+    height: 300rpx;
 
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.appointMent {
     background-color:rgb(245, 65, 60);
     font-family:PingFangSC-Regular;
     font-size:30rpx;
     text-align:center;
     color:#fff;
-    line-height: 88rpx;
+    line-height: 98rpx;
     z-index: 11;
-
     border:none;
     border-radius: 0;
 }

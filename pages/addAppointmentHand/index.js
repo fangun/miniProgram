@@ -278,6 +278,7 @@ Page({
 		console.log('bindTimeChange1');
 		// 时间列表
 		var time1Array = this.data.time1Array;
+		if(!time1Array) return;
 		// 时间下标
 		var index1 = parseInt(e.detail.value);
 		// 时间内容
@@ -317,7 +318,7 @@ Page({
 		console.log('bindTimeChange2');
 		var index2 = parseInt(e.detail.value);
 		var time2Array = this.data.time2Array;
-
+		if(!time2Array) return;
 		// 数据初始化
 		this.setData({
 			index2: index2,
@@ -353,34 +354,18 @@ Page({
 			force: 0
 		};
 
-		if(!data.serviceitem){
-			wx.showToast({
-				title: '请输入项目跟时间',
-				success: function() {}
-			});
-		} else if (data.serviceitem == '' || data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
-			wx.showToast({
-				title: '请输入项目跟时间',
-				success: function() {}
-			});
-		} else if (data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
-			wx.showToast({
-				title: '请输入日期跟时间',
-				success: function() {}
-			});
-		} else if(data.serviceitem == '' || data.time1 == '开始' || data.time2 == '结束'){
-			wx.showToast({
-				title: '请输入项目跟时间',
-				success: function() {}
-			});
-		} else if(data.time1 == '开始' || data.time2 == '结束'){
-			wx.showToast({
-				title: '请输入开始及结束时间',
-				success: function() {}
-			});
+		if(!data.serviceitem || data.serviceitem == ''){
+			this.self_showToast('请输入项目');
+		} else if (data.date == '日期') {
+			this.self_showToast('请输入日期');
+		} else if (data.time1 == '开始') {
+			this.self_showToast('请输入开始时间');
+		} else if (data.time2 == '结束') {
+			this.self_showToast('请输入结束时间');
 		} else {
 			this.doneAppointment(data);
 		}
+
 	},
 	// =================
 	// 数据源 start
@@ -470,40 +455,23 @@ Page({
 			force: 0
 		};
 		
-		if(!data.serviceitem){
-			wx.showToast({
-				title: '请输入项目跟时间',
-				success: function() {}
-			});
-		} else if (data.serviceitem == '' || data.date == '日期' || data.time1 == '开始' || data.time2 == '结束') {
-			wx.showToast({
-				title: '请输入项目跟时间',
-				success: function() {}
-			});
-		} else if (data.date == '日期' || data.starttime == '开始' || data.stoptime == '结束') {
-			wx.showToast({
-				title: '请输入日期跟时间',
-				success: function() {}
-			});
-		} else if(data.serviceitem == '' ||  data.starttime == '开始' || data.stoptime == '结束'){
-			wx.showToast({
-				title: '请输入项目跟时间',
-				success: function() {}
-			});
-		} else if(data.starttime == '开始' || data.stoptime == '结束'){
-			wx.showToast({
-				title: '请输入开始及结束时间',
-				success: function() {}
-			});
-		} else{
+		if(!data.serviceitem || data.serviceitem == ''){
+			this.self_showToast('请输入项目');
+		} else if (data.date == '日期') {
+			this.self_showToast('请输入日期');
+		} else if (data.starttime == '开始') {
+			this.self_showToast('请输入开始时间');
+		} else if (data.stoptime == '结束') {
+			this.self_showToast('请输入结束时间');
+		} else {
 			this.doneModAppointment(data);
 		}
+
 	},
 
 	// 预约
 	doneModAppointment: function(data) {
 		console.log('doneModAppointment');
-		
 		var that = this;
 		that.setData({
 			addSure: false
@@ -590,6 +558,14 @@ Page({
 				// }
 			}
 		});
+	},
+
+	self_showToast:function(title){
+		wx.showToast({
+			title: title,
+			image:'../../resource/images/common/caution3.png',
+			success: function() {}
+		});		
 	},
 
 	onShow:function(){

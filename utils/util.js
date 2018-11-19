@@ -41,7 +41,7 @@ const getFormatDate = function(par) {
 // 参数:prevDate nextDate
 // 例子:getDateDimDd("2018-03-12","2018-03-14") => 2
 // 作者:ydlx
-// 日期:2018-03-12
+// 日期:2018-11-06
 const getDateDimdd = function(prevDate, nextDate) {
 	var pdMs = new Date(prevDate).valueOf(),
 		ndMs = new Date(nextDate).valueOf();

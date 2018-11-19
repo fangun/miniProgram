@@ -45,7 +45,7 @@ Page({
     } else if (op !== app.globalData.havePassword) {
       wx.showToast({
         title: '原密码错误',
-        
+        image:'../../resource/images/common/cross.png',
         success: function () { }
       });
     } else if (np !== sp) {

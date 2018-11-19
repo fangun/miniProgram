@@ -61,10 +61,12 @@
             </view>
     </block>
 
-  
-    <view bindtap="cardAppointment" class="appointMent">
-        {{options.type == 3 ? '帮我添加预约' : '我也要预约'}}
+    <view bindtap="cardAppointment" class="appointMentBox">
+        <view class="appointMent">
+            {{options.type == 3 ? '帮我添加预约' : '我也要预约'}}
+        </view>
     </view>
+
 
 
 </view>

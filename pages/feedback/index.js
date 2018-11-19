@@ -15,14 +15,16 @@ Page({
     if (!Content || Content == '') {
           wx.showToast({
             title: '请填写反馈内容',
-            
+            image:'../../resource/images/common/cross.png',
             success: function() {
             }
           });
     } else {
+
       that.setData({
         feedback: false
       });
+
       wx.request({
         url: 'https://api.yuyue58.cn/api/ProblemFeedback',
         method: "POST",
@@ -39,7 +41,6 @@ Page({
         success(res) {
           wx.showToast({
             title: '提交成功',
-            
             success: function() {
               setTimeout(function() {
                 // 返回上一页

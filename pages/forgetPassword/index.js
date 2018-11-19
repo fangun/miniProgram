@@ -77,8 +77,7 @@ Page({
           fail() {
             wx.showToast({
               title: '验证码获取失败',
-              
-              duration: 1000
+              image:'../../resource/images/common/cross.png'
             })
           }
         });
@@ -86,15 +85,13 @@ Page({
       } else {
         wx.showToast({
           title: '请输入正确的手机号',
-         
-          duration: 1000
+          image:'../../resource/images/common/cross.png'
         })
       }
     } else {
       wx.showToast({
         title: '请输入手机号',
-        
-        duration: 1000
+        image:'../../resource/images/common/cross.png'
       })
     }
   },

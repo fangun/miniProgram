@@ -68,7 +68,7 @@ Page({
 					} else {
 						wx.showToast({
 							title: '授权失败',
-							
+							image:'../../resource/images/common/cross.png',
 							success: function() {
 								// 登录
 								wx.login({
@@ -149,7 +149,6 @@ Page({
 			if (res.data == '1') {
 				wx.showToast({
 					title: '预约成功',
-					
 					success: function() {
 						wx.redirectTo({
 							url: '../customEntrance/index?messageCard=3'

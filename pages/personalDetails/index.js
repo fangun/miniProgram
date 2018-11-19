@@ -36,7 +36,8 @@ Page({
 
   expenseCalendarPage: function () {
     wx.showToast({
-      title: '暂未上线,敬请期待'
+      title: '暂未上线,敬请期待',
+      image:'../../resource/images/common/cross.png',
     });
     // wx.navigateTo({
     //   url: '../expenseCalendar/index'
@@ -97,7 +98,8 @@ Page({
       },
       fail() {
         wx.showToast({
-          title: '修改失败'
+          title: '修改失败',
+          image:'../../resource/images/common/cross.png'
         });
       }
     });
@@ -153,7 +155,6 @@ Page({
               app.globalData.loginCache = false;
               wx.showToast({
                 title: '退出登录成功',
-                icon:'none',
                 success: function () {
                   setTimeout(function () {
                     // 授权页

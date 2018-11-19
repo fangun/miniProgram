@@ -37,7 +37,6 @@ Page({
         success(res) {
           wx.showToast({
             title: '修改成功',
-
             success: function () {
               setTimeout(function () {
                 // 返回上一页
@@ -52,7 +51,8 @@ Page({
         
         fail() {
           wx.showToast({
-            title: '修改失败'
+            title: '修改失败',
+            image:'../../resource/images/common/cross.png'
           });
           that.setData({
             modifyName: true

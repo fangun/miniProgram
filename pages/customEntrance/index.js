@@ -84,10 +84,14 @@ Page({
 					that.setData({
 						hostListData: res.data
 					});
+				} else if(res.data.length == 0){
+					that.setData({
+						hostListData: []
+					});
 				} else {
 					wx.showToast({
 						title: '获取热榜数据失败',
-	
+						image:'../../resource/images/common/cross.png',
 						success: function(e) {}
 					});
 				}
@@ -119,7 +123,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '删除失败',
-						
+						image:'../../resource/images/common/cross.png',
 						success: function(e) {}
 					});
 				}
@@ -154,7 +158,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '获取进行中的数据失败',
-						
+						image:'../../resource/images/common/cross.png',
 						success: function(e) {}
 					});
 				}
@@ -200,7 +204,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '获取已完成的数据失败',
-						
+						image:'../../resource/images/common/cross.png',
 						success: function(e) {}
 					});
 				}
@@ -226,7 +230,7 @@ Page({
 				} else {
 					wx.showToast({
 						title: '数据异常',
-					
+						image:'../../resource/images/common/cross.png',
 						duration: 1200
 					});
 				}
@@ -383,7 +387,7 @@ Page({
 					} else {
 						wx.showToast({
 							title: '授权失败',
-							
+							image:'../../resource/images/common/cross.png',
 							success: function() {
 								// 登录
 								wx.login({
@@ -759,7 +763,6 @@ Page({
 				},
 				function(res) {
 					console.log('userInfoState');
-					console.log(res);
 					
 					if(res.data[0].avatarUrl && res.data[0].nickName){
 						app.globalData.userInfo = res.data[0];
@@ -774,7 +777,6 @@ Page({
 	},
 
 	onGotUserInfo: function (e) {
-		console.log(e);
 		if(e.detail.errMsg == 'getUserInfo:ok'){
 			wx.login({
 				success: (res) => {
@@ -832,6 +834,7 @@ Page({
 			fail: function(e) {
 				wx.showToast({
 					title: '暂时无法找到该位置',
+					image:'../../resource/images/common/cross.png',
 					duration: 2000
 				});
 			},

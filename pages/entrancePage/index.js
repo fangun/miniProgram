@@ -4,8 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    pageTitle: '预约吧',
-
+    pageTitle: '预约吧'
   },
 
   customEntrance: function() {
@@ -20,8 +19,6 @@ Page({
     })
   },
 
-  onLoad: function () {
-
-  }
+  onLoad: function () {}
 
 })
