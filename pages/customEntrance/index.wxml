@@ -1,4 +1,6 @@
-<!-- index.wxml -->
+
+<official-account  class="{{!loginState ? 'officialHidden' : ''}} {{officialHidden ? '' : 'officialHidden'}}" bindload="test"></official-account>
+<!-- 首页授权页 -->
 <block wx:if="{{!loginState}}">
     <view class="container authorize">
         <image class="logo" src="../../resource/images/authorizeEntrance/logo3.png" />
@@ -8,8 +10,12 @@
         <view class="telLogin" bindtap="accountLogin">手机号码登录/注册</view>
     </view>
 </block>
+
 <block wx:else>
-    <view class="container">
+    <!-- bindlongpress="longpress" -->
+    <!-- 首页 -->
+    <view class="container" bindtouchmove="handletouchmove" bindtouchstart="handletouchstart" bindtouchend="handletouchend">
+        
         <!-- 页面标题 -->
         <view class="pageTitle">{{pageTitle}}</view>
         <!-- 搜索栏目 -->
@@ -27,6 +33,7 @@
                 <view>店家</view>
             </view>
         </view>
+
         <!-- 我的预约热榜 -->
         <view class="appointmentHotlist">
             <view class="contentTitle">
@@ -44,10 +51,8 @@
                                 <view class='item default-img'>
                                     <image src='../../resource/images/customEntrance/default3.png'></image>
                                 </view>
-
                         </block>
                     </view>
-
                     <view class="default-text">您还没用预约任何店家，赶快搜索/扫码预约吧！</view>
                 </block>
 
@@ -128,6 +133,7 @@
                 </block>
             </view>
         </view>
+
         <!-- 我的预约日记 -->
         <view class="appointmentDiary">
             <view class="contentTitle">
@@ -282,6 +288,7 @@
                         </view>
                     </block>
                     <block wx:else>
+
                         <view class="tabContent">
                             <!-- 已完成的预约 -->
                             <block wx:if="{{completedData}}">
@@ -324,6 +331,7 @@
                 </view>
             </view>
         </view>
+
         <!-- 底部导航栏 -->
         <view class="tabtar-box">
             <view class="tabtar-item {{tabbarActive ? 'active' : ''}}">
@@ -347,6 +355,7 @@
                 </button>
             </block>
         </view>
+
         <!-- 弹出层 -->
         <block wx:if="{{showModal}}">
             <view class="mask" catchtouchmove="preventTouchMove"></view>
@@ -379,6 +388,7 @@
                 <button class="cancel" bindtap="modalClose" catchtouchmove>关闭</button>
             </view>
         </block>
+
         <!-- 正在进行弹出层 -->
         <block wx:if="{{compeletingModal}}">
             <view class="mask" catchtouchmove="preventTouchMove"></view>
@@ -456,6 +466,7 @@
                 </view>
             </view>
         </block>
+
         <!-- 正在进行弹出层 私人 -->
         <block wx:if="{{compeletingSelfModal}}">
             <view class="mask" catchtouchmove="preventTouchMove"></view>
@@ -505,6 +516,7 @@
                 </view>
             </view>
         </block>
+
         <!-- 已完成弹出层 -->
         <block wx:if="{{compeletedModal}}">
             <view class="mask" catchtouchmove></view>
@@ -565,6 +577,7 @@
                 </view>
             </view>
         </block>
+
         <!-- 已完成弹出层 -->
         <block wx:if="{{chooseModal}}">
             <view class="mask" catchtouchmove></view>
@@ -576,6 +589,7 @@
                 </view>
             </view>
         </block>
+
         <!-- 热榜 删去 弹出层 -->
         <block wx:if="{{hotDeleteModal}}">
             <view class="mask z_index" catchtouchmove="preventTouchMove"></view>
@@ -629,6 +643,5 @@
                 </button>
             </view>
         </block> -->
-
     </view>
 </block>

@@ -1,14 +1,14 @@
 //app.js
+
+const ald = require('./utils/ald-stat.js');
+
 App({
 	onLaunch: function(options) {
-		console.log('onLaunch');
-		console.log(options);
 		// 缓存登录信息
 		var that = this;
 		wx.getStorage({
 			key: 'fangun-storeFront',
 			success: function(res) {
-				console.log(res);
 				if (typeof res.data == 'object') {
 					that.globalData.peopleInfo = res.data;
 					// that.globalData.sid = res.data.sid;
@@ -26,12 +26,22 @@ App({
 				console.log('没缓存');
 			}
 		});
+
+		wx.getSystemInfo({
+			success: function(res) {
+				console.log(res);
+				var version = res.SDKVersion;
+				version = version.replace(/\./g, '');
+				console.log(version);
+				if (parseInt(version) < 120) {
+					// 小于1.2.0的版本
+				}
+			}
+		});
 	},
 
 	onShow: function(options) {
 		var that = this;
-		console.log('onShow');
-		console.log(options);
 		// =======================
 		// 获取微信用户的基本信息
 		// =======================
@@ -45,7 +55,7 @@ App({
 		// 	}
 		// });
 	},
-	
+
 	globalData: {
 		code: null,
 		loginCache: false,
@@ -53,6 +63,6 @@ App({
 
 		sex: null,
 		havePassword: false,
-		userInfo:null
+		userInfo: null
 	}
 });

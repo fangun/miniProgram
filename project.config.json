@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "2.4.0",
 	"appid": "wx77f93d6c157819b3",
 	"projectname": "预约吧",
 	"isGameTourist": false,
@@ -35,7 +35,7 @@
 				{
 					"id": 0,
 					"name": "扫描二维码",
-					"pathName": "pages/storeHead/index",
+					"pathName": "pages/customEntrance/index",
 					"query": "",
 					"scene": "1011"
 				},

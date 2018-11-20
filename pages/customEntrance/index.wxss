@@ -25,6 +25,11 @@
     display:block;
 }
 
+.officialHidden {
+    height:0;
+    overflow: hidden;
+}
+
 /* 获取手机号码 授权 */
 .cell {
     position: fixed;
@@ -481,6 +486,11 @@
     border-radius: 6rpx;
     line-height: 50rpx;
     width: 100rpx;
+}
+
+.card .item .footer .cancel,
+.card .item .footer .share {
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .card .item .footer .cancel > view {

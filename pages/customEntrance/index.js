@@ -60,7 +60,13 @@ Page({
 		},
 		loginState: true,
 		compeletingSelfModal: false,
-		userInfoState:false
+		userInfoState:false,
+
+		flag:0,
+		text:'',
+		lastX:0,
+		lastY:0,
+		officialHidden:true
 	},
 
 	// =================
@@ -238,6 +244,7 @@ Page({
 		);
 	},
 
+	// 已完成切换
 	foldSwitch: function(e) {
 		var that = this;
 		var completedData = this.data.completedData;
@@ -742,6 +749,7 @@ Page({
 		this.getHotData();
 		this.getCompletingData();
 	},
+
 	// 授权 数据初始化
 	authorizeInit: function() {
 		if (app.globalData.loginCache) {
@@ -776,6 +784,7 @@ Page({
 		}
 	},
 
+	// 存储微信授权的基本信息
 	onGotUserInfo: function (e) {
 		if(e.detail.errMsg == 'getUserInfo:ok'){
 			wx.login({
@@ -809,7 +818,7 @@ Page({
 
 	},
 	
-	// 调用地图
+	// 地址地图查看
 	getMapAddress: function(e) {
 		var that = this;
 		var location = e.currentTarget.dataset.location;
@@ -841,6 +850,98 @@ Page({
 			complete: function(e) {}
 		});
 	},
+
+	// 下拉显示关注公众号
+	onPullDownRefresh(){
+		var that = this;
+		setTimeout(function(){
+			if(!that.data.officialHidden){
+				that.setData({
+					officialHidden:true
+				});
+			}
+            wx.stopPullDownRefresh();
+        },400);
+    },
+
+	// 手势长按
+	// longpress:function(e){
+	// 	console.log(e);
+	// 	officialHidden
+	// 	if(this.data.flag == 4){
+	// 		this.setData({
+	// 			officialHidden : true
+	// 		});
+	// 	}
+	// },
+
+	//手势滑动
+	handletouchmove: function(event) {
+		console.log('handletouchmove');
+		if (this.data.flag !== 0){
+		  return
+		}
+		let currentX = event.touches[0].pageX;
+		let currentY = event.touches[0].pageY;
+		let tx = currentX - this.data.lastX;
+		let ty = currentY - this.data.lastY;
+
+		//左右方向滑动
+		if (Math.abs(tx) > Math.abs(ty)) {
+		  if (tx < 0) {
+			console.log('向左滑动');
+			this.setData({
+				flag : 1
+			});
+			this.data.flag= 1;
+		  } else if (tx > 0) {
+			console.log('向右滑动');
+			this.setData({
+				flag : 2
+			});
+		  }
+		} else {
+		  if (ty < 0){
+			console.log('向上滑动');
+			this.setData({
+				flag : 3,
+				officialHidden:false
+			});
+		  } else if (ty > 0) {
+			console.log('向下滑动');
+			this.setData({
+				flag : 4
+			});
+		  }
+		}
+		this.setData({
+			lastX : currentX,
+			lastY : currentY
+		});
+	  },
+
+	  handletouchtart:function(event) {
+		// this.setData({
+		// 	lastX : event.touches[0].pageX,
+		// 	lastY : event.touches[0].pageY
+		// });
+		if(this.data.officialHidden){
+			this.setData({
+				officialHidden:false
+			});
+		}
+
+	  },
+
+	  handletouchend:function(event) {
+		// this.setData({
+		// 	flag : 0
+		// });
+		this.setData({
+			officialHidden:false
+		});
+	  },
+	
 
 	onShow: function(option) {
 		// 登录
@@ -878,9 +979,9 @@ Page({
 			this.setData({
 				loginState: false
 			});
+
 			// 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
 			// 所以此处加入 callback 以防止这种情况
-
 			app.loginCacheCallback = (peopleInfo) => {
 				if (typeof peopleInfo == 'object') {
 					app.globalData.peopleInfo = peopleInfo;

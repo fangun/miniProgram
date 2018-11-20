@@ -455,6 +455,7 @@ Page({
 			force: 0
 		};
 		
+
 		if(!data.serviceitem || data.serviceitem == ''){
 			this.self_showToast('请输入项目');
 		} else if (data.date == '日期') {
